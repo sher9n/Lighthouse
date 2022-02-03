@@ -21,7 +21,7 @@ Lighthouse offers you a personalized view of high quality news, vetted rewards a
 - Today, the typical user finds it arduous and frustrating to actively refer to Discord, Twitter, Snapshot, Aragon and the myriad other tools and platforms on which their communities are active. Moreover, most users are passive consumers of information, rarely posting on Discord, tweeting or voting.
 - Lighthouse is made for this audience, and provides a personalized, consolidated experience for consuming information on web3.
 
-## The solution
+## The Solution
 
 - Lighthouse is an intelligent, personalized web3 activity tracker.
 - Any user can connect their wallet, discover communities they are active in (or wish to follow) and unlock a high-quality, vetted stream of ongoing activity with little effort.
