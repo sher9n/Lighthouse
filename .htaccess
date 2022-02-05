@@ -1,0 +1,7 @@
+Options +FollowSymlinks
+RewriteEngine on
+AddDefaultCharset utf-8
+RewriteRule ^(cdn|assets) - [L]
+RewriteCond %{REQUEST_METHOD} !^(GET|POST|HEAD|DELETE)$
+RewriteRule .* - [F]
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
