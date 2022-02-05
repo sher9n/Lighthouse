@@ -1,6 +1,5 @@
 <?php
 namespace Core;
-use ultraclass\Auth;
 
 class Utils {
 	private static $instance;
