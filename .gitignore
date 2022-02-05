@@ -3,7 +3,8 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
- .idea/*
+.idea
+.idea/*
 
 cdn
 cdn/*
@@ -11,7 +12,5 @@ cdn/*
 conf/config.inc.php
 conf/app.constants.inc.php
 
-core
-core/*
-
 .idea/workspace.xml
+.htaccess
