@@ -68,6 +68,27 @@ class controller extends Ctrl {
                     echo json_encode(array('data' => $data,'recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal));
                     exit();
                 }
+                elseif (__ROUTER_PATH == '/get-graphql') {
+                    $data = array();
+                    $recordsTotal = 0;
+                    $user_key = $this->getParam('user_key');
+                    $graphql = Utils::graphqlApi($user_key);
+                    foreach ($graphql->data as $coin => $obj){
+                        foreach ($obj->address as $balances => $values){
+                            foreach ($values->balances as $index =>$val){
+                                if($val->value > 0){
+                                    array_push($data,array(
+                                        'name' => $coin,
+                                        'symbol' => $val->currency->symbol,
+                                        'value' => $val->value
+                                    ));
+                                }
+                            }
+                        }
+                    }
+                    echo json_encode(array('data' => $data,'recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal));
+                    exit();
+                }
             }
         }
 

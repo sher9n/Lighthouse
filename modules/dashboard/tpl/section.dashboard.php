@@ -38,6 +38,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo ($__page->tab == 'erc721')?'active':''; ?>" id="erc721-tab" data-bs-toggle="tab" data-tab="erc721" data-bs-target="#erc721" type="button" role="tab" aria-controls="profile" aria-selected="false">ERC721</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo ($__page->tab == 'graphql')?'active':''; ?>" id="graphql-tab" data-bs-toggle="tab" data-tab="graphql" data-bs-target="#graphql" type="button" role="tab" aria-controls="profile" aria-selected="false">GraphQL</button>
+                        </li>
                     </ul>
                     <div class="tab-content mt-4" id="myTabContent">
                         <div class="tab-pane fade <?php echo ($__page->tab == 'messages')?'show active':''; ?>" id="messages" role="tabpanel" aria-labelledby="messages-tab">
@@ -100,6 +103,16 @@
                                 </tr>
                             </table>
                         </div>
+                        <div class="tab-pane fade <?php echo ($__page->tab == 'graphql')?'show active':''; ?>" id="graphql" role="tabpanel" aria-labelledby="graphql-tab">
+                            <table id="graphql-table" class="table table-bordered table-bordered-dashed mt-3 shadow">
+                                <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Name</th>
+                                    <th class="text-center" scope="col">Symbol</th>
+                                    <th class="text-center" scope="col">Value</th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -137,7 +150,7 @@
                     "scrollX": true,
                     "processing": true,
                     "serverSide": true,
-                    "bLengthChange": false,
+                    "pageLength": 10,
                     "info": false,
                     "language": {
                         processing: "<img src='<?php echo app_cdn_path; ?>images/loading.gif' width='100' height='100'>"
@@ -172,7 +185,7 @@
                     "scrollX": true,
                     "processing": true,
                     "serverSide": true,
-                    "bLengthChange": false,
+                    "pageLength": 10,
                     "info": false,
                     "language": {
                         processing: "<img src='<?php echo app_cdn_path; ?>images/loading.gif' width='100' height='100'>"
@@ -184,6 +197,33 @@
 
                 $('#erc721-table_processing').removeClass('card');
                 $('#erc721-table_filter').hide();
+            }
+        });
+
+        $(document).on('click','#graphql-tab',function (e) {
+            e.preventDefault();
+            if ( ! $.fn.DataTable.isDataTable( '#graphql-table' ) ) {
+                var table = $('#graphql-table').DataTable({
+                    "columns": [
+                        { "data": "name" },
+                        { "data": "symbol" },
+                        { "data": "value" }
+                    ],
+                    "scrollX": true,
+                    "processing": true,
+                    "serverSide": true,
+                    "pageLength": 10,
+                    "info": false,
+                    "language": {
+                        processing: "<img src='<?php echo app_cdn_path; ?>images/loading.gif' width='100' height='100'>"
+                    },
+                    "ajax": {
+                        "url": "get-graphql?user_key="+$('#user_key').val()
+                    }
+                });
+
+                $('#graphql-table_processing').removeClass('card');
+                $('#graphql-table_filter').hide();
             }
         });
 
