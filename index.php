@@ -16,6 +16,7 @@ try {
 
     $localRoutes = array(
         '/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
+        '/coins' => 'modules/dashboard/ctrl/coins.php',
         '/get-erc721' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-erc20' => 'modules/dashboard/ctrl/dashboard.php',
         '/404' => 'modules/default/ctrl/http-404.php'

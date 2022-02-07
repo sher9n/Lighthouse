@@ -75,6 +75,7 @@
                                     <th class="text-center" scope="col">To</th>
                                     <th class="text-center" scope="col">Token</th>
                                     <th class="text-center" scope="col">Token Symbol</th>
+                                    <th class="text-center" scope="col">Contract Address</th>
                                     <th class="text-center" scope="col">Value</th>
                                     <th class="text-center" scope="col">Gas</th>
                                     <th class="text-center" scope="col">Gas Price</th>
@@ -92,6 +93,7 @@
                                     <th class="text-center" scope="col">Token ID</th>
                                     <th class="text-center" scope="col">Token</th>
                                     <th class="text-center" scope="col">Token Symbol</th>
+                                    <th class="text-center" scope="col">Contract Address</th>
                                     <th class="text-center" scope="col">Value</th>
                                     <th class="text-center" scope="col">Gas</th>
                                     <th class="text-center" scope="col">Gas Price</th>
@@ -127,6 +129,7 @@
                         {"data": "to"},
                         {"data": "tokenName"},
                         {"data": "tokenSymbol"},
+                        {"data": "contractAddress"},
                         {"data": "value"},
                         {"data": "gas"},
                         {"data": "gasPrice"},
@@ -161,6 +164,7 @@
                         { "data": "tokenID" },
                         { "data": "tokenName" },
                         { "data": "tokenSymbol" },
+                        {"data": "contractAddress"},
                         { "data": "value" },
                         { "data": "gas" },
                         { "data": "gasPrice" },

@@ -36,6 +36,7 @@ class controller extends Ctrl {
                             'tokenID' => $obj->tokenID,
                             'tokenName' => $obj->tokenName,
                             'tokenSymbol' => $obj->tokenSymbol,
+                            'contractAddress' => $obj->contractAddress,
                             'value' => $obj->tokenDecimal,
                             'gas' => $obj->tokenDecimal,
                             'gasPrice' => $obj->gasPrice
@@ -58,6 +59,7 @@ class controller extends Ctrl {
                             'to' => $obj->to,
                             'tokenName' => $obj->tokenName,
                             'tokenSymbol' => $obj->tokenSymbol,
+                            'contractAddress' => $obj->contractAddress,
                             'value' => $obj->value,
                             'gas' => $obj->tokenDecimal,
                             'gasPrice' => $obj->gasPrice
