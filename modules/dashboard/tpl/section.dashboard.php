@@ -2,6 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <strong><a href="coins" style="position: absolute; right: 150px;">Data</a></strong>
                 <div id="prepare">
                     <button class="btn btn-primary" id="btn-connect" style="position: absolute; right: 0;">Connect</button>
                 </div>
