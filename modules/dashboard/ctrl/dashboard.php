@@ -72,7 +72,6 @@ class controller extends Ctrl {
                     $data = array();
                     $recordsTotal = 0;
                     $user_key = $this->getParam('user_key');
-                    $user_key = '0xc43db41aa6649ddda4ef0ef20fd4f16be43144f7';
                     $graphql = Utils::snapshotApi($user_key);
                     foreach ($graphql->data->votes as $obj){
                         $recordsTotal++;
