@@ -37,6 +37,25 @@ class Utils {
         return $response;
     }
 
+    public static function snapshotApi($address) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://hub.snapshot.org/graphql',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{"query":"query Votes{votes(first:100000\\r\\nskip: 0\\r\\nwhere:{voter:\\"'.$address.'\\"}orderBy: \\"created\\",orderDirection: desc) {voter\\r\\n proposal{title}space{id}}}","variables":{}}',
+            CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response);
+    }
+
     public static function graphqlApi($address) {
         $curl = curl_init();
 

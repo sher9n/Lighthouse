@@ -16,6 +16,7 @@
                     <table class="table table-listing">
                         <thead>
                             <th>Address</th>
+                            <th>Symbol</th>
                             <th>ETH balance</th>
                         </thead>
                         <tbody id="accounts"></tbody>
@@ -39,7 +40,7 @@
                             <button class="nav-link <?php echo ($__page->tab == 'erc721')?'active':''; ?>" id="erc721-tab" data-bs-toggle="tab" data-tab="erc721" data-bs-target="#erc721" type="button" role="tab" aria-controls="profile" aria-selected="false">ERC721</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo ($__page->tab == 'graphql')?'active':''; ?>" id="graphql-tab" data-bs-toggle="tab" data-tab="graphql" data-bs-target="#graphql" type="button" role="tab" aria-controls="profile" aria-selected="false">GraphQL</button>
+                            <button class="nav-link <?php echo ($__page->tab == 'snapshot')?'active':''; ?>" id="snapshot-tab" data-bs-toggle="tab" data-tab="snapshot" data-bs-target="#snapshot" type="button" role="tab" aria-controls="profile" aria-selected="false">Votes</button>
                         </li>
                     </ul>
                     <div class="tab-content mt-4" id="myTabContent">
@@ -103,13 +104,13 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="tab-pane fade <?php echo ($__page->tab == 'graphql')?'show active':''; ?>" id="graphql" role="tabpanel" aria-labelledby="graphql-tab">
-                            <table id="graphql-table" class="table table-bordered table-bordered-dashed mt-3 shadow">
+                        <div class="tab-pane fade <?php echo ($__page->tab == 'snapshot')?'show active':''; ?>" id="snapshot" role="tabpanel" aria-labelledby="snapshot-tab">
+                            <table id="snapshot-table" class="table table-bordered table-bordered-dashed mt-3 shadow">
                                 <thead>
                                 <tr>
-                                    <th class="text-center" scope="col">Name</th>
-                                    <th class="text-center" scope="col">Symbol</th>
-                                    <th class="text-center" scope="col">Value</th>
+                                    <th class="text-center" scope="col">Voter</th>
+                                    <th class="text-center" scope="col">Proposal</th>
+                                    <th class="text-center" scope="col">Space</th>
                                 </tr>
                             </table>
                         </div>
@@ -122,6 +123,7 @@
         <template id="template-balance">
             <tr>
                 <th class="address"></th>
+                <th class="symbol"></th>
                 <td class="balance"></td>
             </tr>
         </template>
@@ -200,14 +202,14 @@
             }
         });
 
-        $(document).on('click','#graphql-tab',function (e) {
+        $(document).on('click','#snapshot-tab',function (e) {
             e.preventDefault();
-            if ( ! $.fn.DataTable.isDataTable( '#graphql-table' ) ) {
-                var table = $('#graphql-table').DataTable({
+            if ( ! $.fn.DataTable.isDataTable( '#snapshot-table' ) ) {
+                var table = $('#snapshot-table').DataTable({
                     "columns": [
-                        { "data": "name" },
-                        { "data": "symbol" },
-                        { "data": "value" }
+                        { "data": "voter" },
+                        { "data": "proposal" },
+                        { "data": "space" }
                     ],
                     "scrollX": true,
                     "processing": true,
@@ -218,12 +220,12 @@
                         processing: "<img src='<?php echo app_cdn_path; ?>images/loading.gif' width='100' height='100'>"
                     },
                     "ajax": {
-                        "url": "get-graphql?user_key="+$('#user_key').val()
+                        "url": "get-snapshot?user_key="+$('#user_key').val()
                     }
                 });
 
-                $('#graphql-table_processing').removeClass('card');
-                $('#graphql-table_filter').hide();
+                $('#snapshot-table_processing').removeClass('card');
+                $('#snapshot-table_filter').hide();
             }
         });
 

@@ -3,6 +3,7 @@ use Core\Ds;
 use Core\Utils;
 class controller extends Ctrl {
     function init() {
+        var_dump(Utils::snapshotApi('0xc43db41aa6649ddda4ef0ef20fd4f16be43144f7'));exit();
         $coins = array();
         $response  = Utils::LightHouseApi('coins');
         $coins_names = array();

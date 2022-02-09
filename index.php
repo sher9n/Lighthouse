@@ -19,6 +19,8 @@ try {
         '/coins' => 'modules/dashboard/ctrl/coins.php',
         '/get-erc721' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-erc20' => 'modules/dashboard/ctrl/dashboard.php',
+        '/get-snapshot' => 'modules/dashboard/ctrl/dashboard.php',
+        '/get-graphql' => 'modules/dashboard/ctrl/dashboard.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 

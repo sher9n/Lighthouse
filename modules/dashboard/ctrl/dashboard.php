@@ -68,9 +68,25 @@ class controller extends Ctrl {
                     echo json_encode(array('data' => $data,'recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal));
                     exit();
                 }
-                elseif (__ROUTER_PATH == '/get-graphql') {
+                elseif (__ROUTER_PATH == '/get-snapshot') {
                     $data = array();
                     $recordsTotal = 0;
+                    $user_key = $this->getParam('user_key');
+                    $user_key = '0xc43db41aa6649ddda4ef0ef20fd4f16be43144f7';
+                    $graphql = Utils::snapshotApi($user_key);
+                    foreach ($graphql->data->votes as $obj){
+                        $recordsTotal++;
+                        array_push($data,array(
+                            'voter' => $obj->voter,
+                            'proposal' => $obj->proposal->title,
+                            'space' => $obj->space->id
+                        ));
+                    }
+                    echo json_encode(array('data' => $data,'recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal));
+                    exit();
+                }
+                elseif (__ROUTER_PATH == '/get-graphql') {
+                    $data = array();
                     $user_key = $this->getParam('user_key');
                     $graphql = Utils::graphqlApi($user_key);
                     foreach ($graphql->data as $coin => $obj){
@@ -86,7 +102,7 @@ class controller extends Ctrl {
                             }
                         }
                     }
-                    echo json_encode(array('data' => $data,'recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal));
+                    echo json_encode(array('success' => true,'data' => $data));
                     exit();
                 }
             }
