@@ -16,8 +16,7 @@ Lighthouse is a community-run web3 reputation and rewards platform.
 - Individual DAOs also have the ability to compose their own reputation scores depending on how they value each source of reputation. These scores can then be used by DAOs to incentivize participation, integrate with 3rd party tools or offer rewards such as reputation-based NFTs, airdrops, “airdrips”, preferential yields and under-collateralized loans.
 - DAOs also have the ability to grant reputation for subjective or retrospective work.
 - All reputation scores, opportunities and rewards are listed on lighthouse.xyz that also acts as a reference implementation of the underlying protocol and manages core Lighthouse activity.
-- Lighthouse incentivizes users to connect multiple wallets to a single account. This allows users to accumulate more reputation and access better rewards.
-- In order to prevent Sybil attacks, the same wallet cannot be connected to more than one account at a given time or used to unlock the same reward twice.
+- Note on Sybil attack prevention: Lighthouse incentivizes users to connect multiple wallets to a single account. This allows users to accumulate more reputation and access better rewards. In order to prevent Sybil attacks, the same wallet cannot be connected to more than one account at a given time or used to unlock the same reward twice, as this is blocked at a protocol level.
 
 ## Our vision
 
