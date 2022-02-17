@@ -18,10 +18,6 @@ class Utils {
         curl_setopt($ch, CURLOPT_URL, app_api_url.DS.$endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-/*        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'access_token:'.self::$me->access_token,
-            'Content-Type: multipart/form-data'
-        ));*/
         if(is_array($post)) {
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -31,7 +27,8 @@ class Utils {
 
         //curl_setopt($ch, CURLOPT_FAILONERROR, true);
         $data = curl_exec($ch);
-        //$error_msg = curl_error($ch);
+       // $error_msg = curl_error($ch);
+       // var_dump($error_msg);exit();
         curl_close($ch);
         $response = json_decode($data, true);
         return $response;

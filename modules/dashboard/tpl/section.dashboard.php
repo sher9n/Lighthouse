@@ -49,6 +49,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo ($__page->tab == 'mentions')?'active':''; ?>" id="mentions-tab" data-bs-toggle="tab" data-tab="mentions" data-bs-target="#mentions" type="button" role="tab" aria-controls="profile" aria-selected="false">Mentions</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo ($__page->tab == 'coins')?'active':''; ?>" id="coins-tab" data-bs-toggle="tab" data-tab="coins" data-bs-target="#coins" type="button" role="tab" aria-controls="profile" aria-selected="false">Coins</button>
+                        </li>
                     </ul>
                     <div class="tab-content mt-4" id="myTabContent">
                         <div class="tab-pane fade <?php echo ($__page->tab == 'messages')?'show active':''; ?>" id="messages" role="tabpanel" aria-labelledby="messages-tab">
@@ -136,6 +139,17 @@
                                 <tr>
                                     <th class="text-center" scope="col">Id</th>
                                     <th class="text-center" scope="col">Text</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade <?php echo ($__page->tab == 'coins')?'show active':''; ?>" id="coins" role="tabpanel" aria-labelledby="coins-tab">
+                            <table id="coins-table" class="table table-bordered table-bordered-dashed mt-3 shadow">
+                                <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Coin</th>
+                                    <th class="text-center" scope="col">Twitter</th>
+                                    <th class="text-center" scope="col">Snapshot Id</th>
+                                    <th class="text-center" scope="col">Name</th>
                                 </tr>
                             </table>
                         </div>
@@ -306,6 +320,33 @@
             }
         });
 
+        $(document).on('click','#coins-tab',function (e) {
+            e.preventDefault();
+            if ( ! $.fn.DataTable.isDataTable( '#coins-table' ) ) {
+                var table = $('#coins-table').DataTable({
+                    "columns": [
+                        { "data": "coin" },
+                        { "data": "twitter" },
+                        { "data": "snap_id" },
+                        { "data": "snap_name" }
+                    ],
+                    "scrollX": true,
+                    "processing": true,
+                    "serverSide": true,
+                    "pageLength": 10,
+                    "info": false,
+                    "language": {
+                        processing: "<img src='<?php echo app_cdn_path; ?>images/loading.gif' width='100' height='100'>"
+                    },
+                    "ajax": {
+                        "url": "get-dao?user_key="+$('#user_key').val()
+                    }
+                });
+
+                $('#coins-table_processing').removeClass('card');
+                $('#coins-table_filter').hide();
+            }
+        });
 
         $('#commentForm').validate({
             rules: {

@@ -89,7 +89,6 @@ class controller extends Ctrl {
                     $user_key = $this->getParam('user_key');
                     //$user_key = '0xc43db41aa6649ddda4ef0ef20fd4f16be43144f7';
                     $graphql = Utils::graphqlApi($user_key);
-                    var_dump($graphql->data);
                     foreach ($graphql->data as $coin => $obj){
                         foreach ($obj->address as $balances => $values){
                             foreach ($values->balances as $index =>$val){
@@ -102,6 +101,62 @@ class controller extends Ctrl {
                                 }
                             }
                         }
+                    }
+                    echo json_encode(array('success' => true,'data' => $data));
+                    exit();
+                }
+                elseif (__ROUTER_PATH == '/get-coins') {
+                    $data = array();
+                    $user_key = $this->getParam('user_key');
+                    //$user_key = '0xc43db41aa6649ddda4ef0ef20fd4f16be43144f7';
+                    $graphql = Utils::graphqlApi($user_key);
+                    foreach ($graphql->data as $coin => $obj){
+                        foreach ($obj->address as $balances => $values){
+                            foreach ($values->balances as $index =>$val){
+                                if($val->value > 0){
+                                    array_push($data,array(
+                                        'name' => $coin,
+                                        'symbol' => $val->currency->symbol,
+                                        'value' => $val->value
+                                    ));
+                                }
+                            }
+                        }
+                    }
+                    echo json_encode(array('success' => true,'data' => $data));
+                    exit();
+                }
+                elseif (__ROUTER_PATH == '/get-dao') {
+                    $data = array();
+                    $user_key = $this->getParam('user_key');
+                    $user_key = '0xc43db41aa6649ddda4ef0ef20fd4f16be43144f7';
+                    $graphql = Utils::graphqlApi($user_key);
+                    $symbols = array();
+                    foreach ($graphql->data as $coin => $obj){
+                        foreach ($obj->address as $balances => $values){
+                            foreach ($values->balances as $index =>$val){
+                                if($val->value > 0){
+                                    $symbols[$val->currency->symbol] = 1;
+                                }
+                            }
+                        }
+                    }
+
+                    $symbol_keys = array_keys($symbols);
+                    $symbols_str = implode(',',$symbol_keys);
+                    $response  = Utils::LightHouseApi('coins-dao',array('symbols'=>$symbols_str));
+                    $coins_names = array();
+                    $coins = array();
+                    if($response['status'] == 200)
+                        $coins = $response['data'];
+
+                    foreach ($coins as $c){
+                        $data[] = array(
+                            'coin' => $c['symbol'],
+                            'twitter' => (strlen($c['info_data']['twitter_username']) > 0) ?$c['info_data']['twitter_username']:'N/A',
+                            'snap_id' => isset($c['dao_id'])?$c['dao_id']:'N/A',
+                            'snap_name' => isset($c['dao_name'])?$c['dao_name']:'N/A'
+                        );
                     }
                     echo json_encode(array('success' => true,'data' => $data));
                     exit();

@@ -23,6 +23,7 @@ try {
         '/get-graphql' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-tweets' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-mentions' => 'modules/dashboard/ctrl/dashboard.php',
+        '/get-dao' => 'modules/dashboard/ctrl/dashboard.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
