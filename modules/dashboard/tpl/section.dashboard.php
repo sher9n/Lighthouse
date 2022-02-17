@@ -43,6 +43,12 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo ($__page->tab == 'snapshot')?'active':''; ?>" id="snapshot-tab" data-bs-toggle="tab" data-tab="snapshot" data-bs-target="#snapshot" type="button" role="tab" aria-controls="profile" aria-selected="false">Votes</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo ($__page->tab == 'tweets')?'active':''; ?>" id="tweets-tab" data-bs-toggle="tab" data-tab="tweets" data-bs-target="#tweets" type="button" role="tab" aria-controls="profile" aria-selected="false">Tweets</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php echo ($__page->tab == 'mentions')?'active':''; ?>" id="mentions-tab" data-bs-toggle="tab" data-tab="mentions" data-bs-target="#mentions" type="button" role="tab" aria-controls="profile" aria-selected="false">Mentions</button>
+                        </li>
                     </ul>
                     <div class="tab-content mt-4" id="myTabContent">
                         <div class="tab-pane fade <?php echo ($__page->tab == 'messages')?'show active':''; ?>" id="messages" role="tabpanel" aria-labelledby="messages-tab">
@@ -112,6 +118,24 @@
                                     <th class="text-center" scope="col">Voter</th>
                                     <th class="text-center" scope="col">Proposal</th>
                                     <th class="text-center" scope="col">Space</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade <?php echo ($__page->tab == 'tweets')?'show active':''; ?>" id="tweets" role="tabpanel" aria-labelledby="tweets-tab">
+                            <table id="tweets-table" class="table table-bordered table-bordered-dashed mt-3 shadow">
+                                <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Id</th>
+                                    <th class="text-center" scope="col">Text</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade <?php echo ($__page->tab == 'mentions')?'show active':''; ?>" id="mentions" role="tabpanel" aria-labelledby="mentions-tab">
+                            <table id="mentions-table" class="table table-bordered table-bordered-dashed mt-3 shadow">
+                                <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Id</th>
+                                    <th class="text-center" scope="col">Text</th>
                                 </tr>
                             </table>
                         </div>
@@ -229,6 +253,59 @@
                 $('#snapshot-table_filter').hide();
             }
         });
+
+        $(document).on('click','#tweets-tab',function (e) {
+            e.preventDefault();
+            if ( ! $.fn.DataTable.isDataTable( '#tweets-table' ) ) {
+                var table = $('#tweets-table').DataTable({
+                    "columns": [
+                        { "data": "id" },
+                        { "data": "text" }
+                    ],
+                    "scrollX": true,
+                    "processing": true,
+                    "serverSide": true,
+                    "pageLength": 10,
+                    "info": false,
+                    "language": {
+                        processing: "<img src='<?php echo app_cdn_path; ?>images/loading.gif' width='100' height='100'>"
+                    },
+                    "ajax": {
+                        "url": "get-tweets?user_key="+$('#user_key').val()
+                    }
+                });
+
+                $('#tweets-table_processing').removeClass('card');
+                $('#tweets-table_filter').hide();
+            }
+        });
+
+        $(document).on('click','#mentions-tab',function (e) {
+            e.preventDefault();
+            if ( ! $.fn.DataTable.isDataTable( '#mentions-table' ) ) {
+                var table = $('#mentions-table').DataTable({
+                    "columns": [
+                        { "data": "id" },
+                        { "data": "text" }
+                    ],
+                    "scrollX": true,
+                    "processing": true,
+                    "serverSide": true,
+                    "pageLength": 10,
+                    "info": false,
+                    "language": {
+                        processing: "<img src='<?php echo app_cdn_path; ?>images/loading.gif' width='100' height='100'>"
+                    },
+                    "ajax": {
+                        "url": "get-mentions?user_key="+$('#user_key').val()
+                    }
+                });
+
+                $('#mentions-table_processing').removeClass('card');
+                $('#mentions-table_filter').hide();
+            }
+        });
+
 
         $('#commentForm').validate({
             rules: {

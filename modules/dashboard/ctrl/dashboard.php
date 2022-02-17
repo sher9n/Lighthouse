@@ -87,7 +87,9 @@ class controller extends Ctrl {
                 elseif (__ROUTER_PATH == '/get-graphql') {
                     $data = array();
                     $user_key = $this->getParam('user_key');
+                    //$user_key = '0xc43db41aa6649ddda4ef0ef20fd4f16be43144f7';
                     $graphql = Utils::graphqlApi($user_key);
+                    var_dump($graphql->data);
                     foreach ($graphql->data as $coin => $obj){
                         foreach ($obj->address as $balances => $values){
                             foreach ($values->balances as $index =>$val){
@@ -102,6 +104,19 @@ class controller extends Ctrl {
                         }
                     }
                     echo json_encode(array('success' => true,'data' => $data));
+                    exit();
+                }
+                elseif (__ROUTER_PATH == '/get-tweets' OR  __ROUTER_PATH == '/get-mentions') {
+                    $data = array();
+                    $recordsTotal = 0;
+                   // $tw_user_name = $this->getParam('tw_user_name');
+                    $tw_user_name = '0xSheran';
+                    $respose = Utils::getTweet((__ROUTER_PATH =='/get-tweets')?'tweets':'mentions',$tw_user_name);
+                    foreach ($respose->data as $index => $obj){
+                        $recordsTotal++;
+                        array_push($data,array('id'=> $obj->id,'text' => $obj->text));
+                    }
+                    echo json_encode(array('data' => $data,'recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal));
                     exit();
                 }
             }
