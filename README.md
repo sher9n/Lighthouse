@@ -20,7 +20,7 @@ Lighthouse empowers DAO workers by combining activity, opportunities and rewards
 ## **How it Works**
 Whenever a user connects to the system, Lighthouse scans their wallet, discovers active DAOs and provides insights, analytics and opportunities for contribution.
 
-The system also assigns various reputation scores based on previous aggregated activity.
+The system also assigns various reputation scores based on aggregated activity.
 
 Given the scattered nature of the DAO tooling ecosystem we believe that Lighthouse will provide better models of DAO-user discovery and collaboration.
 
