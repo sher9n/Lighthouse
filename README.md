@@ -26,3 +26,6 @@ Given the scattered nature of the DAO tooling ecosystem we believe that Lighthou
 
 ## **Utility of the $LHT Token**
 The protocol connects potential high value users with projects, and for facilitating this DAOs pay a commission on each claimed reward. Additionally, users receive $LHT for contributing to the protocol.
+
+## Contact
+Talk to us: [https://calendly.com/workerdao](https://calendly.com/workerdao)
