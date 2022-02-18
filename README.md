@@ -1,5 +1,5 @@
 # Lighthouse
-Lighthouse is the cross-chain reputation standard for DAO members
+Lighthouse is the cross-chain reputation standard for DAO members.
 
 ## **The Problem**
 DAO tools are scattered, cross-competitive and track reputation in isolation. This limits connectivity and participation between DAOs and DAO members.
