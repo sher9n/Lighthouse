@@ -12,7 +12,7 @@ class Utils {
            return $string;
     }
 
-    public static function LightHouseApi($endpoint,$post=null,$url_param=null)
+    public static function LightHouseApi($endpoint,$post=null)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, app_api_url.DS.$endpoint);
@@ -24,11 +24,9 @@ class Utils {
         }
         else
             curl_setopt($ch, CURLOPT_POST, 0);
-
         //curl_setopt($ch, CURLOPT_FAILONERROR, true);
         $data = curl_exec($ch);
-       // $error_msg = curl_error($ch);
-       // var_dump($error_msg);exit();
+        //$error_msg = curl_error($ch);
         curl_close($ch);
         $response = json_decode($data, true);
         return $response;
@@ -44,6 +42,8 @@ class Utils {
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS =>'{"query":"query Votes{votes(first:100000\\r\\nskip: 0\\r\\nwhere:{voter:\\"'.$address.'\\"}orderBy: \\"created\\",orderDirection: desc) {voter\\r\\n proposal{title}space{id}}}","variables":{}}',
             CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
@@ -64,6 +64,8 @@ class Utils {
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS =>'{"query":"{ethereum{address(address:{is: \\"'.$address.'\\"}){balances{currency{symbol}value}}}}","variables":{}}',
             CURLOPT_HTTPHEADER => array(
