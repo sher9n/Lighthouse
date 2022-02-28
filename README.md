@@ -1,25 +1,31 @@
 # Lighthouse
-Lighthouse is a community-run web3 reputation and rewards platform.
+The reputation scoring and incentives protocol for DAOs and web3.
 
-## Introduction
+## **The Problem**
+DAO tools are scattered, cross-competitive and track reputation in isolation. This limits connectivity and participation between DAOs and DAO members.
 
-- Reputation plays an important role in how human societies organize and function. Good reputation is generally considered a valuable resource and often results in better than expected outcomes  for an individual. Reputation is based on a set of criteria related to observed behavior or performance.
-- With the emergence of DAOs, much work has been done to create mechanisms of measuring reputation. Some of these include token-based reputation systems (e.g. governance tokens), community-voted reputation (e.g. Coordinape) and influence/contribution-based reputation (e.g. SourceCred, Colony). These mechanisms are mostly utilized for DAO specific functions such as meritocratic governance and treasury payouts. However, they are often isolated to specific communities or tools, and lack customization, interoperability and cannot be extended.
-- Given the explosion of web3 and growing mainstream adoption, a robust tool that aggregates user reputation across chains, tools and communities could be beneficial to the entire ecosystem as well as individual projects.
-- An aggregated reputation score offers the possibility to unlock varied features such as reputation-based loyalty schemes and marketing strategies (e.g. reputation-based NFTs, airdrops, “airdrips”, etc.) as well as DeFi applications (e.g. under collateralized loans, premium yields).
-- However, none of these mechanisms exist today. To address this we created Lighthouse. Lighthouse brings a composable, cross-chain reputation system to web3.
+- **For DAOs:** Discovering top users and incentivizing them to participate requires cumbersome, manual work.
 
-## How it works
+- **For DAO Members**: There’s no platform to centrally track DAO insights and activities. There's also no easy way to discover opportunities to contribute or signal interest in order to participate. Finally, existing reputation tracking mechanisms are limited to a particular DAO or DAO tool, lack portability and are not permanent.
 
-- A user starts by connecting his/her wallet(s).
-- Lighthouse crawls the wallet addresses and correlates activity to reputation. This is done through an expanding list of API integrations (e.g. Snapshot GraphQL API for governance, Etherscan API for transactions, Alchemy API for token balances, APIs from DAO spin up tools, etc.).
-- Individual DAOs also have the ability to compose their own reputation scores depending on how they value each source of reputation. These scores can then be used by DAOs to incentivize participation, integrate with 3rd party tools or offer rewards such as reputation-based NFTs, airdrops, “airdrips”, preferential yields and under-collateralized loans.
-- DAOs also have the ability to grant reputation for subjective or retrospective work.
-- All reputation scores, opportunities and rewards are listed on lighthouse.xyz that also acts as a reference implementation of the underlying protocol and manages core Lighthouse activity.
-- Note on Sybil attack prevention: Lighthouse incentivizes users to connect multiple wallets to a single account. This allows users to accumulate more reputation and access better rewards. In order to prevent Sybil attacks, the same wallet cannot be connected to more than one account at a given time or used to unlock the same reward twice, as this is blocked at a protocol level.
+## **The Solution**
+Lighthouse empowers DAO workers by combining activity, opportunities and rewards. It consists of 3 main components:
 
-## Our vision
+1. **DAO Activity Tracker:**  A single place to track all the activity from all DAOs and discover opportunities to participate.
 
-- **Create a new form of credentialing based on reputation:** User-credentialing is a massive unsolved problem in web3 due to the rise of anonymity. Reputation based user-credentialing relies on trust through proven work, which is a significantly better approach to current invasive approaches.
-- **Create better models of participation:** Today, power is heavily restricted to large governance token holders. Integrating reputation credentialing can lead to better participation, with value flowing back to human contribution.
-- **Amplify growth through positive-sum behavior:** By introducing better models of participation, DAOs can create a cult of super-contributors, attract better brain power and strengthen the core community.
+2. **Reputation Builder:** Aggregated scores that tracks reputation across various spheres of influence (such as “NFT Influence” and “DeFi Performance” and evolves as you engage more with DAOs.
+
+3. **The Rewards Engine:** A series of incentive programs that DAOs make available to potential high value users in order to incentivize and retain them.
+
+## **How it Works**
+Whenever a user connects to the system, Lighthouse scans their wallet, discovers active DAOs and provides insights, analytics and opportunities for contribution.
+
+The system also assigns various reputation scores based on aggregated activity.
+
+Given the scattered nature of the DAO tooling ecosystem we believe that Lighthouse will provide better models of DAO-user discovery and collaboration.
+
+## **Utility of the $LHT Token**
+The protocol connects potential high value users with projects, and for facilitating this DAOs pay a commission on each claimed reward. Additionally, users receive $LHT for contributing to the protocol.
+
+## Contact
+Talk to us: [https://calendly.com/workerdao](https://calendly.com/workerdao)
