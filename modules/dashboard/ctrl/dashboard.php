@@ -46,7 +46,9 @@ class controller extends Ctrl {
                 }
                 elseif (__ROUTER_PATH == '/pin-coin') {
                     $user_key = $this->getParam('user_key');
+                    $action = 'pin';
                     if($this->hasParam('unpin')) {
+                        $action = 'unpin';
                         $coin_id = $this->getParam('unpin');
                         $response = Utils::LightHouseApi("pin-coin?address=$user_key&coin=$coin_id&action=unpin");
                     }
@@ -56,7 +58,7 @@ class controller extends Ctrl {
                     }
 
                     if($response['status'] == 200)
-                        echo json_encode(array('success' => true));
+                        echo json_encode(array('success' => true,'action' =>$action));
                     else
                         echo json_encode(array('success' => false));
                     exit();

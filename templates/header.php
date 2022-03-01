@@ -8,7 +8,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarMain">
+        <div class="collapse navbar-collapse fade" id="navbarMain">
             <div class="ms-auto dropdown">
                 <a class="nav-link dropdown-toggle d-flex align-items-center pe-0 text-fiord" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="avator-md d-flex justify-content-center align-items-center rounded-circle border border-black bg-purple"></div>

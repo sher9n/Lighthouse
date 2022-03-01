@@ -12,8 +12,15 @@ class Utils {
            return $string;
     }
 
+    public static function coinAddressFormat($address) {
+        $first = substr($address,6);
+        $last = substr($address,-4);
+        return $first.'...'.$last;
+    }
+
     public static function LightHouseApi($endpoint,$post=null)
     {
+       // var_dump($endpoint);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, app_api_url.DS.$endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -24,9 +31,10 @@ class Utils {
         }
         else
             curl_setopt($ch, CURLOPT_POST, 0);
-        //curl_setopt($ch, CURLOPT_FAILONERROR, true);
+       // curl_setopt($ch, CURLOPT_FAILONERROR, true);
         $data = curl_exec($ch);
-        //$error_msg = curl_error($ch);
+      //  $error_msg = curl_error($ch);
+       // var_dump($error_msg);exit();
         curl_close($ch);
         $response = json_decode($data, true);
         return $response;
