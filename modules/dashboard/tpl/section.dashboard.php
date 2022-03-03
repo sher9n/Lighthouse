@@ -10,34 +10,7 @@
                         <div class="scroll multiple">
                             <div class="scrollDiv">
                                 <div class="scroll-section scrollContent">
-                                    <ul id="community_list_items" class="list-community">
-                                        <li class="list-community-item">
-                                        <a href="#">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avator d-flex justify-content-center align-items-center me-5">
-                                                    <img src="<?php echo app_cdn_path; ?>img/company-overall.png" class="rounded-circle bg-white" width="48" height="48" />
-                                                </div>
-                                                <div class="w-70">
-                                                    <div class="fs-3 text-truncate">Overall Stats</div>
-                                                    <div class="text-muted lh-1">Aggregate</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                        <li class="list-community-item">
-                                        <a href="#">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avator d-flex justify-content-center align-items-center me-5">
-                                                    <img src="<?php echo app_cdn_path; ?>img/company-lighthouse.png" class="rounded-circle bg-white" width="48" height="48" />
-                                                </div>
-                                                <div class="w-70">
-                                                    <div class="fs-3 text-truncate">Lighthouse DAO</div>
-                                                    <div class="text-muted lh-1">Reputation</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    </ul>
+                                    <ul id="community_list_items" class="list-community"></ul>
                                     <div id="loading"></div>
                                 </div>
                             </div>
@@ -51,14 +24,14 @@
                         <div class="card-body card-body-md">
                             <!-- user details and bank bank details -->
                             <div class="d-flex align-items-start">
-                                <div class="d-flex align-items-center w-60">
+                                <div class=" d-flex align-items-center w-60">
                                     <div class="avator d-flex justify-content-center align-items-center border border-black bg-purple rounded-circle me-5">
                                         <div class="select-company-logo">
-                                            <img src="<?php echo app_cdn_path; ?>img/current-company-logo.jpg" class="rounded-circle border border-white" width="30" height="30" />
+                                            <img id="coin_logo" src="<?php echo app_cdn_path; ?>img/company-overall.png" class="rounded-circle border border-white" width="30" height="30" />
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column  w-70">
-                                        <div class="fs-3 text-truncate">You + <span id="network-name"></span></div>
+                                        <div class="fs-3 text-truncate">You + <span id="network-name">Overall Stats</span></div>
                                         <div class="text-muted lh-1"><span id="selected-account">   +2 others</div>
                                         <input type="hidden" name="user_key" id="user_key">
                                     </div>
@@ -221,38 +194,7 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="Updates" role="tabpanel" aria-labelledby="Updates-tab">
-                            <div class="my-12">
-                                <div class="card shadow">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <div class="d-flex align-items-center w-70">
-                                                <div class="avator border rounded-circle me-6">
-                                                    <img src="<?php echo app_cdn_path; ?>img/company-dao.png" />
-                                                </div>
-                                                <div class="w-80">
-                                                    <div class="fs-3 text-truncate">HODLing 38.76 BANK</div>
-                                                    <div class="text-muted lh-1">Governance</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body border-top">
-                                        <div class="fs-5 ">Revolving light</div>
-                                        <div class="border rounded-3 p-12 mt-12 bg-light">
-                                            <div class="d-flex align-items-center">
-                                                <img src="<?php echo app_cdn_path; ?>img/img-post.jpg" class="img-post img-fluid rounded-3 me-13" width="200" height="140" alt=""/>
-                                                <div>
-                                                    <a class="text-muted text-decoration-none " href="#" target="_blank">banklessdao.substack.com</a>
-                                                    <div class="fs-4 mt-3">Breaking Down BANK Tokenomics | BanklessDAO...</div>
-                                                    <div class="text-muted mt-3">Catch Up With What Happened This Week in BanklessDAO</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Empty message -->
-                            <div class="card shadow d-none">
+                            <div class="card shadow">
                                 <div class="card-body text-center">
                                     <img src="<?php echo app_cdn_path; ?>img/img-myactivity.png" class="img-fluid rounded mt-16" alt=""/>
                                     <div class="fs-1 fw-semibold mt-12">No contributions yet!</div>
@@ -261,7 +203,6 @@
                                     <button type="button" class="btn btn-primary btn-lg px-25 text-uppercase mt-23 mb-18">Post Now</button>
                                 </div>
                             </div>
-                            <!-- Empty message END -->
                         </div>
                         <div class="tab-pane fade" id="Governance" role="tabpanel" aria-labelledby="Governance-tab">
                             <div class="my-12">
@@ -309,84 +250,7 @@
                             <!-- Empty message END -->
                         </div>
                         <div class="tab-pane fade" id="Profile" role="tabpanel" aria-labelledby="Profile-tab">
-                            <div class="my-12">
-                                <div class="card shadow">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-start">
-                                            <div class="d-flex w-50">
-                                                <div class="avator border rounded-circle me-6">
-                                                    <img src="<?php echo app_cdn_path; ?>img/company-dao.png" />
-                                                </div>
-                                                <div class="w-60">
-                                                    <div class="fs-3 text-truncate">BalancerDAO’s collaboration with BanklessDAO</div>
-                                                    <div class="text-muted lh-1">0x2d94a...da198 <img src="<?php echo app_cdn_path; ?>img/icon-coin-rank.svg" class="ms-1" width="15" height="15"></div>
-                                                </div>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <ul class="list-equal-horizontal">
-                                                    <li class="list-equal-item  py-0">
-                                                        <div class="fs-3 lh-1">12,371</div>
-                                                        <div class="text-muted mt-1">Members</div>
-                                                    </li>
-                                                    <li class="list-equal-item  py-0">
-                                                        <div class="fs-3 lh-1">$15.65M</div>
-                                                        <div class="text-muted mt-1">Market Cap</div>
-                                                    </li>
-                                                    <li class="list-equal-item  py-0">
-                                                        <div class="fs-3 lh-1">$476K</div>
-                                                        <div class="text-muted mt-1">Treasury</div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="mt-4">
-                                            <ul class="list-badge">
-                                                <li class="list-badge-item">Community</li>
-                                                <li class="list-badge-item">Ethereum</li>
-                                                <li class="list-badge-item">DeFi</li>
-                                                <li class="list-badge-item">NFT</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="card-body border-top">
-                                        <div class=" fs-5">A decentralized autonomous organization that acts as a steward of the Bankless Movement progressing the world towards a future of greater freedom.</div>
-                                        <div class="row mt-12">
-                                            <div class="col-lg-6">
-                                                <div class=" fs-5 text-primary mb-2">Social</div>
-                                                <div class="list-social-media">
-                                                    <a class="list-social-media-item d-flex align-items-center" href="#" role="button">
-                                                        <div class="avator d-flex justify-content-center align-items-center border rounded-circle me-6">
-                                                            <img src="<?php echo app_cdn_path; ?>img/icon-bank.svg" height="16" />
-                                                        </div>
-                                                        <div class="text-dark  fs-5">bankless.community</div>
-                                                    </a>
-                                                    <a class="list-social-media-item d-flex align-items-center" href="#" role="button">
-                                                        <div class="avator d-flex justify-content-center align-items-center border rounded-circle me-6">
-                                                            <img src="<?php echo app_cdn_path; ?>img/icon-twitter.svg" height="16" />
-                                                        </div>
-                                                        <div class="text-dark  fs-5">@banklessDAO</div>
-                                                    </a>
-                                                    <a class="list-social-media-item d-flex align-items-center" href="#" role="button">
-                                                        <div class="avator d-flex justify-content-center align-items-center border rounded-circle me-6">
-                                                            <img src="<?php echo app_cdn_path; ?>img/icon-discord.svg" height="16" />
-                                                        </div>
-                                                        <div class="text-dark  fs-5">discord.gg/bankless</div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 ps-lg-13">
-                                                <div class=" fs-5 text-primary mb-2">Activity</div>
-                                                <ul class="list-activity">
-                                                    <li class="list-activity-item  fs-5">4 Open Proposals</li>
-                                                    <li class="list-activity-item  fs-5">1,346 ended</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Empty message -->
-                            <div class="card shadow d-none">
+                            <div class="card shadow">
                                 <div class="card-body text-center">
                                     <img src="<?php echo app_cdn_path; ?>img/img-rewards.png" class="img-fluid rounded mt-16" alt=""/>
                                     <div class="fs-1 fw-semibold mt-12">Rewards dropping soon! </div>
@@ -403,7 +267,6 @@
                                     </form>
                                 </div>
                             </div>
-                            <!-- Empty message END -->
                         </div>
                     </div>
                 </div>
@@ -562,7 +425,7 @@
     </div>
 </main>
 <!-- Modal Welcome -->
-<div class="modal fade" id="Welcome" tabindex="-1" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="Welcome" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-body text-center pt-25">
@@ -580,56 +443,26 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {
+        getFirstCoinsPage();
         page = 1;
         loading = 0;
         $('#Welcome').modal('toggle');
 
-        rsMultiple = new RS.RocketScroll('.multiple');
-        const slider = document.querySelector('.items');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true;
-            slider.classList.add('active');
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-        });
-
-        slider.addEventListener('mouseleave', () => {
-            isDown = false;
-            slider.classList.remove('active');
-        });
-
-        slider.addEventListener('mouseup', () => {
-            isDown = false;
-            slider.classList.remove('active');
-        });
-
-        slider.addEventListener('mousemove', (e) => {
-            if(!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 3; //scroll-fast
-            slider.scrollLeft = scrollLeft - walk;
-        });
-
         $('#search_coins').keyup(delay(function (e) {
-            $('#community_list_items').html('');
+            $('#community_list_items').html('<div class="py-8 px-13 border-bottom"><div class="d-flex align-items-center loading"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div>');
             getFirstCoinsPage($('#search_coins').val());
         }, 500));
 
         $('.scrollDiv').scroll(function() {
             if( loading == 0) {
-                $("#loading").html("<img src='<?php echo app_cdn_path; ?>images/loading.gif' class='img-loader' width='100' height='100'>");
-                //p_l_count += 1;
+                $("#loading").html('<div class="py-8 px-13 border-bottom"><div class="d-flex align-items-center loading"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div>');
                 loading = 1;
                 $.ajax({
                     url:  'get-coins?user_key='+$('#user_key').val()+'&p='+page+'&search='+$('#search_coins').val(),
                     dataType: 'json',
                     success: function(response) {
                         if (response.success == true) {
+                            $('.list_item_skeleton').addClass('d-none');
                             $('#community_list_items').append(response.lines);
                             $("#loading").html('');
                             if(!response.end) {
@@ -642,18 +475,57 @@
             }
         });
 
+        $(document).on("click",".coin_details",function (e){
+            e.preventDefault();
+            var ele = $(this);
+            $('.list-community-item').removeClass('active');
+            $('#network-name').html(ele.data('n'));
+            $('#coin_logo').attr('src',ele.data('l'));
+            $('#coin_data').removeClass('d-none');
+            ele.parent().parent().addClass('active');
+            var tw_data = {'id':ele.data('id'),'l':ele.data('l'),'t':ele.data('t')};
+            $.ajax({
+                url: 'get-tweets' ,
+                type: 'POST',
+                data: tw_data,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#Updates').html(response.updates);
+                    }
+                }
+            });
+
+            var c_data = {'id':ele.data('id')};
+            $.ajax({
+                url: 'get-profile' ,
+                type: 'POST',
+                data: c_data,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#Profile').html(response.profile);
+                    }
+                }
+            });
+        });
+
         $(document).on("click",".pin_coin",function(e) {
             e.preventDefault();
             var ele = $(this);
             $.ajax({
-                url: $(this).attr('href') ,
+                url: ele.attr('href') ,
                 dataType: 'json',
                 success: function(response) {
                     if (response.success == true) {
-                        if(response.action == 'pin')
-                            ele.children().append('<div class="ms-auto"><img src="<?php echo app_cdn_path; ?>img/icon-pin-fill.svg" width="25" height="25"></div>');
-                        else
-                            ele.children().children().last().remove();
+                        if(response.action == 'pin') {
+                            ele.attr('href',response.href);
+                            ele.html('<img src="<?php echo app_cdn_path; ?>img/icon-pin-fill.svg" width="25" height="25">');
+                        }
+                        else {
+                            ele.attr('href',response.href);
+                            ele.html('<img src="<?php echo app_cdn_path; ?>img/icon-pin.svg" width="25" height="25">');
+                        }
                     }
                 }
             });
@@ -661,11 +533,13 @@
     });
 
     function getFirstCoinsPage() {
+        $('#community_list_items').html('<div class="py-8 px-13 border-bottom list_item_skeleton"><div class="d-flex align-items-center loading"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div>');
         $.ajax({
             url: 'get-coins?user_key='+$('#user_key').val()+'&p=0&search='+$('#search_coins').val() ,
             dataType: 'json',
             success: function(response) {
                 if (response.success == true) {
+                    $('.list_item_skeleton').addClass('d-none');
                     $('#community_list_items').append(response.lines);
                     $("#loading").html('');
                     if(!response.end) {

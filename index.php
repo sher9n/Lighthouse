@@ -16,8 +16,11 @@ try {
 
     $localRoutes = array(
         '/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
+        '/get-profile' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-coins' =>  'modules/dashboard/ctrl/dashboard.php',
         '/pin-coin' =>  'modules/dashboard/ctrl/dashboard.php',
+        '/get-tweets' => 'modules/dashboard/ctrl/dashboard.php',
+        '/get-mentions' => 'modules/dashboard/ctrl/dashboard.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 

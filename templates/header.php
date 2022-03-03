@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg">
     <div class="container">
         <div class="text-lg-center w-lg-24">
             <a class="" href="#">

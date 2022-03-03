@@ -13,9 +13,13 @@ class Utils {
     }
 
     public static function coinAddressFormat($address) {
-        $first = substr($address,6);
-        $last = substr($address,-4);
-        return $first.'...'.$last;
+        if(strlen($address) > 0) {
+            $first = substr($address, 0,6);
+            $last = substr($address, -4);
+            return $first . '...' . $last;
+        }
+        else
+            return '';
     }
 
     public static function LightHouseApi($endpoint,$post=null)
