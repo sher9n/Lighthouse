@@ -7,7 +7,7 @@ if($response['status'] == 200 && isset($response['data'])) {
                 <div class="d-flex align-items-start">
                     <div class="d-flex w-50">
                         <div class="avator border rounded-circle me-6">
-                            <img src="<?php echo $coin['logo']; ?>" />
+                            <img src="<?php echo $coin['logo']; ?>" class="rounded-circle bg-white" width="48" height="48" />
                         </div>
                         <div class="w-60">
                             <div class="fs-3 text-truncate"><?php echo $coin['c_name']; ?></div>
