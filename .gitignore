@@ -6,8 +6,8 @@
 .idea
 .idea/*
 
-cdn
-cdn/*
+cdn/node_modules
+cdn/scss
 
 conf/config.inc.php
 conf/app.constants.inc.php
