@@ -1,7 +1,7 @@
 <main class="main-wrapper">
     <div class="container p-0">
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3 mobile-hidden">
                 <div class="section-sticky">
                     <div class="card shadow">
                         <div class="card-body border-bottom">
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center my-7">
+                    <div class="d-flex flex-column-reverse flex-lg-row align-items-center my-7">
                         <!-- Tab nav -->
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -96,7 +96,7 @@
                                 <button class="nav-link " id="Profile-tab" data-bs-toggle="pill" data-bs-target="#Profile" type="button" role="tab" aria-controls="Profile" aria-selected="false">Profile</button>
                             </li>
                         </ul>
-                        <select class="form-select w-22 bg-white ms-auto" aria-label="">
+                        <select class="form-select w-22 bg-white ms-lg-auto" aria-label="">
                             <option selected>Filter by: All</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -108,7 +108,7 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="Reputation" role="tabpanel" aria-labelledby="Reputation-tab">
                             <div class="my-12">
-                                <div class="d-flex align-items-center text-fiord mb-4">
+                                <div class="d-flex align-items-center text-fiord mb-4 ms-8 ms-lg-0">
                                     <div>
                                         <img src="<?php echo app_cdn_path; ?>img/icon-fire.svg" />
                                     </div>
@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="my-12">
-                                <div class="d-flex align-items-center text-fiord mb-4">
+                                <div class="d-flex align-items-center text-fiord mb-4 ms-8 ms-lg-0">
                                     <div>
                                         <img src="<?php echo app_cdn_path; ?>img/icon-fire.svg" />
                                     </div>
@@ -192,6 +192,70 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- skeloton Reputation -->
+                            <div class="my-12 d-none">
+                                <div class="d-flex mb-4">
+                                    <div class="text-content mw-10 me-4"></div>
+                                    <div class="text-content mw-30 me-4"></div>
+                                    <div class="text-content mw-30 me-4"></div>
+                                    <div class="text-content mw-40 me-4"></div>
+                                </div>
+                                <div class="card shadow loading">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start">
+                                            <div class="d-flex align-items-center">
+                                                <div class="round-md me-4"></div>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-content-xl mw-160 mb-3"></div>
+                                                    <div class="text-content w-50"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ms-auto">
+                                                <div class="d-flex flex-column align-items-end mw-220">
+                                                    <div class="text-content mw-180 mb-3"></div>
+                                                    <div class="text-content-lg w-30 mb-3"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body py-4 border-top">
+                                    <div class="text-content-xl w-10"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-12 d-none">
+                                <div class="d-flex mb-4">
+                                    <div class="text-content mw-10 me-4"></div>
+                                    <div class="text-content mw-30 me-4"></div>
+                                    <div class="text-content mw-30 me-4"></div>
+                                    <div class="text-content mw-40 me-4"></div>
+                                </div>
+                                <div class="card shadow loading">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start">
+                                            <div class="d-flex align-items-center">
+                                                <div class="round-md me-4"></div>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-content-xl mw-160 mb-3"></div>
+                                                    <div class="text-content w-50"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ms-auto">
+                                                <div class="d-flex flex-column align-items-end mw-220">
+                                                    <div class="text-content mw-180 mb-3"></div>
+                                                    <div class="text-content-lg w-30 mb-3"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body py-4 border-top">
+                                    <div class="text-content-xl w-10"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- skeloton Reputation END -->
+
                         </div>
                         <div class="tab-pane fade" id="Updates" role="tabpanel" aria-labelledby="Updates-tab">
                             <div class="card shadow">
@@ -203,10 +267,53 @@
                                     <button type="button" class="btn btn-primary btn-lg px-25 text-uppercase mt-23 mb-18">Post Now</button>
                                 </div>
                             </div>
+
+                            <!-- skeloton Updates -->
+                            <div class="my-12 d-none">
+                                <div class="card shadow loading">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start">
+                                            <div class="d-flex align-items-center">
+                                                <div class="round-md me-4"></div>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-content-xl mw-160 mb-3"></div>
+                                                    <div class="text-content w-50"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body border-top">
+                                        <div class="text-content-xl mb-3"></div>
+                                        <div class="text-content-xl mb-15 w-50"></div>
+                                        <div class="bg-content rounded h-150"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-12 d-none">
+                                <div class="card shadow loading">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start">
+                                            <div class="d-flex align-items-center">
+                                                <div class="round-md me-4"></div>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-content-xl mw-160 mb-3"></div>
+                                                    <div class="text-content w-50"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body border-top">
+                                        <div class="text-content-xl mb-3"></div>
+                                        <div class="text-content-xl mb-15 w-50"></div>
+                                        <div class="bg-content rounded h-150"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- skeloton Updates END -->
                         </div>
                         <div class="tab-pane fade" id="Governance" role="tabpanel" aria-labelledby="Governance-tab">
                             <div class="my-12">
-                                <div class="d-flex align-items-center  mb-4">
+                                <div class="d-flex align-items-center mb-4 ms-8 ms-lg-0">
                                     <div>January 27, 2022</div>
                                 </div>
                                 <div class="card shadow">
@@ -272,11 +379,36 @@
                 </div>
                 <!-- Tab nav END -->
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 mobile-hidden">
                 <div class="section-sticky">
                     <div class="scroll-lg multiple">
                         <div class="scrollDiv">
                             <div class="scrollContent">
+
+                                <!-- skeloton Review -->
+                                    <div class="card shadow loading mb-12 d-none">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-start">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="round-md me-4"></div>
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-content-xl mw-160 mb-3"></div>
+                                                        <div class="text-content w-50"></div>
+                                                    </div>
+                                                </div>
+                                            </div>                                        
+                                            <div class="text-content-xl mt-13 w-20"></div>
+                                            <div class="text-content-xl mt-3"></div>
+                                            <div class="text-content-xl mt-3 mb-8 w-50"></div>
+
+                                            <div class="text-content-xl mt-10 mb-8 w-30"></div>
+                                            <div class="text-content-xl mt-3"></div>
+                                            <div class="text-content-xl mt-3"></div>
+                                            <div class="text-content-xl mt-3"></div>
+                                            <div class="text-content-xl mt-3"></div>
+                                        </div>
+                                    </div>                              
+                                <!-- skeloton Review END -->
 
                                 <div class="card shadow">
                                     <div class="card-body">
