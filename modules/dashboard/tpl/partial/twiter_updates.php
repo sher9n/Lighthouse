@@ -1,4 +1,5 @@
 <?php
+use Core\Utils;
 if(count($respose->data) > 0 ){
     foreach ($respose->data as $index => $obj){ ?>
         <div class="my-12">
@@ -16,9 +17,46 @@ if(count($respose->data) > 0 ){
                         </div>
                     </div>
                 </div>
+                <?php
+                preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $obj->text, $match);
+                $thum_view = false;
+                if(count($match) > 0) {
+                    $urls = $match[0];
+
+                    if(count($urls) > 0 ){
+                        $url = $urls[0];
+                        $tags = get_meta_tags($url);
+
+                        if(isset($tags['twitter:image']) && isset($tags['twitter:url'])) {
+                            $image = $tags['twitter:image'];
+                            $title = $tags['twitter:title'];
+                            $des   = $tags['twitter:description'];
+                            $url   = $tags['twitter:url'];
+                            $thum_view = true;
+                            ?>
+                            <div class="card-body border-top">
+                                <div class="fs-5 "><?php echo $obj->text; ?></div>
+                                <div class="border rounded-3 p-12 mt-12 bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <img src="<?php echo $image;?>" class="img-post img-fluid rounded-3 me-13" width="200" height="140" alt=""/>
+                                        <div>
+                                            <a class="text-muted text-decoration-none " href="<?php echo $url; ?>" target="_blank"><?php echo $url; ?></a>
+                                            <div class="fs-4 mt-3"><?php echo $title; ?></div>
+                                            <div class="text-muted mt-3"><?php echo $des; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                }
+                if($thum_view != true) {
+                ?>
                 <div class="card-body border-top">
                     <div class="fs-5 "><?php echo $obj->text; ?></div>
                 </div>
+                <?php } ?>
             </div>
         </div>
     <?php }

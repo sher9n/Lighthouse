@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="ms-auto">
                                     <div class="d-flex flex-column  text-end mw-220">
-                                        <div class="text-muted address">Bankless DAO Price (BANK)</div>
+                                        <div id="platform_name" class="text-muted address">Bankless DAO Price (BANK)</div>
                                         <div class="fs-lg symbol">$0.05628</div>
                                         <div class="fs-lg balance">0.00001829 ETH</div>
                                     </div>
@@ -434,7 +434,7 @@
                 <div class="fs-5  mt-8 text-center">Get recognized for the value you create in web3</div>
             </div>
             <div class="d-flex justify-content-center mt-7 mb-18">
-                <button id="btn-connect" type="button" class="btn btn-primary btn-lg px-25 text-uppercase">Connect Wallet</button>
+                <button type="button" id="btn-connect" class="btn btn-primary btn-lg px-25 text-uppercase">Connect Wallet</button>
             </div>
         </div>
     </div>
@@ -444,7 +444,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
         getFirstCoinsPage();
-        $('#Welcome').modal('toggle');
+        checkAccountData();
+
+        if(!sessionStorage.getItem('lh_wallet_adds'))
+            $('#Welcome').modal('toggle');
 
         $('#search_coins').keyup(delay(function (e) {
             $('#community_list_items').html('<div class="py-8 px-13 border-bottom"><div class="d-flex align-items-center loading"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div>');
@@ -478,6 +481,10 @@
             var ele = $(this);
             $('.list-community-item').removeClass('active');
             $('#network-name').html(ele.data('n'));
+            if(ele.data('s'))
+                $('#platform_name').html(ele.data('n')+' ('+ele.data('s')+')');
+            else
+                $('#platform_name').html(ele.data('n'));
             $('#coin_logo').attr('src',ele.data('l'));
             $('#coin_data').removeClass('d-none');
             ele.parent().parent().addClass('active');
@@ -511,7 +518,7 @@
         $(document).on("click",".pin_coin",function(e) {
             e.preventDefault();
             var ele = $(this);
-            ele.html('<img src="<?php echo app_cdn_path; ?>img/ripple.gif" width="25" height="25">');
+            ele.html('<img src="<?php echo app_cdn_path; ?>img/rolling.gif" width="25" height="25">');
             $.ajax({
                 url: ele.attr('href') ,
                 dataType: 'json',
