@@ -388,6 +388,17 @@
                             <div class="scrollContent">
 
                                 <!-- skeloton Review -->
+                                    <div class="card shadow loading mb-12">
+                                        <div class="card-body">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <div class="round-xl"></div>
+                                                <div class="text-content-xl w-50 my-12"></div>                                            
+                                                <div class="text-content w-70 mb-2"></div>
+                                                <div class="text-content w-80 mb-2"></div>
+                                                <div class="text-content w-40"></div>
+                                            </div>
+                                        </div>
+                                    </div> 
                                     <div class="card shadow loading mb-12 d-none">
                                         <div class="card-body">
                                             <div class="d-flex align-items-start">
@@ -630,6 +641,7 @@
     </div>
 </div>
 <!-- Modal Wallet connection END -->
+
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {
