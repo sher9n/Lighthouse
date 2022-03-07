@@ -36,8 +36,8 @@
                                         <input type="hidden" name="user_key" id="user_key">
                                     </div>
                                 </div>
-                                <div class="ms-auto">
-                                    <div class="d-flex flex-column  text-end mw-220">
+                                <div class="ms-lg-auto">
+                                    <div class="d-none d-lg-flex flex-column  text-end mw-220">
                                         <div class="text-muted address">Bankless DAO Price (BANK)</div>
                                         <div class="fs-lg symbol">$0.05628</div>
                                         <div class="fs-lg balance">0.00001829 ETH</div>
@@ -123,16 +123,18 @@
                                         <div class="d-flex">
                                             <div class="d-flex align-items-center w-70">
                                                 <div class="avator border rounded-circle me-6">
-                                                    <img src="<?php echo app_cdn_path; ?>img/company-dao.png" />
+                                                    <img src="<?php echo app_cdn_path; ?>img/company-dao.png" class="rounded-circle" width="48" height="48" />
                                                 </div>
                                                 <div class="w-80">
                                                     <div class="fs-3 text-truncate">HODLing 38.76 BANK</div>
                                                     <div class="text-muted lh-1">Governance</div>
                                                 </div>
                                             </div>
-                                            <div class="ms-auto text-end mw-200">
-                                                <div>Daily reputation gain</div>
-                                                <div class=" text-muted fs-sm">+14 points</div>
+                                            <div class="ms-auto text-end">
+                                                <div class="mw-200">
+                                                    <div>Daily reputation gain</div>
+                                                    <div class=" text-muted fs-sm">+14 points</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -168,8 +170,8 @@
                                     <div class="card-body">
                                         <div class="d-flex">
                                             <div class="d-flex align-items-center w-70">
-                                                <div class="avator border rounded-circle me-6">
-                                                    <img src="<?php echo app_cdn_path; ?>img/company-dao.png" />
+                                                <div class="avator rounded-circle border me-6">
+                                                    <img src="<?php echo app_cdn_path; ?>img/company-dao.png" class="rounded-circle" width="48" height="48" />
                                                 </div>
                                                 <div class="w-80">
                                                     <div class="fs-3 text-truncate">HODLing 38.76 BANK</div>
@@ -321,7 +323,7 @@
                                         <div class="d-flex">
                                             <div class="d-flex w-70">
                                                 <div class="avator border rounded-circle me-6">
-                                                    <img src="<?php echo app_cdn_path; ?>img/company-dao.png" />
+                                                    <img src="<?php echo app_cdn_path; ?>img/company-dao.png" class="rounded-circle" width="48" height="48" />
                                                 </div>
                                                 <div class="w-80">
                                                     <div class="fs-3 text-truncate">BalancerDAO’s collaboration with BanklessDAO</div>
@@ -410,11 +412,96 @@
                                     </div>                              
                                 <!-- skeloton Review END -->
 
-                                <div class="card shadow">
+                                <div class="card shadow mb-12">
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <div class="avator-lg d-flex justify-content-center align-items-center border bg-alabaster rounded-circle m-auto">
+                                                <img src="<?php echo app_cdn_path; ?>img/rewards-drop.png" class="rounded-circle" width="auto" height="75" />
+                                            </div>
+                                            <div class="my-12">
+                                                <div class="fs-4 text-truncate fw-medium"">Rewards dropping soon! </div>
+                                                <div class="text-muted mt-3">We’re working with communities<br>
+                                                to define rewards for Lighthouse members.<br>
+                                                Sign up to stay tuned.</div>
+                                            </div>
+                                            <div class="mb-6">
+                                                <input type="email" class="form-control form-control-lg border-0" id="" placeholder="Email">
+                                            </div>
+                                            <div class="text-end">
+                                                <button type="button" class="btn btn-primary btn-lg px-13 text-uppercase">Get Notified</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow mb-12">
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <div class="m-auto">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-ok.svg" class="rounded-circle" width="80" height="80" />
+                                            </div>
+                                            <div class="my-12">
+                                                <div class="fs-4 text-truncate fw-medium">Your email address<br>
+                                                has been saved. </div>
+                                                <div class="text-muted mt-3">We will notify you as soon as this<br>
+                                                feature is available!</div>
+                                            </div>
+                                            <div class="text-enter">
+                                                <button type="button" class="btn btn-primary btn-lg px-25 text-uppercase">OKAY</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow mb-12">
                                     <div class="card-body">
                                         <div class="d-flex w-100">
                                             <div class="avator border rounded-circle me-6">
-                                                <img src="<?php echo app_cdn_path; ?>img/company-dao.png" />
+                                                <img src="<?php echo app_cdn_path; ?>img/company-dao.png" class="rounded-circle" width="48" height="48" />
+                                            </div>
+                                            <div class="w-80">
+                                                <div class="fs-3 text-truncate">Level 50 Rare NFT</div>
+                                                <div class="text-muted lh-1">GuildXYZ</div>
+                                            </div>
+                                        </div>
+                                        <div class="fs-5 mt-13">Reward Overview</div>
+                                        <div class="fs-5 text-muted mt-2">This NFT is awarded for crossing level 50 on GuildXYZ. <a href="#" class="text-reset text-decoration-underline">Read More</a></div>
+                                        <div class="fs-5  mt-10 mb-8">Eligibility criteria</div>
+                                        <div class="list-form-check">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="HODLpoints">
+                                                <label class="form-check-label fs-5 text-fiord" for="HODLpoints">
+                                                    HODL points
+                                                </label>
+                                                <div class="ms-auto fs-5 text-fiord">500</div>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="StakingPoints">
+                                                <label class="form-check-label fs-5 text-fiord" for="StakingPoints">
+                                                    Staking points
+                                                </label>
+                                                <div class="ms-auto fs-5 text-fiord">300</div>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="Votes">
+                                                <label class="form-check-label fs-5 text-fiord" for="Votes">
+                                                    Votes
+                                                </label>
+                                                <div class="ms-auto fs-5 text-fiord">5</div>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="Transactions">
+                                                <label class="form-check-label fs-5 text-fiord" for="Transactions">
+                                                    Transactions
+                                                </label>
+                                                <div class="ms-auto fs-5 text-fiord">20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow mb-12">
+                                    <div class="card-body">
+                                        <div class="d-flex w-100">
+                                            <div class="avator border rounded-circle me-6">
+                                                <img src="<?php echo app_cdn_path; ?>img/company-dao.png" class="rounded-circle" width="48" height="48" />
                                             </div>
                                             <div class="w-80">
                                                 <div class="fs-3 text-truncate">Level 50 Rare NFT</div>
@@ -456,57 +543,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow mt-12">
+                                <div class="card shadow mb-12">
                                     <div class="card-body">
                                         <div class="d-flex w-100">
                                             <div class="avator border rounded-circle me-6">
-                                                <img src="<?php echo app_cdn_path; ?>img/company-dao.png" />
-                                            </div>
-                                            <div class="w-80">
-                                                <div class="fs-3 text-truncate">Level 50 Rare NFT</div>
-                                                <div class="text-muted lh-1">GuildXYZ</div>
-                                            </div>
-                                        </div>
-                                        <div class="fs-5  mt-13">Reward Overview</div>
-                                        <div class="fs-5  text-muted mt-2">This NFT is awarded for crossing level 50 on GuildXYZ. <a href="#" class="text-reset text-decoration-underline">Read More</a></div>
-                                        <div class="fs-5  mt-10 mb-8">Eligibility criteria</div>
-                                        <div class="list-form-check">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="HODLpoints">
-                                                <label class="form-check-label fs-5 text-fiord" for="HODLpoints">
-                                                    HODL points
-                                                </label>
-                                                <div class="ms-auto fs-5 text-fiord">500</div>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="StakingPoints">
-                                                <label class="form-check-label fs-5 text-fiord" for="StakingPoints">
-                                                    Staking points
-                                                </label>
-                                                <div class="ms-auto fs-5 text-fiord">300</div>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="Votes">
-                                                <label class="form-check-label fs-5 text-fiord" for="Votes">
-                                                    Votes
-                                                </label>
-                                                <div class="ms-auto fs-5 text-fiord">5</div>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="Transactions">
-                                                <label class="form-check-label fs-5 text-fiord" for="Transactions">
-                                                    Transactions
-                                                </label>
-                                                <div class="ms-auto fs-5 text-fiord">20</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card shadow mt-12">
-                                    <div class="card-body">
-                                        <div class="d-flex w-100">
-                                            <div class="avator border rounded-circle me-6">
-                                                <img src="<?php echo app_cdn_path; ?>img/company-dao.png" />
+                                                <img src="<?php echo app_cdn_path; ?>img/company-dao.png" class="rounded-circle" width="48" height="48" />
                                             </div>
                                             <div class="w-80">
                                                 <div class="fs-3 text-truncate">Level 50 Rare NFT</div>
@@ -571,7 +612,24 @@
         </div>
     </div>
 </div>
-<!-- Modal post END -->
+<!-- Modal Welcome END -->
+
+<!-- Modal Wallet connection -->
+<div class="modal fade" id="Welcome" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body text-center pt-25">
+                <img src="<?php echo app_cdn_path; ?>img/img-wallet-connect.png" class="img-fluid" alt=""/>
+                <div class="fs-1 fw-medium mt-10">Wallet connection successful!</div>
+                <div class="fs-5  mt-8 text-center">0x2344...55839d has been added successfully to your wallet list.</div>
+            </div>
+            <div class="d-flex justify-content-center mt-7 mb-18">
+                <button id="btn-connect" type="button" class="btn btn-primary btn-lg px-25 text-uppercase">Let’s go!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Wallet connection END -->
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {

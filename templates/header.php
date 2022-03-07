@@ -1,3 +1,12 @@
+<div class="bg-we-peep alert-show">
+    <div class="container">
+        <div class="py-7 d-flex align-items-center">
+            <img src="<?php echo app_cdn_path; ?>img/icon-info.svg" class="img-fluid" />
+            <div class="ms-3">To use Lighthouse, please switch to the Ethereum network in your wallet.</div>
+        </div>
+    </div>
+</div>
+
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg">
     <div class="container">
         <div class="dropdown dropdown-mobile-nav d-lg-none">

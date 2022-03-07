@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <?php include_once 'templates/head.php'; ?>
-<body>
+<body class=""> <!-- Alert :  alert-view --> <!-- Connect Wallet :  alert-view -->
 <?php
     include_once 'templates/header.php';
 
