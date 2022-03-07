@@ -12,7 +12,7 @@ class controller extends Ctrl {
                     $search   = '';
 
                     $user_key = $this->hasParam('user_key')?$this->getParam('user_key'):'';
-                    $user_key = '0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507';
+                    //$user_key = '0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507';
                     $p        = $this->hasParam('p')?$this->getParam('p'):0;
 
                     if($this->hasParam('search') && strlen($this->getParam('search')) > 0) {
@@ -63,27 +63,45 @@ class controller extends Ctrl {
                     exit();
                     break;
 
+                case '/update-user':
+                    $html = '';
+                    $adds = $this->getParam('adds');
+                    $adds = implode(",",$adds);
+                    $response = Utils::LightHouseApi("user-update",array('adds' =>$adds));
+                    echo json_encode(array('success' => true,'user_id' => $response));
+                    exit();
+                    break;
+
+                case '/wallet-menu':
+                    $html = '';
+                    $adds = $this->getParam('adds');
+                    include __DIR__ . '/../tpl/partial/wallet_addresses.php';
+                    $html = ob_get_clean();
+                    $adds = implode(",",$adds);
+                    echo json_encode(array('success' => true,'html' => $html));
+                    exit();
+                    break;
+
                 case  '/pin-coin':
-                    if($this->hasParam('user_key') && strlen($this->getParam('user_key')) > 0)
+                   if($this->hasParam('user_key') && strlen($this->getParam('user_key')) > 0)
                         $user_key = $this->getParam('user_key');
                     else {
                         echo json_encode(array('success' => false));
                         exit();
                     }
-
                     $action   = 'pin';
                     $coin_id  = $href = '';
 
                     if($this->hasParam('unpin')) {
-                        $href = 'pin-coin?user_key='.$user_key.'&pin='.$coin_id;
                         $action = 'unpin';
                         $coin_id = $this->getParam('unpin');
                         $response = Utils::LightHouseApi("pin-coin?address=$user_key&coin=$coin_id&action=unpin");
+                        $href = 'pin-coin?user_key='.$user_key.'&pin='.$coin_id;
                     }
                     elseif ($this->hasParam('pin')) {
-                        $href = 'pin-coin?user_key='.$user_key.'&unpin='.$coin_id;
                         $coin_id = $this->getParam('pin');
                         $response = Utils::LightHouseApi("pin-coin?address=$user_key&coin=$coin_id&action=pin");
+                        $href = 'pin-coin?user_key='.$user_key.'&unpin='.$coin_id;
                     }
 
                     if($response['status'] == 200)
@@ -151,7 +169,6 @@ class controller extends Ctrl {
                             </div>'));
                         exit();
                     }
-
                     $response =  Utils::LightHouseApi("coin?coin=$coin_id");
                     include __DIR__ . '/../tpl/partial/profile.php';
                     $html = ob_get_clean();

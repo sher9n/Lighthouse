@@ -16,6 +16,7 @@ try {
 
     $localRoutes = array(
         '/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
+        '/update-user' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-profile' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-coins' =>  'modules/dashboard/ctrl/dashboard.php',
         '/pin-coin' =>  'modules/dashboard/ctrl/dashboard.php',

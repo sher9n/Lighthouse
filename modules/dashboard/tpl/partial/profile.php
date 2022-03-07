@@ -1,6 +1,7 @@
 <?php
 if($response['status'] == 200 && isset($response['data'])) {
-    $coin = $response['data']; ?>
+    $coin = $response['data'];
+    ?>
     <div class="my-12">
         <div class="card shadow">
             <div class="card-body">
