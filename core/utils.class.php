@@ -24,7 +24,6 @@ class Utils {
 
     public static function LightHouseApi($endpoint,$post=null)
     {
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, app_api_url.DS.$endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);

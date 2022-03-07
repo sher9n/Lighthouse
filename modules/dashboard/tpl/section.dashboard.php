@@ -10,7 +10,9 @@
                         <div class="scroll multiple">
                             <div class="scrollDiv">
                                 <div class="scroll-section scrollContent">
-                                    <ul id="community_list_items" class="list-community"></ul>
+                                    <ul id="community_list_items" class="list-community">
+                                        <div class="py-8 px-13 border-bottom list_item_skeleton"><div class="d-flex align-items-center loading"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div>
+                                    </ul>
                                     <div id="loading"></div>
                                 </div>
                             </div>
@@ -443,7 +445,7 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {
-        getFirstCoinsPage();
+        //getFirstCoinsPage();
         checkAccountData();
 
         if(!sessionStorage.getItem('lh_wallet_adds'))
@@ -535,6 +537,28 @@
                     }
                 }
             });
+        });
+
+        $(document).on("click",".delete_wallet",function(e) {
+            e.preventDefault();
+            var ele = $(this);
+            var w_id = ele.data("w_id");
+
+            var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+            if(jQuery.inArray(w_id, lh_wallet_adds) !== -1){
+
+                lh_wallet_adds = jQuery.grep(lh_wallet_adds, function(value) {
+                    return value != w_id;
+                });
+
+                if(lh_wallet_adds.length == 0) {
+                    onDisconnect();
+                }
+                else {
+                    sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
+                    updateWalletMenu();
+                }
+            }
         });
     });
 

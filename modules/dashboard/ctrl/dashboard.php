@@ -63,12 +63,21 @@ class controller extends Ctrl {
                     exit();
                     break;
 
+                case '/update-user':
+                    $html = '';
+                    $adds = $this->getParam('adds');
+                    $adds = implode(",",$adds);
+                    $response = Utils::LightHouseApi("user-update",array('adds' =>$adds));
+                    echo json_encode(array('success' => true,'user_id' => $response));
+                    exit();
+                    break;
+
                 case '/wallet-menu':
                     $html = '';
                     $adds = $this->getParam('adds');
-                    include __DIR__ . '/../tpl/partial/wallet_adddresses.php';
+                    include __DIR__ . '/../tpl/partial/wallet_addresses.php';
                     $html = ob_get_clean();
-
+                    $adds = implode(",",$adds);
                     echo json_encode(array('success' => true,'html' => $html));
                     exit();
                     break;

@@ -6,7 +6,7 @@ foreach ($adds as $add) { ?>
                 <span class=""><?php echo \Core\Utils::coinAddressFormat($add); ?></span>
                 <img src="<?php echo app_cdn_path; ?>img/icon-01.png" class="ms-2" />
             </a>
-            <a href="#" class="ms-auto text-decoration-none link-icon-del">
+            <a href="#" data-w_id="<?php echo $add; ?>" class="delete_wallet ms-auto text-decoration-none link-icon-del">
                 <svg class="feather feather-md">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#trash"/>
                 </svg>
