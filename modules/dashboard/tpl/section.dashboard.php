@@ -271,49 +271,6 @@
                                     <button type="button" class="btn btn-primary btn-lg px-25 text-uppercase mt-23 mb-18">Post Now</button>
                                 </div>
                             </div>
-
-                            <!-- skeloton Updates -->
-                            <div class="my-12 d-none">
-                                <div class="card shadow loading">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-start">
-                                            <div class="d-flex align-items-center">
-                                                <div class="round-md me-4"></div>
-                                                <div class="d-flex flex-column">
-                                                    <div class="text-content-xl mw-160 mb-3"></div>
-                                                    <div class="text-content w-50"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body border-top">
-                                        <div class="text-content-xl mb-3"></div>
-                                        <div class="text-content-xl mb-15 w-50"></div>
-                                        <div class="bg-content rounded h-150"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="my-12 d-none">
-                                <div class="card shadow loading">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-start">
-                                            <div class="d-flex align-items-center">
-                                                <div class="round-md me-4"></div>
-                                                <div class="d-flex flex-column">
-                                                    <div class="text-content-xl mw-160 mb-3"></div>
-                                                    <div class="text-content w-50"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body border-top">
-                                        <div class="text-content-xl mb-3"></div>
-                                        <div class="text-content-xl mb-15 w-50"></div>
-                                        <div class="bg-content rounded h-150"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- skeloton Updates END -->
                         </div>
                         <div class="tab-pane fade" id="Governance" role="tabpanel" aria-labelledby="Governance-tab">
                             <div class="my-12">
@@ -390,7 +347,7 @@
                             <div class="scrollContent">
 
                                 <!-- skeloton Review -->
-                                    <div class="card shadow loading mb-12">
+                                    <div class="card shadow loading mb-12 d-none">
                                         <div class="card-body">
                                             <div class="d-flex flex-column align-items-center">
                                                 <div class="round-xl"></div>
@@ -425,46 +382,42 @@
                                     </div>                              
                                 <!-- skeloton Review END -->
 
-                                <div class="card shadow mb-12">
+                                <div id="notify_form" class="card shadow mb-12">
                                     <div class="card-body">
                                         <div class="text-center">
-                                            <div class="avator-lg d-flex justify-content-center align-items-center border bg-alabaster rounded-circle m-auto">
-                                                <img src="<?php echo app_cdn_path; ?>img/rewards-drop.png" class="rounded-circle" width="auto" height="75" />
-                                            </div>
-                                            <div class="my-12">
-                                                <div class="fs-4 text-truncate fw-medium"">Rewards dropping soon! </div>
-                                                <div class="text-muted mt-3">We’re working with communities<br>
-                                                to define rewards for Lighthouse members.<br>
-                                                Sign up to stay tuned.</div>
-                                            </div>
-                                            <div class="mb-6">
-                                                <input type="email" class="form-control form-control-lg border-0" id="" placeholder="Email">
-                                            </div>
-                                            <div class="text-end">
-                                                <button type="button" class="btn btn-primary btn-lg px-13 text-uppercase">Get Notified</button>
-                                            </div>
+                                            <form id="notifyForm" method="post" action="notify" autocomplete="off">
+                                                <div class="avator-lg d-flex justify-content-center align-items-center border bg-alabaster rounded-circle m-auto">
+                                                    <img src="<?php echo app_cdn_path; ?>img/rewards-drop.png" class="rounded-circle" width="auto" height="75" />
+                                                </div>
+                                                <div class="my-12">
+                                                    <div class="fs-4 text-truncate fw-medium">Rewards dropping soon! </div>
+                                                    <div class="text-muted mt-3">We’re working with communities<br>
+                                                        to design personalized rewards for you.</div>
+                                                </div>
+                                                <div class="mb-6">
+                                                    <input type="email" name="email" class="form-control form-control-lg border-0" id="" placeholder="Email">
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn btn-primary btn-lg px-13 text-uppercase">Get Notified</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow mb-12">
+                                <div id="notify_complete" class="card shadow mb-12 d-none">
                                     <div class="card-body">
                                         <div class="text-center">
                                             <div class="m-auto">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-ok.svg" class="rounded-circle" width="80" height="80" />
                                             </div>
                                             <div class="my-12">
-                                                <div class="fs-4 text-truncate fw-medium">Your email address<br>
-                                                has been saved. </div>
-                                                <div class="text-muted mt-3">We will notify you as soon as this<br>
-                                                feature is available!</div>
-                                            </div>
-                                            <div class="text-enter">
-                                                <button type="button" class="btn btn-primary btn-lg px-25 text-uppercase">OKAY</button>
+                                                <div class="fs-4 text-truncate fw-medium">Your first rewards are coming soon.</div>
+                                                <div class="text-muted mt-3">We’ll send you a message when the first drops.</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow mb-12">
+                                <div class="card shadow mb-12 d-none">
                                     <div class="card-body">
                                         <div class="d-flex w-100">
                                             <div class="avator border rounded-circle me-6">
@@ -510,7 +463,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow mb-12">
+                                <div class="card shadow mb-12 d-none">
                                     <div class="card-body">
                                         <div class="d-flex w-100">
                                             <div class="avator border rounded-circle me-6">
@@ -556,7 +509,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow mb-12">
+                                <div class="card shadow mb-12 d-none">
                                     <div class="card-body">
                                         <div class="d-flex w-100">
                                             <div class="avator border rounded-circle me-6">
@@ -625,25 +578,20 @@
         </div>
     </div>
 </div>
-<!-- Modal Welcome END -->
-
-<!-- Modal Wallet connection -->
-<div class="modal fade" id="Welcome" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+<div class="modal" id="wl_con_success" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-body text-center pt-25">
                 <img src="<?php echo app_cdn_path; ?>img/img-wallet-connect.png" class="img-fluid" alt=""/>
                 <div class="fs-1 fw-medium mt-10">Wallet connection successful!</div>
-                <div class="fs-5  mt-8 text-center">0x2344...55839d has been added successfully to your wallet list.</div>
+                <div class="fs-5  mt-8 text-center"><span id="connected_wl_id"></span> has been successfully added to your wallet list.</div>
             </div>
             <div class="d-flex justify-content-center mt-7 mb-18">
-                <button id="btn-connect" type="button" class="btn btn-primary btn-lg px-25 text-uppercase">Let’s go!</button>
+                <button id="btn_go" type="button" class="btn btn-primary btn-lg px-25 text-uppercase">Continue</button>
             </div>
         </div>
     </div>
 </div>
-<!-- Modal Wallet connection END -->
-
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -680,19 +628,50 @@
             }
         });
 
+        $('#notifyForm').validate({
+            rules: {
+                email:{
+                    required: true
+                }
+            },
+            submitHandler: function(form){
+                $('#notify_form').html('<div class="card shadow loading mb-12"><div class="card-body"><div class="d-flex flex-column align-items-center"><div class="round-xl"></div><div class="text-content-xl w-50 my-12"></div><div class="text-content w-70 mb-2"></div><div class="text-content w-80 mb-2"></div><div class="text-content w-40"></div></div></div></div> ');
+                $(form).ajaxSubmit({
+                    url: 'notify?user_key='+$('#user_key').val(),
+                    type:'post',
+                    dataType:'json',
+                    success: function(data){
+                        if(data.success == true){
+                            $('#notify_form').addClass('d-none');
+                            $('#notify_complete').removeClass('d-none');
+                        }
+                    }
+                });
+            }
+        });
+
+        $(document).on("click","#btn_go",function (e){
+            e.preventDefault();
+            $('#wl_con_success').modal('toggle');
+        });
+
         $(document).on("click",".coin_details",function (e){
             e.preventDefault();
+            $('#Updates').html('<div class="my-12"><div class="card shadow loading"><div class="card-body"><div class="d-flex align-items-start"><div class="d-flex align-items-center"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div></div><div class="card-body border-top"><div class="text-content-xl mb-3"></div><div class="text-content-xl mb-15 w-50"></div><div class="bg-content rounded h-150"></div></div></div></div>')
             var ele = $(this);
             $('.list-community-item').removeClass('active');
             $('#network-name').html(ele.data('n'));
+
             if(ele.data('s'))
                 $('#platform_name').html(ele.data('n')+' ('+ele.data('s')+')');
             else
                 $('#platform_name').html(ele.data('n'));
+
             $('#coin_logo').attr('src',ele.data('l'));
             $('#coin_data').removeClass('d-none');
             ele.parent().parent().addClass('active');
             var tw_data = {'n':ele.data('n'),'l':ele.data('l'),'t':ele.data('t')};
+
             $.ajax({
                 url: 'get-tweets' ,
                 type: 'POST',

@@ -1,5 +1,6 @@
 <?php
-foreach ($adds as $add) { ?>
+foreach ($adds as $add) {
+    if(strlen($add) > 0) { ?>
     <li class="list-wallet-item active">
         <div class="dropdown-item d-flex">
             <a href="#" class="nav-item text-decoration-none d-flex align-items-center">
@@ -13,7 +14,8 @@ foreach ($adds as $add) { ?>
             </a>
         </div>
     </li>
-<?php } ?>
+<?php }
+} ?>
 <li class="list-wallet-item">
     <div class="dropdown-item d-flex align-items-center">
         <a href="#" id="add_wallet" onclick="addWallet()" class="text-primary text-decoration-none">

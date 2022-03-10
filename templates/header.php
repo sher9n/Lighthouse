@@ -6,7 +6,6 @@
         </div>
     </div>
 </div>
-
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg">
     <div class="container">
         <div class="dropdown dropdown-mobile-nav d-lg-none">
@@ -23,15 +22,12 @@
                 <img src="<?php echo app_cdn_path; ?>img/logo.svg" class="img-fluid" />
             </a>
         </div>
-            <div class="ms-lg-auto dropdown">
-                <a class="nav-link dropdown-toggle mobile-dropdown-toggle d-flex align-items-center pe-0 text-fiord" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="avator-md d-flex justify-content-center align-items-center rounded-circle border border-black bg-purple"></div>
-                    <div class="mx-4 h5 mb-0 d-none d-lg-flex" id="user_address"></div>
-                </a>
-                <ul id="wallet_addresses" class="dropdown-menu dropdown-menu-end list-wallet" aria-labelledby="navbarDropdown">
-
-                </ul>
-            </div>
-
+        <div id="user_menu" class="ms-lg-auto dropdown">
+            <a class="nav-link dropdown-toggle mobile-dropdown-toggle d-flex align-items-center pe-0 text-fiord" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="avator-md d-flex justify-content-center align-items-center rounded-circle border border-black bg-purple"></div>
+                <div class="mx-4 h5 mb-0 d-none d-lg-flex" id="user_address"></div>
+            </a>
+            <ul id="wallet_addresses" class="dropdown-menu dropdown-menu-end list-wallet" aria-labelledby="navbarDropdown"></ul>
+        </div>
     </div>
 </nav>

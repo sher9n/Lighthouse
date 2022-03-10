@@ -82,6 +82,14 @@ class controller extends Ctrl {
                     exit();
                     break;
 
+                case '/notify':
+                    $email = $this->getParam('email');
+                    $user_key = $this->hasParam('user_key')?$this->getParam('user_key'):'';
+                    $response = Utils::LightHouseApi("notify",array('email' =>$email,'wallet_address' => $user_key));
+                    echo json_encode(array('success' => true));
+                    exit();
+                    break;
+
                 case  '/pin-coin':
                    if($this->hasParam('user_key') && strlen($this->getParam('user_key')) > 0)
                         $user_key = $this->getParam('user_key');
