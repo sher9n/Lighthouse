@@ -566,8 +566,16 @@
 <!-- Modal Welcome -->
 <div class="modal fade" id="Welcome" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-body text-center pt-25">
+        <div class="modal-content">            
+            <div class="modal-body text-center">
+                <div class="bg-we-peep rounded-3 mb-13">
+                    <div class="container">
+                        <div class="py-7 d-flex align-items-center">
+                            <img src="<?php echo app_cdn_path; ?>img/icon-info.svg" class="img-fluid" />
+                            <div class="ms-3">To use Lighthouse, please switch to the Ethereum network in your wallet.</div>
+                        </div>
+                    </div>
+                </div>
                 <img src="<?php echo app_cdn_path; ?>img/img-welcome.png" class="img-fluid" alt=""/>
                 <div class="fs-1 fw-medium mt-10">Welcome to Lighthouse!</div>
                 <div class="fs-5  mt-8 text-center">Get recognized for the value you create in web3</div>
