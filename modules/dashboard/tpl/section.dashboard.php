@@ -671,6 +671,19 @@
             $('#coin_data').removeClass('d-none');
             ele.parent().parent().addClass('active');
             var tw_data = {'n':ele.data('n'),'l':ele.data('l'),'t':ele.data('t')};
+            var c_data = {'id':ele.data('id')};
+
+            $.ajax({
+                url: 'get-profile' ,
+                type: 'POST',
+                data: c_data,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#Profile').html(response.profile);
+                    }
+                }
+            });
 
             $.ajax({
                 url: 'get-tweets' ,
@@ -680,19 +693,6 @@
                 success: function(response) {
                     if (response.success == true) {
                         $('#Updates').html(response.updates);
-                    }
-                }
-            });
-
-            var c_data = {'id':ele.data('id')};
-            $.ajax({
-                url: 'get-profile' ,
-                type: 'POST',
-                data: c_data,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.success == true) {
-                        $('#Profile').html(response.profile);
                     }
                 }
             });

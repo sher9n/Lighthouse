@@ -1,6 +1,25 @@
 <?php
 use Core\Utils;
-if(count($respose->data) > 0 ){
+if(isset($respose->data) && count($respose->data) > 0 ){
+    $referenced_tweets = array();
+    $ids = array();
+    foreach ($respose->data as $index => $obj){
+        if(isset($obj->referenced_tweets)) {
+            $ref_id = $obj->referenced_tweets[0]->id;
+            $referenced_tweets[$ref_id] = '';
+            array_push($ids,$ref_id);
+        }
+    }
+
+    $ids = implode(",",$ids);
+    $idRespose = Utils::getTweetIdByIds($ids);
+    if(isset($idRespose->data) && count($idRespose->data) > 0 ) {
+        foreach ($idRespose->data as $index => $idObj){
+            if(isset($referenced_tweets[$idObj->id]))
+                $referenced_tweets[$idObj->id] = $idObj->text;
+        }
+    }
+
     foreach ($respose->data as $index => $obj){ ?>
         <div class="my-12">
             <div class="card shadow">
@@ -18,7 +37,16 @@ if(count($respose->data) > 0 ){
                     </div>
                 </div>
                 <?php
-                preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $obj->text, $match);
+                $text = '';
+                if(isset($obj->referenced_tweets)) {
+                    $text = $referenced_tweets[$obj->referenced_tweets[0]->id];
+                    preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $text, $match);
+                }
+                else {
+                    $text = $obj->text;
+                    preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $obj->text, $match);
+                }
+
                 $thum_view = false;
                 if(count($match) > 0) {
                     $urls = $match[0];
@@ -29,13 +57,13 @@ if(count($respose->data) > 0 ){
 
                         if(isset($tags['twitter:image']) && isset($tags['twitter:url'])) {
                             $image = $tags['twitter:image'];
-                            $title = $tags['twitter:title'];
-                            $des   = $tags['twitter:description'];
+                            $title = isset($tags['twitter:title'])?$tags['twitter:title']:'';
+                            $des   = isset($tags['twitter:description'])?$tags['twitter:description']:$text;
                             $url   = $tags['twitter:url'];
                             $thum_view = true;
                             ?>
                             <div class="card-body border-top">
-                                <div class="fs-5 "><?php echo $obj->text; ?></div>
+                                <div class="fs-5 "><?php echo $text; ?></div>
                                 <div class="border rounded-3 p-12 mt-12 bg-light">
                                     <div class="d-flex align-items-center">
                                         <img src="<?php echo $image;?>" class="img-post img-fluid rounded-3 me-13" width="200" height="140" alt=""/>
@@ -54,14 +82,16 @@ if(count($respose->data) > 0 ){
                 if($thum_view != true) {
                 ?>
                 <div class="card-body border-top">
-                    <div class="fs-5 "><?php echo $obj->text; ?></div>
+                    <div class="fs-5 "><?php echo nl2br($text); ?></div>
                 </div>
                 <?php } ?>
             </div>
         </div>
-    <?php }
-}else{ ?>
-    <div class="card shadow d-none">
+        <?php
+    }
+}
+else{ ?>
+    <div class="card shadow">
         <div class="card-body text-center">
             <img src="<?php echo app_cdn_path; ?>img/img-myactivity.png" class="img-fluid rounded mt-16" alt=""/>
             <div class="fs-1 fw-semibold mt-12">No contributions yet!</div>

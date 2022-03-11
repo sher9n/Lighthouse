@@ -145,6 +145,8 @@ class controller extends Ctrl {
                     }
 
                     $respose = Utils::getTweet((__ROUTER_PATH =='/get-tweets')?'tweets':'mentions',$tw_user_name);
+
+                    //referenced_tweets
                     include __DIR__ . '/../tpl/partial/twiter_updates.php';
                     $html = ob_get_clean();
                     echo json_encode(array('success' => true,'updates' => $html));
