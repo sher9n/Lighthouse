@@ -25,30 +25,34 @@ class controller extends Ctrl {
                     $html = '';
                     if($p == 0 && $this->hasParam('search') && strlen(trim($search))== 0) {
                         $html = '<li class="list-community-item active">
-                                    <a class="coin_details" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avator d-flex justify-content-center align-items-center me-5">
-                                                <img src="'.app_cdn_path.'img/company-overall.png" class="rounded-circle bg-white" width="48" height="48" />
+                                    <div class="d-flex align-items-center">
+                                        <a class="coin_details" data-n="Overall stats" data-l="'.app_cdn_path.'img/company-overall.png" href="#">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avator d-flex justify-content-center align-items-center me-5">
+                                                    <img src="'.app_cdn_path.'img/company-overall.png" class="rounded-circle bg-white" width="48" height="48" />
+                                                </div>
+                                                <div class="w-70">
+                                                    <div class="fs-3 text-truncate">Overall Stats</div>
+                                                    <div class="text-muted lh-1">Aggregate</div>
+                                                </div>
                                             </div>
-                                            <div class="w-70">
-                                                <div class="fs-3 text-truncate">Overall Stats</div>
-                                                <div class="text-muted lh-1">Aggregate</div>
-                                            </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </li>
-                                    <li class="list-community-item">
-                                    <a class="coin_details" href="#">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avator d-flex justify-content-center align-items-center me-5">
-                                                <img src="'.app_cdn_path.'img/company-lighthouse.png" class="rounded-circle bg-white" width="48" height="48" />
+                                <li class="list-community-item">
+                                    <div class="d-flex align-items-center">
+                                        <a class="coin_details" data-n="Lighthouse DAO" data-l="'.app_cdn_path.'img/company-lighthouse.png" href="#">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avator d-flex justify-content-center align-items-center me-5">
+                                                    <img src="'.app_cdn_path.'img/company-lighthouse.png" class="rounded-circle bg-white" width="48" height="48" />
+                                                </div>
+                                                <div class="w-70">
+                                                    <div class="fs-3 text-truncate">Lighthouse DAO</div>
+                                                    <div class="text-muted lh-1">Reputation</div>
+                                                </div>
                                             </div>
-                                            <div class="w-70">
-                                                <div class="fs-3 text-truncate">Lighthouse DAO</div>
-                                                <div class="text-muted lh-1">Reputation</div>
-                                            </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </li>' ;
                     }
 
@@ -145,7 +149,6 @@ class controller extends Ctrl {
                     }
 
                     $respose = Utils::getTweet((__ROUTER_PATH =='/get-tweets')?'tweets':'mentions',$tw_user_name);
-
                     //referenced_tweets
                     include __DIR__ . '/../tpl/partial/twiter_updates.php';
                     $html = ob_get_clean();

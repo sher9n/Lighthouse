@@ -25,56 +25,101 @@
                     <div class="card shadow">
                         <div class="card-body card-body-md">
                             <!-- user details and bank bank details -->
-                            <div class="d-flex align-items-start">
+                            <div class="user_details_skelton card shadow loading">
+                                <div class="card-body card-body-md">
+                                    <div class="d-flex align-items-start mb-13">
+                                        <div class="d-flex align-items-center">
+                                            <div class="round-md me-4"></div>
+                                            <div class="d-flex flex-column">
+                                                <div class="text-content-xl mw-160 mb-3"></div>
+                                                <div class="text-content w-50"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <div class="d-flex flex-column align-items-end mw-220">
+                                                <div class="text-content mw-180 mb-3"></div>
+                                                <div class="text-content-lg w-30 mb-3"></div>
+                                                <div class="text-content-lg w-50"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-around">
+                                        <div class="d-flex flex-column align-items-center px-6">
+                                            <div class="text-content mw-100 mb-3"></div>
+                                            <div class="text-content-lg w-70 mb-3"></div>
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center px-6">
+                                            <div class="text-content mw-100 mb-3"></div>
+                                            <div class="text-content-lg w-70 mb-3"></div>
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center px-6">
+                                            <div class="text-content mw-100 mb-3"></div>
+                                            <div class="text-content-lg w-70 mb-3"></div>
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center px-6">
+                                            <div class="text-content mw-100 mb-3"></div>
+                                            <div class="text-content-lg w-70 mb-3"></div>
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center px-6">
+                                            <div class="text-content mw-100 mb-3"></div>
+                                            <div class="text-content-lg w-70 mb-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user_details d-flex d-none align-items-start">
                                 <div class=" d-flex align-items-center w-60">
-                                    <div class="avator d-flex justify-content-center align-items-center border border-black bg-purple rounded-circle me-5">
+                                    <div id="overall_avt" class="avator d-flex justify-content-center align-items-center me-5">
+                                        <img id="overall_logo" src="<?php echo app_cdn_path; ?>img/company-overall.png" class="rounded-circle bg-white" width="48" height="48">
+                                    </div>
+                                    <div id="communities_avt" class="d-none avator d-flex justify-content-center align-items-center border border-black bg-purple rounded-circle me-5">
                                         <div class="select-company-logo">
                                             <img id="coin_logo" src="<?php echo app_cdn_path; ?>img/company-overall.png" class="rounded-circle border border-white" width="30" height="30" />
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column  w-70">
-                                        <div class="fs-3 text-truncate">You + <span id="network-name">Overall Stats</span></div>
-                                        <div class="text-muted lh-1"><span id="selected-account">   +2 others</div>
+                                    <div class="d-flex flex-column w-70">
+                                        <div class="fs-3 text-truncate"><span id="network-name">Overall Stats</span></div>
+                                        <div class="text-muted lh-1"><span id="selected-account">Aggregate</div>
                                         <input type="hidden" name="user_key" id="user_key">
                                     </div>
                                 </div>
-                                <div class="ms-auto">
+                                <div id="overall_stats" class="ms-auto d-none">
                                     <div class="d-flex d-lg-flex flex-column  text-end mw-220">
-                                        <div id="platform_name" class="text-muted address">Bankless DAO Price (BANK)</div>
+                                        <div id="platform_name" class="text-muted address"></div>
                                         <div class="fs-lg symbol">$0.05628</div>
                                         <div class="fs-lg balance">0.00001829 ETH</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid-container">
+                            <div class="user_details d-none grid-container">
                                 <main class="grid-item main">
                                     <div class="items">
                                         <div class="item">
-                                            <div class="fs-3">6,483</div>
+                                            <div id="rs" class="fs-3">0</div>
                                             <div class="text-muted text-uppercase">Reputation Score</div>
                                         </div>
                                         <div class="item">
-                                            <div class="fs-3">$50K</div>
+                                            <div id="inv" class="fs-3">$0</div>
                                             <div class="text-muted text-uppercase">Investment</div>
                                         </div>
                                         <div class="item">
-                                            <div class="fs-3">$8K</div>
+                                            <div id="hod" class="fs-3">$0</div>
                                             <div class="text-muted text-uppercase">HODL</div>
                                         </div>
                                         <div class="item">
-                                            <div class="fs-3">$15K</div>
+                                            <div id="stk" class="fs-3">$0</div>
                                             <div class="text-muted text-uppercase">Stake</div>
                                         </div>
                                         <div class="item">
-                                            <div class="fs-3">$70K</div>
+                                            <div id="liq" class="fs-3">$0</div>
                                             <div class="text-muted text-uppercase">Liquidity</div>
                                         </div>
                                         <div class="item">
-                                            <div class="fs-3">24</div>
+                                            <div id="vot" class="fs-3">0</div>
                                             <div class="text-muted text-uppercase">Votes</div>
                                         </div>
                                         <div class="item">
-                                            <div class="fs-3">3</div>
+                                            <div id="nft" class="fs-3">0</div>
                                             <div class="text-muted text-uppercase">NFT</div>
                                         </div>
                                     </div>
@@ -196,7 +241,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- skeloton Reputation -->
                             <div class="my-12 d-none">
                                 <div class="d-flex mb-4">
@@ -259,7 +303,6 @@
                                 </div>
                             </div>
                             <!-- skeloton Reputation END -->
-
                         </div>
                         <div class="tab-pane fade" id="Updates" role="tabpanel" aria-labelledby="Updates-tab">
                             <div class="card shadow">
@@ -351,13 +394,13 @@
                                         <div class="card-body">
                                             <div class="d-flex flex-column align-items-center">
                                                 <div class="round-xl"></div>
-                                                <div class="text-content-xl w-50 my-12"></div>                                            
+                                                <div class="text-content-xl w-50 my-12"></div>
                                                 <div class="text-content w-70 mb-2"></div>
                                                 <div class="text-content w-80 mb-2"></div>
                                                 <div class="text-content w-40"></div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="card shadow loading mb-12 d-none">
                                         <div class="card-body">
                                             <div class="d-flex align-items-start">
@@ -368,7 +411,7 @@
                                                         <div class="text-content w-50"></div>
                                                     </div>
                                                 </div>
-                                            </div>                                        
+                                            </div>
                                             <div class="text-content-xl mt-13 w-20"></div>
                                             <div class="text-content-xl mt-3"></div>
                                             <div class="text-content-xl mt-3 mb-8 w-50"></div>
@@ -379,7 +422,7 @@
                                             <div class="text-content-xl mt-3"></div>
                                             <div class="text-content-xl mt-3"></div>
                                         </div>
-                                    </div>                              
+                                    </div>
                                 <!-- skeloton Review END -->
 
                                 <div id="notify_form" class="card shadow mb-12">
@@ -566,9 +609,9 @@
 <!-- Modal Welcome -->
 <div class="modal fade" id="Welcome" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">            
+        <div class="modal-content">
             <div class="modal-body text-center">
-                <div class="bg-we-peep rounded-3 mb-13">
+                <div id="network_check" class="bg-we-peep rounded-3 mb-13 fade">
                     <div class="container">
                         <div class="py-7 d-flex align-items-center">
                             <img src="<?php echo app_cdn_path; ?>img/icon-info.svg" class="img-fluid" />
@@ -586,7 +629,7 @@
         </div>
     </div>
 </div>
-<div class="modal" id="wl_con_success" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+<div class="modal fade" id="wl_con_success" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-body text-center pt-25">
@@ -604,6 +647,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         //getFirstCoinsPage();
+        var timer = 0;
         checkAccountData();
 
         if(!sessionStorage.getItem('lh_wallet_adds'))
@@ -665,45 +709,77 @@
 
         $(document).on("click",".coin_details",function (e){
             e.preventDefault();
-            $('#Updates').html('<div class="my-12"><div class="card shadow loading"><div class="card-body"><div class="d-flex align-items-start"><div class="d-flex align-items-center"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div></div><div class="card-body border-top"><div class="text-content-xl mb-3"></div><div class="text-content-xl mb-15 w-50"></div><div class="bg-content rounded h-150"></div></div></div></div>')
+            clearTimeout(timer);
             var ele = $(this);
+            var n   = ele.data('n');
+            $('#Updates').html('<div class="my-12"><div class="card shadow loading"><div class="card-body"><div class="d-flex align-items-start"><div class="d-flex align-items-center"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div></div><div class="card-body border-top"><div class="text-content-xl mb-3"></div><div class="text-content-xl mb-15 w-50"></div><div class="bg-content rounded h-150"></div></div></div></div>')
             $('.list-community-item').removeClass('active');
-            $('#network-name').html(ele.data('n'));
 
-            if(ele.data('s'))
-                $('#platform_name').html(ele.data('n')+' ('+ele.data('s')+')');
-            else
-                $('#platform_name').html(ele.data('n'));
+            if(!(n == 'Lighthouse DAO' || n == 'Overall stats')) {
 
-            $('#coin_logo').attr('src',ele.data('l'));
-            $('#coin_data').removeClass('d-none');
-            ele.parent().parent().addClass('active');
-            var tw_data = {'n':ele.data('n'),'l':ele.data('l'),'t':ele.data('t')};
-            var c_data = {'id':ele.data('id')};
+                $('#network-name').html('You + ' + n);
+                $('#rs').html(Math.floor(Math.random() * 10000) + 1);
+                $('#inv').html('$'+(Math.floor(Math.random() * 10)+ 1 +'K'));
+                $('#hod').html('$'+(Math.floor(Math.random() * 100)+ 1 +'K'));
+                $('#stk').html('$'+(Math.floor(Math.random() * 100)+ 1 +'K'));
+                $('#liq').html('$'+(Math.floor(Math.random() * 100)+ 1 +'K'));
+                $('#vot').html(Math.floor(Math.random() * 100) + 1);
+                $('#nft').html(Math.floor(Math.random() * 10) + 1);
 
-            $.ajax({
-                url: 'get-profile' ,
-                type: 'POST',
-                data: c_data,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.success == true) {
-                        $('#Profile').html(response.profile);
-                    }
-                }
-            });
+                if (ele.data('s'))
+                    $('#platform_name').html(ele.data('n') + ' (' + ele.data('s') + ')');
+                else
+                    $('#platform_name').html(ele.data('n'));
 
-            $.ajax({
-                url: 'get-tweets' ,
-                type: 'POST',
-                data: tw_data,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.success == true) {
-                        $('#Updates').html(response.updates);
-                    }
-                }
-            });
+                $('#coin_logo').attr('src', ele.data('l'));
+                $('#coin_data').removeClass('d-none');
+                $('#communities_avt').removeClass('d-none');
+                $('#overall_avt').addClass('d-none');
+                ele.parent().parent().addClass('active');
+                var tw_data = {'n': ele.data('n'), 'l': ele.data('l'), 't': ele.data('t')};
+                var c_data = {'id': ele.data('id')};
+
+                timer = setTimeout(function () {
+                    $.ajax({
+                        url: 'get-profile',
+                        type: 'POST',
+                        data: c_data,
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.success == true) {
+                                $('#Profile').html(response.profile);
+                            }
+                        }
+                    });
+
+                    $.ajax({
+                        url: 'get-tweets',
+                        type: 'POST',
+                        data: tw_data,
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.success == true) {
+                                $('#Updates').html(response.updates);
+                            }
+                        }
+                    });
+                }, 1000);
+            }
+            else {
+                $('#network-name').html(n);
+                $('#overall_logo').attr('src', ele.data('l'));
+                $('#rs').html('0');
+                $('#inv').html('$0');
+                $('#hod').html('$0');
+                $('#stk').html('$0');
+                $('#liq').html('$0');
+                $('#vot').html('0');
+                $('#nft').html('0');
+                $('#selected-account').html('Aggregate');
+                $('#overall_avt').removeClass('d-none');
+                $('#communities_avt').addClass('d-none');
+                ele.parent().parent().addClass('active');
+            }
         });
 
         $(document).on("click",".pin_coin",function(e) {
@@ -732,21 +808,21 @@
             e.preventDefault();
             var ele = $(this);
             var w_id = ele.data("w_id");
-
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
-            if(jQuery.inArray(w_id, lh_wallet_adds) !== -1){
 
+            if(jQuery.inArray(w_id, lh_wallet_adds) != -1){
                 lh_wallet_adds = jQuery.grep(lh_wallet_adds, function(value) {
                     return value != w_id;
                 });
-
                 if(lh_wallet_adds.length == 0) {
                     onDisconnect();
                 }
                 else {
+                    sessionStorage.setItem("lh_sel_wallet_add", lh_wallet_adds[0]);
                     sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
-                    updateWalletMenu();
+                    selectedAccount = null;
                 }
+                updateWalletMenu();
             }
         });
     });

@@ -22,7 +22,7 @@
                 <img src="<?php echo app_cdn_path; ?>img/logo.svg" class="img-fluid" />
             </a>
         </div>
-        <div id="user_menu" class="ms-lg-auto dropdown">
+        <div id="user_menu" class="ms-lg-auto dropdown d-none">
             <a class="nav-link dropdown-toggle mobile-dropdown-toggle d-flex align-items-center pe-0 text-fiord" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="avator-md d-flex justify-content-center align-items-center rounded-circle border border-black bg-purple"></div>
                 <div class="mx-4 h5 mb-0 d-none d-lg-flex" id="user_address"></div>

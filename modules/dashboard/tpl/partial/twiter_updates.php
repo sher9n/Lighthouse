@@ -44,7 +44,7 @@ if(isset($respose->data) && count($respose->data) > 0 ){
                 }
                 else {
                     $text = $obj->text;
-                    preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $obj->text, $match);
+                    preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $text, $match);
                 }
 
                 $thum_view = false;
