@@ -1,7 +1,7 @@
 <?php foreach ($coins as $index => $c) { ?>
     <li class="list-community-item">
         <div class="d-flex align-items-center justify-content-between">
-            <a class="d-block w-70 coin_details" data-s="<?php echo $c['symbol']; ?>" data-n="<?php echo $c['c_name']; ?>" data-t="<?php echo $c['twitter_username']; ?>" data-id="<?php echo $c['id']; ?>" data-l="<?php echo $c['logo']; ?>" href="#">
+            <a class="d-block w-70 coin_details" data-s="<?php echo $c['symbol']; ?>" data-n="<?php echo $c['c_name']; ?>" data-t="<?php echo $c['twitter_username']; ?>" data-id="<?php echo $c['id']; ?>" data-coin_id="<?php echo $c['coin_id']; ?>" data-l="<?php echo $c['logo']; ?>" href="#">
                 <div class="d-flex align-items-center">
                     <div class="avator d-flex justify-content-center align-items-center me-5">
                         <img src="<?php echo $c['logo']; ?>" class="rounded-circle bg-white" width="48" height="48" />

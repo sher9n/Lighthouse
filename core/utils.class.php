@@ -22,6 +22,28 @@ class Utils {
             return '';
     }
 
+    public static function OHLCV($coin_id) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/ohlcv/latest?id=1027,'.intval($coin_id),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_HTTPHEADER => array(
+                'X-CMC_PRO_API_KEY: 2da7d143-31d8-4a9a-ab53-c52b37a4defa'
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response);
+    }
+
     public static function LightHouseApi($endpoint,$post=null)
     {
         $ch = curl_init();

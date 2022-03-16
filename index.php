@@ -23,6 +23,8 @@ try {
         '/get-tweets' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-notify' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-mentions' => 'modules/dashboard/ctrl/dashboard.php',
+        '/validate' => 'modules/dashboard/ctrl/validate.php',
+        '/ohlcv-updates' => 'modules/dashboard/ctrl/dashboard.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 

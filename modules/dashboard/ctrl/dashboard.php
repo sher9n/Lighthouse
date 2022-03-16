@@ -41,7 +41,7 @@ class controller extends Ctrl {
                                 </li>
                                 <li class="list-community-item">
                                     <div class="d-flex align-items-center">
-                                        <a class="coin_details" data-n="Lighthouse DAO" data-l="'.app_cdn_path.'img/company-lighthouse.png" href="#">
+                                        <a class="coin_details" data-n="Lighthouse DAO" data-l=""'.app_cdn_path.'img/company-lighthouse.png" href="#">
                                             <div class="d-flex align-items-center">
                                                 <div class="avator d-flex justify-content-center align-items-center me-5">
                                                     <img src="'.app_cdn_path.'img/company-lighthouse.png" class="rounded-circle bg-white" width="48" height="48" />
@@ -95,7 +95,7 @@ class controller extends Ctrl {
                     break;
 
                 case  '/pin-coin':
-                   if($this->hasParam('user_key') && strlen($this->getParam('user_key')) > 0)
+                    if($this->hasParam('user_key') && strlen($this->getParam('user_key')) > 0)
                         $user_key = $this->getParam('user_key');
                     else {
                         echo json_encode(array('success' => false));
@@ -187,6 +187,23 @@ class controller extends Ctrl {
                     $html = ob_get_clean();
                     echo json_encode(array('success' => true,'profile' => $html));
                     exit();
+
+                case '/ohlcv-updates':
+                    if($this->hasParam('coin_id') && strlen($this->getParam('coin_id')) > 0) {
+                        $coin_id = $this->getParam('coin_id');
+                        $response = Utils::OHLCV($coin_id);
+
+                        if(isset($response->data)) {
+                            $data = (array)$response->data;
+                            $val = $data[$coin_id]->quote->USD->close;
+                            $e_val = $data['1027']->quote->USD->close;
+                            echo json_encode(array('success' => true,'c_val' =>'$'.number_format($val,2),'eth_val' => number_format(($val/$e_val),7).' ETH'));
+                        }
+                    }
+                    else
+                        echo json_encode(array('success' => false));
+                    exit();
+                    break;
             }
         }
 

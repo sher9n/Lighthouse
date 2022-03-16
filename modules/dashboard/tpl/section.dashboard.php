@@ -81,13 +81,20 @@
                                         <div class="fs-3 text-truncate"><span id="network-name">Overall Stats</span></div>
                                         <div class="text-muted lh-1"><span id="selected-account">Aggregate</div>
                                         <input type="hidden" name="user_key" id="user_key">
+                                        <input type="hidden" name="coin_id" id="coin_id">
                                     </div>
                                 </div>
                                 <div id="overall_stats" class="ms-auto d-none">
-                                    <div class="d-flex d-lg-flex flex-column  text-end mw-220">
+                                    <div class="d-flex d-lg-flex flex-column text-end mw-220">
                                         <div id="platform_name" class="text-muted address"></div>
-                                        <div class="fs-lg symbol">$0.05628</div>
-                                        <div class="fs-lg balance">0.00001829 ETH</div>
+                                        <div id="coin_values_skelton" class="loading d-flex flex-column align-items-end text-end">
+                                            <div class="text-content-lg w-70 mb-3"></div>
+                                            <div class="text-content-lg w-50"></div>
+                                        </div>
+                                        <div id="coin_values" class="d-none">
+                                            <div id="coin_val" class="fs-lg symbol"></div>
+                                            <div id="coin_eth_val" class="fs-lg balance"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -650,6 +657,10 @@
         var timer = 0;
         checkAccountData();
 
+        $(function () {
+            setInterval(ohlcv_updates, 30000);
+        });
+
         if(!sessionStorage.getItem('lh_wallet_adds'))
             $('#Welcome').modal('toggle');
 
@@ -714,10 +725,13 @@
             var n   = ele.data('n');
             $('#Updates').html('<div class="my-12"><div class="card shadow loading"><div class="card-body"><div class="d-flex align-items-start"><div class="d-flex align-items-center"><div class="round-md me-4"></div><div class="d-flex flex-column"><div class="text-content-xl mw-160 mb-3"></div><div class="text-content w-50"></div></div></div></div></div><div class="card-body border-top"><div class="text-content-xl mb-3"></div><div class="text-content-xl mb-15 w-50"></div><div class="bg-content rounded h-150"></div></div></div></div>')
             $('.list-community-item').removeClass('active');
+            $('#coin_values').addClass('d-none');
+            $('#coin_values_skelton').removeClass('d-none');
 
             if(!(n == 'Lighthouse DAO' || n == 'Overall stats')) {
 
                 $('#network-name').html('You + ' + n);
+                $('#overall_stats').removeClass('d-none');
                 $('#rs').html(Math.floor(Math.random() * 10000) + 1);
                 $('#inv').html('$'+(Math.floor(Math.random() * 10)+ 1 +'K'));
                 $('#hod').html('$'+(Math.floor(Math.random() * 100)+ 1 +'K'));
@@ -736,6 +750,10 @@
                 $('#communities_avt').removeClass('d-none');
                 $('#overall_avt').addClass('d-none');
                 ele.parent().parent().addClass('active');
+
+                var coin_id = ele.data('coin_id');
+                $('#coin_id').val(coin_id);
+
                 var tw_data = {'n': ele.data('n'), 'l': ele.data('l'), 't': ele.data('t')};
                 var c_data = {'id': ele.data('id')};
 
@@ -763,11 +781,15 @@
                             }
                         }
                     });
+
+                    ohlcv_updates();
+
                 }, 1000);
             }
             else {
                 $('#network-name').html(n);
                 $('#overall_logo').attr('src', ele.data('l'));
+                $('#overall_stats').addClass('d-none');
                 $('#rs').html('0');
                 $('#inv').html('$0');
                 $('#hod').html('$0');
@@ -857,5 +879,28 @@
                 callback.apply(context, args);
             }, ms || 0);
         };
+    }
+
+    function ohlcv_updates() {
+        var coin_id = $('#coin_id').val();
+
+        if(coin_id) {
+            $('#coin_values').addClass('d-none');
+            $('#coin_values_skelton').removeClass('d-none');
+
+            $.ajax({
+                url: 'ohlcv-updates?coin_id='+ coin_id,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success == true) {
+                        $('#coin_val').html(response.c_val);
+                        $('#coin_eth_val').html(response.eth_val);
+                        $('#coin_values').removeClass('d-none');
+                        $('#coin_values_skelton').addClass('d-none');
+                    }
+                }
+            });
+        }
+
     }
 </script>
