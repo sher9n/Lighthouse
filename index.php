@@ -32,6 +32,8 @@ try {
         '/validate-governance' => 'modules/validate/ctrl/validate.php',
         '/update-space-coin' => 'modules/validate/ctrl/validate.php',
         '/delete-space-coin' => 'modules/validate/ctrl/validate.php',
+        //----------------drops-----------------
+        '/dashboardv2' => 'modules/drop/ctrl/dashboardv2.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
