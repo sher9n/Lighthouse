@@ -71,7 +71,7 @@ class controller extends Ctrl {
                     $html = '';
                     $adds = $this->getParam('adds');
                     $adds = implode(",",$adds);
-                    $response = Utils::LightHouseApi("user-update",array('adds' =>$adds));
+                    $response = Utils::LightHouseApi("user-update",array('address' =>$adds));
                     echo json_encode(array('success' => true,'user_id' => $response));
                     exit();
                     break;
@@ -215,7 +215,7 @@ class controller extends Ctrl {
             ),
             'js' => array()
         );
-        require_once app_template_path . '/base.php';
+        require_once app_template_path . '/dash_base.php';
         exit();
     }
 }

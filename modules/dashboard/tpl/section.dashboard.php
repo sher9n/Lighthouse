@@ -650,16 +650,16 @@
         </div>
     </div>
 </div>
-<?php include_once app_root . '/templates/foot.php'; ?>
+<?php include_once app_root . '/templates/dash_foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {
         //getFirstCoinsPage();
         var timer = 0;
         checkAccountData();
 
-        $(function () {
+/*        $(function () {
             setInterval(ohlcv_updates, 30000);
-        });
+        });*/
 
         if(!sessionStorage.getItem('lh_wallet_adds'))
             $('#Welcome').modal('toggle');

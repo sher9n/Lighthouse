@@ -22,30 +22,6 @@
                 <img src="<?php echo app_cdn_path; ?>img/logo.svg" class="img-fluid" />
             </a>
         </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item <?php echo (__ROUTER_PATH == '/validate' || __ROUTER_PATH == '/governance')?'active':''; ?>">
-                    <a class="nav-link" href="validate-governance">
-                        Governance
-                    </a>
-                </li>
-                <li class="nav-item <?php echo (__ROUTER_PATH == '/tokens')?'active':''; ?>">
-                    <a class="nav-link" href="validate-tokens">
-                        Tokens
-                    </a>
-                </li>
-                <li class="nav-item <?php echo (__ROUTER_PATH == '/contracts')?'active':''; ?>">
-                    <a class="nav-link" href="validate-contracts">
-                        Contracts
-                    </a>
-                </li>
-                <li class="nav-item <?php echo (__ROUTER_PATH == '/dao-description')?'active':''; ?>">
-                    <a class="nav-link" href="validate-dao-description">
-                        DAO Descriptions
-                    </a>
-                </li>
-            </ul>
-        </div>
         <div id="user_menu" class="ms-lg-auto dropdown d-none">
             <a class="nav-link dropdown-toggle mobile-dropdown-toggle d-flex align-items-center pe-0 text-fiord" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="avator-md d-flex justify-content-center align-items-center rounded-circle border border-black bg-purple"></div>

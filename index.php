@@ -15,6 +15,7 @@ try {
         define('__ROUTER_PATH', '/' . trim((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
 
     $localRoutes = array(
+        //-------------dashboard-------------
         '/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
         '/update-user' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-profile' => 'modules/dashboard/ctrl/dashboard.php',
@@ -23,8 +24,14 @@ try {
         '/get-tweets' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-notify' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-mentions' => 'modules/dashboard/ctrl/dashboard.php',
-        '/validate' => 'modules/dashboard/ctrl/validate.php',
         '/ohlcv-updates' => 'modules/dashboard/ctrl/dashboard.php',
+        //------------validate---------------
+        '/get-spaces' => 'modules/validate/ctrl/validate.php',
+        '/coin-search' => 'modules/validate/ctrl/validate.php',
+        '/validate' => 'modules/validate/ctrl/validate.php',
+        '/validate-governance' => 'modules/validate/ctrl/validate.php',
+        '/update-space-coin' => 'modules/validate/ctrl/validate.php',
+        '/delete-space-coin' => 'modules/validate/ctrl/validate.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
