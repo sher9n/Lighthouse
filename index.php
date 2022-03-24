@@ -34,6 +34,7 @@ try {
         '/delete-space-coin' => 'modules/validate/ctrl/validate.php',
         //----------------drops-----------------
         '/dashboardv2' => 'modules/drop/ctrl/dashboardv2.php',
+        '/claim' => 'modules/drop/ctrl/claim.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
