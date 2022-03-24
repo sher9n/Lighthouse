@@ -30,6 +30,10 @@ try {
         '/coin-search' => 'modules/validate/ctrl/validate.php',
         '/validate' => 'modules/validate/ctrl/validate.php',
         '/validate-governance' => 'modules/validate/ctrl/validate.php',
+        '/validate-dao-description' => 'modules/validate/ctrl/dao-description.php',
+        '/get-coins-info' => 'modules/validate/ctrl/dao-description.php',
+        '/edit-coins-info' => 'modules/validate/ctrl/dao-description.php',
+        '/delete-coins-info' => 'modules/validate/ctrl/dao-description.php',
         '/update-space-coin' => 'modules/validate/ctrl/validate.php',
         '/delete-space-coin' => 'modules/validate/ctrl/validate.php',
         '/404' => 'modules/default/ctrl/http-404.php'

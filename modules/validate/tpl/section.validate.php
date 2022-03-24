@@ -114,9 +114,6 @@
             }
         });
 
-        $('#review-table_processing').removeClass('card');
-        $('#review-table_filter').hide();
-
         $(document).on('click','.edit_space_coin',function(event) {
             event.preventDefault();
             var element = $(this);

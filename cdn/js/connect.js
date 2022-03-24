@@ -2,7 +2,6 @@
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const evmChains = window.evmChains;
-
 let web3Modal
 let provider;
 let selectedAccount;
@@ -29,23 +28,19 @@ function init() {
 }
 
 async function fetchAccountData() {
-    // Get a Web3 instance for the wallet
+
     const web3 = new Web3(provider);
 
-    // Get connected chain id from Ethereum node
     const chainId = await web3.eth.getChainId();
 
     if (chainId == 1) {
-        change_network = 0;
+        const chainData = evmChains.getChain(chainId);
+        const accounts  = await web3.eth.getAccounts();
+        selectedAccount = accounts[0];
+        change_network  = 0;
         $('body').removeClass('alert-view');
         $('#network_check').addClass('fade');
         $('#btn-connect').prop('disabled', false);
-        // Load chain information over an HTTP API
-        const chainData = evmChains.getChain(chainId);
-        // Get list of accounts of the connected wallet
-        const accounts = await web3.eth.getAccounts();
-        // MetaMask does not give you all accounts, only the selected account
-        selectedAccount = accounts[0];
 
         if (selectedAccount) {
             var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
@@ -59,11 +54,13 @@ async function fetchAccountData() {
 
             if (sessionStorage.getItem('lh_wallet_adds')) {
                 var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+
                 if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
                     lh_wallet_adds.push(selectedAccount);
                     sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
                 }
-            } else {
+            }
+            else {
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
             }
 
@@ -97,7 +94,6 @@ async function fetchAccountData() {
 }
 
 async function checkAccountData() {
-
     selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
 
     if (selectedAccount) {
@@ -111,6 +107,7 @@ async function checkAccountData() {
 
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+
             if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
                 lh_wallet_adds.push(selectedAccount);
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
@@ -123,7 +120,6 @@ async function checkAccountData() {
         updateUser();
         $("#navbarMain").removeClass('fade');
         $('#user_menu').removeClass('d-none');
-
     } else
         $('#user_menu').addClass('d-none');
     getFirstCoinsPage();
@@ -161,13 +157,10 @@ async function updateUser() {
 }
 
 async function refreshAccountData() {
-    //document.querySelector("#btn-connect").setAttribute("disabled", "disabled")
     fetchAccountData(provider);
-    //document.querySelector("#btn-connect").removeAttribute("disabled")
 }
 
 async function addWallet() {
-
     try {
         provider = await web3Modal.connect();
     } catch (e) {
@@ -178,7 +171,6 @@ async function addWallet() {
 }
 
 async function onConnect() {
-
     $('#Welcome').modal('toggle');
 
     try {
@@ -186,18 +178,16 @@ async function onConnect() {
     } catch (e) {
         return;
     }
-    // Subscribe to accounts change
+
     provider.on("accountsChanged", (accounts) => {
         fetchAccountData();
     });
 
-    // Subscribe to chainId change
     provider.on("chainChanged", (chainId) => {
         change_network = 1;
         fetchAccountData();
     });
 
-    // Subscribe to networkId change
     provider.on("networkChanged", (networkId) => {
         change_network = 1;
         fetchAccountData();
