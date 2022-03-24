@@ -16,7 +16,7 @@
                     </a>
                     <ul class="navbar-nav top-navbar-nav-ms">
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium active" href="dashboardv2">Drops</a>
+                            <a class="nav-link text-uppercase fw-medium active" href="drop">Drops</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-uppercase fw-medium" href="claim">My Claims</a>
