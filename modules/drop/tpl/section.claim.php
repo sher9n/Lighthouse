@@ -1,5 +1,5 @@
 <main class="main-wrapper">
-    <div class="container p-0">
+    <div class="container">
         <div class="row">
                <div class="col-lg-12">
                    <div class="card shadow">
@@ -7,7 +7,7 @@
                            <div class="text-center">
                                <div class="fs-1 text-truncate fw-semibold">
                                Your claims will be airdropped soon! 
-                               <img src="cdn\img\icon-clap.svg" alt="clapping icon">
+                               <img src="cdn\img\icon-clap.svg" alt="clapping icon" width="32" height="32">
                                </div>
                                
                                <div class="text-muted mt-3 fs-4 fw-medium">

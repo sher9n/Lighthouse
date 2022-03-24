@@ -9,6 +9,8 @@
 <script type="text/javascript" src="<?php echo app_cdn_path; ?>js/rocketScroll/rocketScroll.min.js"></script>
 <script type="text/javascript" src="<?php echo app_cdn_path; ?>js/jquery.form.min.js"></script>
 <script type="text/javascript" src="<?php echo app_cdn_path; ?>js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<?php echo app_cdn_path; ?>js/imageUpload.js"></script>
+
 <script>
     // RocketScroll
     var rsSingle, rsMultiple;

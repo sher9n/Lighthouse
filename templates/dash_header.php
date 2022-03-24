@@ -8,35 +8,29 @@
 </div>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg">
     <div class="container-fluid">
-        <div class="dropdown dropdown-mobile-nav d-lg-none">
-            <button class="btn btn-link dropdown-toggle mobile-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">All Communities</a></li>
-                <li><a class="dropdown-item" href="#">Rewards</a></li>
-            </ul>
-        </div>
         <div class="row align-items-center w-100">
-            <div class="col-lg-4">
+            <div class="col-xxl-4">
                 <div class="d-flex align-items-center">
                     <a class="" href="dashboard">
-                        <img src="<?php echo app_cdn_path; ?>img/logo.svg" class="img-fluid" />
+                        <img src="<?php echo app_cdn_path; ?>img/logo.svg" class="" />
                     </a>
                     <ul class="navbar-nav top-navbar-nav-ms">
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium active" href="validate-governance">Drops</a>
+                            <a class="nav-link text-uppercase fw-medium active" href="dashboardv2">Drops</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium" href="validate-tokens">My Claims</a>
+                            <a class="nav-link text-uppercase fw-medium" href="claim">My Claims</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase fw-medium" href="settings">Settings</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-xxl-4">
                 <input type="text" id="search_coins" class="form-control form-control-search rounded-pill border-0" placeholder="Search for communities...">
             </div>
-            <div class="col-lg-4">
+            <div class="col-xxl-4">
                 <div class="d-flex align-items-center justify-content-end">
                     <div class="form-check form-switch form-switch-start">
                         <label class="form-check-label fs-5 fw-medium" for="UserSwitch">User View</label>

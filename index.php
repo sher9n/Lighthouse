@@ -35,6 +35,7 @@ try {
         //----------------drops-----------------
         '/dashboardv2' => 'modules/drop/ctrl/dashboardv2.php',
         '/claim' => 'modules/drop/ctrl/claim.php',
+        '/settings' => 'modules/drop/ctrl/settings.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
