@@ -39,7 +39,7 @@ async function fetchAccountData() {
         change_network = 0;
         $('body').removeClass('alert-view');
         $('#network_check').addClass('fade');
-        $('#btn-connect').prop('disabled', false);
+        $('#btn-connect').addClass('d-none');
         // Load chain information over an HTTP API
         const chainData = evmChains.getChain(chainId);
         // Get list of accounts of the connected wallet
@@ -68,7 +68,7 @@ async function fetchAccountData() {
             }
 
             updateWalletMenu();
-            getFirstCoinsPage();
+            //getFirstCoinsPage();
             $("#navbarMain").removeClass('fade');
             $('#user_menu').removeClass('d-none');
             $('#Welcome').modal('hide');
@@ -79,11 +79,11 @@ async function fetchAccountData() {
     } else {
         if (!sessionStorage.getItem('lh_wallet_adds')) {
             $('#Welcome').modal('show');
-            $('#btn-connect').prop('disabled', true);
+            $('#btn-connect').addClass('d-none');
             $('#network_check').removeClass('fade');
         } else if (change_network == 0 && add_nw_wallet == 1) {
             $('#Welcome').modal('show');
-            $('#btn-connect').prop('disabled', true);
+            $('#btn-connect').addClass('d-none');
             $('#network_check').removeClass('fade');
             $('.user_details_skelton').addClass('d-none');
             $('.user_details').removeClass('d-none');
@@ -102,10 +102,11 @@ async function checkAccountData() {
 
     if (selectedAccount) {
         var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
-        document.querySelector("#connected_wl_id").textContent = display_address;
-        document.querySelector("#selected-account").textContent = display_address;
+        //document.querySelector("#connected_wl_id").textContent = display_address;
+        //document.querySelector("#selected-account").textContent = display_address;
         document.querySelector("#user_address").textContent = display_address;
         document.querySelector("#user_key").value = selectedAccount;
+        $('#btn-connect').addClass('d-none');
         $('.user_details_skelton').addClass('d-none');
         $('.user_details').removeClass('d-none');
 
@@ -124,9 +125,11 @@ async function checkAccountData() {
         $("#navbarMain").removeClass('fade');
         $('#user_menu').removeClass('d-none');
 
-    } else
+    } else {
+        $('#btn-connect').removeClass('d-none');
         $('#user_menu').addClass('d-none');
-    getFirstCoinsPage();
+    }
+    //getFirstCoinsPage();
 }
 
 async function updateWalletMenu() {
@@ -213,7 +216,7 @@ async function onDisconnect() {
     document.querySelector("#selected-account").textContent = '';
     //document.querySelector("#user_address").textContent = '';
     $('#user_menu').addClass('d-none');
-    getFirstCoinsPage();
+    //getFirstCoinsPage();
     $('#Welcome').modal('toggle');
     $("#navbarMain").addClass('fade');
     $('.user_details_skelton').removeClass('d-none');

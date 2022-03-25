@@ -35,8 +35,10 @@
             </div>
             <div class="col col-xl-4 col-xxxl">
                 <div class="d-flex align-items-center justify-content-end">
-                    <div class="form-check form-switch form-switch-start d-none d-xl-block">
+                    <div class="form-check form-switch form-switch-start d-none">
                         <label class="form-check-label fs-5 fw-medium" for="UserSwitch">User View</label>
+                        <input type="hidden" name="user_key" id="user_key">
+                        <input type="hidden" name="coin_id" id="coin_id">
                         <input class="form-check-input" type="checkbox" id="UserSwitch">                
                     </div>
                     <div id="user_menu" class="dropdown d-flex align-items-center">
@@ -47,7 +49,7 @@
                         </a>
                         <ul id="wallet_addresses" class="dropdown-menu dropdown-menu-end list-wallet" aria-labelledby="navbarDropdown"></ul>
                     </div>
-                    <button type="button" id="btn-connect" class="btn btn-primary btn-lg px-12 text-uppercase d-none d-xl-flex">Connect Wallet</button>
+                    <button type="button" id="btn-connect" class="btn btn-primary btn-lg px-12 text-uppercase d-none">Connect Wallet</button>
                 </div>
             </div>
         </div>
