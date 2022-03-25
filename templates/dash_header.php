@@ -17,11 +17,11 @@
                     <a class="" href="drops">
                         <img src="<?php echo app_cdn_path; ?>img/logo.svg" class="main-logo" />
                     </a>
-                    <ul class="navbar-nav top-navbar-nav-ms d-none d-xl-flex">
-                        <li class="nav-item">
+                    <ul class="navbar-nav top-navbar-nav-ms d-none d-lg-flex">
+                        <li id="drops-menu" class="nav-item">
                             <a class="nav-link text-uppercase fw-medium active" href="drops">Drops</a>
                         </li>
-                        <li class="nav-item">
+                        <li id="claims-menu" class="nav-item">
                             <a class="nav-link text-uppercase fw-medium" href="claims">My Claims</a>
                         </li>
                     </ul>

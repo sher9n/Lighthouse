@@ -160,6 +160,6 @@
 <?php include_once app_root . '/templates/dash_foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {
-
+        checkAccountData();
     });
 </script>

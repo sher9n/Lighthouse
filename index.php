@@ -25,6 +25,7 @@ try {
         '/get-notify' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-mentions' => 'modules/dashboard/ctrl/dashboard.php',
         '/ohlcv-updates' => 'modules/dashboard/ctrl/dashboard.php',
+        '/wallet-menu' => 'modules/dashboard/ctrl/dashboard.php',
         //------------validate---------------
         '/get-spaces' => 'modules/validate/ctrl/validate.php',
         '/coin-search' => 'modules/validate/ctrl/validate.php',
