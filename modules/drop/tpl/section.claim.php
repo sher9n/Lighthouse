@@ -35,7 +35,7 @@
                        <div class="card-body">
                            <div class="text-center">
                                
-                           <div class="card-logo rounded-circle border m-auto">
+                           <div class="card-logo rounded-circle m-auto">
                                 <img src="cdn/img/icon-dao-80.svg" class="rounded-circle" width="80" height="80">
                             </div>
                             <div class="fs-3 text-truncate fw-medium mt-8 mb-3">Bankless DAO</div>
