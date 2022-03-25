@@ -1,5 +1,5 @@
 <main class="main-wrapper">
-    <div class="container p-0">
+    <div class="container">
     
         <div class="row my-8">
                <div class="col-lg-3">

@@ -32,7 +32,7 @@
         <div class="row my-8">
                <div class="col-lg-3">
                    <div class="card shadow my-10">
-                       <div class="card-body">
+                       <div class="card-body overflow-hidden">
                            <div class="text-center">
                                
                            <div class="card-logo rounded-circle m-auto">
