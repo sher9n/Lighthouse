@@ -50,12 +50,13 @@ async function fetchAccountData() {
         if (selectedAccount) {
             var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
             sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
-            document.querySelector("#connected_wl_id").textContent = display_address;
-            document.querySelector("#selected-account").textContent = display_address;
+            //document.querySelector("#connected_wl_id").textContent = display_address;
+            //document.querySelector("#selected-account").textContent = display_address;
             document.querySelector("#user_address").textContent = display_address;
             document.querySelector("#user_key").value = selectedAccount;
             $('.user_details_skelton').addClass('d-none');
             $('.user_details').removeClass('d-none');
+            $('#settings-menu').removeClass('d-none');
 
             if (sessionStorage.getItem('lh_wallet_adds')) {
                 var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
@@ -71,9 +72,11 @@ async function fetchAccountData() {
             //getFirstCoinsPage();
             $("#navbarMain").removeClass('fade');
             $('#user_menu').removeClass('d-none');
+            $('#settings-menu').removeClass('d-none');
             $('#Welcome').modal('hide');
         } else {
             $('#user_menu').addClass('d-none');
+            $('#settings-menu').addClass('d-none');
             onDisconnect();
         }
     } else {
@@ -107,6 +110,7 @@ async function checkAccountData() {
         document.querySelector("#user_address").textContent = display_address;
         document.querySelector("#user_key").value = selectedAccount;
         $('#btn-connect').addClass('d-none');
+        $('#settings-menu').removeClass('d-none');
         $('.user_details_skelton').addClass('d-none');
         $('.user_details').removeClass('d-none');
 
@@ -128,6 +132,7 @@ async function checkAccountData() {
     } else {
         $('#btn-connect').removeClass('d-none');
         $('#user_menu').addClass('d-none');
+        $('#settings-menu').addClass('d-none');
     }
     //getFirstCoinsPage();
 }
@@ -213,14 +218,16 @@ async function onDisconnect() {
     sessionStorage.removeItem('lh_sel_wallet_add');
     sessionStorage.removeItem('lh_wallet_adds');
     document.querySelector("#user_key").value = '';
-    document.querySelector("#selected-account").textContent = '';
+   // document.querySelector("#selected-account").textContent = '';
     //document.querySelector("#user_address").textContent = '';
     $('#user_menu').addClass('d-none');
+    $('#settings-menu').addClass('d-none');
     //getFirstCoinsPage();
     $('#Welcome').modal('toggle');
     $("#navbarMain").addClass('fade');
     $('.user_details_skelton').removeClass('d-none');
     $('.user_details').addClass('d-none');
+    $('#btn-connect').removeClass('d-none');
 
     if (provider && provider.close) {
         await provider.close();
@@ -233,4 +240,26 @@ async function onDisconnect() {
 window.addEventListener('load', async () => {
     init();
     document.querySelector("#btn-connect").addEventListener("click", onConnect);
+});
+
+$(document).on("click",".delete_wallet",function(e) {
+    e.preventDefault();
+    var ele = $(this);
+    var w_id = ele.data("w_id");
+    var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+
+    if(jQuery.inArray(w_id, lh_wallet_adds) != -1){
+        lh_wallet_adds = jQuery.grep(lh_wallet_adds, function(value) {
+            return value != w_id;
+        });
+        if(lh_wallet_adds.length == 0) {
+            onDisconnect();
+        }
+        else {
+            sessionStorage.setItem("lh_sel_wallet_add", lh_wallet_adds[0]);
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
+            selectedAccount = null;
+        }
+        updateWalletMenu();
+    }
 });

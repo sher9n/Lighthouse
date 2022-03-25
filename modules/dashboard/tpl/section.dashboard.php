@@ -825,28 +825,6 @@
                 }
             });
         });
-
-        $(document).on("click",".delete_wallet",function(e) {
-            e.preventDefault();
-            var ele = $(this);
-            var w_id = ele.data("w_id");
-            var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
-
-            if(jQuery.inArray(w_id, lh_wallet_adds) != -1){
-                lh_wallet_adds = jQuery.grep(lh_wallet_adds, function(value) {
-                    return value != w_id;
-                });
-                if(lh_wallet_adds.length == 0) {
-                    onDisconnect();
-                }
-                else {
-                    sessionStorage.setItem("lh_sel_wallet_add", lh_wallet_adds[0]);
-                    sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
-                    selectedAccount = null;
-                }
-                updateWalletMenu();
-            }
-        });
     });
 
     function getFirstCoinsPage() {
