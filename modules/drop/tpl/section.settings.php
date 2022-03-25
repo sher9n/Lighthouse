@@ -1,7 +1,7 @@
 <main class="main-wrapper">
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-lg-5">
+            <div class="col-md-8 col-xl-5">
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="mb-10">
@@ -43,9 +43,9 @@
                     </div>
                     <div class="dash-divider"></div>
                     <div class="card-body py-6">
-                        <div class="text-end">                        
-                            <button type="button" class="btn btn-white btn-lg btn-mw-150 text-uppercase">Cancel</button>
-                            <button type="button" class="btn btn-primary btn-lg btn-mw-150 text-uppercase">Save</button>
+                        <div class="d-flex flex-lg-row justify-content-lg-end flex-column-reverse">                        
+                            <button type="button" class="btn btn-white btn-lg btn-mw-150 text-uppercase btn-m-block ">Cancel</button>
+                            <button type="button" class="btn btn-primary btn-lg btn-mw-150 text-uppercase btn-m-block ">Save</button>
                         </div>
                     </div>
                 </div>
