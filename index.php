@@ -16,7 +16,7 @@ try {
 
     $localRoutes = array(
         //-------------dashboard-------------
-        '/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
+        //'/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
         '/update-user' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-profile' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-coins' =>  'modules/dashboard/ctrl/dashboard.php',
@@ -33,16 +33,16 @@ try {
         '/update-space-coin' => 'modules/validate/ctrl/validate.php',
         '/delete-space-coin' => 'modules/validate/ctrl/validate.php',
         //----------------drops-----------------
-        '/dashboardv2' => 'modules/drop/ctrl/dashboardv2.php',
-        '/claim' => 'modules/drop/ctrl/claim.php',
+        '/dashboard' => 'modules/drop/ctrl/dashboard.php',
+        '/claims' => 'modules/drop/ctrl/claims.php',
         '/settings' => 'modules/drop/ctrl/settings.php',
-        '/drop' => 'modules/drop/ctrl/drop.php',
+        '/drops' => 'modules/drop/ctrl/drops.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
     function routeLocator($routerPath, $localRoutes)
     {
-        $route = __DIR__ . DS . 'modules/dashboard/ctrl/dashboard.php';
+        $route = __DIR__ . DS . 'modules/drop/ctrl/drops.php';
 
         if (array_key_exists($routerPath, $localRoutes))
             $route = __DIR__ . DS . $localRoutes[$routerPath];

@@ -11,15 +11,15 @@
         <div class="row align-items-center w-100">
             <div class="col-xxl-4">
                 <div class="d-flex align-items-center">
-                    <a class="" href="dashboard">
+                    <a class="" href="drops">
                         <img src="<?php echo app_cdn_path; ?>img/logo.svg" class="" />
                     </a>
                     <ul class="navbar-nav top-navbar-nav-ms">
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium active" href="drop">Drops</a>
+                            <a class="nav-link text-uppercase fw-medium active" href="drops">Drops</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium" href="claim">My Claims</a>
+                            <a class="nav-link text-uppercase fw-medium" href="claims">My Claims</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-uppercase fw-medium" href="settings">Settings</a>

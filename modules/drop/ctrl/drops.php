@@ -7,7 +7,7 @@ class controller extends Ctrl {
             'title' => 'Dashboard',
             'tab' => 'messages',
             'sections' => array(
-                __DIR__ . '/../tpl/section.dashboardv2.php'
+                __DIR__ . '/../tpl/section.drops.php'
             ),
             'js' => array()
         );
