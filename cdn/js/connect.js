@@ -35,67 +35,43 @@ async function fetchAccountData() {
     // Get connected chain id from Ethereum node
     const chainId = await web3.eth.getChainId();
 
-    if (chainId == 1) {
-        change_network = 0;
-        $('body').removeClass('alert-view');
-        $('#network_check').addClass('fade');
-        $('#btn-connect').addClass('d-none');
-        // Load chain information over an HTTP API
-        const chainData = evmChains.getChain(chainId);
-        // Get list of accounts of the connected wallet
-        const accounts = await web3.eth.getAccounts();
-        // MetaMask does not give you all accounts, only the selected account
-        selectedAccount = accounts[0];
+    $('#btn-connect').addClass('d-none');
+    // Load chain information over an HTTP API
 
-        if (selectedAccount) {
-            var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
-            sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
-            //document.querySelector("#connected_wl_id").textContent = display_address;
-            //document.querySelector("#selected-account").textContent = display_address;
-            document.querySelector("#user_address").textContent = display_address;
-            document.querySelector("#user_key").value = selectedAccount;
-            $('.user_details_skelton').addClass('d-none');
-            $('.user_details').removeClass('d-none');
-            $('#settings-menu').removeClass('d-none');
+    const chainData = evmChains.getChain(chainId);
+    // Get list of accounts of the connected wallet
 
-            if (sessionStorage.getItem('lh_wallet_adds')) {
-                var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
-                if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
-                    lh_wallet_adds.push(selectedAccount);
-                    sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
-                }
-            } else {
-                sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
+    const accounts = await web3.eth.getAccounts();
+    // MetaMask does not give you all accounts, only the selected account
+
+    selectedAccount = accounts[0];
+
+    if (selectedAccount) {
+        var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
+        sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
+        document.querySelector("#user_address").textContent = display_address;
+        document.querySelector("#user_key").value = selectedAccount;
+        $('#settings-menu').removeClass('d-none');
+
+        if (sessionStorage.getItem('lh_wallet_adds')) {
+            var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+            if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
+                lh_wallet_adds.push(selectedAccount);
+                sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
             }
+        } else {
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
+        }
 
-            updateWalletMenu();
-            //getFirstCoinsPage();
-            $("#navbarMain").removeClass('fade');
-            $('#user_menu').removeClass('d-none');
-            $('#settings-menu').removeClass('d-none');
-            $('#Welcome').modal('hide');
-        } else {
-            $('#user_menu').addClass('d-none');
-            $('#settings-menu').addClass('d-none');
-            onDisconnect();
-        }
+        updateWalletMenu();
+        //getFirstCoinsPage();
+        $("#navbarMain").removeClass('fade');
+        $('#user_menu').removeClass('d-none');
+        $('#settings-menu').removeClass('d-none');
     } else {
-        if (!sessionStorage.getItem('lh_wallet_adds')) {
-            $('#Welcome').modal('show');
-            $('#btn-connect').addClass('d-none');
-            $('#network_check').removeClass('fade');
-        } else if (change_network == 0 && add_nw_wallet == 1) {
-            $('#Welcome').modal('show');
-            $('#btn-connect').addClass('d-none');
-            $('#network_check').removeClass('fade');
-            $('.user_details_skelton').addClass('d-none');
-            $('.user_details').removeClass('d-none');
-        } else {
-            $('#Welcome').modal('hide');
-            $('body').addClass('alert-view');
-            $('.user_details_skelton').addClass('d-none');
-            $('.user_details').removeClass('d-none');
-        }
+        $('#user_menu').addClass('d-none');
+        $('#settings-menu').addClass('d-none');
+        onDisconnect();
     }
 }
 
@@ -105,14 +81,10 @@ async function checkAccountData() {
 
     if (selectedAccount) {
         var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
-        //document.querySelector("#connected_wl_id").textContent = display_address;
-        //document.querySelector("#selected-account").textContent = display_address;
         document.querySelector("#user_address").textContent = display_address;
         document.querySelector("#user_key").value = selectedAccount;
         $('#btn-connect').addClass('d-none');
         $('#settings-menu').removeClass('d-none');
-        $('.user_details_skelton').addClass('d-none');
-        $('.user_details').removeClass('d-none');
 
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
@@ -187,8 +159,6 @@ async function addWallet() {
 
 async function onConnect() {
 
-    $('#Welcome').modal('toggle');
-
     try {
         provider = await web3Modal.connect();
     } catch (e) {
@@ -223,10 +193,7 @@ async function onDisconnect() {
     $('#user_menu').addClass('d-none');
     $('#settings-menu').addClass('d-none');
     //getFirstCoinsPage();
-    $('#Welcome').modal('toggle');
     $("#navbarMain").addClass('fade');
-    $('.user_details_skelton').removeClass('d-none');
-    $('.user_details').addClass('d-none');
     $('#btn-connect').removeClass('d-none');
 
     if (provider && provider.close) {
