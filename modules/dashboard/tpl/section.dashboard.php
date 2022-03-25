@@ -613,29 +613,7 @@
         </div>
     </div>
 </main>
-<!-- Modal Welcome -->
-<div class="modal fade" id="Welcome" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <div id="network_check" class="bg-we-peep rounded-3 mb-13 fade">
-                    <div class="container">
-                        <div class="py-7 d-flex align-items-center">
-                            <img src="<?php echo app_cdn_path; ?>img/icon-info.svg" class="img-fluid" />
-                            <div class="ms-3">To use Lighthouse, please switch to the Ethereum network in your wallet.</div>
-                        </div>
-                    </div>
-                </div>
-                <img src="<?php echo app_cdn_path; ?>img/img-welcome.png" class="img-fluid" alt=""/>
-                <div class="fs-1 fw-medium mt-10">Welcome to Lighthouse!</div>
-                <div class="fs-5  mt-8 text-center">Get recognized for the value you create in web3</div>
-            </div>
-            <div class="d-flex justify-content-center mt-7 mb-18">
-                <button type="button" id="btn-connect" class="btn btn-primary btn-lg px-25 text-uppercase">Connect Wallet</button>
-            </div>
-        </div>
-    </div>
-</div>
+templates/dash_header.php
 <div class="modal fade" id="wl_con_success" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
