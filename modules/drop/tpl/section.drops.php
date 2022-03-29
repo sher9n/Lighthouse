@@ -18,14 +18,16 @@
                             <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
                                 <img src="cdn/img/whitelist-icon.svg" class="me-4" alt="airdrop icon" height="20">
                                 <div class="lh-1 fs-6">Whitelist</div>
-                            </div>
-
+                            </div>                            
                             <div class="fs-1 text-truncate fw-semibold mb-3 text-uppercase text-truncate">
                                 20 $Badger
                             </div>
 
                             <div class="text-muted fs-5 mb-10">6 days left</div>
-
+                            <div class="progress m-8">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="text-muted text-center mb-10">6,391 claimed / 10,000</div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success text-white btn-lg px-13 text-uppercase btn-mw-200">Claim Now</button>
                             </div>
@@ -55,7 +57,10 @@
                             </div>
 
                             <div class="text-muted fs-5 mb-10">8 days left</div>
-
+                            <div class="progress m-8">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="text-muted text-center mb-10">1,827 claimed / 3,000</div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary btn-lg px-13 text-uppercase btn-mw-200">CHECK ELIGIBILITY</button>
                             </div>
@@ -86,7 +91,10 @@
                             </div>
 
                             <div class="mb-10 text-muted fs-5"> 4 days left </div>
-
+                            <div class="progress m-8">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="text-muted text-center mb-10">5,307 claimed / 10,000</div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary btn-lg px-13 text-uppercase btn-mw-200">CHECK ELIGIBILITY</button>
                             </div>
@@ -118,7 +126,10 @@
                             </div>
 
                             <div class="mb-10 text-muted fs-5"> 7 days left </div>
-
+                            <div class="progress m-8">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="text-muted text-center mb-10">6,391 claimed / 10,000</div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary btn-lg px-13 text-uppercase textOverflow btn-mw-200">CHECK ELIGIBILITY</button>
                             </div>
