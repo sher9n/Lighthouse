@@ -9,7 +9,7 @@ class controller extends Ctrl {
             'sections' => array(
                 __DIR__ . '/../tpl/section.settings.php'
             ),
-            'js' => array()
+            'js' => array( app_cdn_path .'js/imageUpload.js')
         );
         require_once app_template_path . '/dash_base.php';
         exit();

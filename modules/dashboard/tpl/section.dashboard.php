@@ -613,7 +613,6 @@
         </div>
     </div>
 </main>
-templates/dash_header.php
 <div class="modal fade" id="wl_con_success" tabindex="-1" aria-labelledby="" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">

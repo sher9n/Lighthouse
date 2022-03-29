@@ -6,3 +6,9 @@
 <script type="text/javascript" src="<?php echo app_cdn_path; ?>js/select2.min.js"></script>
 <script type="text/javascript" src="<?php echo app_cdn_path; ?>js/datatables.min.js"></script>
 <script type="text/javascript" src="<?php echo app_cdn_path; ?>js/dataTables.bootstrap5.min.js"></script>
+<?php
+foreach ($__page->js as $page_js) { ?>
+    <script type="text/javascript" src="<?php echo $page_js; ?>"></script>
+    <?php
+}
+?>
