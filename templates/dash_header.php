@@ -46,7 +46,7 @@
                         </a>
                         <ul id="wallet_addresses" class="dropdown-menu dropdown-menu-end list-wallet" aria-labelledby="navbarDropdown"></ul>
                     </div>
-                    <button type="button" id="btn-connect" class="btn btn-primary btn-lg px-12 text-uppercase d-none d-xl-flex">Connect Wallet</button>
+                    <button type="button" onclick="onConnect()" class="btn_connect btn btn-primary btn-lg px-12 text-uppercase d-none">Connect Wallet</button>
                 </div>
             </div>
         </div>

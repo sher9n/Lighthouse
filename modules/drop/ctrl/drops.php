@@ -3,16 +3,36 @@ use Core\Utils;
 class controller extends Ctrl {
     function init() {
 
-        $__page = (object)array(
-            'title' => 'Dashboard',
-            'tab' => 'messages',
-            'sections' => array(
-                __DIR__ . '/../tpl/section.drops.php'
-            ),
-            'js' => array()
-        );
-        require_once app_template_path . '/dash_base.php';
-        exit();
+        if($this->__lh_request->is_xmlHttpRequest) {
+
+            if (__ROUTER_PATH == '/get-drops') {
+
+                $html = '';
+
+                if($this->hasParam('id'))
+                    include __DIR__ . '/../tpl/partial/drop-details.php';
+                else
+                    include __DIR__ . '/../tpl/partial/drops.php';
+
+                $html .= ob_get_clean();
+
+                echo json_encode(array('success' => true,'html' => $html));
+                exit();
+            }
+        }
+        else {
+
+            $__page = (object)array(
+                'title' => 'Dashboard',
+                'tab' => 'messages',
+                'sections' => array(
+                    __DIR__ . '/../tpl/section.drops.php'
+                ),
+                'js' => array()
+            );
+            require_once app_template_path . '/dash_base.php';
+            exit();
+        }
     }
 }
 ?>

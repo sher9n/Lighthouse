@@ -10,6 +10,7 @@ let page = 0;
 let loading = 0;
 let change_network = 0;
 let add_nw_wallet = 0;
+let route;
 
 function init() {
     const providerOptions = {
@@ -35,7 +36,9 @@ async function fetchAccountData() {
     // Get connected chain id from Ethereum node
     const chainId = await web3.eth.getChainId();
 
-    $('#btn-connect').addClass('d-none');
+    $('.btn_connect').addClass('d-none');
+    $('.wallet_disconnected').addClass('d-none');
+    $('.wallet_connected').removeClass('d-none');
     // Load chain information over an HTTP API
 
     const chainData = evmChains.getChain(chainId);
@@ -52,8 +55,7 @@ async function fetchAccountData() {
         document.querySelector("#user_address").textContent = display_address;
         $('#user_avatar').removeClass('d-none');
         document.querySelector("#user_key").value = selectedAccount;
-        $('#settings-menu').removeClass('d-none');
-        $('#claims-menu').removeClass('d-none');
+
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
             if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
@@ -68,19 +70,23 @@ async function fetchAccountData() {
         //getFirstCoinsPage();
         $("#navbarMain").removeClass('fade');
         $('#user_menu').removeClass('d-none');
-        $('#settings-menu').removeClass('d-none');
-        $('#claims-menu').removeClass('d-none');
+
     } else {
         $('#user_menu').addClass('d-none');
-        $('#settings-menu').addClass('d-none');
-        $('#claims-menu').addClass('d-none');
         onDisconnect();
     }
+
+    if(route == 'claims')
+        getClaims();
+    else if (route == 'drops')
+        getDrops();
 }
 
 async function checkAccountData() {
 
     selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
+    var url_parts = document.location.pathname.split('/');
+    route = url_parts[url_parts.length-1];
 
     if (selectedAccount) {
         var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
@@ -88,9 +94,10 @@ async function checkAccountData() {
         document.querySelector("#user_address").textContent = display_address;
         $('#user_avatar').removeClass('d-none');
         document.querySelector("#user_key").value = selectedAccount;
-        $('#btn-connect').addClass('d-none');
-        $('#settings-menu').removeClass('d-none');
-        $('#claims-menu').removeClass('d-none');
+
+        $('.btn_connect').addClass('d-none');
+        $('.wallet_disconnected').addClass('d-none');
+        $('.wallet_connected').removeClass('d-none');
 
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
@@ -108,12 +115,16 @@ async function checkAccountData() {
         $('#user_menu').removeClass('d-none');
 
     } else {
-        $('#btn-connect').removeClass('d-none');
+        $('.btn_connect').removeClass('d-none');
+        $('.wallet_disconnected').removeClass('d-none');
+        $('.wallet_connected').addClass('d-none');
         $('#user_menu').addClass('d-none');
-        $('#settings-menu').addClass('d-none');
-        $('#claims-menu').addClass('d-nome');
     }
-    //getFirstCoinsPage();
+
+    if(route == 'claims')
+        getClaims();
+    else if (route == 'drops')
+        getDrops();
 }
 
 async function updateWalletMenu() {
@@ -134,6 +145,42 @@ async function updateWalletMenu() {
     });
 }
 
+async function getClaims() {
+    var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+    var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
+    var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
+
+    $.ajax({
+        url: 'get_claims',
+        dataType: 'json',
+        data: data,
+        type: 'POST',
+        success: function (response) {
+            if (response.success == true) {
+                $('#connected_claims').html(response.html);
+            }
+        }
+    });
+}
+
+async function getDrops() {
+    var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+    var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
+    var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
+
+    $.ajax({
+        url: 'get-drops',
+        dataType: 'json',
+        data: data,
+        type: 'POST',
+        success: function (response) {
+            if (response.success == true) {
+                $('#drops_cards').html(response.html);
+            }
+        }
+    });
+}
+
 async function updateUser() {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
@@ -147,12 +194,6 @@ async function updateUser() {
     });
 }
 
-async function refreshAccountData() {
-    //document.querySelector("#btn-connect").setAttribute("disabled", "disabled")
-    fetchAccountData(provider);
-    //document.querySelector("#btn-connect").removeAttribute("disabled")
-}
-
 async function addWallet() {
 
     try {
@@ -161,7 +202,7 @@ async function addWallet() {
         return;
     }
     add_nw_wallet = 1;
-    await refreshAccountData();
+    await fetchAccountData();
 }
 
 async function onConnect() {
@@ -188,7 +229,7 @@ async function onConnect() {
         fetchAccountData();
     });
 
-    await refreshAccountData();
+    await fetchAccountData();
 }
 
 async function onDisconnect() {
@@ -198,11 +239,12 @@ async function onDisconnect() {
     document.querySelector("#user_address").textContent = '';
     $('#user_avatar').addClass('d-none');
     $('#user_menu').addClass('d-none');
-    $('#settings-menu').addClass('d-none');
-    $('#claims-menu').addClass('d-none');
     //getFirstCoinsPage();
     $("#navbarMain").addClass('fade');
-    $('#btn-connect').removeClass('d-none');
+
+    $('.btn_connect').removeClass('d-none');
+    $('.wallet_disconnected').removeClass('d-none');
+    $('.wallet_connected').addClass('d-none');
 
     if (provider && provider.close) {
         await provider.close();
@@ -214,7 +256,7 @@ async function onDisconnect() {
 
 window.addEventListener('load', async () => {
     init();
-    document.querySelector("#btn-connect").addEventListener("click", onConnect);
+    //document.querySelector("#btn-connect").addEventListener("click", onConnect);
 });
 
 $(document).on("click",".delete_wallet",function(e) {
