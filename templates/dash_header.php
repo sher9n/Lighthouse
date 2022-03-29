@@ -44,8 +44,8 @@
                     <div id="user_menu" class="dropdown d-flex align-items-center">
                         <div class="h-divider mx-12 d-none d-xl-flex"></div>
                         <a class="nav-link dropdown-toggle mobile-dropdown-toggle d-flex align-items-center px-0 text-fiord" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="avator-md d-flex justify-content-center align-items-center rounded-circle border border-black bg-purple"></div>
-                            <div class="mx-4 h5 mb-0 d-none d-xl-flex" id="user_address"></div>
+                            <div  id="user_avatar" class="d-none avator-md d-flex justify-content-center align-items-center rounded-circle border border-black bg-purple"></div>
+                            <div  id="user_address" class="mx-4 h5 mb-0 d-none d-xl-flex"></div>
                         </a>
                         <ul id="wallet_addresses" class="dropdown-menu dropdown-menu-end list-wallet" aria-labelledby="navbarDropdown"></ul>
                     </div>

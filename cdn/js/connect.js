@@ -50,9 +50,10 @@ async function fetchAccountData() {
         var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
         sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
         document.querySelector("#user_address").textContent = display_address;
+        $('#user_avatar').removeClass('d-none');
         document.querySelector("#user_key").value = selectedAccount;
         $('#settings-menu').removeClass('d-none');
-
+        $('#claims-menu').removeClass('d-none');
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
             if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
@@ -68,9 +69,11 @@ async function fetchAccountData() {
         $("#navbarMain").removeClass('fade');
         $('#user_menu').removeClass('d-none');
         $('#settings-menu').removeClass('d-none');
+        $('#claims-menu').removeClass('d-none');
     } else {
         $('#user_menu').addClass('d-none');
         $('#settings-menu').addClass('d-none');
+        $('#claims-menu').addClass('d-none');
         onDisconnect();
     }
 }
@@ -81,10 +84,13 @@ async function checkAccountData() {
 
     if (selectedAccount) {
         var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
+        $('#user_avatar').removeClass('d-none');
         document.querySelector("#user_address").textContent = display_address;
+        $('#user_avatar').removeClass('d-none');
         document.querySelector("#user_key").value = selectedAccount;
         $('#btn-connect').addClass('d-none');
         $('#settings-menu').removeClass('d-none');
+        $('#claims-menu').removeClass('d-none');
 
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
@@ -105,6 +111,7 @@ async function checkAccountData() {
         $('#btn-connect').removeClass('d-none');
         $('#user_menu').addClass('d-none');
         $('#settings-menu').addClass('d-none');
+        $('#claims-menu').addClass('d-nome');
     }
     //getFirstCoinsPage();
 }
@@ -188,10 +195,11 @@ async function onDisconnect() {
     sessionStorage.removeItem('lh_sel_wallet_add');
     sessionStorage.removeItem('lh_wallet_adds');
     document.querySelector("#user_key").value = '';
-   // document.querySelector("#selected-account").textContent = '';
-    //document.querySelector("#user_address").textContent = '';
+    document.querySelector("#user_address").textContent = '';
+    $('#user_avatar').addClass('d-none');
     $('#user_menu').addClass('d-none');
     $('#settings-menu').addClass('d-none');
+    $('#claims-menu').addClass('d-none');
     //getFirstCoinsPage();
     $("#navbarMain").addClass('fade');
     $('#btn-connect').removeClass('d-none');

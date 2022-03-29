@@ -9,23 +9,19 @@
                                Your claims will be airdropped soon! 
                                <img src="cdn\img\icon-clap.svg" alt="clapping icon" width="32" height="32">
                                </div>
-                               
                                <div class="text-muted mt-3 fs-4 fw-medium">
                                Check back here or leave your details to be notified once rewards are redeemable. 
                                </div>
                                <form  class="row g-3 justify-content-center mt-2"id="notifyForm" method="post" action="notify" autocomplete="off" novalidate="novalidate">
-
                                     <div class="col-4">
                                         <input type="email" name="email" class="form-control form-control-lg border-0" id="" placeholder="Email address or Telegram handle">
                                     </div>
                                     <div class="col-auto">
                                         <button type="submit" class="btn btn-primary btn-lg px-13 text-uppercase ">Get Notified</button>
                                     </div>
-      
                                 </form>
                            </div>
                        </div>
-
                    </div>
                </div>
         </div>
