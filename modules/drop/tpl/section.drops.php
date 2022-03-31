@@ -10,15 +10,18 @@
 <script type="text/javascript">
     $(document).ready(function() {
         checkAccountData();
-
-
     });
 
     $(document).on("click",".drop_details",function (e) {
         e.preventDefault();
+        var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+        var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
+        var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
+
         $.ajax({
             url: $(this).attr('href'),
-            type: 'get',
+            type: 'POST',
+            data:data,
             dataType: 'json',
             success: function (response) {
                 if (response.success == true) {

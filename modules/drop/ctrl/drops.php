@@ -9,8 +9,15 @@ class controller extends Ctrl {
 
                 $html = '';
 
-                if($this->hasParam('id'))
+                if($this->hasParam('id')) {
+                    $drop_id  = $this->getParam('id');
+                    $user_add = null;
+                    $claim    = false;
+                    if($this->hasParam('sel_add') && strlen($this->getParam('sel_add')) > 0)
+                        $user_add = $this->getParam('sel_add');
+
                     include __DIR__ . '/../tpl/partial/drop-details.php';
+                }
                 else
                     include __DIR__ . '/../tpl/partial/drops.php';
 

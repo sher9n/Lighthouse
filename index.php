@@ -64,6 +64,7 @@ try {
         new Controller($request);
     }
     ob_end_flush();
+
 } catch (Exception $e) {
 
     switch ($e->getCode()) {

@@ -29,7 +29,7 @@ function init() {
     });
 }
 
-async function fetchAccountData() {
+async function fetchAccountData(url=false) {
     // Get a Web3 instance for the wallet
     const web3 = new Web3(provider);
 
@@ -78,8 +78,8 @@ async function fetchAccountData() {
 
     if(route == 'claims')
         getClaims();
-    else if (route == 'drops')
-        getDrops();
+    else
+        getDrops(url);
 }
 
 async function checkAccountData() {
@@ -123,7 +123,7 @@ async function checkAccountData() {
 
     if(route == 'claims')
         getClaims();
-    else if (route == 'drops')
+    else
         getDrops();
 }
 
@@ -163,13 +163,13 @@ async function getClaims() {
     });
 }
 
-async function getDrops() {
+async function getDrops(url=false) {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
 
     $.ajax({
-        url: 'get-drops',
+        url: (url !== false)?url:'get-drops',
         dataType: 'json',
         data: data,
         type: 'POST',
@@ -205,7 +205,7 @@ async function addWallet() {
     await fetchAccountData();
 }
 
-async function onConnect() {
+async function onConnect(url=false) {
 
     try {
         provider = await web3Modal.connect();
@@ -214,22 +214,22 @@ async function onConnect() {
     }
     // Subscribe to accounts change
     provider.on("accountsChanged", (accounts) => {
-        fetchAccountData();
+        fetchAccountData(url);
     });
 
     // Subscribe to chainId change
     provider.on("chainChanged", (chainId) => {
         change_network = 1;
-        fetchAccountData();
+        fetchAccountData(url);
     });
 
     // Subscribe to networkId change
     provider.on("networkChanged", (networkId) => {
         change_network = 1;
-        fetchAccountData();
+        fetchAccountData(url);
     });
 
-    await fetchAccountData();
+    await fetchAccountData(url);
 }
 
 async function onDisconnect() {
