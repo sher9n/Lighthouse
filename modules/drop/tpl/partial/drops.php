@@ -2,9 +2,9 @@
     <div class="card shadow mb-12">
         <div class="card-body py-18">
             <div class="text-center">
-                <div class="card-logo rounded-circle m-auto d-flex justify-content-center">
-                    <img src="cdn/img/company-badger.svg" class="rounded-circle" width="80" height="80">
-                    <img src="cdn/img/company-lighthouse.svg" class="rounded-circle" width="80" height="80">
+                <div class="card-logo m-auto d-flex justify-content-center">
+                    <img src="cdn/img/company-badger.svg" class="rounded-circle img-overlap" width="80" height="80">
+                    <img src="cdn/img/company-lighthouse.svg" class="rounded-circle img-overlap" width="80" height="80">
                 </div>
                 <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom" >BadgerDAO x Lighthouse</div>
 
@@ -31,9 +31,9 @@
     <div class="card shadow mb-12">
         <div class="card-body py-18">
             <div class="text-center">
-                <div class="card-logo rounded-circle m-auto d-flex justify-content-center">
-                    <img src="cdn/img/company-dao.svg" class="rounded-circle" width="80" height="80">
-                    <img src="cdn/img/company-lighthouse.svg" class="rounded-circle ms-n2" width="80" height="80">
+                <div class="card-logo m-auto d-flex justify-content-center">
+                    <img src="cdn/img/company-dao.svg" class="rounded-circle img-overlap" width="80" height="80">
+                    <img src="cdn/img/company-lighthouse.svg" class="rounded-circle img-overlap" width="80" height="80">
                 </div>
                 <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom" >BadgerDAO x Lighthouse</div>
                 <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
@@ -59,10 +59,10 @@
     <div class="card shadow mb-12">
         <div class="card-body py-18">
             <div class="text-center">
-                <div class="card-logo rounded-circle m-auto d-flex justify-content-center">
-                    <img src="cdn/img/company-aave.svg" class="rounded-circle" width="80" height="80">
-                    <img src="cdn/img/company-pancake.svg" class="rounded-circle" width="80" height="80">
-                    <img src="cdn/img/company-lighthouse.svg" class="rounded-circle" width="80" height="80">
+                <div class="card-logo m-auto d-flex justify-content-center">
+                    <img src="cdn/img/company-aave.svg" class="rounded-circle img-overlap" width="80" height="80">
+                    <img src="cdn/img/company-pancake.svg" class="rounded-circle img-overlap" width="80" height="80">
+                    <img src="cdn/img/company-lighthouse.svg" class="rounded-circle img-overlap" width="80" height="80">
                 </div>
                 <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom" >Aave x PancakeSwap x Blockkkkk</div>
                 <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
@@ -88,11 +88,11 @@
     <div class="card shadow mb-12">
         <div class="card-body py-18">
             <div class="text-center">
-                <div class="card-logo rounded-circle m-auto d-flex justify-content-center">
-                    <img src="cdn/img/company-aave.svg" class="rounded-circle" width="80" height="80">
-                    <img src="cdn/img/company-pancake.svg" class="rounded-circle" width="80" height="80">
-                    <img src="cdn/img/company-lighthouse.svg" class="rounded-circle" width="80" height="80">
-                    <img src="cdn/img/plus-circle.svg" class="rounded-circle" width="80" height="80">
+                <div class="card-logo m-auto d-flex justify-content-center">
+                    <img src="cdn/img/company-aave.svg" class="rounded-circle img-overlap" width="80" height="80">
+                    <img src="cdn/img/company-pancake.svg" class="rounded-circle img-overlap" width="80" height="80">
+                    <img src="cdn/img/company-lighthouse.svg" class="rounded-circle img-overlap" width="80" height="80">
+                    <img src="cdn/img/plus-circle.svg" class="rounded-circle img-overlap" width="80" height="80">
                 </div>
                 <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="There are many variations of passages of Lorem Ipsum available" data-bs-placement="bottom">Aave x PancakeSwap x Blockkkkk</div>
                 <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
