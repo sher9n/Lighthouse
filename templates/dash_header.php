@@ -52,3 +52,37 @@
         </div>
     </div>
 </nav>
+<!-- Skeleton loader Main navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg loading d-none">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center w-100">
+            <div class="col d-xl-none">
+                <div class="logo"></div>
+            </div>
+            <div class="col col-xl-5 col-xxxl">
+                <div class="d-flex align-items-center justify-content-center justify-content-xl-start">
+                    <div class="logo"></div>
+                    <ul class="navbar-nav top-navbar-nav-ms d-none d-lg-flex">
+                        <li id="drops-menu" class="nav-item">
+                            <div class="nav-link text-content-xxxxl"></div>
+                        </li>
+                        <li id="claims-menu" class="nav-item ms-16">
+                            <div class="nav-link text-content-xxxxl"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-3 col-xxxl d-none d-xl-flex">                
+                <div class="rounded-pill input-lg w-90"></div>
+            </div>
+            <div class="col col-xl-4 col-xxxl">
+                <div class="d-flex align-items-center justify-content-end">
+                    <div class="round-md"></div>
+                    <div class="text-content-xxl w-10 ms-3"></div>
+                    <div class="btn-content-lg mw-160 rounded ms-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Skeleton loader Main navigation END -->
