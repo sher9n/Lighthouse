@@ -6,7 +6,7 @@
         </div>
     </div>
 </div>
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg d-none">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg">
     <div class="container-fluid">
         <div class="d-flex align-items-center w-100">
             <div class="col d-xl-none">
@@ -52,8 +52,8 @@
         </div>
     </div>
 </nav>
-
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg loading">
+<!-- Skeleton loader Main navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white two-bg loading d-none">
     <div class="container-fluid">
         <div class="d-flex align-items-center w-100">
             <div class="col d-xl-none">
@@ -85,3 +85,4 @@
         </div>
     </div>
 </nav>
+<!-- Skeleton loader Main navigation END -->
