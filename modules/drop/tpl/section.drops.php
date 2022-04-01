@@ -4,7 +4,7 @@
             <button type="button" id="btn-connect" class="btn btn-primary btn-lg text-uppercase btn-m-block ">Connect Wallet</button>
         </div>
         <!-- Skeleton loader -->
-        <div class="row">
+        <div id="drop_skelton" class="row">
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="card shadow mb-12 loading position-relative">
                     <div class="card-body py-18">
@@ -87,7 +87,6 @@
             </div>
         </div>
         <!-- Skeleton loader END -->
-
         <div id="drops_cards" class="row"></div>
     </div>
 </main>
@@ -99,6 +98,8 @@
 
     $(document).on("click",".drop_details",function (e) {
         e.preventDefault();
+        $('#drops_cards').html('<div class="row justify-content-md-center"><div class="col-lg-6"><div class="card shadow mb-12 loading position-relative"><div class="card-body pt-18"><div class="d-flex align-items-center justify-content-center"><div class="avator-semi border rounded-circle me-6"><div class="round-lg"></div></div><div><div class="text-content-xxxl mb-6 mw-180"></div><div class="rounded-pill text-content-xxxxl w-70"></div></div></div><div class="my-17 three-line-text-content"></div><div class="text-content-xxxxxl m-auto w-80"></div><div class="mt-2 text-content-xxl m-auto w-20"></div><div class="text-content-xs m-8"></div><div class="text-content-xxl m-auto w-30 mb-10"></div><div class="mt-12"><div class="text-content-xxxl mb-5"></div><div class="text-content-xxxl mb-5"></div></div></div><div class="dash-divider"></div><div class="card-body text-center pt-6 pb-18"><div class="mb-10 text-content-lg w-20 m-auto"></div><div class="btn-content-lg m-auto w-30 rounded"></div></div></div></div></div>');
+
         var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
         var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
         var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};

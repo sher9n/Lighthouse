@@ -164,6 +164,7 @@ async function getClaims() {
 }
 
 async function getDrops(url=false) {
+    $('#drop_skelton').removeClass('d-none');
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
@@ -175,6 +176,7 @@ async function getDrops(url=false) {
         type: 'POST',
         success: function (response) {
             if (response.success == true) {
+                $('#drop_skelton').addClass('d-none');
                 $('#drops_cards').html(response.html);
             }
         }

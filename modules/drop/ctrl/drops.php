@@ -7,19 +7,23 @@ class controller extends Ctrl {
 
             if (__ROUTER_PATH == '/get-drops') {
 
-                $html = '';
+                $html       = '';
+                $user_add   = null;
+                if($this->hasParam('sel_add') && strlen($this->getParam('sel_add')) > 0)
+                    $user_add = $this->getParam('sel_add');
 
                 if($this->hasParam('id')) {
                     $drop_id  = $this->getParam('id');
-                    $user_add = null;
                     $claim    = false;
-                    if($this->hasParam('sel_add') && strlen($this->getParam('sel_add')) > 0)
-                        $user_add = $this->getParam('sel_add');
+                    $response =  Utils::LightHouseApi("drop?drop_id=".$drop_id."&wallet_adr=".$user_add);
 
                     include __DIR__ . '/../tpl/partial/drop-details.php';
                 }
-                else
+                else {
+                    //$user_add = '0xfA64e1445DFB9B98795c3FA4a2F022419B64Ec9B';
+                    $response =  Utils::LightHouseApi("drops?wallet_adr=".$user_add);
                     include __DIR__ . '/../tpl/partial/drops.php';
+                }
 
                 $html .= ob_get_clean();
 
