@@ -13,9 +13,9 @@ if(isset($response['data']) && count($response['data'])){
             <div class="card shadow">
                 <div class="card-body pt-18">
                     <div class="d-flex align-items-center justify-content-center">
-                        <div class="avator-semi border rounded-circle me-6">
+                        <div class="card-logo d-flex me-6">
                             <?php foreach ($avarats as $avtar) { ?>
-                            <img src="<?php echo app_cdn_path; ?>img/<?php echo $avtar;?>" class="rounded-circle" width="80" height="80">
+                            <img src="<?php echo app_cdn_path; ?>img/<?php echo $avtar;?>" class="rounded-circle img-overlap" width="80" height="80">
                             <?php } ?>
                         </div>
                         <div>
