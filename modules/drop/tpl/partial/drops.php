@@ -14,7 +14,7 @@ if(isset($response['data'])){
                         <div class="text-center">
                             <div class="card-logo m-auto d-flex justify-content-center">
                                 <?php foreach ($avarats as $avtar) { ?>
-                                    <img src="<?php echo app_cdn_path; ?>img/<?php echo $avtar;?>" class="rounded-circle" width="80" height="80">
+                                    <img src="<?php echo app_cdn_path; ?>img/<?php echo $avtar;?>" class="rounded-circle img-overlap" width="80" height="80">
                                 <?php } ?>
                             </div>
                             <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom" ><?php echo $drop['name'];?></div>
@@ -55,6 +55,7 @@ if(isset($response['data'])){
                     <img src="<?php echo app_cdn_path ?>img/img-no-claim.png" height="160" >
                 </div>
                 <div class="fs-1 fw-semibold text-center mt-20">No drops found!</div>
+                <div class="fs-5 fw-medium text-center text-muted mt-6">We can't find any item matching your search</div> 
             </div>
         </div>
         <?php
