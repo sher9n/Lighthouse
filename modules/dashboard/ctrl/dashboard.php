@@ -97,35 +97,6 @@ class controller extends Ctrl {
                     echo json_encode(array('success' => true,'html' => $html));
                     exit();
                     break;
-                    /*
-                    $html = '';
-                    $adds = array();
-                    $wallet_adr = $this->getParam('sel_add');
-
-                    if(strlen($this->getParam('del_wallet_adr')) > 0) {
-                        $del_wallet_adr = $this->getParam('del_wallet_adr');
-
-                        $response = Utils::LightHouseApi(
-                            "user-wallets",
-                            array('wallet_adr' => $wallet_adr, 'del_wallet_adr' => $del_wallet_adr)
-                        );
-                    }
-                    else {
-                        $response = Utils::LightHouseApi(
-                            "user-wallets",
-                            array('wallet_adr' => $wallet_adr)
-                        );
-                    }
-
-                    if($response['status'] == 200)
-                        $adds = $response['data'];
-
-                    include __DIR__ . '/../tpl/partial/wallet_addresses.php';
-                    $html = ob_get_clean();
-                    //$adds = implode(",",$adds);
-                    echo json_encode(array('success' => true,'html' => $html,'adds' => $adds));
-                    exit();
-                    break;*/
 
                 case '/notify':
                     $email = $this->getParam('email');
@@ -247,17 +218,6 @@ class controller extends Ctrl {
                     break;
             }
         }
-
-        $__page = (object)array(
-            'title' => 'Dashboard',
-            'tab' => 'messages',
-            'sections' => array(
-                __DIR__ . '/../tpl/section.dashboard.php'
-            ),
-            'js' => array()
-        );
-        require_once app_template_path . '/dash_base.php';
-        exit();
     }
 }
 ?>

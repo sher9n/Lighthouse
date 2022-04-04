@@ -36,7 +36,7 @@ class Utils {
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTPHEADER => array(
-                'X-CMC_PRO_API_KEY: 2da7d143-31d8-4a9a-ab53-c52b37a4defa'
+                'X-CMC_PRO_API_KEY: '.COINMARKET_CAP_API
             ),
         ));
         $response = curl_exec($curl);
@@ -46,7 +46,6 @@ class Utils {
 
     public static function LightHouseApi($endpoint,$post=null)
     {
-        var_dump($endpoint);exit();
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, app_api_url.DS.$endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -127,7 +126,7 @@ class Utils {
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer AAAAAAAAAAAAAAAAAAAAANeUYQEAAAAAoIjX1OWz%2Bfteb1Pw4rh8YXRmtVw%3DmhnvrEsQRXY8pBjM37sNctmYhiR3XNWUhFAw72UDFToq01ua0y',
+                'Authorization: Bearer '.TWITTER_BEARER,
                 'Content-Type: application/x-www-form-urlencoded'
             ),
         ));
@@ -156,7 +155,7 @@ class Utils {
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer AAAAAAAAAAAAAAAAAAAAANeUYQEAAAAAoIjX1OWz%2Bfteb1Pw4rh8YXRmtVw%3DmhnvrEsQRXY8pBjM37sNctmYhiR3XNWUhFAw72UDFToq01ua0y',
+                'Authorization: Bearer '.TWITTER_BEARER,
                 'Content-Type: application/x-www-form-urlencoded'
             ),
         ));
@@ -184,7 +183,7 @@ class Utils {
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer AAAAAAAAAAAAAAAAAAAAANeUYQEAAAAAoIjX1OWz%2Bfteb1Pw4rh8YXRmtVw%3DmhnvrEsQRXY8pBjM37sNctmYhiR3XNWUhFAw72UDFToq01ua0y',
+                'Authorization: Bearer '.TWITTER_BEARER,
                 'Content-Type: application/x-www-form-urlencoded'
             ),
         ));

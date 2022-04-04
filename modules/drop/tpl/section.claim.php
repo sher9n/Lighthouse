@@ -108,7 +108,7 @@
         </div>
     </div>
 </div>
-<?php include_once app_root . '/templates/dash_foot.php'; ?>
+<?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {
         if (sessionStorage.getItem('claim_success') && sessionStorage.getItem('claim_success') == 1) {

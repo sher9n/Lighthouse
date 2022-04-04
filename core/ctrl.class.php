@@ -78,14 +78,14 @@ abstract class Ctrl {
 
 	protected function hasPermission($passBack=false) {
 		if($this->__sessionOwner instanceof User) {
-			$passBack?header('Location: /switch?__pb='.urlencode($passBack)):header('Location: /dash');
+			$passBack?header('Location: /switch?__pb='.urlencode($passBack)):header('Location: /');
 			exit();
 		}
 		else {
 			return true;
 		}
 
-		header('Loation:/dash');
+		header('Loation:/');
 	}
 
 	protected function isAuthenticated($passBack=false, $object = false, $className = false) {
@@ -141,11 +141,11 @@ abstract class Ctrl {
 	        		$__page = (object)array(
 	        			'title' => Utils::get_page_title('Page Not Found'),
 	        			'sections' => array(
-	        				app_core_path.'/default/tpl/404.php'
+	        				app_core_path.'/default/tpl/section.404.php'
 	        			),
 	        			'js' => array()
 	        		);
-	        		require_once '../templates/base.min.php';
+	        		require_once '../templates/base.php';
 	        		ob_end_flush();
 	        		exit();
         		}

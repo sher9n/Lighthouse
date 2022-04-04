@@ -11,7 +11,7 @@ class controller extends Ctrl {
             ),
             'js' => array( app_cdn_path .'js/imageUpload.js')
         );
-        require_once app_template_path . '/dash_base.php';
+        require_once app_template_path . '/base.php';
         exit();
     }
 }
