@@ -11,7 +11,7 @@ class controller extends Ctrl {
                 $user_add   = null;
                 if($this->hasParam('sel_add') && strlen($this->getParam('sel_add')) > 0)
                     $user_add = $this->getParam('sel_add');
-                //$user_add = '0xfA64e1445DFB9B98795c3FA4a2F022419B64Ec9B';
+                //$user_add = '0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507';
                 if($this->hasParam('id')) {
                     $drop_id  = $this->getParam('id');
                     $claim    = false;
