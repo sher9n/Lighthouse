@@ -19,10 +19,10 @@
                     </a>
                     <ul class="navbar-nav top-navbar-nav-ms d-none d-lg-flex">
                         <li id="drops-menu" class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium active" href="drops">Drops</a>
+                            <a class="nav-link text-uppercase fw-medium <?php echo (__ROUTER_PATH == '/drops')?'active':''; ?>" href="drops">Drops</a>
                         </li>
                         <li id="claims-menu" class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium" href="claims">My Claims</a>
+                            <a class="nav-link text-uppercase fw-medium <?php echo (__ROUTER_PATH == '/claims')?'active':''; ?>" href="claims">My Claims</a>
                         </li>
                     </ul>
                 </div>

@@ -67,7 +67,7 @@ async function fetchAccountData(url=false) {
         }
 
         updateWalletMenu();
-        //getFirstCoinsPage();
+
         $("#navbarMain").removeClass('fade');
         $('#user_menu').removeClass('d-none');
 
@@ -110,7 +110,7 @@ async function checkAccountData() {
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
 
         updateWalletMenu();
-        updateUser();
+        //updateUser();
         $("#navbarMain").removeClass('fade');
         $('#user_menu').removeClass('d-none');
 
@@ -145,32 +145,39 @@ async function updateWalletMenu() {
     });
 }
 
-async function getClaims() {
+async function getClaims(search='') {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
 
-    $.ajax({
-        url: 'get_claims',
-        dataType: 'json',
-        data: data,
-        type: 'POST',
-        success: function (response) {
-            if (response.success == true) {
-                $('#connected_claims').html(response.html);
+    if(sel_wallet_add) {
+        $('#connected_claims').html('');
+        $('#Skeleton_claims').removeClass('d-none');
+
+        $.ajax({
+            url: 'get_claims?search='+search,
+            dataType: 'json',
+            data: data,
+            type: 'POST',
+            success: function (response) {
+                if (response.success == true) {
+                    $('#Skeleton_claims').addClass('d-none');
+                    $('#connected_claims').html(response.html);
+                }
             }
-        }
-    });
+        });
+    }
 }
 
-async function getDrops(url=false) {
+async function getDrops(url=false,search='') {
+    $('#drops_cards').html('');
     $('#drop_skelton').removeClass('d-none');
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
 
     $.ajax({
-        url: (url !== false)?url:'get-drops',
+        url: (url !== false)?url+'&search='+search:'get-drops?search='+search,
         dataType: 'json',
         data: data,
         type: 'POST',
@@ -183,28 +190,34 @@ async function getDrops(url=false) {
     });
 }
 
-async function updateUser() {
+async function updateUser(del_wallet_adr=null) {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
-    var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
+    var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add,'del_wallet_adr':del_wallet_adr};
 
     $.ajax({
         url: 'update-user',
         dataType: 'json',
         data: data,
-        type: 'POST'
+        type: 'POST',
+        success: function (response) {
+            if (response.success == true) {
+                sessionStorage.setItem("lh_wallet_adds", JSON.stringify(response.adds));
+                updateWalletMenu();
+            }
+        }
     });
 }
 
 async function addWallet() {
-
     try {
         provider = await web3Modal.connect();
     } catch (e) {
         return;
     }
     add_nw_wallet = 1;
-    await fetchAccountData();
+    await fetchAccountData(false,false);
+    updateUser();
 }
 
 async function onConnect(url=false) {
@@ -217,21 +230,25 @@ async function onConnect(url=false) {
     // Subscribe to accounts change
     provider.on("accountsChanged", (accounts) => {
         fetchAccountData(url);
+        updateUser();
     });
 
     // Subscribe to chainId change
     provider.on("chainChanged", (chainId) => {
         change_network = 1;
         fetchAccountData(url);
+        updateUser();
     });
 
     // Subscribe to networkId change
     provider.on("networkChanged", (networkId) => {
         change_network = 1;
         fetchAccountData(url);
+        updateUser();
     });
 
-    await fetchAccountData(url);
+    await fetchAccountData(url,false);
+    updateUser();
 }
 
 async function onDisconnect() {
@@ -253,7 +270,9 @@ async function onDisconnect() {
         await web3Modal.clearCachedProvider();
         provider = null;
     }
+
     selectedAccount = null;
+    checkAccountData();
 }
 
 window.addEventListener('load', async () => {
@@ -279,6 +298,17 @@ $(document).on("click",".delete_wallet",function(e) {
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
             selectedAccount = null;
         }
-        updateWalletMenu();
+        updateUser(w_id);
     }
 });
+
+function delay(callback, ms) {
+    var timer = 0;
+    return function() {
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            callback.apply(context, args);
+        }, ms || 1000);
+    };
+}

@@ -119,24 +119,6 @@
 
     </div>
 </main>
-<!-- Claim Modal -->
-<div class="modal fade" id="ClaimModal" tabindex="-1" aria-labelledby="ClaimModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body py-30">
-        <div class="text-center">
-            <img src="<?php echo app_cdn_path; ?>img/img-claim-popup.svg" >
-        </div>  
-        <div class="fs-1 fw-semibold text-center mt-20">Claim successful!</div>
-        <div class="fs-5 fw-medium text-center text-muted mt-6">This reward will be airdropped to you soon</div>
-        <div class="text-center mt-18">
-            <button type="submit" class="btn btn-primary btn-lg px-18 text-uppercase">COntinue</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <?php include_once app_root . '/templates/dash_foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function() {

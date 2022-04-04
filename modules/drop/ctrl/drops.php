@@ -11,7 +11,7 @@ class controller extends Ctrl {
                 $user_add   = null;
                 if($this->hasParam('sel_add') && strlen($this->getParam('sel_add')) > 0)
                     $user_add = $this->getParam('sel_add');
-
+                //$user_add = '0xfA64e1445DFB9B98795c3FA4a2F022419B64Ec9B';
                 if($this->hasParam('id')) {
                     $drop_id  = $this->getParam('id');
                     $claim    = false;
@@ -20,8 +20,11 @@ class controller extends Ctrl {
                     include __DIR__ . '/../tpl/partial/drop-details.php';
                 }
                 else {
-                    //$user_add = '0xfA64e1445DFB9B98795c3FA4a2F022419B64Ec9B';
-                    $response =  Utils::LightHouseApi("drops?wallet_adr=".$user_add);
+                    $search = '';
+                    if($this->hasParam('search'))
+                        $search = $this->getParam('search');
+
+                    $response =  Utils::LightHouseApi("drops?wallet_adr=".$user_add."&search=".$search);
                     include __DIR__ . '/../tpl/partial/drops.php';
                 }
 

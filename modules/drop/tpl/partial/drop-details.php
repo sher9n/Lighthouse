@@ -6,6 +6,7 @@ if(isset($response['data']) && count($response['data'])){
     $user_claims = (int)$drop['user_claims'];
     $user_eligibilities = $drop['user_eligibilities'];
     $claim =  (is_array($user_eligibilities) && (count($user_eligibilities) == array_sum($user_eligibilities)));
+    $avarats = explode(",",$drop['avatars']);
     ?>
     <div class="row justify-content-md-center">
         <div class="col-lg-6">
@@ -13,7 +14,9 @@ if(isset($response['data']) && count($response['data'])){
                 <div class="card-body pt-18">
                     <div class="d-flex align-items-center justify-content-center">
                         <div class="avator-semi border rounded-circle me-6">
-                            <img src="<?php echo app_cdn_path; ?>img/company-lighthouse.svg" class="rounded-circle" width="80" height="80">
+                            <?php foreach ($avarats as $avtar) { ?>
+                            <img src="<?php echo app_cdn_path; ?>img/<?php echo $avtar;?>" class="rounded-circle" width="80" height="80">
+                            <?php } ?>
                         </div>
                         <div>
                             <div class="fs-3 fw-medium text-truncate mb-6"><?php echo $drop['name']; ?></div>
@@ -34,7 +37,7 @@ if(isset($response['data']) && count($response['data'])){
                         <div class="col-md-auto">
                             <?php foreach ( $drop['eligibilities'] as $index =>  $eligibility) { ?>
                             <div class="form-check mb-5">
-                                <input class="form-check-input" type="checkbox" <?php echo ($user_eligibilities[$index] == 1)?'checked':''; ?> value="" id="ThreeMonth">
+                                <input class="form-check-input" type="checkbox" <?php echo ($user_eligibilities != false && $user_eligibilities[$index] == 1)?'checked':''; ?> value="" id="ThreeMonth">
                                 <label class="form-check-label fs-5 fw-medium" for="ThreeMonth">
                                     <?php echo $eligibility; ?>
                                 </label>
@@ -45,11 +48,11 @@ if(isset($response['data']) && count($response['data'])){
                 </div>
                 <div class="dash-divider"></div>
                 <div class="card-body text-center pt-6 pb-18">
-                    <div class="fw-semibold">Connect your wallet to view eligibility.</div>
                     <?php if(is_null($user_add)){ ?>
+                        <div class="fw-semibold">Connect your wallet to view eligibility.</div>
                         <button type="button" onclick="onConnect('get-drops?id=<?php echo $drop_id;?>')" class="btn btn-primary btn-lg px-13 text-uppercase mt-8">CONNECT WALLET</button>
                     <?php }else{ ?>
-                        <button type="submit" class="wallet_connected btn btn-primary btn-lg px-13 text-uppercase mt-8 <?php echo ($claim != true)?'disabled':'';?>" data-bs-toggle="modal" data-bs-target="#ClaimModal">CLAIM AIRDROP</button>
+                        <button type="submit" id="claim_airdrop" class="wallet_connected btn btn-primary btn-lg px-13 text-uppercase mt-8 <?php echo ($claim != true)?'disabled':'';?>" data-drop_id="<?php echo $drop['id']; ?>">CLAIM AIRDROP</button>
                     <?php } ?>
                 </div>
             </div>
