@@ -2,6 +2,7 @@
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const evmChains = window.evmChains;
+
 let web3Modal
 let provider;
 let selectedAccount;
@@ -9,6 +10,7 @@ let page = 0;
 let loading = 0;
 let change_network = 0;
 let add_nw_wallet = 0;
+let route;
 
 function init() {
     const providerOptions = {
@@ -27,87 +29,78 @@ function init() {
     });
 }
 
-async function fetchAccountData() {
-
+async function fetchAccountData(url=false) {
+    // Get a Web3 instance for the wallet
     const web3 = new Web3(provider);
 
+    // Get connected chain id from Ethereum node
     const chainId = await web3.eth.getChainId();
 
-    if (chainId == 1) {
-        const chainData = evmChains.getChain(chainId);
-        const accounts  = await web3.eth.getAccounts();
-        selectedAccount = accounts[0];
-        change_network  = 0;
-        $('body').removeClass('alert-view');
-        $('#network_check').addClass('fade');
-        $('#btn-connect').prop('disabled', false);
+    $('.btn_connect').addClass('d-none');
+    $('.wallet_disconnected').addClass('d-none');
+    $('.wallet_connected').removeClass('d-none');
+    // Load chain information over an HTTP API
 
-        if (selectedAccount) {
-            var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
-            sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
-            document.querySelector("#connected_wl_id").textContent = display_address;
-            document.querySelector("#selected-account").textContent = display_address;
-            document.querySelector("#user_address").textContent = display_address;
-            document.querySelector("#user_key").value = selectedAccount;
-            $('.user_details_skelton').addClass('d-none');
-            $('.user_details').removeClass('d-none');
+    const chainData = evmChains.getChain(chainId);
+    // Get list of accounts of the connected wallet
 
-            if (sessionStorage.getItem('lh_wallet_adds')) {
-                var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+    const accounts = await web3.eth.getAccounts();
+    // MetaMask does not give you all accounts, only the selected account
 
-                if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
-                    lh_wallet_adds.push(selectedAccount);
-                    sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
-                }
-            }
-            else {
-                sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
-            }
-
-            updateWalletMenu();
-            getFirstCoinsPage();
-            $("#navbarMain").removeClass('fade');
-            $('#user_menu').removeClass('d-none');
-            $('#Welcome').modal('hide');
-        } else {
-            $('#user_menu').addClass('d-none');
-            onDisconnect();
-        }
-    } else {
-        if (!sessionStorage.getItem('lh_wallet_adds')) {
-            $('#Welcome').modal('show');
-            $('#btn-connect').prop('disabled', true);
-            $('#network_check').removeClass('fade');
-        } else if (change_network == 0 && add_nw_wallet == 1) {
-            $('#Welcome').modal('show');
-            $('#btn-connect').prop('disabled', true);
-            $('#network_check').removeClass('fade');
-            $('.user_details_skelton').addClass('d-none');
-            $('.user_details').removeClass('d-none');
-        } else {
-            $('#Welcome').modal('hide');
-            $('body').addClass('alert-view');
-            $('.user_details_skelton').addClass('d-none');
-            $('.user_details').removeClass('d-none');
-        }
-    }
-}
-
-async function checkAccountData() {
-    selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
+    selectedAccount = accounts[0];
 
     if (selectedAccount) {
         var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
-        document.querySelector("#connected_wl_id").textContent = display_address;
-        document.querySelector("#selected-account").textContent = display_address;
+        sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
         document.querySelector("#user_address").textContent = display_address;
+        $('#user_avatar').removeClass('d-none');
         document.querySelector("#user_key").value = selectedAccount;
-        $('.user_details_skelton').addClass('d-none');
-        $('.user_details').removeClass('d-none');
 
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+            if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
+                lh_wallet_adds.push(selectedAccount);
+                sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
+            }
+        } else {
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
+        }
 
+        updateWalletMenu();
+
+        $("#navbarMain").removeClass('fade');
+        $('#user_menu').removeClass('d-none');
+
+    } else {
+        $('#user_menu').addClass('d-none');
+        onDisconnect();
+    }
+
+    if(route == 'claims')
+        getClaims();
+    else
+        getDrops(url);
+}
+
+async function checkAccountData() {
+
+    selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
+    var url_parts = document.location.pathname.split('/');
+    route = url_parts[url_parts.length-1];
+
+    if (selectedAccount) {
+        var display_address = selectedAccount.substring(0, 6) + '...' + selectedAccount.slice(-4);
+        $('#user_avatar').removeClass('d-none');
+        document.querySelector("#user_address").textContent = display_address;
+        $('#user_avatar').removeClass('d-none');
+        document.querySelector("#user_key").value = selectedAccount;
+
+        $('.btn_connect').addClass('d-none');
+        $('.wallet_disconnected').addClass('d-none');
+        $('.wallet_connected').removeClass('d-none');
+
+        if (sessionStorage.getItem('lh_wallet_adds')) {
+            var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
             if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
                 lh_wallet_adds.push(selectedAccount);
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
@@ -117,12 +110,21 @@ async function checkAccountData() {
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
 
         updateWalletMenu();
-        updateUser();
+        //updateUser();
         $("#navbarMain").removeClass('fade');
         $('#user_menu').removeClass('d-none');
-    } else
+
+    } else {
+        $('.btn_connect').removeClass('d-none');
+        $('.wallet_disconnected').removeClass('d-none');
+        $('.wallet_connected').addClass('d-none');
         $('#user_menu').addClass('d-none');
-    getFirstCoinsPage();
+    }
+
+    if(route == 'claims')
+        getClaims();
+    else
+        getDrops();
 }
 
 async function updateWalletMenu() {
@@ -143,21 +145,68 @@ async function updateWalletMenu() {
     });
 }
 
-async function updateUser() {
+async function getClaims(search='') {
+    var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+    var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
+    var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
+
+    if(sel_wallet_add) {
+        $('#connected_claims').html('');
+        $('#Skeleton_claims').removeClass('d-none');
+
+        $.ajax({
+            url: 'get_claims?search='+search,
+            dataType: 'json',
+            data: data,
+            type: 'POST',
+            success: function (response) {
+                if (response.success == true) {
+                    $('#Skeleton_claims').addClass('d-none');
+                    $('#connected_claims').html(response.html);
+                }
+            }
+        });
+    }
+}
+
+async function getDrops(url=false,search='') {
+    $('#drops_cards').html('');
+    $('#drop_skelton').removeClass('d-none');
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
 
     $.ajax({
-        url: 'update-user',
+        url: (url !== false)?url+'&search='+search:'get-drops?search='+search,
         dataType: 'json',
         data: data,
-        type: 'POST'
+        type: 'POST',
+        success: function (response) {
+            if (response.success == true) {
+                $('#drop_skelton').addClass('d-none');
+                $('#drops_cards').html(response.html);
+            }
+        }
     });
 }
 
-async function refreshAccountData() {
-    fetchAccountData(provider);
+async function updateUser(del_wallet_adr=null) {
+    var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+    var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
+    var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add,'del_wallet_adr':del_wallet_adr};
+
+    $.ajax({
+        url: 'update-user',
+        dataType: 'json',
+        data: data,
+        type: 'POST',
+        success: function (response) {
+            if (response.success == true) {
+                sessionStorage.setItem("lh_wallet_adds", JSON.stringify(response.adds));
+                updateWalletMenu();
+            }
+        }
+    });
 }
 
 async function addWallet() {
@@ -167,57 +216,99 @@ async function addWallet() {
         return;
     }
     add_nw_wallet = 1;
-    await refreshAccountData();
+    await fetchAccountData(false,false);
+    updateUser();
 }
 
-async function onConnect() {
-    $('#Welcome').modal('toggle');
+async function onConnect(url=false) {
 
     try {
         provider = await web3Modal.connect();
     } catch (e) {
         return;
     }
-
+    // Subscribe to accounts change
     provider.on("accountsChanged", (accounts) => {
-        fetchAccountData();
+        fetchAccountData(url);
+        updateUser();
     });
 
+    // Subscribe to chainId change
     provider.on("chainChanged", (chainId) => {
         change_network = 1;
-        fetchAccountData();
+        fetchAccountData(url);
+        updateUser();
     });
 
+    // Subscribe to networkId change
     provider.on("networkChanged", (networkId) => {
         change_network = 1;
-        fetchAccountData();
+        fetchAccountData(url);
+        updateUser();
     });
 
-    await refreshAccountData();
+    await fetchAccountData(url,false);
+    updateUser();
 }
 
 async function onDisconnect() {
     sessionStorage.removeItem('lh_sel_wallet_add');
     sessionStorage.removeItem('lh_wallet_adds');
     document.querySelector("#user_key").value = '';
-    document.querySelector("#selected-account").textContent = '';
-    //document.querySelector("#user_address").textContent = '';
+    document.querySelector("#user_address").textContent = '';
+    $('#user_avatar').addClass('d-none');
     $('#user_menu').addClass('d-none');
-    getFirstCoinsPage();
-    $('#Welcome').modal('toggle');
+    //getFirstCoinsPage();
     $("#navbarMain").addClass('fade');
-    $('.user_details_skelton').removeClass('d-none');
-    $('.user_details').addClass('d-none');
+
+    $('.btn_connect').removeClass('d-none');
+    $('.wallet_disconnected').removeClass('d-none');
+    $('.wallet_connected').addClass('d-none');
 
     if (provider && provider.close) {
         await provider.close();
         await web3Modal.clearCachedProvider();
         provider = null;
     }
+
     selectedAccount = null;
+    checkAccountData();
 }
 
 window.addEventListener('load', async () => {
     init();
-    document.querySelector("#btn-connect").addEventListener("click", onConnect);
+    //document.querySelector("#btn-connect").addEventListener("click", onConnect);
 });
+
+$(document).on("click",".delete_wallet",function(e) {
+    e.preventDefault();
+    var ele = $(this);
+    var w_id = ele.data("w_id");
+    var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+
+    if(jQuery.inArray(w_id, lh_wallet_adds) != -1){
+        lh_wallet_adds = jQuery.grep(lh_wallet_adds, function(value) {
+            return value != w_id;
+        });
+        if(lh_wallet_adds.length == 0) {
+            onDisconnect();
+        }
+        else {
+            sessionStorage.setItem("lh_sel_wallet_add", lh_wallet_adds[0]);
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
+            selectedAccount = null;
+        }
+        updateUser(w_id);
+    }
+});
+
+function delay(callback, ms) {
+    var timer = 0;
+    return function() {
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            callback.apply(context, args);
+        }, ms || 1000);
+    };
+}

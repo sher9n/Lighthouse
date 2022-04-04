@@ -16,7 +16,8 @@ try {
 
     $localRoutes = array(
         //-------------dashboard-------------
-        '/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
+        //'/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
+        '/notify' => 'modules/dashboard/ctrl/dashboard.php',
         '/update-user' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-profile' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-coins' =>  'modules/dashboard/ctrl/dashboard.php',
@@ -25,6 +26,7 @@ try {
         '/get-notify' => 'modules/dashboard/ctrl/dashboard.php',
         '/get-mentions' => 'modules/dashboard/ctrl/dashboard.php',
         '/ohlcv-updates' => 'modules/dashboard/ctrl/dashboard.php',
+        '/wallet-menu' => 'modules/dashboard/ctrl/dashboard.php',
         //------------validate---------------
         '/get-spaces' => 'modules/validate/ctrl/validate.php',
         '/coin-search' => 'modules/validate/ctrl/validate.php',
@@ -36,12 +38,19 @@ try {
         '/delete-coins-info' => 'modules/validate/ctrl/dao-description.php',
         '/update-space-coin' => 'modules/validate/ctrl/validate.php',
         '/delete-space-coin' => 'modules/validate/ctrl/validate.php',
+        //----------------drops-----------------
+        '/dashboard' => 'modules/drop/ctrl/dashboard.php',
+        '/claims' => 'modules/drop/ctrl/claims.php',
+        '/get_claims' =>  'modules/drop/ctrl/claims.php',
+        '/settings' => 'modules/drop/ctrl/settings.php',
+        '/drops' => 'modules/drop/ctrl/drops.php',
+        '/get-drops' => 'modules/drop/ctrl/drops.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
     function routeLocator($routerPath, $localRoutes)
     {
-        $route = __DIR__ . DS . 'modules/dashboard/ctrl/dashboard.php';
+        $route = __DIR__ . DS . 'modules/drop/ctrl/drops.php';
 
         if (array_key_exists($routerPath, $localRoutes))
             $route = __DIR__ . DS . $localRoutes[$routerPath];
@@ -60,6 +69,7 @@ try {
         new Controller($request);
     }
     ob_end_flush();
+
 } catch (Exception $e) {
 
     switch ($e->getCode()) {

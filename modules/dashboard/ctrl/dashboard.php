@@ -70,13 +70,25 @@ class controller extends Ctrl {
                 case '/update-user':
                     $html = '';
                     $adds = $this->getParam('adds');
+                    $wallet_adr = $this->getParam('sel_add');
                     $adds = implode(",",$adds);
-                    $response = Utils::LightHouseApi("user-update",array('address' =>$adds));
-                    echo json_encode(array('success' => true,'user_id' => $response));
+
+                    if(strlen($this->getParam('del_wallet_adr')) > 0) {
+                        $del_wallet_adr = $this->getParam('del_wallet_adr');
+                        $response = Utils::LightHouseApi("user-update",array('address' =>$adds,'wallet_adr' => $wallet_adr,'del_wallet_adr' => $del_wallet_adr));
+                    }
+                    else
+                        $response = Utils::LightHouseApi("user-update",array('address' =>$adds,'wallet_adr' => $wallet_adr));
+
+                    if($response['status'] == 200 && isset($response['data']))
+                        $adds = $response['data']['wallet_ids'];
+
+                    echo json_encode(array('success' => true,'adds' => $adds));
                     exit();
                     break;
 
                 case '/wallet-menu':
+
                     $html = '';
                     $adds = $this->getParam('adds');
                     include __DIR__ . '/../tpl/partial/wallet_addresses.php';
@@ -85,6 +97,35 @@ class controller extends Ctrl {
                     echo json_encode(array('success' => true,'html' => $html));
                     exit();
                     break;
+                    /*
+                    $html = '';
+                    $adds = array();
+                    $wallet_adr = $this->getParam('sel_add');
+
+                    if(strlen($this->getParam('del_wallet_adr')) > 0) {
+                        $del_wallet_adr = $this->getParam('del_wallet_adr');
+
+                        $response = Utils::LightHouseApi(
+                            "user-wallets",
+                            array('wallet_adr' => $wallet_adr, 'del_wallet_adr' => $del_wallet_adr)
+                        );
+                    }
+                    else {
+                        $response = Utils::LightHouseApi(
+                            "user-wallets",
+                            array('wallet_adr' => $wallet_adr)
+                        );
+                    }
+
+                    if($response['status'] == 200)
+                        $adds = $response['data'];
+
+                    include __DIR__ . '/../tpl/partial/wallet_addresses.php';
+                    $html = ob_get_clean();
+                    //$adds = implode(",",$adds);
+                    echo json_encode(array('success' => true,'html' => $html,'adds' => $adds));
+                    exit();
+                    break;*/
 
                 case '/notify':
                     $email = $this->getParam('email');
