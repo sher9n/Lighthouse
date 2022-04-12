@@ -96,6 +96,9 @@
         <?php
     } ?>
 </div>
+<div class="row">
+<img src="<?php echo app_cdn_path ?>img/img-placeholder.png" class="img-fluid">
+</div>
 <!--<div class="row">
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="card shadow mb-12">
