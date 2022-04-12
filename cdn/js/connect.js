@@ -76,7 +76,7 @@ async function fetchAccountData(url=false) {
         onDisconnect();
     }
 
-    if(route == 'claims')
+    if(route == 'rewards')
         getClaims();
     else
         getDrops(url);
@@ -121,7 +121,7 @@ async function checkAccountData() {
         $('#user_menu').addClass('d-none');
     }
 
-    if(route == 'claims')
+    if(route == 'rewards')
         getClaims();
     else
         getDrops();
@@ -155,7 +155,7 @@ async function getClaims(search='') {
         $('#Skeleton_claims').removeClass('d-none');
 
         $.ajax({
-            url: 'get_claims?search='+search,
+            url: 'get-rewards?search='+search,
             dataType: 'json',
             data: data,
             type: 'POST',
@@ -177,7 +177,7 @@ async function getDrops(url=false,search='') {
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
 
     $.ajax({
-        url: (url !== false)?url+'&search='+search:'get-drops?search='+search,
+        url: (url !== false)?url+'&search='+search:'get-opportunities?search='+search,
         dataType: 'json',
         data: data,
         type: 'POST',

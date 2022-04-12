@@ -5,7 +5,7 @@ class controller extends Ctrl {
 
         if($this->__lh_request->is_xmlHttpRequest) {
 
-            if(__ROUTER_PATH == '/get_claims'){
+            if(__ROUTER_PATH == '/get-rewards'){
 
                 $user_add   = null;
                 $search     = '';
@@ -30,13 +30,13 @@ class controller extends Ctrl {
                     $html = '';
                     $claims  = $response['data'];
                     $is_notified = ($response['message'] && $response['message']=='Notified');
-                    include __DIR__ . '/../tpl/partial/claims.php';
+                    include __DIR__ . '/../tpl/partial/rewards.php';
                     $html .= ob_get_clean();
                 }
                 echo json_encode(array('success' => true,'html' => $html));
                 exit();
             }
-            else if (__ROUTER_PATH == '/claims' && $this->getParam('drop_id') && $this->getParam('wallet_adr')){
+            else if (__ROUTER_PATH == '/rewards' && $this->getParam('drop_id') && $this->getParam('wallet_adr')){
                 $drop_id = $this->getParam('drop_id');
                 $waller_adr = $this->getParam('wallet_adr');
                 $response = Utils::LightHouseApi("claim-drop",array('wallet_adr' =>$waller_adr,'drop_id' =>$drop_id ));
@@ -49,10 +49,10 @@ class controller extends Ctrl {
         }
         else {
             $__page = (object)array(
-                'title' => 'Claims',
+                'title' => 'Rewards',
                 'tab' => 'messages',
                 'sections' => array(
-                    __DIR__ . '/../tpl/section.claim.php'
+                    __DIR__ . '/../tpl/section.rewards.php'
                 ),
                 'js' => array()
             );

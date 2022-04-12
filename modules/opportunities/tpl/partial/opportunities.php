@@ -14,6 +14,7 @@ if(isset($response['data'])){
             $user_eligibilities = $drop['user_eligibilities'];
             $avarats = explode(",",$drop['avatars']);
             ?>
+
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="card shadow mb-12">
                     <div class="card-body py-18">
@@ -23,27 +24,22 @@ if(isset($response['data'])){
                                     <img src="<?php echo app_cdn_path; ?>img/<?php echo $avtar;?>" class="rounded-circle img-overlap" width="80" height="80">
                                 <?php } ?>
                             </div>
-                            <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom" ><?php echo $drop['name'];?></div>
+                            <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom"><?php echo $drop['name'];?></div>
 
                             <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
-                                <img src="cdn/img/whitelist-icon.svg" class="me-4" alt="airdrop icon" height="20">
+                                <img src="cdn/icons/<?php echo $drop['type'];?>.svg" class="me-4" alt="airdrop icon" height="20">
                                 <div class="lh-1 fs-6"><?php echo $drop['type'];?></div>
                             </div>
-                            <div class="fs-1 text-truncate fw-semibold mb-3 text-uppercase text-truncate">
-                                <?php echo $drop['budget'];?> <?php echo $drop['symbol'];?>
-                                <!-- <span class="text-truncate">50 $tLHT</span> <span class="text-truncate text-muted" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom" >+ 2 more</span>-->
-                            </div>
-                            <div class="text-muted fs-5 mb-10"><?php echo Utils::expireDateCounts($drop['end_date']); ?></div>
-                            <div class="progress m-8">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo ($user_claims/$per_use_claim)*100;?>%" aria-valuenow="<?php echo ($user_claims/$per_use_claim)*100;?>" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="text-muted text-center mb-10"><?php echo number_format($user_claims);?> claimed / <?php echo number_format($per_use_claim)?></div>
+                            <div class="fs-1 text-truncate fw-semibold mb-3 text-uppercase text-truncate">1,361 Points</div>
+                            <div class="fs-5 fw-medium mb-10">Last Active 1 Day ago</div>
+
+                            <div class="fs-4 fw-medium text-muted text-center mb-10 three-lines-wrap">Connect two or more wallets and participate in lighthouse partner communities</div>
                             <div class="text-center">
                                 <?php
                                 if($drop['user_eligibility_status'] == 1){?>
-                                    <a href="get-drops?id=<?php echo $drop['id']; ?>" class="drop_details btn btn-success text-white btn-lg px-13 text-uppercase btn-mw-200">Claim Now</a>
+                                    <a href="get-opportunities?id=<?php echo $drop['id']; ?>" class="drop_details btn btn-success text-white btn-lg px-13 text-uppercase btn-mw-200">Participating</a>
                                 <?php }else{ ?>
-                                    <a href="get-drops?id=<?php echo $drop['id']; ?>" class="drop_details btn btn-primary btn-lg px-13 text-uppercase btn-mw-200">CHECK ELIGIBILITY</a>
+                                    <a href="get-opportunities?id=<?php echo $drop['id']; ?>" class="drop_details btn btn-primary btn-lg px-13 text-uppercase btn-mw-200">Participate</a>
                                 <?php } ?>
                             </div>
                         </div>
@@ -60,7 +56,7 @@ if(isset($response['data'])){
                 <div class="text-center">
                     <img src="<?php echo app_cdn_path ?>img/img-no-claim.png" height="160" >
                 </div>
-                <div class="fs-1 fw-semibold text-center mt-20">No drops found!</div>
+                <div class="fs-1 fw-semibold text-center mt-20">No opportunities found!</div>
                 <div class="fs-5 fw-medium text-center text-muted mt-6">We can't find any item matching your search</div> 
             </div>
         </div>

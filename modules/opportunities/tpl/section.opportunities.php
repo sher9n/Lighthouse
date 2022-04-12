@@ -25,15 +25,15 @@
                                     <li class="list-status-items">
                                         <div class="fs-3 fw-semibold">6,000</div>
                                         <div class="text-muted fs-5 lh-1">Lighthouse points</div>
-                                    </il>
+                                    </li>
                                     <li class="list-status-items">
                                         <div class="fs-3 fw-semibold">6,000</div>
                                         <div class="text-muted fs-5 lh-1">Lighthouse points</div>
-                                    </il>
+                                    </li>
                                     <li class="list-status-items">
                                         <div class="fs-3 fw-semibold">6,000</div>
                                         <div class="text-muted fs-5 lh-1">Lighthouse points</div>
-                                    </il>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -132,57 +132,6 @@
             </div>
         </div>
         <!-- Skeleton loader END -->
-        <div class="row">
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card shadow mb-12">
-                    <div class="card-body py-18">
-                        <div class="text-center">
-                            <div class="card-logo m-auto d-flex justify-content-center">
-                                <img src="cdn/img/company-lighthouse.svg" class="rounded-circle" width="80" height="80">
-                            </div>
-                            <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom">Lighthouse Connections</div>
-
-                            <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
-                                <img src="cdn/img/icon-tools.svg" class="me-4" alt="airdrop icon" height="20">
-                                <div class="lh-1 fs-6">Utility</div>
-                            </div>
-                            <div class="fs-1 text-truncate fw-semibold mb-3 text-uppercase text-truncate">1,361 Points</div>
-                            <div class="fs-5 fw-medium mb-10">Last Active 1 Day ago</div>
-                            
-                            <div class="fs-4 fw-medium text-muted text-center mb-10 three-lines-wrap">Connect two or more wallets and participate in lighthouse partner communities</div>
-                            <div class="text-center">                               
-                                    <a href="" class="drop_details btn btn-outline-fiord btn-lg px-13 text-uppercase btn-mw-200">Participating</a>                              
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="card shadow mb-12">
-                    <div class="card-body py-18">
-                        <div class="text-center">
-                            <div class="card-logo m-auto d-flex justify-content-center">
-                                <img src="cdn/img/company-lighthouse.svg" class="rounded-circle" width="80" height="80">
-                            </div>
-                            <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom">Market.xyz FRAX Pool</div>
-
-                            <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
-                                <img src="cdn/img/icon-cards.svg" class="me-4" alt="airdrop icon" height="20">
-                                <div class="lh-1 fs-6">Defi</div>
-                            </div>
-                            <div class="fs-1 text-truncate fw-semibold mb-3 text-uppercase text-truncate">1,361 Points</div>
-                            <div class="fs-5 fw-medium mb-10">Last Active 1 Day ago</div>
-                            
-                            <div class="fs-4 fw-medium text-muted text-center mb-10 three-lines-wrap">Connect two or more wallets and </div>
-                            <div class="text-center">                               
-                                    <a href="" class="drop_details btn btn-outline-fiord btn-lg px-13 text-uppercase btn-mw-200">Participating</a>                              
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div id="drops_cards" class="row"></div>
     </div>
 </main>
@@ -227,7 +176,7 @@
         var data = {'drop_id': drop_id, 'wallet_adr': wallet_adr};
 
         $.ajax({
-            url: 'claims',
+            url: 'opportunities',
             type: 'POST',
             data:data,
             dataType: 'json',

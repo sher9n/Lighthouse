@@ -5,7 +5,7 @@ class controller extends Ctrl {
 
         if($this->__lh_request->is_xmlHttpRequest) {
 
-            if (__ROUTER_PATH == '/get-drops') {
+            if (__ROUTER_PATH == '/get-opportunities') {
 
                 $html       = '';
                 $user_add   = null;
@@ -16,8 +16,7 @@ class controller extends Ctrl {
                     $drop_id  = $this->getParam('id');
                     $claim    = false;
                     $response =  Utils::LightHouseApi("drop?drop_id=".$drop_id."&wallet_adr=".$user_add);
-
-                    include __DIR__ . '/../tpl/partial/drop-details.php';
+                    include __DIR__ . '/../tpl/partial/opportunity-details.php';
                 }
                 else {
                     $search = '';
@@ -25,7 +24,7 @@ class controller extends Ctrl {
                         $search = $this->getParam('search');
 
                     $response =  Utils::LightHouseApi("drops?wallet_adr=".$user_add."&search=".$search);
-                    include __DIR__ . '/../tpl/partial/drops.php';
+                    include __DIR__ . '/../tpl/partial/opportunities.php';
                 }
 
                 $html .= ob_get_clean();
@@ -37,10 +36,10 @@ class controller extends Ctrl {
         else {
 
             $__page = (object)array(
-                'title' => 'Drops',
+                'title' => 'Opportunities',
                 'tab' => 'messages',
                 'sections' => array(
-                    __DIR__ . '/../tpl/section.drops.php'
+                    __DIR__ . '/../tpl/section.opportunities.php'
                 ),
                 'js' => array()
             );

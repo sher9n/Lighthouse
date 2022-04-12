@@ -28,17 +28,17 @@ try {
         '/ohlcv-updates' => 'modules/dashboard/ctrl/dashboard.php',
         '/wallet-menu' => 'modules/dashboard/ctrl/dashboard.php',
         //----------------drops-----------------
-        '/claims' => 'modules/drop/ctrl/claims.php',
-        '/get_claims' =>  'modules/drop/ctrl/claims.php',
+        '/rewards' => 'modules/rewards/ctrl/rewards.php',
+        '/get-rewards' =>  'modules/rewards/ctrl/rewards.php',
+        '/opportunities' => 'modules/opportunities/ctrl/opportunities.php',
+        '/get-opportunities' => 'modules/opportunities/ctrl/opportunities.php',
         '/settings' => 'modules/drop/ctrl/settings.php',
-        '/drops' => 'modules/drop/ctrl/drops.php',
-        '/get-drops' => 'modules/drop/ctrl/drops.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
     function routeLocator($routerPath, $localRoutes)
     {
-        $route = __DIR__ . DS . 'modules/drop/ctrl/drops.php';
+        $route = __DIR__ . DS . 'modules/opportunities/ctrl/opportunities.php';
 
         if (array_key_exists($routerPath, $localRoutes))
             $route = __DIR__ . DS . $localRoutes[$routerPath];

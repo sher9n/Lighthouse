@@ -14,15 +14,15 @@
             </div>
             <div class="col col-xl-5 col-xxxl">
                 <div class="d-flex align-items-center justify-content-center justify-content-xl-start">
-                    <a class="" href="drops">
+                    <a class="" href="opportunities">
                         <img src="<?php echo app_cdn_path; ?>img/logo.svg" class="main-logo" />
                     </a>
                     <ul class="navbar-nav top-navbar-nav-ms d-none d-lg-flex">
                         <li id="drops-menu" class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium <?php echo (__ROUTER_PATH == '/drops')?'active':''; ?>" href="drops">Drops</a>
+                            <a class="nav-link text-uppercase fw-medium <?php echo (__ROUTER_PATH == '/opportunities')?'active':''; ?>" href="opportunities">Opportunities</a>
                         </li>
                         <li id="claims-menu" class="nav-item">
-                            <a class="nav-link text-uppercase fw-medium <?php echo (__ROUTER_PATH == '/claims')?'active':''; ?>" href="claims">My Claims</a>
+                            <a class="nav-link text-uppercase fw-medium <?php echo (__ROUTER_PATH == '/rewards')?'active':''; ?>" href="rewards">Rewards</a>
                         </li>
                     </ul>
                 </div>

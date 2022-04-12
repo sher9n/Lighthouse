@@ -50,7 +50,7 @@ if(isset($response['data']) && count($response['data'])){
                 <div class="card-body text-center pt-6 pb-18">
                     <?php if(is_null($user_add)){ ?>
                         <div class="fw-semibold">Connect your wallet to view eligibility.</div>
-                        <button type="button" onclick="onConnect('get-drops?id=<?php echo $drop_id;?>')" class="btn btn-primary btn-lg px-13 text-uppercase mt-8">CONNECT WALLET</button>
+                        <button type="button" onclick="onConnect('get-opportunities?id=<?php echo $drop_id;?>')" class="btn btn-primary btn-lg px-13 text-uppercase mt-8">CONNECT WALLET</button>
                     <?php }else{ ?>
                         <button type="submit" id="claim_airdrop" class="wallet_connected btn btn-primary btn-lg px-13 text-uppercase mt-8 <?php echo ($claim != true)?'disabled':'';?>" data-drop_id="<?php echo $drop['id']; ?>">CLAIM AIRDROP</button>
                     <?php } ?>
