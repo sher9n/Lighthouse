@@ -5,6 +5,7 @@
         </div>
     </div>
 </div>
+
 <?php if($is_notified != true){ ?>
 <div id="notify_form" class="row">
     <div class="col-lg-12">
@@ -76,6 +77,49 @@
         </div>
         <?php
     } ?>
+</div>
+<div class="row">
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card shadow mb-12">
+                    <div class="overflow-hidden rounded-top">
+                        <img src="cdn/img/img-rewards-01.jpg" class="card-img-top card-image-blur">
+                    </div>                    
+                    <div class="card-body py-8">
+                        <div class="text-center">                            
+                            <div class="fs-3 text-truncate fw-medium mb-3 card-text-blur" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom">Bored Ape Yacht Club NFT</div>
+
+                            <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
+                                <img src="cdn/img/icon-tools.svg" class="me-4" alt="airdrop icon" height="20">
+                                <div class="lh-1 fs-6">Utility</div>
+                            </div>
+                            <div class="fs-5 fw-medium mb-8">Launching August 1, 2022</div>
+                            <div class="fs-4 two-lines-wrap">Awarded for selected NFT participation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card shadow mb-12 overflow-hidden">
+                    <div class="card-blur noselect unselectable">
+                        <div class="rounded-top">
+                            <img src="cdn/img/img-rewards-01.jpg" class="card-img-top">
+                        </div>                    
+                        <div class="card-body py-8">
+                            <div class="text-center">                            
+                                <div class="fs-3 text-truncate fw-medium mb-3" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom">Bored Ape Yacht Club NFT</div>
+
+                                <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
+                                    <img src="cdn/img/icon-tools.svg" class="me-4" alt="airdrop icon" height="20">
+                                    <div class="lh-1 fs-6">Utility</div>
+                                </div>
+                                <div class="fs-5 fw-medium mb-8">Launching August 1, 2022</div>
+                                <div class="fs-4 two-lines-wrap">Awarded for selected NFT participation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
