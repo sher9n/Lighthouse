@@ -20,7 +20,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="ms-auto">
+                            <div class="ms-auto wallet_disconnected">
+                                <ul class="list-status">
+                                    <li class="list-status-items">
+                                        <div class="fs-3 fw-semibold">0</div>
+                                        <div class="text-muted fs-5 lh-1">Lighthouse points</div>
+                                    </li>
+                                    <li class="list-status-items">
+                                        <div class="fs-3 fw-semibold">0</div>
+                                        <div class="text-muted fs-5 lh-1">Daily $tLHT</div>
+                                    </li>
+                                    <li class="list-status-items">
+                                        <div class="fs-3 fw-semibold">0</div>
+                                        <div class="text-muted fs-5 lh-1">Total $tLHT</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="ms-auto wallet_connected d-none">
                                 <ul class="list-status">
                                     <li class="list-status-items">
                                         <div class="fs-3 fw-semibold">6,487</div>

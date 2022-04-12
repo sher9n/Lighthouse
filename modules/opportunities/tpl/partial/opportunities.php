@@ -27,7 +27,7 @@ if(isset($response['data'])){
                             <div class="fs-3 text-truncate fw-medium mt-10 mb-3 textOverflow" data-bs-toggle="tooltip" data-bs-html="true" title="" data-bs-placement="bottom"><?php echo $drop['name'];?></div>
 
                             <div class="badge bg-light d-inline-flex align-items-center rounded-pill text-uppercase fw-medium mb-10 text-fiord">
-                                <img src="cdn/icons/<?php echo $drop['type'];?>.svg" class="me-4" alt="airdrop icon" height="20">
+                                <img src="cdn/icons/<?php echo strtolower($drop['type']);?>.svg" class="me-4" alt="airdrop icon" height="20">
                                 <div class="lh-1 fs-6"><?php echo $drop['type'];?></div>
                             </div>
                             <div class="fs-1 text-truncate fw-semibold mb-3 text-uppercase text-truncate"><?php echo number_format($drop['points']); ?> Points</div>
