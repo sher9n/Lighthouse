@@ -49,7 +49,7 @@ class controller extends Ctrl {
         }
         else {
             $__page = (object)array(
-                'title' => 'Dashboard',
+                'title' => 'Claims',
                 'tab' => 'messages',
                 'sections' => array(
                     __DIR__ . '/../tpl/section.claim.php'

@@ -2,7 +2,13 @@
 use Core\Utils;
 if(isset($response['data'])){
     if(count($response['data']) > 0) {
-        foreach ($response['data'] as $index => $drop) {
+        $data = $response['data'];
+
+        usort($data, function ($a, $b) {
+            return $a['user_eligibility_status'] > $b['user_eligibility_status'];
+        });
+
+        foreach ($data as $index => $drop) {
             $per_use_claim = (int)$drop['per_user_claim'];
             $user_claims = (int)$drop['user_claims'];
             $user_eligibilities = $drop['user_eligibilities'];
@@ -34,7 +40,7 @@ if(isset($response['data'])){
                             <div class="text-muted text-center mb-10"><?php echo number_format($user_claims);?> claimed / <?php echo number_format($per_use_claim)?></div>
                             <div class="text-center">
                                 <?php
-                                if(is_array($user_eligibilities) && (count($user_eligibilities) == array_sum($user_eligibilities))){?>
+                                if($drop['user_eligibility_status'] == 1){?>
                                     <a href="get-drops?id=<?php echo $drop['id']; ?>" class="drop_details btn btn-success text-white btn-lg px-13 text-uppercase btn-mw-200">Claim Now</a>
                                 <?php }else{ ?>
                                     <a href="get-drops?id=<?php echo $drop['id']; ?>" class="drop_details btn btn-primary btn-lg px-13 text-uppercase btn-mw-200">CHECK ELIGIBILITY</a>

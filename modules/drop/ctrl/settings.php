@@ -4,7 +4,7 @@ class controller extends Ctrl {
     function init() {
 
         $__page = (object)array(
-            'title' => 'Dashboard',
+            'title' => 'Settings',
             'tab' => 'messages',
             'sections' => array(
                 __DIR__ . '/../tpl/section.settings.php'
