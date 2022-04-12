@@ -12,7 +12,7 @@ class controller extends Ctrl {
                 if($this->hasParam('sel_add') && strlen($this->getParam('sel_add')) > 0)
                     $user_add = $this->getParam('sel_add');
 
-                $html = '<div class="row align-items-center">
+/*                $html = '<div class="row align-items-center">
                             <div class="col mt-30">
                                 <div class="text-center">
                                     <img src="'.app_cdn_path.'img/img-no-claim.png" height="160" >
@@ -20,7 +20,7 @@ class controller extends Ctrl {
                                 <div class="fs-1 fw-semibold text-center mt-20">No claims yet!</div>
                                 <div class="fs-5 fw-medium text-center text-muted mt-6">Please complete some challenges to unlock rewards.<br>Claimed rewards will appear here.</div>
                             </div>
-                        </div>';
+                        </div>';*/
 
                 if($this->hasParam('search'))
                     $search = $this->getParam('search');

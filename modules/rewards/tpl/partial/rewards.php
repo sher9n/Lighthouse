@@ -81,19 +81,6 @@
             </div>
             <?php
         }
-    }
-    else {
-        ?>
-        <div class="row align-items-center">
-            <div class="col mt-30">
-                <div class="text-center">
-                    <img src="<?php echo app_cdn_path ?>img/img-no-claim.png" height="160" >
-                </div>
-                <div class="fs-1 fw-semibold text-center mt-20">No claims found!</div>
-                <div class="fs-5 fw-medium text-center text-muted mt-6">We can't find any item matching your search</div> 
-            </div>
-        </div>
-        <?php
     } ?>
 </div>
 <div class="row">
