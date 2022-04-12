@@ -12,12 +12,12 @@
             <div class="card-body">
                 <div class="text-center">
                     <div class="fs-1 fw-semibold">
-                        Your claims will be airdropped soon!
+                        Rewards are dropping soon!
                         <img src="cdn\img\icon-clap.svg" alt="clapping icon" width="32" height="32">
                     </div>
-                    <div class="text-muted mt-3 fs-4 fw-medium">
+                   <!-- <div class="text-muted mt-3 fs-4 fw-medium">
                         Check back here or leave your details to be notified once rewards are redeemable.
-                    </div>
+                    </div>-->
                     <form  class="row g-3 justify-content-center mt-2" id="notifyForm" method="post" action="notify" autocomplete="off" novalidate="novalidate">
                         <input type="hidden" name="user_key" value="<?php echo $user_add; ?>">
                         <div class="col-4">

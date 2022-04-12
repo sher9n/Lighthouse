@@ -30,16 +30,16 @@ if(isset($response['data'])){
                                 <img src="cdn/icons/<?php echo $drop['type'];?>.svg" class="me-4" alt="airdrop icon" height="20">
                                 <div class="lh-1 fs-6"><?php echo $drop['type'];?></div>
                             </div>
-                            <div class="fs-1 text-truncate fw-semibold mb-3 text-uppercase text-truncate">1,361 Points</div>
-                            <div class="fs-5 fw-medium mb-10">Last Active 1 Day ago</div>
+                            <div class="fs-1 text-truncate fw-semibold mb-3 text-uppercase text-truncate"><?php echo number_format($drop['points']); ?> Points</div>
+                            <div class="fs-5 fw-medium mb-10 text-uppercase"><?php echo $drop['participate_type']; ?></div>
 
-                            <div class="fs-4 fw-medium text-muted text-center mb-10 three-lines-wrap">Connect two or more wallets and participate in lighthouse partner communities</div>
+                            <div class="fs-4 fw-medium text-muted text-center mb-10 three-lines-wrap"><?php echo $drop['description']; ?></div>
                             <div class="text-center">
                                 <?php
                                 if($drop['user_eligibility_status'] == 1){?>
-                                    <a href="get-opportunities?id=<?php echo $drop['id']; ?>" class="drop_details btn btn-success text-white btn-lg px-13 text-uppercase btn-mw-200">Participating</a>
+                                    <a <!--href="get-opportunities?id=--><?php /*echo $drop['id']; */?>" class="drop_details btn btn-success text-white btn-lg px-13 text-uppercase btn-mw-200">Participating</a>
                                 <?php }else{ ?>
-                                    <a href="get-opportunities?id=<?php echo $drop['id']; ?>" class="drop_details btn btn-primary btn-lg px-13 text-uppercase btn-mw-200">Participate</a>
+                                    <a <!--href="get-opportunities?id=--><?php /*echo $drop['id']; */?>" class="drop_details btn btn-primary btn-lg px-13 text-uppercase btn-mw-200">Participate</a>
                                 <?php } ?>
                             </div>
                         </div>
