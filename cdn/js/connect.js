@@ -188,6 +188,18 @@ async function getDrops(url=false,search='') {
             }
         }
     });
+
+    $.ajax({
+        url: 'get-points',
+        dataType: 'json',
+        data: data,
+        type: 'POST',
+        success: function (response) {
+            if (response.success == true) {
+                $('#l_points').html(response.points);
+            }
+        }
+    });
 }
 
 async function updateUser(del_wallet_adr=null) {

@@ -31,6 +31,7 @@ try {
         '/rewards' => 'modules/rewards/ctrl/rewards.php',
         '/get-rewards' =>  'modules/rewards/ctrl/rewards.php',
         '/opportunities' => 'modules/opportunities/ctrl/opportunities.php',
+        '/get-points' => 'modules/opportunities/ctrl/opportunities.php',
         '/get-opportunities' => 'modules/opportunities/ctrl/opportunities.php',
         '/settings' => 'modules/drop/ctrl/settings.php',
         '/404' => 'modules/default/ctrl/http-404.php'

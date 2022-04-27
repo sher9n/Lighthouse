@@ -39,15 +39,15 @@
                             <div class="ms-auto wallet_connected d-none">
                                 <ul class="list-status">
                                     <li class="list-status-items">
-                                        <div class="fs-3 fw-semibold">6,487</div>
+                                        <div id="l_points" class="fs-3 fw-semibold">0</div>
                                         <div class="text-muted fs-5 lh-1">Lighthouse points</div>
                                     </li>
                                     <li class="list-status-items">
-                                        <div class="fs-3 fw-semibold">3.0005</div>
+                                        <div id="d_lht" class="fs-3 fw-semibold">3.0005</div>
                                         <div class="text-muted fs-5 lh-1">Daily $tLHT</div>
                                     </li>
                                     <li class="list-status-items">
-                                        <div class="fs-3 fw-semibold">57</div>
+                                        <div id="t_lht" class="fs-3 fw-semibold">57</div>
                                         <div class="text-muted fs-5 lh-1">Total $tLHT</div>
                                     </li>
                                 </ul>

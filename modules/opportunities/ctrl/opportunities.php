@@ -11,7 +11,7 @@ class controller extends Ctrl {
                 $user_add   = null;
                 if($this->hasParam('sel_add') && strlen($this->getParam('sel_add')) > 0)
                     $user_add = $this->getParam('sel_add');
-                //$user_add = '0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507';
+               // $user_add = '0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507';
                 if($this->hasParam('id')) {
                     $drop_id  = $this->getParam('id');
                     $claim    = false;
@@ -30,6 +30,22 @@ class controller extends Ctrl {
                 $html .= ob_get_clean();
 
                 echo json_encode(array('success' => true,'html' => $html));
+                exit();
+            }
+            elseif (__ROUTER_PATH == '/get-points'){
+                $user_add   = null;
+                $points     = 0;
+
+                if($this->hasParam('sel_add') && strlen($this->getParam('sel_add')) > 0) {
+                    $user_add = $this->getParam('sel_add');
+                   // $user_add = '0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507';
+                    $response = Utils::LightHouseApi("get-points?wallet_adr=" . $user_add);
+
+                    if(isset($response['data']['points']))
+                        $points = number_format($response['data']['points']);
+                }
+
+                echo json_encode(array('success' => true,'points' => $points));
                 exit();
             }
         }

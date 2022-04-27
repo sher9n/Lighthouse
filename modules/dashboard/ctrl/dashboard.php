@@ -12,7 +12,7 @@ class controller extends Ctrl {
                     $search   = '';
 
                     $user_key = $this->hasParam('user_key')?$this->getParam('user_key'):'';
-                    //$user_key = '0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507';
+                   // $user_key = '0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507';
                     $p        = $this->hasParam('p')?$this->getParam('p'):0;
 
                     if($this->hasParam('search') && strlen($this->getParam('search')) > 0) {
@@ -72,6 +72,7 @@ class controller extends Ctrl {
                     $adds = $this->getParam('adds');
                     $wallet_adr = $this->getParam('sel_add');
                     $adds = implode(",",$adds);
+                    $points = 0;
 
                     if(strlen($this->getParam('del_wallet_adr')) > 0) {
                         $del_wallet_adr = $this->getParam('del_wallet_adr');
@@ -80,10 +81,12 @@ class controller extends Ctrl {
                     else
                         $response = Utils::LightHouseApi("user-update",array('address' =>$adds,'wallet_adr' => $wallet_adr));
 
-                    if($response['status'] == 200 && isset($response['data']))
-                        $adds = $response['data']['wallet_ids'];
+                    if($response['status'] == 200 && isset($response['data'])) {
+                        $adds   = $response['data']['wallet_ids'];
+                        $points = $response['data']['points'];
+                    }
 
-                    echo json_encode(array('success' => true,'adds' => $adds));
+                    echo json_encode(array('success' => true,'adds' => $adds,'points' => $points));
                     exit();
                     break;
 
