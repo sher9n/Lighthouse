@@ -1,75 +1,50 @@
-# Lighthouse - The WAGMI Protocol
+# Lighthouse - On-chain scoring tailored to your community.
 
-## **Web3 facilitates a new paradigm for growth**
-As DAOs emerge as new vehicles for capital organization, they’re goals are both similar to and in contrast with prevailing institutions such as governments, companies, cooperatives or even philanthropies. 
+## Background
 
-They put capital to work in order to drive growth in value, while also benefiting from an alignment between shareholders, consumers and workers. In many cases a single individual simultaneously plays all of these roles.
+- The promise of a web3-native community is its ability to collaborate. This means diverse individuals work together to create positive-sum value;
+- However, in order for web3 organizations to be successful in the long-term, they must transition away from pure financial incentivization to a more diverse way of distributing and signaling value;
+- The true value of such a community cannot be measured by vanity metrics such as TVL or total wallet holders but by the people it attracts and their involvement;
+- This can only be achieved with robust tools that capture value and in-turn facilitate better models of governance, rewards and credibility.
 
-Growth challenges for DAOs are thus unique. They rely on a more entropic framework of human contribution and capital. 
+## The Problem
 
-## **Lighthouse is a new framework for value**
-In crypto, capital can flow almost unhindered from one protocol or dapp to another. The first main challenge for DAOs is to retain contributors and capital. The second is to grow them.
+Most communities today simply do not have a good mechanism for qualifying and measuring  contribution. A variety of existing approaches exist already including:
 
-Until now, value in web3 has been purely financial in nature. From locked value to yields to NFT floor prices, communities value and benefit from large inflows of capital. 
+- Custom solutions that are difficult to replicate and require a large amount of engineering effort to build;
+- Monolithic reputation systems (such as Aragon or Colony reputation systems) that break when purpose built tools are adopted or;
+- Siloed reputation systems (Coordinape, Source Cred, Praise etc.) that may be difficult to deploy and only capture part of the value created.
 
-Today, the most prized capital comes from whales. We assume that richer participants will create more staying power than less rich ones. This makes sense. Whales are likely to be less price sensitive than the average ape-in.
+As a result, communities lean on native token-based incentive mechanisms, which misalign incentives for members:
 
-But as web3 grows to encompass a wider population of non-native crypto users who will likely be relatively less wealthy, it is becoming more important to think of value as multi-faceted.
+- Loyalty is defined retrospectively and doesn’t account for future or long-term behavior;
+- Financial incentives attracts the wrong kind of members (token farmers and Sybil attacks);
+- Expensive way of discovering behaviors to incentivize;
+- Discounts a love for community in favor of financial upside.
 
-Lighthouse presents an alternative mechanism of value that expands outsized value creation to the long tail.
+## Our Solution
 
-## **Driving growth by creating opportunities for more users**
-Growing value through the long tail is inherently more complex and risky than focusing on a small set of wealthy users. We’ve seen, for example, that token airdrops are often ineffective or prone to Sybil attacks.
+Lighthouse solves this through a simple and robust on-chain points protocol that utilizes non-transferable tokens (known as “Lighthouse NTTs”) that can be distributed to anyone that creates value within a community.
 
-Our goal with Lighthouse is to reduce the risk and manage the considerations associated with long-tail growth. 
+This unlocks a variety of advantages from the get-go including:
 
-With Lighthouse, DAOs and communities can value users on the basis of actions and engagement in contracts through a parallel points system. This creates distance between financial upside, and allows core teams to build custom ways of identifying users beyond the wealth they bring to a protocol or dapp.
+- Speed to market through a fully decentralized, purpose-built score attribution mechanism that can be adopted by any community for any use case;
+- Reduced pressure on token generation, lower incentives for bad actors (token farmers) and disincentivization of token dumping due to the decorrelation of immediate or premeditated monetary reward from contributions that create value;
+- The ability to define or discover valuable behavior and reward users retrospectively while keeping the exact criteria secret;
+- Promotes cross-collaboration through public and transparent NTT transaction logs;
+- Creates better brand loyalty and top of mind recall because tokens are held in non-custodial wallets.
 
-For example, if the creators of a dapp for document storage know that saving 5 files contributes to long-term retention, then regardless of a user’s wealth, the value of this interaction is the same for all users.
+## Lighthouse NTTs - Features
 
-Another example could be that of a lending platform where a whale lends $1 million in a single transaction versus 1,000 unique users that make loans for an equivalent sum and both receive the same rate of return. A DAO may want to value users differently and incentivize the 1,000 smaller lenders in a manner that they think would create higher aggregate value.
-
-In a world of unlimited free capital flows, money’s staying power can be fickle, so long-term positive sum behavior (from the point-of-view of a protocol) should be increasingly valued regardless of a holder’s wealth.
-
-Furthermore, inter-DAO collaboration remains largely manual with little to no DAO tooling to support this. DAOs build custom on-ramps, or manually engage with other DAOs in order to successfully run joint or collaborative campaigns.
-
-Lighthouse gives communities a mechanism to value and reward behavior independent of financial upside. It is a primitive for both valuing existing community members and attracting new ones through inter-DAO cross collaboration.
-
-## How Lighthouse works
-
-1. DAOs tag key actions and contracts on which they would like to reward users.
-2. Users engage with these enriched contracts and actions.
-3. Users are rewarded with Lighthouse points that accrue to a unique Lighthouse NFT.
-4. The NFT can be staked to unlock $LHT, Lighthouse’s native token.
-5. Communities, DAOs and even web2 organizations can select the actions, contracts or their attributes in order to identify a group of users.
-6. They can then drop rewards which can encompass anything from token airdrops, NFTs, whitelist spots, raffles or even physical goods (like a pair of Yeezys).
-7. Users can claim $LHT from staking their Lighthouse NFT or buy more, and exchange $LHT to unlock rewards.
-
-## The goal
-
-The goal of Lighthouse is to provide communities with a platform for building long-term incentives that are complementary to a community’s native token(s). The advantage of participating is two-fold.
-
-Communities can build incentives for existing members based on actions and contracts within the community.
-
-Or, they can extend and integrate with the WAGMI network in order to attract new members by building incentives around other communities’ actions and contracts.
-
-## Technical considerations
-
-**Lighthouse NFT and points**
-
-Non-transferrable points accrue on a ERC-721 NFT that allows users to take custody of their Lighthouse ID. The NFT points to metadata stored as a JSON object on  Arweave, a decentralized storage platform.
-
-Points function on a concave downwards curve with an upper limit to better balance the value of volume compared with time.
-
-**Rewards and anti-Sybilability**
-
-Rewards are based on retrospective behavior. DAOs and communities are able to pick a set of previously completed actions, drastically reducing the ability to Sybil attack the system.
-
-**Token Utility**
-
-By decoupling tokens from points, Lighthouse is able to facilitate a standard and stable unit of value while controlling the supply of tokens as they are no longer necessary for signaling.
-
-Utility is built into the token. DAOs pay a gas fee in order to publish their enriched contracts and actions to the Lighthouse network, while users spend $LHT when they pay for accessing rewards for which they are eligible.
+1. ***Unlimited Supply:*** Scores decay naturally through inflation if members reduce engagement with your dapp or community;
+2. ***Distribution Triggers:*** Automatically send tokens when conditions you define are met;
+3. ***Subjective Attributions:*** Reward members for off-chain contributions like tweets, code merges, advice, activity in Discord or anything else you want to consider;
+4. ***Decentralized Approval:*** Use a decentralized, permissioned whitelist to add or remove members that can attribute NTTs to other members;
+5. ***Member-initiated Claims:*** Claims made by members are auto-validated, but you can challenge them to submit them to a vote or veto them outright;
+6. ***Transaction Logs:*** Append custom metadata to logs and query or filter Lighthouse NTT transactions;
+7. ***Community Leaderboard:*** Show your community a leaderboard and encourage wider participation;
+8. ***Sybil Resistant:*** Disincentivize Sybil attacks by using NTTs as a proxy for value and reducing visibility on retrospective rewards criteria.
 
 ## Contact
-Talk to us: [https://calendly.com/lighthouse_dao](https://calendly.com/lighthouse_dao)
+
+Come talk to us: [https://calendly.com/lighthouse_dao](https://calendly.com/lighthouse_dao)
