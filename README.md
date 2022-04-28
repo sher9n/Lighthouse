@@ -1,4 +1,6 @@
-# Lighthouse - On-chain scoring tailored to your community.
+# Lighthouse
+
+On-chain scoring tailored to your community.
 
 ## Background
 
