@@ -38,14 +38,14 @@ This unlocks a variety of advantages from the get-go including:
 
 ## Lighthouse NTTs - Features
 
-1. ***Unlimited Supply:*** Scores decay naturally through inflation if members reduce engagement with your dapp or community;
+1. ***Unlimited Supply:*** Scores decay through inflation if members reduce their engagement;
 2. ***Distribution Triggers:*** Automatically send tokens when conditions you define are met;
-3. ***Subjective Attributions:*** Reward members for off-chain contributions like tweets, code merges, advice, activity in Discord or anything else you want to consider;
-4. ***Decentralized Approval:*** Use a decentralized, permissioned whitelist to add or remove members that can attribute NTTs to other members;
-5. ***Member-initiated Claims:*** Claims made by members are auto-validated, but you can challenge them to submit them to a vote or veto them outright;
-6. ***Transaction Logs:*** Append custom metadata to logs and query or filter Lighthouse NTT transactions;
-7. ***Community Leaderboard:*** Show your community a leaderboard and encourage wider participation;
-8. ***Sybil Resistant:*** Disincentivize Sybil attacks by using NTTs as a proxy for value and reducing visibility on retrospective rewards criteria.
+3. ***Subjective Attributions:*** Reward members for any off-chain contribution like tweets, code merges or discussions;
+4. ***Decentralized Approval:*** Govern a whitelist of members that can distribute NTTs to other members;
+5. ***Member-initiated Claims:*** Accept, readjust or refuse claims for NTTs made by members;
+6. ***Transaction Logs:*** Query or filter NTT transactions using tags attributed to transaction logs;
+7. ***Sybil Resistant:*** Disincentivize attacks by using NTTs as a proxy for value before dropping native tokens;
+8. ***Interoperable:*** Define and use Lighthouse scores for any context or use case.
 
 ## Contact
 
