@@ -32,7 +32,9 @@ try {
     }
 
     $localRoutes = array(
+        '/skip-onboard' => 'modules/onboard/ctrl/distribution.php',
         '/check-dao-domain' => 'modules/onboard/ctrl/onboard.php',
+        '/distribution' => 'modules/onboard/ctrl/distribution.php',
         '/first-member' => 'modules/onboard/ctrl/first_member.php',
         '/claim' => 'modules/claim/ctrl/claim.php',
         '/admin' => 'modules/admin/ctrl/admin.php',

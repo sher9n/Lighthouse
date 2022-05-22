@@ -1,7 +1,7 @@
 <main>
     <aside class="left-aside">
         <div>
-            <img src="img/logo.svg" >
+            <img src="<?php echo app_cdn_path; ?>img/logo.svg" >
         </div>
         <div class="steps-wrapper">
             <ul class="nav-steps">
@@ -40,9 +40,9 @@
                             <div class="mt-16">
                                 <label for="Blockchain" class="form-label">Which blockchain would you like to issue your NTTs on?</label>
                                 <select class="form-select form-select-lg" name="blockchain" id="blockchain">
-                                    <option value="GnosisChain" selected>Gnosis Chain</option>
-                                    <option value="Solana">Solana</option>
-                                    <option value="Other">Other</option>
+                                    <option value="gnosis_chain" selected>Gnosis Chain</option>
+                                    <option value="solana">Solana</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
                             <div class="mt-16">
