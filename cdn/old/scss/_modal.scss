@@ -1,0 +1,11 @@
+.modal-btn-close {
+    position: absolute;
+    right: 2.125rem;
+    top: 2.125rem;
+    z-index: 2000;
+    opacity: 1;
+}
+
+.hkzEld {
+    z-index: $zindex-modal-backdrop !important;
+}

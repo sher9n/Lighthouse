@@ -1,0 +1,85 @@
+@mixin border-box(){
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+@mixin unselectable(){
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@include media-breakpoint-up(lg) {
+	.rocketScroll{
+		overflow: hidden !important;
+		position: relative;
+
+		.scrollDiv{
+			@include border-box;
+			overflow-y: scroll;
+			height: 100%;
+		}
+		.scrollContent{
+			@include border-box;
+			//padding: 20px;
+		}
+
+		.scrollbar {
+			position: absolute;
+			right: 6px;
+			top: 6px;
+			bottom: 6px;
+			background: transparent;
+			width: 6px;
+			border-radius: 3px;
+			transition: background-color 0.5s;
+			&:hover{
+				cursor: pointer;
+				div:hover{
+					background: #777;
+					background: rgba(0,0,0,0.55);
+				}
+			}
+			&, & div{
+				@include unselectable;
+			}
+		}
+
+		.scrollbar div{
+			height: 100px;
+			width: 6px;
+			border-radius: 3px;
+			background: transparent;
+			transition: background-color 0.5s;
+		}
+
+		&:hover{
+			.scrollbar{
+				background: #ddd;
+				background: rgba(0,0,0,0.15);
+			}
+			.scrollbar div{
+				background: #aaa;
+				background: rgba(0,0,0,0.35);
+			}
+		}
+
+		.unselectable {
+			@include unselectable;
+		}
+	}
+
+	.scroll {
+		max-height: calc(100vh - 13.7rem);
+		height: calc(100vh - 13.7rem);
+		min-height: 168px;
+	}
+
+	.scroll-lg {
+		max-height: calc(100vh - 7rem);
+		height: calc(100vh - 7rem);
+		min-height: 400px;
+	}
+}

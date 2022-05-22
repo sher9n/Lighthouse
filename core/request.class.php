@@ -160,7 +160,6 @@ class Request {
         if($property == '__method') { return strtoupper($this->requestMethod); }
         if($property == '__uri') { return $this->requestURI; }
         if($property == '__pb') { $passBack = $this->passBack; $this->passBack = null; return $passBack; }
-		if($property == '__passback') { $passBack = $this->userPassBack; $this->userPassBack = null; return $passBack; }
         if($property == '__httpReferer_forBack') { return (string)$this->httpReferer_forBack; }
         if($property == '__referer') {
             return (string)$this->httpReferer;

@@ -1,7 +1,10 @@
 <?php
+
 try {
     session_start();
     ob_start();
+
+    date_default_timezone_set('UTC');
 
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'config.inc.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'app.constants.inc.php';
@@ -14,41 +17,41 @@ try {
     } else
         define('__ROUTER_PATH', '/' . trim((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
 
+    if(app_site != 'app') {
+        if (!isset($_SESSION['lighthouse']['site_name']) || !isset($_SESSION['lighthouse']['site_domain']) || $_SESSION['lighthouse']['site_domain'] != app_site) {
+            $sub_domain = \lighthouse\Community::isExistsCommunity(app_site);
+
+            if ($sub_domain !== FALSE) {
+                $_SESSION['lighthouse']['site_name'] = $sub_domain['dao_name'];
+                $_SESSION['lighthouse']['site_domain'] = $sub_domain['dao_domain'];
+            } else {
+                header("Location: https://lighthouse.xyz");
+                die();
+            }
+        }
+    }
+
     $localRoutes = array(
-        //-------------dashboard-------------
-        //'/dashboard' => 'modules/dashboard/ctrl/dashboard.php',
-        '/notify' => 'modules/dashboard/ctrl/dashboard.php',
-        '/update-user' => 'modules/dashboard/ctrl/dashboard.php',
-        '/get-profile' => 'modules/dashboard/ctrl/dashboard.php',
-        '/get-coins' =>  'modules/dashboard/ctrl/dashboard.php',
-        '/pin-coin' =>  'modules/dashboard/ctrl/dashboard.php',
-        '/get-tweets' => 'modules/dashboard/ctrl/dashboard.php',
-        '/get-notify' => 'modules/dashboard/ctrl/dashboard.php',
-        '/get-mentions' => 'modules/dashboard/ctrl/dashboard.php',
-        '/ohlcv-updates' => 'modules/dashboard/ctrl/dashboard.php',
-        '/wallet-menu' => 'modules/dashboard/ctrl/dashboard.php',
-        //----------------drops-----------------
-        '/rewards' => 'modules/rewards/ctrl/rewards.php',
-        '/get-rewards' =>  'modules/rewards/ctrl/rewards.php',
-        '/opportunities' => 'modules/opportunities/ctrl/opportunities.php',
-        '/get-points' => 'modules/opportunities/ctrl/opportunities.php',
-        '/get-opportunities' => 'modules/opportunities/ctrl/opportunities.php',
-        '/settings' => 'modules/drop/ctrl/settings.php',
+        '/check-dao-domain' => 'modules/onboard/ctrl/onboard.php',
+        '/first-member' => 'modules/onboard/ctrl/first_member.php',
+        '/claim' => 'modules/claim/ctrl/claim.php',
+        '/admin' => 'modules/admin/ctrl/admin.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
     function routeLocator($routerPath, $localRoutes)
     {
-        $route = __DIR__ . DS . 'modules/opportunities/ctrl/opportunities.php';
+        if(app_site == 'app')
+            $route = __DIR__ . DS . 'modules/onboard/ctrl/onboard.php';
+        else
+            $route = __DIR__ . DS . 'modules/claim/ctrl/claim.php';
 
         if (array_key_exists($routerPath, $localRoutes))
             $route = __DIR__ . DS . $localRoutes[$routerPath];
 
-        if(request_type == 'api')
-            $route = __DIR__ . DS . 'modules/api/ctrl/api-endpoints.php';
-
         return $route;
     }
+
 
     if (($route = routeLocator(__ROUTER_PATH, $localRoutes)) !== false) {
         include_once $route;

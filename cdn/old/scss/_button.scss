@@ -1,0 +1,24 @@
+.btn-wallet {
+    text-align: start;
+    background-color: $white;
+    border-color: $border-color;
+}
+
+.btn-buy-more {
+    &::after {
+        content: none;
+    }
+}
+
+.dropdown-menu-buy-more {
+    .dropdown-item {
+        border-bottom: 1px solid $border-color;
+        padding: 1.1rem $dropdown-item-padding-x;        
+        &:last-child {
+            border-bottom: none;
+        }
+        a {
+            color: $dark;
+        }
+    }
+}

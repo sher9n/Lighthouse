@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+*:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+html,
+body {
+    height: 100%;
+    min-height: 100%;
+    font-size: 14px;
+}
+
+body {
+    overflow-y: scroll;
+}
+
+/*
+Custom scrollbar
+*/
+
+
+/* Thin Scrollbar */
+
+:root {
+    scrollbar-color: rgba($black, .4) transparent !important;
+    scrollbar-width: thin !important;
+}
+
+// width
+::-webkit-scrollbar {
+    width: 4px;
+    height: 2px;
+}
+
+// Track
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+// Handle
+::-webkit-scrollbar-thumb {
+    background: rgba($black, .4);
+}
+
+// Handle on hover 
+::-webkit-scrollbar-thumb:hover {
+    background: rgba($black, .4);
+}
+
+.fs-sm {
+    font-size: $font-size-sm; // 14px
+}
+
+.fs-lg {
+    font-size: $font-size-lg; // 20px
+}
+
+.main-wrapper {
+    margin-top: 5.357rem; // 75px
+    @include media-breakpoint-up(lg) {
+        margin-left: 1.875rem; // 30px
+        margin-right: 1.875rem;
+        margin-top: 6.875rem; // 110px
+    }
+}
+
+.img-post {
+    width: 200px;
+    height: 140px;
+    min-width: 200px;
+    min-height: 140px;
+    max-width: 200px;
+    max-height: 140px;
+}
+
+.mw-200 {
+    min-width: 200px;
+}
+
+.mw-220 {
+    min-width: 220px;
+}
+
+@include media-breakpoint-up(lg) {
+    .section-sticky {
+        position: -webkit-sticky; /* Safari & IE */
+        position: fixed;
+        top: 96px;
+        display: block;
+        width: 23.33333334%; 
+        z-index: 1;
+    }
+
+    .fixed-content {
+        position: fixed;
+        top: 96px;
+        display: block;
+        z-index: 1;
+        width: 48%;
+        background-color: $body-bg;
+    }
+
+    .fixed-content-view {
+        padding-top: 230px;
+    }
+
+    .two-bg {
+        &::before {
+            content: "";
+            height: 21px;
+            position: absolute;
+            background-color: $body-bg;
+            width: 100%;
+            bottom: -21px;
+            left: 0;
+            right: 0;
+        }
+    }
+}
+
+.mobile-hidden {
+    @include media-breakpoint-down(lg) {
+        display: none;
+    } 
+}
+
+.content-mobile-view {
+    @include media-breakpoint-down(lg) {
+        display: block !important;
+    } 
+}
