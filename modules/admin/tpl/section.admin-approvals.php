@@ -185,9 +185,9 @@
                     <div class="card shadow">
                         <div class="card-body px-27 py-30">
                             <div class="display-5 fw-medium">Claim details</div>
-                            <div class="fs-5 fw-medium mt-20">Wallet or SNS</div>
+                            <label for="" class="form-label mt-20">Wallet or SNS</label>
                             <div class="fs-3 fw-semibold mt-3">0xbnwegiow923h9ig2nioopg24g247</div>
-                            <div class="fs-5 fw-medium mt-18 mb-3">Claim amount</div>
+                            <label for="" class="form-label mt-18 mb-3">Claim amount</label>
                             <div class="container-fluid px-4">
                                 <div class="row gap-3">
                                     <div class="col border rounded-3 py-3 px-7 fs-3 d-flex align-items-center">120</div>
@@ -201,9 +201,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="fs-5 fw-medium mt-18 mb-3">Reason</div>
+                            <label for="" class="form-label mt-18 mb-3">Reason</label>
                             <textarea class="form-control form-control-lg fs-3 fw-medium" id="" rows="2" placeholder=""></textarea>
-                            <div class="fs-5 fw-medium mt-18 mb-3">Tags</div>
+                            <label for="" class="form-label mt-18 mb-3">Tags</label>
                             <textarea class="form-control form-control-lg" id="" rows="2" placeholder=""></textarea>
                         </div>
                         <div class="card-body border-top d-flex justify-content-end gap-3">

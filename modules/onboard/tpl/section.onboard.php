@@ -31,7 +31,7 @@
                             </div>
                             <div class="mt-16">
                                 <label for="DAOName" class="form-label">What would you like your subdomain to be?</label>
-                                <div class="input-group input-group-lg mb-3">
+                                <div class="input-group input-group-lg">
                                     <input type="text" class="form-control form-control-lg" name="dao_domain" id="dao_domain" placeholder="MyDAO">
                                     <span class="input-group-text fw-medium" id="">.lighthouse.xyz</span>
                                 </div>

@@ -7,7 +7,7 @@
                     <div class="card-body px-27 py-30">
                         <div class="display-5 fw-medium">Recognize community participation</div>
                         <div class="text-muted mt-1">Send NTTs to anyone in your community</div>
-                        <div class="fs-5 fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
+                        <div class="fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
                         <div class="fs-3 fw-semibold mt-3">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
                         <a role="button" class="btn btn-light mt-3" href="#">Change Wallet</a>
                         <div class="col-6">
@@ -20,9 +20,9 @@
                                 </div>
                             </div>
 
-                            <label class="form-label fs-5 fw-medium mt-18 mb-3">What's the reason for this distribution?</label>
+                            <label class="form-label fw-medium mt-18 mb-3">What's the reason for this distribution?</label>
                             <textarea class="form-control form-control-lg fs-3" id="" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
-                            <label class="fs-5 fw-medium mt-18 mb-3">Tag this distribution to query it later.</label>
+                            <label class="fw-medium mt-18 mb-3">Tag this distribution to query it later.</label>
                             <input type="text" class="form-control form-control-lg mb-6 fs-3" id="" placeholder="Marketing, Development, Strategy">
 
                         </div>
