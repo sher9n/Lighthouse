@@ -17,7 +17,7 @@ class controller extends Ctrl {
                 if($this->hasParam('wallet_address') && strlen($this->getParam('wallet_address')) > 0)
                     $wallet_address = $this->getParam('wallet_address');
                 else
-                    throw new Exception("display_name:Please connect the wallet");
+                    throw new Exception("w_addr_text:Please connect the wallet");
 
                 if($this->hasParam('ntts'))
                     $ntts = floatval($this->getParam('ntts'));
