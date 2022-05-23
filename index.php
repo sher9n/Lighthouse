@@ -37,6 +37,7 @@ try {
         '/distribution' => 'modules/onboard/ctrl/distribution.php',
         '/first-member' => 'modules/onboard/ctrl/first_member.php',
         '/claim' => 'modules/claim/ctrl/claim.php',
+        '/claim-reason' => 'modules/claim/ctrl/claim-reason.php',
         '/admin' => 'modules/admin/ctrl/admin.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );

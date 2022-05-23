@@ -79,8 +79,14 @@ class Claim{
 
         unset($updates['id']);
 
-        foreach ($updates as $key=>$val)
-            $update_sql .= $key."='".$val."' ";
+        $c=0;
+        foreach ($updates as $key=>$val) {
+            $c++;
+            if(count($updates) != $c)
+                $update_sql .= $key . "='" . $val . "',";
+            else
+                $update_sql .= $key . "='" . $val . "'";
+        }
 
         $update = "UPDATE claims SET ".$update_sql." WHERE id=".$id;
         $connect->query($update);

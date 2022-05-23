@@ -7,7 +7,7 @@ class controller extends Ctrl {
 
         $community = null;
 
-        if (!isset($_SESSION['lhc_id'])) {
+        if (!isset($_SESSION['lhc']['c_id'])) {
             header("Location: " . app_url);
             die();
         }

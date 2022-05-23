@@ -10,7 +10,7 @@ class Auth{
                 return array('sub_domain' => $_SESSION['lighthouse']['site_domain'], 'site_name' => $_SESSION['lighthouse']['site_name']);
             }
             else {
-                $sub_domain =  \lighthouse\NTTs::isExistsNtts(app_site);
+                $sub_domain =  \lighthouse\Community::isExistsCommunity(app_site);
                 if($sub_domain !== FALSE) {
                     $_SESSION['lighthouse']['site_name'] = $sub_domain['site_name'];
                     $_SESSION['lighthouse']['site_domain'] = $sub_domain['sub_domain'];
@@ -21,7 +21,7 @@ class Auth{
             }
         }
         else {
-            $sub_domain =  \lighthouse\NTTs::isExistsNtts(app_site);
+            $sub_domain =  \lighthouse\Community::isExistsCommunity(app_site);
 
             if($sub_domain !== FALSE) {
                 $_SESSION['lighthouse']['site_name'] = $sub_domain['site_name'];
