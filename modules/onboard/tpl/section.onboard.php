@@ -48,7 +48,7 @@
                             <div class="mt-16">
                                 <label for="NTTCurrency" class="form-label">What ticker do you want to use for your NTT?</label>
                                 <div class="input-group input-group-lg mb-3">
-                                    <span class="input-group-text fw-medium" id="">nt</span>
+                                    <span class="input-group-text fw-medium">nt</span>
                                     <input type="text" class="form-control" name="ticker" id="ticker" placeholder="MyDAO">
                                 </div>
                             </div>
@@ -67,20 +67,30 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function(){
-        $(document).on("focusout", '#dao_name,#dao_domain', function(event) {
+        $(document).on("focusout", '#dao_domain,#dao_name', function(event) {
             var dao_name = $(this).val();
             $.ajax({
                 url: 'check-dao-domain',
                 data: {'dao_name':dao_name},
                 dataType: 'json',
                 success: function(data) {
-                    $('#dao_domain').val(data.sub_domain);
                     if (data.success == false){
                         $('#dao_domain-error').html(data.msg);
                         $('#dao_domain-error').show();
                     }
+                    else {
+                        $('#dao_domain').val(data.sub_domain);
+                        $('#ticker').val(data.ticker);
+                    }
                 }
             });
+        });
+
+        $(document).on("keyup", '#dao_name', function(event) {
+            var dao_name = $(this).val();
+            dao_name = dao_name.replace(/\s+/g, '-');
+            $('#dao_domain').val(dao_name);
+            $('#ticker').val(dao_name.toUpperCase());
         });
 
         $('#nttsForm').validate({
