@@ -1,6 +1,6 @@
 <aside class="left-aside">
     <div class="ms-3">
-        <img src="<?php echo app_cdn_path; ?>img/logo.svg" >
+        <img src="<?php echo app_cdn_path; ?>img/logo.png" >
     </div>
     <div class="main-nav">
         <ul class="nav flex-column">
