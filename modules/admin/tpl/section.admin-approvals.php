@@ -1,5 +1,5 @@
 <main>
-    <?php echo require_once 'partial/admin-leftmenu.php'; ?>
+    <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
         <div class="container-fluid h-100">
             <div class="row h-100">
