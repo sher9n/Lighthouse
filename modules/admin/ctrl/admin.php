@@ -19,7 +19,11 @@ class controller extends Ctrl {
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin.php'
                 ),
-                'js' => array('https://unpkg.com/feather-icons')
+                'js' => array(
+                    'https://unpkg.com/feather-icons',
+                    'https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js',
+                    'https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js'
+                )
             );
             require_once app_template_path . '/base.php';
             exit();

@@ -15,8 +15,8 @@
                                 <label for="LHT" class="form-label">How many $LHT do you want to claim?</label>
                                 <input type="text" class="form-control form-control-lg mb-6 fs-3" id="LHT" placeholder="100">
                                 <div class="d-flex">
-                                    <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="img/arrow-up.png"></div>
-                                    <div class="badge bg-light d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="img/arrow-bottom.png"></div>
+                                    <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
+                                    <div class="badge bg-light d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
                                 </div>
                             </div>
 
@@ -42,7 +42,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <img src="img/logo-circle.svg" height="90">
+                <img src="<?php echo app_cdn_path; ?>img/logo-circle.svg" height="90">
                 <div class="fs-2 fw-semibold mt-15">MyDAO Admin Center</div>
                 <div class="fw-medium mt-3">To get started please connect a whitelisted wallet</div>
                 <button type="button" class="btn btn-primary mt-20 px-10">Connect Wallet</button>

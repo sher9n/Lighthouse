@@ -1,7 +1,7 @@
 <main id="body_section">
     <aside class="left-aside">
         <div>
-            <img src="<?php echo app_cdn_path; ?>img/logo.svg" >
+            <img src="<?php echo app_cdn_path; ?>img/logo.png" >
         </div>
         <div class="steps-wrapper">
             <ul class="nav-steps">
