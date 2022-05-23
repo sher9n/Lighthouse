@@ -193,11 +193,11 @@
                                     <div class="col border rounded-3 py-3 px-7 fs-3 d-flex align-items-center">120</div>
                                     <div class="col bg-light rounded-3 py-3 px-7">
                                         <div class="fs-3">4.5K</div>
-                                        <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">24</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
+                                        <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
                                     </div>
                                     <div class="col bg-light rounded-3 py-3 px-7">
                                         <div class="fs-3">2.32K</div>
-                                        <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">2</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
+                                        <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
                                     </div>
                                 </div>
                             </div>

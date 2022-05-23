@@ -8,7 +8,7 @@
                         <div class="text-muted mt-1">Fill out the details of your contribution</div>
                         <div class="mt-23">
                             <label for="DAOName" class="form-label">Which wallet do you want to distribute NTTs to?</label>
-                            <input type="text" id="w_addr_text" class="form-control form-control-lg" disabled placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
+                            <input type="text" name="w_addr_text" id="w_addr_text" readonly class="form-control form-control-lg" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
                             <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3"></div>
                             <input type="hidden" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
                             <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Add Wallet</a>
@@ -17,8 +17,8 @@
                             <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
                             <input type="number" class="form-control form-control-lg mb-6"  name="ntts" id="ntts" placeholder="100">
                             <div class="d-flex">
-                                <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">24</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png" class="ms-1"></div>
-                                <div class="badge bg-light d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">2</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png" class="ms-1"></div>
+                                <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png" class="ms-1"></div>
+                                <div class="badge bg-light d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png" class="ms-1"></div>
                             </div>
                         </div>
                     </div>
@@ -51,6 +51,7 @@
             $("#wallet_address").val(selectedAccount);
             $("#sel_wallet_address").html(selectedAccount);
             $("#w_addr_text").remove();
+            $("#w_addr_text-error").remove();
             $('#add_wallet').html('CHANGE WALLET');
         }
 
@@ -61,7 +62,13 @@
                 },
                 ntts:{
                     required: true
+                },
+                w_addr_text:{
+                    required: true
                 }
+            },
+            messages: {
+                w_addr_text : "Please connect the wallet"
             },
             submitHandler: function(form){
                 $(form).ajaxSubmit({
