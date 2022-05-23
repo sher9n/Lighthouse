@@ -27,10 +27,10 @@
                         <div class="text-muted mt-1">Add the first member that can distribute NTTs and approve claims</div>
                         <div class="mt-23">
                             <label for="DisplayName" class="form-label">Display name</label>
-                            <input type="text" class="form-control form-control-lg mb-6" name="display_name" id="display_name" placeholder="Bob">
-                            <input type="hidden" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
+                            <input type="text" class="form-control form-control-lg" name="display_name" id="display_name" placeholder="Bob">
+                            <input type="hidden" class="form-control form-control-lg" name="wallet_address" id="wallet_address">
                             <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3"></div>
-                            <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Add Wallet</a>
+                            <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
                         </div>
                     </div>
                 </div>

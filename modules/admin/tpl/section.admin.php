@@ -27,7 +27,11 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="text-center"><img src="<?php echo app_cdn_path; ?>img/icon-send-nts.svg"></td>
+                                    <td class="text-center">
+                                        <svg class="feather feather-lg text-muted">
+                                            <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
+                                        </svg>
+                                    </td>
                                     <td>0x9aBb...4380b</td>
                                     <td>8.4K</td>
                                     <td>215</td>
@@ -35,7 +39,11 @@
                                     <td class="text-truncate text-max-width">Marketing: 12, Social: 7, Community: 3, Strategy: 5, LeadGen: 1</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><img src="<?php echo app_cdn_path; ?>img/icon-send-nts.svg"></td>
+                                    <td class="text-center">
+                                        <svg class="feather feather-lg text-muted">
+                                            <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
+                                        </svg>
+                                    </td>
                                     <td>0x9aBb...4380b</td>
                                     <td>8.4K</td>
                                     <td>215</td>
@@ -43,7 +51,11 @@
                                     <td class="text-truncate text-max-width">Marketing: 12, Social: 7, Community: 3, Strategy: 5, LeadGen: 1</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><img src="<?php echo app_cdn_path; ?>img/icon-send-nts.svg"></td>
+                                    <td class="text-center">
+                                        <svg class="feather feather-lg text-muted">
+                                            <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
+                                        </svg>
+                                    </td>
                                     <td>0x9aBb...4380b</td>
                                     <td>8.4K</td>
                                     <td>215</td>
@@ -51,7 +63,11 @@
                                     <td class="text-truncate text-max-width">Marketing: 12, Social: 7, Community: 3, Strategy: 5, LeadGen: 1</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><img src="<?php echo app_cdn_path; ?>img/icon-send-nts.svg"></td>
+                                    <td class="text-center">
+                                        <svg class="feather feather-lg text-muted">
+                                            <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
+                                        </svg>
+                                    </td>
                                     <td>0x9aBb...4380b</td>
                                     <td>8.4K</td>
                                     <td>215</td>
@@ -59,7 +75,11 @@
                                     <td class="text-truncate text-max-width">Marketing: 12, Social: 7, Community: 3, Strategy: 5, LeadGen: 1</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><img src="<?php echo app_cdn_path; ?>img/icon-send-nts.svg"></td>
+                                    <td class="text-center">
+                                        <svg class="feather feather-lg text-muted">
+                                            <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
+                                        </svg>
+                                    </td>
                                     <td>0x9aBb...4380b</td>
                                     <td>8.4K</td>
                                     <td>215</td>
@@ -67,7 +87,11 @@
                                     <td class="text-truncate text-max-width">Marketing: 12, Social: 7, Community: 3, Strategy: 5, LeadGen: 1</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><img src="<?php echo app_cdn_path; ?>img/icon-send-nts.svg"></td>
+                                    <td class="text-center">
+                                        <svg class="feather feather-lg text-muted">
+                                            <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
+                                        </svg>
+                                    </td>
                                     <td>0x9aBb...4380b</td>
                                     <td>8.4K</td>
                                     <td>215</td>
@@ -75,7 +99,11 @@
                                     <td class="text-truncate text-max-width">Marketing: 12, Social: 7, Community: 3, Strategy: 5, LeadGen: 1</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><img src="<?php echo app_cdn_path; ?>img/icon-send-nts.svg"></td>
+                                    <td class="text-center">
+                                        <svg class="feather feather-lg text-muted">
+                                            <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
+                                        </svg>
+                                    </td>
                                     <td>0x9aBb...4380b</td>
                                     <td>8.4K</td>
                                     <td>215</td>
@@ -83,7 +111,11 @@
                                     <td class="text-truncate text-max-width">Marketing: 12, Social: 7, Community: 3, Strategy: 5, LeadGen: 1</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><img src="<?php echo app_cdn_path; ?>img/icon-send-nts.svg"></td>
+                                    <td class="text-center">
+                                        <svg class="feather feather-lg text-muted">
+                                            <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
+                                        </svg>
+                                    </td>
                                     <td>0x9aBb...4380b</td>
                                     <td>8.4K</td>
                                     <td>215</td>
