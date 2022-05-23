@@ -1,18 +1,18 @@
 <div class="container-fluid g-0 h-100">
     <div class="row g-0 h-100">
         <div class="col-lg-6 bg-white">
-            <div class="d-flex flex-column h-100">
-                <form id="claimForm" method="post" action="claim-reason" autocomplete="off">
+
+                <form id="claimForm" method="post" action="claim-reason" autocomplete="off" class="d-flex flex-column h-100">
                     <div class="px-26">
                         <div class="display-5 fw-medium mt-25">Submit a claim for <?php echo $__page->site['site_name']; ?></div>
                         <div class="text-muted mt-1">Fill out the details of your contribution</div>
                             <div class="mt-23">
                                 <label for="claimReason" class="form-label">Give a reason for this claim</label>
-                                <textarea class="form-control" name="claim_reason" id="claim_reason" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
+                                <textarea class="form-control form-control-lg" name="claim_reason" id="claim_reason" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
                             </div>
                             <div class="mt-16">
                                 <label for="claimCategorize" class="form-label">Add tags to categorize this claim</label>
-                                <input type="text" class="form-control" name="claim_tags" id="claim_tags"placeholder="Marketing, Development, Strategy">
+                                <input type="text" class="form-control form-control-lg" name="claim_tags" id="claim_tags"placeholder="Marketing, Development, Strategy">
                             </div>
                     </div>
                     <div class="mt-auto border-top py-5 px-26">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+
         </div>
         <div class="col-lg-6 bg-cod-gray h-100 d-flex justify-content-center">
             <div class="align-self-center">

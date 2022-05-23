@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  <g id="globe_1_" data-name="globe (1)" transform="translate(-1.5 -1.5)">
-    <ellipse id="Ellipse_122" data-name="Ellipse 122" cx="7.5" cy="7.5" rx="7.5" ry="7.5" transform="translate(2 2)" fill="none" stroke="#747a88" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-    <line id="Line_274" data-name="Line 274" x2="15" transform="translate(2 9.5)" fill="none" stroke="#747a88" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-    <path id="Path_621" data-name="Path 621" d="M12,2a10.155,10.155,0,0,1,4,7.5A10.155,10.155,0,0,1,12,17,10.155,10.155,0,0,1,8,9.5,10.155,10.155,0,0,1,12,2Z" transform="translate(-2.5)" fill="none" stroke="#747a88" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-  </g>
-</svg>
