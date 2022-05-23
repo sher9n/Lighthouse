@@ -83,7 +83,7 @@
                     <div class="fs-2 fw-medium mt-26 mb-12">Siloed scores</div>
                     <div class="row">
                       <div class="col-md-6">
-                        <div class="card border rounded-3">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
@@ -105,7 +105,7 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="card border rounded-3">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
@@ -126,6 +126,97 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="col-md-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/daoHaus.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">DAOhaus</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap">Unlock the next tier in community cooperation utilizing the glorious open-source code of Moloch</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/discord-bot.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">MEE6 - The Discord Bot</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap">Configure moderation, leveling, twitch alerts, and much more!</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/colony.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Colony</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap">Colony makes it easy for people all over the world to build organizations together, online</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/omnid.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Omnid</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap">Omnid aggregates multiple on/off-chain sources of reputation into a singular TrustScore for any wallet</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
 
                   </form>
