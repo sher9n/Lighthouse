@@ -15,10 +15,10 @@ class controller extends Ctrl {
                 $subdomain = '';
                 if($this->hasParam('dao_name')) {
                     $subdomain = $this->getParam('dao_name');
-                    $subdomain = strtolower(preg_replace("/\s+/", "", $subdomain));
+                    $subdomain = strtolower(preg_replace("/\s+/", "-", $subdomain));
 
                     if (Community::isExistsCommunity($subdomain) === FALSE) {
-                        echo json_encode(array('success' => true, 'sub_domain' =>$subdomain ));
+                        echo json_encode(array('success' => true, 'sub_domain' =>$subdomain,'ticker' => strtoupper($subdomain)));
                         exit();
                     }
                 }
