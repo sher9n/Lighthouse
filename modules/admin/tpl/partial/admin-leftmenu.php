@@ -3,7 +3,7 @@
         <img src="<?php echo app_cdn_path; ?>img/logo.svg" >
     </div>
     <div class="main-nav">
-    <ul class="nav flex-column">
+        <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="admin">
                 <svg class="feather">
@@ -54,7 +54,7 @@
             </a>
         </li>
     </ul>
-</div>
+    </div>
     <div class="user-nav dropup">
         <div class="dropdown">
             <button class="btn btn-white dropdown-toggle d-flex align-items-center p-0 border-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

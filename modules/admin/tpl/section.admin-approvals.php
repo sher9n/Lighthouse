@@ -98,8 +98,8 @@
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
                                             <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="img/icon-like.svg" width="40" height="40">
-                                                <img src="img/icon-dislike.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
                                             <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
@@ -112,8 +112,8 @@
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
                                             <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="img/icon-like.svg" width="40" height="40">
-                                                <img src="img/icon-dislike.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
                                             <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
@@ -126,8 +126,8 @@
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
                                             <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="img/icon-like.svg" width="40" height="40">
-                                                <img src="img/icon-dislike.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
                                             <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
@@ -140,8 +140,8 @@
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
                                             <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="img/icon-like.svg" width="40" height="40">
-                                                <img src="img/icon-dislike.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
                                             <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
@@ -154,8 +154,8 @@
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
                                             <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="img/icon-like.svg" width="40" height="40">
-                                                <img src="img/icon-dislike.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
+                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
                                             <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
@@ -169,7 +169,7 @@
                             </div>
                             <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
                                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                                    <img src="img/img-empty.svg" width="208">
+                                    <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
                                     <div class="fs-2 fw-semibold mt-20">Hurray, there's nothing in your approved!</div>
                                     <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
                                 </div>
@@ -215,7 +215,7 @@
                     <div class="card shadow h-100">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                                <img src="img/img-empty.svg" width="208">
+                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
                             </div>
                         </div>
                     </div>
