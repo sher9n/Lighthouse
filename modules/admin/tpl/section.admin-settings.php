@@ -54,7 +54,7 @@
                       <div class="col">
                         <label for="NTTTicker" class="form-label">Personalize claim form</label>
                         <div class="d-flex align-items-center">
-                            <div class="card bg-lighter card-image-uploads p-6">
+                            <div class="card bg-lighter card-image-uploads p-6 rounded-3">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <div class="upload-logo my-8">
                                         <svg class="feather">
