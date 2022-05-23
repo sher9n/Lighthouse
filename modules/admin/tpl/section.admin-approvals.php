@@ -202,7 +202,7 @@
                                 </div>
                             </div>
                             <label for="" class="form-label mt-18 mb-3">Reason</label>
-                            <textarea class="form-control form-control-lg fs-3 fw-medium" id="" rows="2" placeholder=""></textarea>
+                            <textarea class="form-control form-control-lg fs-3" id="" rows="2" placeholder=""></textarea>
                             <label for="" class="form-label mt-18 mb-3">Tags</label>
                             <textarea class="form-control form-control-lg" id="" rows="2" placeholder=""></textarea>
                         </div>
