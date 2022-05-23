@@ -31,7 +31,7 @@
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">120 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -45,7 +45,7 @@
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">87 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -59,7 +59,7 @@
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -73,7 +73,7 @@
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -87,7 +87,7 @@
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -101,7 +101,7 @@
                                                 <img src="img/icon-like.svg" width="40" height="40">
                                                 <img src="img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -115,7 +115,7 @@
                                                 <img src="img/icon-like.svg" width="40" height="40">
                                                 <img src="img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -129,7 +129,7 @@
                                                 <img src="img/icon-like.svg" width="40" height="40">
                                                 <img src="img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -143,7 +143,7 @@
                                                 <img src="img/icon-like.svg" width="40" height="40">
                                                 <img src="img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -157,7 +157,7 @@
                                                 <img src="img/icon-like.svg" width="40" height="40">
                                                 <img src="img/icon-dislike.svg" width="40" height="40">
                                             </div>
-                                            <div class="ms-8 col-8">
+                                            <div class="ms-8 col-7">
                                                 <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
                                                 <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
                                                 <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
@@ -183,14 +183,14 @@
 
                 <div class="col-lg-6">
                     <div class="card shadow">
-                        <div class="card-body px-27 py-30">
+                        <div class="card-body p-20">
                             <div class="display-5 fw-medium">Claim details</div>
                             <label for="" class="form-label mt-20">Wallet or SNS</label>
-                            <div class="fs-3 fw-semibold mt-3">0xbnwegiow923h9ig2nioopg24g247</div>
+                            <div class="fs-3 fw-semibold">0xbnwegiow923h9ig2nioopg24g247</div>
                             <label for="" class="form-label mt-18 mb-3">Claim amount</label>
                             <div class="container-fluid px-4">
                                 <div class="row gap-3">
-                                    <div class="col border rounded-3 py-3 px-7 fs-3 d-flex align-items-center">120</div>
+                                    <div class="col-3 border rounded-3 py-3 px-7 fs-3 d-flex align-items-center">120</div>
                                     <div class="col bg-light rounded-3 py-3 px-7">
                                         <div class="fs-3">4.5K</div>
                                         <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">24</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
