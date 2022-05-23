@@ -1,4 +1,4 @@
-<aside class="left-aside">
+<aside class="admin-left-aside">
     <div class="ms-3">
         <img src="<?php echo app_cdn_path; ?>img/logo.svg" >
     </div>
