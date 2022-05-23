@@ -17,7 +17,7 @@ class controller extends Ctrl {
                 'title' => app_site,
                 'site' => $site,
                 'sections' => array(
-                    __DIR__ . '/../tpl/section.admin.php'
+                    __DIR__ . '/../tpl/section.admin-stewards.php'
                 ),
                 'js' => array('https://unpkg.com/feather-icons')
             );

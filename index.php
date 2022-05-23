@@ -39,6 +39,11 @@ try {
         '/claim' => 'modules/claim/ctrl/claim.php',
         '/claim-reason' => 'modules/claim/ctrl/claim-reason.php',
         '/admin' => 'modules/admin/ctrl/admin.php',
+        '/admin-approvals' => 'modules/admin/ctrl/admin-approvals.php',
+        '/admin-ntts' => 'modules/admin/ctrl/admin-ntts.php',
+        '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
+        '/admin-integrations' => 'modules/admin/ctrl/admin-integrations.php',
+        '/admin-settings' => 'modules/admin/ctrl/admin-settings.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );
 
