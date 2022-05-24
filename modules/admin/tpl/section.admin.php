@@ -134,6 +134,10 @@
             Launch demo modal
         </button>-->
     </section>
+
+    <!-- Modal backbround image -->
+    <div class="modal-background"></div>
+    <!-- Modal backbround image END -->
 </main>
 <!-- Modal -->
 <div class="modal show" id="AdminCenter" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
