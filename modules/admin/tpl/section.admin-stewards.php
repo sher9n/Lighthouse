@@ -6,7 +6,7 @@
           <div class="row h-100"> 
             <div class="col h-100">           
               <div class="card shadow h-100">
-                <div class="card-body px-27 py-30">
+                <div class="card-body p-20">
                   <div class="display-5 fw-medium">Manage stewards</div>
                   <div class="text-muted mt-1">Add or remove members that can distribute NTTs and approve claims</div>
                   <form class="mt-25 col-md-6">
@@ -56,7 +56,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="fs-2 fw-semibold mb-23">Add new member to whitelist </div>  
+        <div class="fs-2 fw-semibold mb-15">Add new member to whitelist </div>  
         <label for="Nickname" class="form-label">Nickname</label>
         <input type="text" class="form-control form-control-lg" name="Nickname" id="Nickname" placeholder="Bob">
         <label for="WalletAddress" class="form-label mt-16">Wallet address</label>
@@ -77,7 +77,7 @@
       <div class="modal-body text-center">
         <div class="fs-2 fw-semibold mb-3">Hey, wait!</div>  
         <div class="fw-medium mb-16">Are you sure you want to delete this wallet address?</div>
-        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-white me-1" data-bs-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-danger">Delete</button>
       </div>      
     </div>

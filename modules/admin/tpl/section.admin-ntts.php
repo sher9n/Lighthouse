@@ -4,7 +4,7 @@
         <div class="container-fluid h-100">
             <div class="col">
                 <div class="card shadow">
-                    <div class="card-body px-27 py-30">
+                    <div class="card-body p-20">
                         <div class="display-5 fw-medium">Recognize community participation</div>
                         <div class="text-muted mt-1">Send NTTs to anyone in your community</div>
                         <div class="fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
