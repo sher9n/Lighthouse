@@ -1,5 +1,6 @@
 <?php
 use lighthouse\Claim;
+use lighthouse\Community;
 use lighthouse\Auth;
 class controller extends Ctrl {
     function init() {
@@ -24,9 +25,11 @@ class controller extends Ctrl {
                 else
                     throw new Exception("ntts:Not a valid NTTs");
 
+                $com = Community::getByDomain();
                 $claim = new Claim();
                 $claim->wallet_adr = $wallet_address;
                 $claim->ntts = $ntts;
+                $claim->comunity_id = $com->id;
                 $id = $claim->insert();
                 $_SESSION['lh_claim_id'] = $id;
 

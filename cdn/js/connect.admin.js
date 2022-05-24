@@ -29,7 +29,7 @@ function init() {
     });
 }
 
-async function fetchAccountData(url=false) {
+async function fetchAccountData() {
     // Get a Web3 instance for the wallet
     const web3 = new Web3(provider);
 
@@ -48,9 +48,6 @@ async function fetchAccountData(url=false) {
 
     if (selectedAccount) {
         sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
-        document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
-        document.querySelector("#wallet_address").value = selectedAccount;
-        document.querySelector("#add_wallet").innerHTML = 'CHANGE WALLET';
 
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
@@ -58,10 +55,30 @@ async function fetchAccountData(url=false) {
                 lh_wallet_adds.push(selectedAccount);
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
             }
-        } else {
-            sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
         }
+        else
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
+
+        updateWalletMenu();
     }
+}
+
+async function updateWalletMenu() {
+    var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+    var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
+    var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
+
+    $.ajax({
+        url: 'wallet-menu',
+        dataType: 'json',
+        data: data,
+        type: 'POST',
+        success: function (response) {
+            if (response.success == true) {
+                window.location = 'admin-dashboard';
+            }
+        }
+    });
 }
 
 async function checkAccountData() {
@@ -78,7 +95,7 @@ async function addWallet() {
         return;
     }
     add_nw_wallet = 1;
-    await fetchAccountData(false,false);
+    await fetchAccountData();
 }
 
 async function onConnect() {

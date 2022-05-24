@@ -4,7 +4,7 @@ namespace Core;
 class Utils {
 	private static $instance;
 
-    public static function coinAddressFormat($address) {
+    public static function WalletAddressFormat($address) {
         if(strlen($address) > 0) {
             $first = substr($address, 0,6);
             $last = substr($address, -4);

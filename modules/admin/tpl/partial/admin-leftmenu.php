@@ -5,7 +5,7 @@
     <div class="main-nav">
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/admin'?'active':'';?>" aria-current="page" href="admin">
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-dashbaord'?'active':'';?>" aria-current="page" href="admin-dashbaord">
                 <svg class="feather">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#layers"/>
                 </svg>
@@ -59,7 +59,7 @@
         <div class="dropdown">
             <button class="btn btn-white dropdown-toggle d-flex align-items-center p-0 border-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="non-avator me-3"></div>
-                <div class="me-2">0xd91c...4507</div>
+                <div class="me-2"><?php echo \Core\Utils::WalletAddressFormat($__page->sel_wallet_adr); ?></div>
             </button>
             <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton1">
                 <li>
@@ -72,7 +72,7 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="admin">
                         <svg class="feather">
                             <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#log-out"/>
                         </svg>

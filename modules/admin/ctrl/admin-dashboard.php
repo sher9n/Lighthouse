@@ -1,24 +1,19 @@
 <?php
 use lighthouse\Auth;
+use lighthouse\Claim;
 class controller extends Ctrl {
     function init() {
 
-        if(isset($_SESSION['lh_sel_wallet_adr']) && !is_null($this->__lh_request->get__PB())) {
-            header("Location: " . $this->__lh_request->get__PB());
-            exit();
+        $sel_wallet_adr = null;
+
+        if(isset($_SESSION['lh_sel_wallet_adr']))
+            $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+        else {
+            header("Location: " . app_url.'admin');
+            die();
         }
 
         if($this->__lh_request->is_xmlHttpRequest) {
-
-            if(__ROUTER_PATH == '/wallet-menu' ) {
-                $selected_adr = $this->getParam('sel_add');
-                $_SESSION['lh_sel_wallet_adr'] = $selected_adr;
-                /*$format_adr = \Core\Utils::WalletAddressFormat($selected_adr);
-                include __DIR__ . '/../tpl/partial/wallet_addresses.php';
-                $html = ob_get_clean();*/
-                echo json_encode(array('success' => true));
-                exit();
-            }
 
         }
         else {
@@ -28,19 +23,24 @@ class controller extends Ctrl {
                 header("Location: https://lighthouse.xyz");
                 die();
             }
+
+            $claims = Claim::find("SELECT * FROM claims WHERE ");
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,
+                'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
-                    __DIR__ . '/../tpl/section.admin.php'
+                    __DIR__ . '/../tpl/section.admin-dashboard.php'
                 ),
                 'js' => array(
                     'https://unpkg.com/feather-icons',
+                    'https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js',
+                    'https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js',
                     'https://unpkg.com/web3@1.2.11/dist/web3.min.js',
                     'https://unpkg.com/web3modal@1.9.0/dist/index.js',
                     'https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js',
                     'https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js',
-                    app_cdn_path.'js/connect.admin.js',
+                    app_cdn_path.'js/connect-admin.js',
                     'https://assets.calendly.com/assets/external/widget.js'
                 )
             );
