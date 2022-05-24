@@ -5,7 +5,7 @@
     <div class="main-nav">
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="admin">
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin'?'active':'';?>" aria-current="page" href="admin">
                 <svg class="feather">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#layers"/>
                 </svg>
@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="admin-approvals">
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-approvals'?'active':'';?>" href="admin-approvals">
                 <svg class="feather">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#check-circle"/>
                 </svg>
@@ -21,7 +21,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="admin-ntts">
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-ntts'?'active':'';?>" href="admin-ntts">
                 <svg class="feather">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#move"/>
                 </svg>
@@ -29,7 +29,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="admin-stewards">
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-stewards'?'active':'';?>" href="admin-stewards">
                 <svg class="feather">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#user"/>
                 </svg>
@@ -37,7 +37,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="admin-integrations">
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-integrations'?'active':'';?>"  href="admin-integrations">
                 <!-- <img src="img/icon-integrations.svg">  -->
                 <svg class="feather">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#terminal"/>
@@ -46,7 +46,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="admin-settings">
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-settings'?'active':'';?>" href="admin-settings">
                 <svg class="feather">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#settings"/>
                 </svg>
