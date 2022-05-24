@@ -6,7 +6,7 @@
           <div class="row h-100"> 
             <div class="col h-100">           
               <div class="card shadow">
-                <div class="card-body px-27 py-30">
+                <div class="card-body p-20">
                   <div class="display-5 fw-medium">Community info</div>
                   <div class="text-muted mt-1">Configure details and setup your community</div>
                   <form class="mt-20">
@@ -92,7 +92,7 @@
               </div>
 
               <div class="card shadow mt-12">
-                <div class="card-body px-27 py-30">
+                <div class="card-body p-20">
                   <div class="display-5 fw-medium">Gas tank</div>
                   <div class="text-muted mt-1">Send USDC (ERC-20) on the Gnosis chain to run Lighthouse gas-free for your community</div>
                   <div class="mt-23">

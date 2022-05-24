@@ -190,7 +190,9 @@
                             <label for="" class="form-label mt-18 mb-3">Claim amount</label>
                             <div class="container-fluid px-4">
                                 <div class="row gap-3">
-                                    <div class="col-3 border rounded-3 py-3 px-7 fs-3 d-flex align-items-center">120</div>
+                                    <div class="col-3">
+                                        <input type="email" class="form-control rounded-3 py-9 px-7 fs-3" id="" placeholder="120">
+                                    </div>
                                     <div class="col bg-light rounded-3 py-3 px-7">
                                         <div class="fs-3">4.5K</div>
                                         <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
