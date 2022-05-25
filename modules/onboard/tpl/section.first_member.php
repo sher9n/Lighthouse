@@ -29,7 +29,7 @@
                             <label for="DisplayName" class="form-label">Display name</label>
                             <input type="text" class="form-control form-control-lg" name="display_name" id="display_name" placeholder="Bob">
                             <input type="hidden" class="form-control form-control-lg" name="wallet_address" id="wallet_address">
-                            <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3"></div>
+                            <div id="sel_wallet_address" class="fs-3 fw-semibold mt-6"></div>
                             <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
     <section class="admin-body-section">
         <div class="container-fluid h-100">
             <div class="row h-100">
-                <div class="col-lg-6">
+                <div class="col-xl-6 mb-6 mt-xl-0">
                     <div class="card shadow h-100">
                         <div class="card-header border-bottom">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -27,7 +27,7 @@
                                 <ul class="list-approvals">
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -41,7 +41,7 @@
                                     </li>
                                     <li class="list-approvals-item active">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -55,7 +55,7 @@
                                     </li>
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -69,7 +69,7 @@
                                     </li>
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -83,7 +83,7 @@
                                     </li>
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -97,7 +97,7 @@
                                     </li>
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -111,7 +111,7 @@
                                     </li>
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -125,7 +125,7 @@
                                     </li>
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -139,7 +139,7 @@
                                     </li>
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -153,7 +153,7 @@
                                     </li>
                                     <li class="list-approvals-item">
                                         <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
+                                            <div class="d-flex align-items-center px-0 px-xl-4 gap-3">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                 <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                             </div>
@@ -170,7 +170,7 @@
                             <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
                                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
                                     <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                    <div class="fs-2 fw-semibold mt-20">Hurray, there's nothing in your approved!</div>
+                                    <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your approved!</div>
                                     <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
                                 </div>
                             </div>
@@ -181,25 +181,29 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-xl-6">
                     <div class="card shadow">
-                        <div class="card-body p-20">
+                        <div class="card-body p-xl-20">
                             <div class="display-5 fw-medium">Claim details</div>
                             <label for="" class="form-label mt-20">Wallet or SNS</label>
                             <div class="fs-3 fw-semibold">0xbnwegiow923h9ig2nioopg24g247</div>
                             <label for="" class="form-label mt-18 mb-3">Claim amount</label>
-                            <div class="container-fluid px-4">
-                                <div class="row gap-3">
-                                    <div class="col-3">
-                                        <input type="email" class="form-control rounded-3 py-9 px-7 fs-3" id="" placeholder="120">
+                            <div class="">
+                                <div class="row g-6">
+                                    <div class="col-xl-3">
+                                        <input type="email" class="form-control rounded-3 py-9 px-7 fs-3 h-100" id="" placeholder="120">
                                     </div>
-                                    <div class="col bg-light rounded-3 py-3 px-7">
-                                        <div class="fs-3">4.5K</div>
-                                        <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
+                                    <div class="col-xl">
+                                        <div class="bg-light rounded-3 py-3 px-7">
+                                            <div class="fs-3">4.5K</div>
+                                            <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
+                                        </div>
                                     </div>
-                                    <div class="col bg-light rounded-3 py-3 px-7">
-                                        <div class="fs-3">2.32K</div>
-                                        <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
+                                    <div class="col-xl">
+                                        <div class="bg-light rounded-3 py-3 px-7">
+                                            <div class="fs-3">2.32K</div>
+                                            <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
+                                        </div>    
                                     </div>
                                 </div>
                             </div>

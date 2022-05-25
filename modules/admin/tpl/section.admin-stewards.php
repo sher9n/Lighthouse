@@ -6,10 +6,10 @@
           <div class="row h-100"> 
             <div class="col h-100">           
               <div class="card shadow h-100">
-                <div class="card-body p-20">
+                <div class="card-body p-xl-20">
                   <div class="display-5 fw-medium">Manage stewards</div>
                   <div class="text-muted mt-1">Add or remove members that can distribute NTTs and approve claims</div>
-                  <form class="mt-25 col-md-6">
+                  <form class="mt-25 col-xl-6">
                     <div class="fw-medium mt-26">Whitelist members</div>                    
                     <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
 
