@@ -125,8 +125,14 @@ class Community{
         $values = implode("','",array_values($this->_data));
         $insert_sql = "INSERT INTO communities (".$fields.") VALUES ('".$values."')";
         $connect->query($insert_sql);
-        return $connect->insert_id;
+        $id = $connect->insert_id;
+        $this->addDefaultClaimImages($id);
         $connect->close();
+        return $id;
+    }
+
+    public function addDefaultClaimImages($com_id){
+        $insert_sql = "INSERT INTO claim_images (comunity_id,claim_image_url,) VALUES ('".$com_id."','')";
     }
 }
 ?>

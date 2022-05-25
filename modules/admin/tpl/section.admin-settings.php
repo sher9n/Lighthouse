@@ -76,7 +76,7 @@
                                                         <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#x"/>
                                                     </svg>
                                                 </a>
-                                                <img src="<?php echo app_cdn_path; ?>img/claim/01.png">
+                                                <img src="<?php echo app_cdn_path; ?>img/claim/img-claims-small-2.png">
                                             </div>
                                             <div class="upload-image-view">
                                                 <a class="image-del" href="#">
@@ -84,7 +84,7 @@
                                                         <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#x"/>
                                                     </svg>
                                                 </a>
-                                                <img src="<?php echo app_cdn_path; ?>img/claim/01.png">
+                                                <img src="<?php echo app_cdn_path; ?>img/claim/img-claims-small-3.png">
                                             </div>
                                         </div>
                                     </div>
