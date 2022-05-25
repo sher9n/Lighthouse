@@ -48,18 +48,16 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="mt-auto">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <select id="dashboard_table_length" class="form-select">
-                                            <option value="10">10</option>
+                            <div class="d-flex justify-content-between mt-auto">
+                                
+                                        <select id="dashboard_table_length" class="form-select w-15">
+                                            <option value="10">Rows per page: 10</option>
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
                                             <option value="-1">All</option>
                                         </select>
-                                    </div>
-                                    <div class="col-lg-6">
+                                    
                                         <ul class="pagination justify-content-end mb-0">
                                             <li class="page-item">
                                                 <a class="page-link" id="dashboard_table_prev"><img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-left.svg" class="me-2">Previous</a>
@@ -68,8 +66,8 @@
                                             <a class="page-link" href="#" id="dashboard_table_next">Next<img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-right.svg" class="ms-2"></a>
                                             </li>
                                         </ul>
-                                    </div>
-                                </div>
+                                    
+                                
                             </div>
                         </div>
                     </div>                    

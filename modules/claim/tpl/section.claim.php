@@ -1,3 +1,8 @@
+<style>
+    .bg-claim-image {
+        background-image: url(<?php echo app_cdn_path. $__page->img_url; ?>);
+    }
+</style>
 <div class="container-fluid g-0 h-100">
     <div class="row g-0 h-100">
         <div class="col-lg-6 bg-white">
@@ -31,10 +36,8 @@
                 </form>
 
         </div>
-        <div class="col-lg-6 bg-cod-gray h-100 d-flex justify-content-center">
-            <div class="align-self-center">
-                <img src="<?php echo app_cdn_path. $__page->img_url; ?>" >
-            </div>
+        <div class="col-lg-6 h-100 d-flex justify-content-center">
+            <div class="bg-claim-image"></div> <!-- Full width image -->
             <div class="site-badge d-flex align-items-center">
                 <div class="opacity-50 text-white fw-medium">Powered by</div> <img src="<?php echo app_cdn_path; ?>img/logo-text.png" class="ms-2">
             </div>

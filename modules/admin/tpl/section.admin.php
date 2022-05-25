@@ -26,25 +26,27 @@
         $('#AdminCenter').modal('show');
     });
 
-    $(document).ready(function() {
+     var dashboard_table = $('#dashboard_table');
 
-        var table = $('#example').DataTable({
-            dom: "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-4'l><'col-sm-8'p>>",
-            'language': {
-                'paginate': {
-                    'previous': '<div><img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-left.svg" class="me-2">Previous</div>',
-                    'next': '<div>Next<img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-right.svg" class="ms-2"></div>'
-                },
-                "lengthMenu": '<select class="form-select">'+
-                    '<option value="10">Rows per page: 10</option>'+
-                    '<option value="20">Rows per page: 20</option>'+
-                    '<option value="30">Rows per page:30</option>'+
-                    '<option value="40">Rows per page: 40</option>'+
-                    '<option value="50">Rows per page: 50</option>'+
-                    '<option value="-1">All</option>'+
-                    '</select>'
-            }
+        $(document).ready(function () {
+            dashboard_table.DataTable({
+                sDom: "t"
+            });
         });
-    } );
+        
+        $('#dashboard_table_prev').click(function(){
+            dashboard_table.dataTable().fnPageChange( 'previous' );
+        });
+        
+        $('#dashboard_table_next').click(function(){
+            dashboard_table.dataTable().fnPageChange( 'next' );
+        });
+        
+        $('#dashboard_table_length').change(function(){
+            dashboard_table.dataTable().api().page.len($(this).val()).draw();
+        });
+        
+        $('#dashboard_table_search').on( 'keyup', function () {
+            dashboard_table.dataTable().api().search(this.value).draw();
+        });
 </script>
