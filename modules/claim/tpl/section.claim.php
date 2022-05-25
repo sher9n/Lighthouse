@@ -15,8 +15,8 @@
                         </div>
                         <div class="mt-16">
                             <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
-                            <input type="number" class="form-control form-control-lg mb-6"  name="ntts" id="ntts" placeholder="100">
-                            <div class="d-flex">
+                            <input type="number" class="form-control form-control-lg"  name="ntts" id="ntts" placeholder="100">
+                            <div class="d-flex mt-6">
                                 <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png" class="ms-1"></div>
                                 <div class="badge bg-light d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png" class="ms-1"></div>
                             </div>

@@ -4,13 +4,13 @@
         <div class="container-fluid h-100">
             <div class="col">
                 <div class="card shadow">
-                    <div class="card-body p-20">
+                    <div class="card-body p-xl-20">
                         <div class="display-5 fw-medium">Recognize community participation</div>
                         <div class="text-muted mt-1">Send NTTs to anyone in your community</div>
                         <div class="fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
                         <div class="fs-3 fw-semibold mt-3">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
                         <a role="button" class="btn btn-light mt-3" href="#">Change Wallet</a>
-                        <div class="col-6">
+                        <div class="col-xl-7">
                             <div class="mt-16">
                                 <label for="LHT" class="form-label">How many $LHT do you want to claim?</label>
                                 <input type="text" class="form-control form-control-lg mb-6 fs-3" id="LHT" placeholder="100">

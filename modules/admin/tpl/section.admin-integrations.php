@@ -6,23 +6,23 @@
           <div class="row h-100"> 
             <div class="col h-100">           
               <div class="card shadow">
-                <div class="card-body p-20">
+                <div class="card-body p-xl-20">
                   <div class="display-5 fw-medium">Lighthouse integrations</div>
                   <div class="text-muted mt-1">Integrate with third party data sources and applications using pre-built connectors or APIs</div>
-                  <form class="mt-25 col-md-9">
+                  <form class="mt-25 col-xxl-10">
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="card border rounded-3">
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="fs-4 fw-semibold">Lighthouse Attestation API</div>
                             <div class="fw-semibold mt-6 mb-13">Lighthouse Attestation API</div>
                             <button type="button" class="btn btn-primary">READ THE DOCS</button>
-                            <button type="button" class="btn btn-light">generate new key</button>
+                            <button type="button" class="btn btn-light mt-3 mt-lg-0">generate new key</button>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="card border rounded-3">
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="fs-4 fw-semibold">Lighthouse Application API</div>
                             <div class="fw-semibold mt-6 mb-13">Develop applications that use Lighthouse NTTs.</div>
@@ -32,10 +32,10 @@
                       </div>
                     </div>
 
-                    <div class="fs-2 fw-medium mt-26 mb-12">Identity verification</div>
+                    <div class="fs-2 fw-medium mt-14 mb-12">Identity verification</div>
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="card border rounded-3">
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
@@ -56,8 +56,8 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="card border rounded-3">
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
@@ -80,9 +80,9 @@
                       </div>
                     </div>
 
-                    <div class="fs-2 fw-medium mt-26 mb-12">Siloed scores</div>
+                    <div class="fs-2 fw-medium mt-14 mb-12">Siloed scores</div>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
@@ -104,7 +104,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
@@ -127,7 +127,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-6">
+                      <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
@@ -149,7 +149,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
@@ -172,7 +172,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-6">
+                      <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
@@ -194,7 +194,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">

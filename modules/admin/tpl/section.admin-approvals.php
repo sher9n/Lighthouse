@@ -4,7 +4,7 @@
     <section class="admin-body-section">
         <div class="container-fluid h-100">
             <div class="row h-100">
-                <div class="col-lg-6">
+                <div class="col-xl-6 mb-6 mt-xl-0">
                     <div class="card shadow h-100">
                         <div class="card-header border-bottom">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -25,6 +25,7 @@
                         <div class="tab-content h-100" id="pills-tabContent">
                             <div class="tab-pane fade h-100 show active" id="pills-queue" role="tabpanel" aria-labelledby="pills-queue-tab">
                                 <ul class="list-approvals">
+
                                    <?php
                                    foreach ($__page->claims as $claim) { ?>
                                         <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items c_item_<?php echo $claim['c_id']; ?>">
@@ -47,7 +48,7 @@
                             <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
                                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
                                     <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                    <div class="fs-2 fw-semibold mt-20">Hurray, there's nothing in your approved!</div>
+                                    <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your approved!</div>
                                     <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
                                 </div>
                             </div>
@@ -58,7 +59,6 @@
                     </div>
                 </div>
                 <div class="col-lg-6" id="claim_details">
-
                     <div class="card shadow h-100">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center justify-content-center h-100">
