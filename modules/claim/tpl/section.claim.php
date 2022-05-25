@@ -33,7 +33,7 @@
         </div>
         <div class="col-lg-6 bg-cod-gray h-100 d-flex justify-content-center">
             <div class="align-self-center">
-                <img src="<?php echo app_cdn_path; ?>img/claim/img-claims-2.png" >
+                <img src="<?php echo app_cdn_path. $__page->img_url; ?>" >
             </div>
             <div class="site-badge d-flex align-items-center">
                 <div class="opacity-50 text-white fw-medium">Powered by</div> <img src="<?php echo app_cdn_path; ?>img/logo-text.png" class="ms-2">

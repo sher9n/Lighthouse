@@ -57,9 +57,15 @@ class controller extends Ctrl {
                 header("Location: https://lighthouse.xyz");
                 die();
             }
+
+            $com = Community::getByDomain($site['sub_domain']);
+            $image = $com->getClaimImages(true);
+            $img_url = $image['claim_image_url'];
+
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,
+                'img_url' => $img_url ,
                 'claim' => $claim,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.claim-reason.php'
