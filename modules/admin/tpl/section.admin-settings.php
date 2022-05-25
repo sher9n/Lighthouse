@@ -34,10 +34,8 @@
                                     <div class="col-xl-8">
                                         <label for="NTTTicker" class="form-label">NTT ticker image  (25px x 25px)</label>
                                         <div class="d-flex align-items-center mb-6">
-                                            <div class="upload-logo me-6">
-                                                <svg class="feather">
-                                                  <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#image"/>
-                                                </svg>
+                                            <div class="upload-logo me-6">                                                
+                                                <i data-feather="image"></i>
                                             </div>
                                             <div class="me-6">
                                                 <input type="file" name="ticker_imag" id="ticker_imag" hidden/>
@@ -54,10 +52,8 @@
                                         <div class="card bg-lighter card-image-uploads p-6 rounded-3">
                                             <input type="file" name="background_imag[]" id="background_imag" multiple hidden onchange="javascript:updateList()" />
                                             <label class="card-body d-flex flex-column align-items-center" for="background_imag">
-                                                <div class="upload-logo my-8">
-                                                    <svg class="feather">
-                                                        <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#image"/>
-                                                    </svg>
+                                                <div class="upload-logo my-8">                                                    
+                                                    <i data-feather="image"></i>
                                                 </div>
                                                 <div id="fileList"></div>
                                                 <div class="fw-medium text-hide"><span class="text-primary">Browse images</span></div>
@@ -69,13 +65,12 @@
                                             foreach ($__page->community->getClaimImages() as $image){ ?>
                                               <li class="upload-image-item">
                                                   <a class="image-del" href="#">
-                                                      <svg class="feather">
-                                                          <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#x"/>
-                                                      </svg>
+                                                      <i data-feather="x"></i>
                                                   </a>
-                                                  <img src="<?php echo app_cdn_path.$image; ?>" >
+                                                  <img width="220" height="250" src="<?php echo app_cdn_path.$image; ?>" >
                                               </li>
                                             <?php } ?>
+
                                     </div>
                                   </div>
                                 </div>
