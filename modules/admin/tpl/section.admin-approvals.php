@@ -25,37 +25,73 @@
                         <div class="tab-content h-100" id="pills-tabContent">
                             <div class="tab-pane fade h-100 show active" id="pills-queue" role="tabpanel" aria-labelledby="pills-queue-tab">
                                 <ul class="list-approvals">
-
                                    <?php
-                                   foreach ($__page->claims as $claim) { ?>
-                                        <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items c_item_<?php echo $claim['c_id']; ?>">
-                                            <a class="d-flex text-decoration-none" href="#">
-                                                <div class="d-flex align-items-center px-xl-4 gap-3">
-                                                    <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                    <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                                </div>
-                                                <div class="ms-8 col-7">
-                                                    <div class="fs-4 fw-semibold text-truncate">120 $LHP</div>
-                                                    <div class="fw-medium text-truncate"><?php echo $claim['wallet_adr']; ?></div>
-                                                    <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                                </div>
-                                                <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],true); ?></div>
-                                            </a>
-                                        </li>
-                                    <?php } ?>
+                                   if($__page->claims->num_rows > 0) {
+                                       foreach ($__page->claims as $claim) { ?>
+                                            <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items c_item_<?php echo $claim['c_id']; ?>">
+                                                <a class="d-flex text-decoration-none" href="#">
+                                                    <div class="d-flex align-items-center px-xl-4 gap-3">
+                                                        <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
+                                                        <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
+                                                    </div>
+                                                    <div class="ms-8 col-7">
+                                                        <div class="fs-4 fw-semibold text-truncate">120 $LHP</div>
+                                                        <div class="fw-medium text-truncate"><?php echo $claim['wallet_adr']; ?></div>
+                                                        <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
+                                                    </div>
+                                                    <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],true); ?></div>
+                                                </a>
+                                            </li>
+                                        <?php
+                                       }
+                                   }
+                                   else{
+                                       ?>
+                                       <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                                           <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
+                                           <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your queue!</div>
+                                           <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
+                                       </div>
+                                        <?php
+                                   } ?>
                                 </ul>
                             </div>
                             <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
-                                <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                                    <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                    <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your approved!</div>
-                                    <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
-                                </div>
+                                <ul class="list-approvals">
+                                    <?php
+                                    if($__page->a_claims->num_rows > 0) {
+                                        foreach ($__page->a_claims as $claim) { ?>
+                                            <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items c_item_<?php echo $claim['c_id']; ?>">
+                                                <a class="d-flex text-decoration-none" href="#">
+                                                    <div class="d-flex align-items-center px-xl-4 gap-3">
+                                                        <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
+                                                        <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
+                                                    </div>
+                                                    <div class="ms-8 col-7">
+                                                        <div class="fs-4 fw-semibold text-truncate">120 $LHP</div>
+                                                        <div class="fw-medium text-truncate"><?php echo $claim['wallet_adr']; ?></div>
+                                                        <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
+                                                    </div>
+                                                    <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],true); ?></div>
+                                                </a>
+                                            </li>
+                                            <?php
+                                        }
+                                    }
+                                    else{
+                                        ?>
+                                        <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                                            <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
+                                            <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your approved!</div>
+                                            <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
+                                        </div>
+                                        <?php
+                                    } ?>
+                                </ul>
                             </div>
                             <div class="tab-pane fade h-100" id="pills-reviewed" role="tabpanel" aria-labelledby="pills-reviewed-tab">...</div>
                             <div class="tab-pane fade h-100" id="pills-denied" role="tabpanel" aria-labelledby="pills-denied-tab">...</div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-xl-6" id="claim_details">
@@ -111,5 +147,38 @@
             });
         });
 
+        $(document).on("click", '.claim_approve', function(event) {
+            var item = $(this);
+            var data = {'claim_id': item.data('claim_id'),'status':1};
+
+            $.ajax({
+                url: 'claim-status',
+                dataType: 'json',
+                data: data,
+                type: 'POST',
+                success: function (response) {
+                    if (response.success == true) {
+                        $('.action_buttons').addClass('fade');
+                    }
+                }
+            });
+        });
+
+        $(document).on("click", '.claim_deny', function(event) {
+            var item = $(this);
+            var data = {'claim_id': item.data('claim_id'),'status':0};
+
+            $.ajax({
+                url: 'claim-status',
+                dataType: 'json',
+                data: data,
+                type: 'POST',
+                success: function (response) {
+                    if (response.success == true) {
+                        $('.action_buttons').addClass('fade');
+                    }
+                }
+            });
+        });
     });
 </script>

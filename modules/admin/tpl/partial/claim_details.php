@@ -28,8 +28,10 @@
         <label for="" class="form-label mt-18 mb-3">Tags</label>
         <textarea class="form-control form-control-lg" id="" rows="2" placeholder=""><?php echo $claim->clm_tags; ?></textarea>
     </div>
-    <div class="card-body border-top d-flex justify-content-end gap-3">
-        <button type="button" class="btn btn-white">Deny</button>
-        <button type="button" class="btn btn-primary">Approve</button>
+    <?php if($claim->status == 0){ ?>
+    <div class="action_buttons card-body border-top d-flex justify-content-end gap-3">
+        <button type="button" data-claim_id="<?php echo $claim_id; ?>" class="btn btn-white claim_deny">Deny</button>
+        <button type="button" data-claim_id="<?php echo $claim_id; ?>" class="btn btn-primary claim_approve">Approve</button>
     </div>
+    <?php } ?>
 </div>

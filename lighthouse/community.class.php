@@ -34,10 +34,10 @@ class Community{
         }
         else
         {
-            $items = $connect->query("select claim_image_url from claim_images where comunity_id='$id' AND is_delete=0");
+            $items = $connect->query("select id,claim_image_url from claim_images where comunity_id='$id' AND is_delete=0");
             if($items != false){
                 while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
-                    array_push($response,$row['claim_image_url']);
+                    $response[$row['id']] = $row['claim_image_url'];
                 }
             }
         }
@@ -153,6 +153,13 @@ class Community{
         $this->addDefaultClaimImages($id);
         $connect->close();
         return $id;
+    }
+
+    public static function deleteClaimImage($image_id){
+        $connect = Ds::connect();
+        $update = "UPDATE claim_images SET is_delete='1' WHERE id='$image_id'";
+        $connect->query($update);
+        $connect->close();
     }
 
     public static function addClaimImages($com_id,$url){

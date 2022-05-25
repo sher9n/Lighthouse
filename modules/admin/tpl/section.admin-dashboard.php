@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="d-flex justify-content-between mb-13">
-                            <input type="text" class="form-control form-search" id="" placeholder="Search...">
+                            <input type="text" class="form-control form-search" id="dashboard_table_search" placeholder="Search...">
                             <button type="button" class="btn btn-primary">Send NTTs to a new member</button>
                         </div>
                     </div>

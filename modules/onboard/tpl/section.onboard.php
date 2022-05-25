@@ -67,6 +67,7 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function(){
+
         $(document).on("focusout", '#dao_domain,#dao_name', function(event) {
             var dao_name = $(this).val();
             $.ajax({
@@ -89,7 +90,7 @@
         $(document).on("keyup", '#dao_name', function(event) {
             var dao_name = $(this).val();
             dao_name = dao_name.replace(/\s+/g, '-');
-            $('#dao_domain').val(dao_name);
+            $('#dao_domain').val(dao_name.toLowerCase());
             $('#ticker').val(dao_name.toUpperCase());
         });
 

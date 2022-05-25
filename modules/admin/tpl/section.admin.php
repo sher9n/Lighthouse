@@ -23,30 +23,8 @@
     feather.replace();
 
     $(window).on('load', function() {
-        $('#AdminCenter').modal('show');
+        //$('#AdminCenter').modal('show');
+        getSolanaAccount();
     });
 
-     var dashboard_table = $('#dashboard_table');
-
-        $(document).ready(function () {
-            dashboard_table.DataTable({
-                sDom: "t"
-            });
-        });
-        
-        $('#dashboard_table_prev').click(function(){
-            dashboard_table.dataTable().fnPageChange( 'previous' );
-        });
-        
-        $('#dashboard_table_next').click(function(){
-            dashboard_table.dataTable().fnPageChange( 'next' );
-        });
-        
-        $('#dashboard_table_length').change(function(){
-            dashboard_table.dataTable().api().page.len($(this).val()).draw();
-        });
-        
-        $('#dashboard_table_search').on( 'keyup', function () {
-            dashboard_table.dataTable().api().search(this.value).draw();
-        });
 </script>

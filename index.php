@@ -42,10 +42,12 @@ try {
         '/admin' => 'modules/admin/ctrl/admin.php',
         '/admin-dashboard' => 'modules/admin/ctrl/admin-dashboard.php',
         '/admin-approvals' => 'modules/admin/ctrl/admin-approvals.php',
+        '/claim-status' =>  'modules/admin/ctrl/admin-approvals.php',
         '/claim-details' => 'modules/admin/ctrl/admin-approvals.php',
         '/admin-ntts' => 'modules/admin/ctrl/admin-ntts.php',
         '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-integrations' => 'modules/admin/ctrl/admin-integrations.php',
+        '/delete-claim-img' => 'modules/admin/ctrl/admin-settings.php',
         '/admin-settings' => 'modules/admin/ctrl/admin-settings.php',
         '/404' => 'modules/default/ctrl/http-404.php'
     );

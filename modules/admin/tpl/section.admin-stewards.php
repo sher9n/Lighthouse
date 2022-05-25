@@ -1,7 +1,6 @@
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
-
         <div class="container-fluid h-100">
           <div class="row h-100"> 
             <div class="col h-100">           
@@ -12,7 +11,6 @@
                   <form class="mt-25 col-xl-6">
                     <div class="fw-medium mt-26">Whitelist members</div>                    
                     <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
-
                     <div class="fw-medium mt-22">Sheran </div> 
                     <div class="d-flex align-items-center">
                         <div class="fs-3 fw-semibold me-6">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
@@ -20,7 +18,6 @@
                             <i data-feather="trash" class="text-danger"></i>
                         </a>
                     </div>
-
                     <div class="fw-medium mt-22">Potrock </div> 
                     <div class="d-flex align-items-center">
                         <div class="fs-3 fw-semibold me-6">0xF87cF86F3F0031cB27A1539eAfA4Bd3DBes281752</div>
@@ -28,7 +25,6 @@
                           <i data-feather="trash" class="text-danger"></i>
                         </a>
                     </div>
-
                     <div class="fw-medium mt-22">0xIshan </div> 
                     <div class="d-flex align-items-center">
                         <div class="fs-3 fw-semibold me-6">0xM54cF86F3F0031cB27A1539eAfA4Bd3DBes79872</div>
@@ -36,7 +32,6 @@
                           <i data-feather="trash" class="text-danger"></i>
                         </a>
                     </div>
-
                   </form>
                 </div>
               </div>

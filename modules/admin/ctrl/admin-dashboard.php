@@ -26,7 +26,7 @@ class controller extends Ctrl {
             }
 
             $domain = $site['sub_domain'];
-            $claims = Claim::find("SELECT c.id,c.clm_tags,com.wallet_adr,com.id FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE com.dao_domain='$domain'");
+            $claims = Claim::find("SELECT c.id,c.clm_tags,com.wallet_adr,com.id FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE status=1 AND com.dao_domain='$domain'");
 
             $__page = (object)array(
                 'title' => app_site,

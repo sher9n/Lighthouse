@@ -16,10 +16,13 @@
                                              value="<?php echo $__page->community->dao_name; ?>" name="dao_name"
                                              id="dao_name">
                                     </div>
+                                    <?php
+                                       $block_chain = array("gnosis_chain" =>"Gnosis Chain","solana" => "Solana","other" => "Other");
+                                    ?>
                                     <div class="col-xl-6">
                                         <label for="" class="form-label">Blockchain</label>
                                             <input type="text" class="form-control form-control-lg mb-6" id="blockchain" name="blockchain"
-                                             readonly value="<?php echo $__page->community->blockchain; ?>">
+                                             readonly value="<?php echo $block_chain[$__page->community->blockchain]; ?>">
                                     </div>
                                 </div>
                                 <div class="row mt-xl-12">
@@ -62,15 +65,15 @@
                                         </div>
                                         <ul class="upload-image-view">
                                             <?php
-                                            foreach ($__page->community->getClaimImages() as $image){ ?>
-                                              <li class="upload-image-item">
-                                                  <a class="image-del" href="#">
+                                            foreach ($__page->community->getClaimImages() as $id => $image){ ?>
+                                              <li class="upload-image-item" id="claim-img-<?php echo $id; ?>">
+                                                  <a class="image-del" href="delete-claim-img?id=<?php echo $id; ?>">
                                                       <i data-feather="x"></i>
                                                   </a>
                                                   <img width="220" height="250" src="<?php echo app_cdn_path.$image; ?>" >
                                               </li>
                                             <?php } ?>
-
+                                        </ul>
                                     </div>
                                   </div>
                                 </div>
@@ -117,7 +120,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.success == true) {
-
+                            window.location = data.url;
                         } else {
                             $('#' + data.element).addClass('form-control-lg error');
                             $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
@@ -125,6 +128,20 @@
                     }
                 });
             }
+        });
+
+        $(document).on("click", '.image-del', function(event) {
+            event.preventDefault();
+            var dao_name = $(this);
+            $.ajax({
+                url: dao_name.attr('href'),
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success == true) {
+                        $('#claim-img-'+data.id).remove();
+                    }
+                }
+            });
         });
     });
 

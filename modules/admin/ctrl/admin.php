@@ -1,5 +1,6 @@
 <?php
 use lighthouse\Auth;
+use lighthouse\Community;
 class controller extends Ctrl {
     function init() {
 
@@ -27,10 +28,16 @@ class controller extends Ctrl {
             }
 
             $_SESSION['lh_admin_view'] = 0;
+            $com    = Community::getByDomain(app_site);
+            $solana = false;
+
+            if($com->blockchain == 'soalana')
+                $solana = true;
 
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,
+                'solana' => $solana,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin.php'
                 ),
@@ -41,7 +48,8 @@ class controller extends Ctrl {
                     'https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js',
                     'https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js',
                     app_cdn_path.'js/connect.admin.js',
-                    'https://assets.calendly.com/assets/external/widget.js'
+                    app_cdn_path.'js/connect-solana.admin.js',
+                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js'
                 )
             );
             require_once app_template_path . '/base.php';

@@ -72,16 +72,13 @@
         }
 
         $(document).on("click", '#onboard_skip', function(event) {
-            var dao_name = $(this).val();
+
             $.ajax({
                 url: 'skip-onboard',
                 dataType: 'json',
                 success: function(data) {
                     $("#body_section").html('');
-                    Calendly.initInlineWidget({
-                        url: 'https://calendly.com/Lighthouse_dao',
-                        parentElement: document.getElementById('body_section')
-                    });
+                    Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});
                 }
             });
         });
@@ -102,10 +99,7 @@
                     success: function(data){
                         if(data.success == true){
                             $("#body_section").html('');
-                            Calendly.initInlineWidget({
-                                url: 'https://calendly.com/Lighthouse_dao',
-                                parentElement: document.getElementById('body_section')
-                            });
+                            Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});
                         }
                         else{
                             $('#'+data.element).addClass('form-control-lg error');
