@@ -1,3 +1,4 @@
+<?php use Core\Utils; ?>
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
@@ -21,150 +22,26 @@
                                 </li>
                             </ul>
                         </div>
-
                         <div class="tab-content h-100" id="pills-tabContent">
                             <div class="tab-pane fade h-100 show active" id="pills-queue" role="tabpanel" aria-labelledby="pills-queue-tab">
                                 <ul class="list-approvals">
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">120 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">45m ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item active">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">87 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">1h 25m ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">2h ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">2h ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">2h ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">2h ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">2h ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">2h ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">2h ago</div>
-                                        </a>
-                                    </li>
-                                    <li class="list-approvals-item">
-                                        <a class="d-flex text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center px-4 gap-3">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
-                                                <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
-                                            </div>
-                                            <div class="ms-8 col-7">
-                                                <div class="fs-4 fw-semibold text-truncate">89 $LHP</div>
-                                                <div class="fw-medium text-truncate">0xbnwegiow923h9ig2nioopg24g247</div>
-                                                <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
-                                            </div>
-                                            <div class="ms-auto fw-medium text-muted">2h ago</div>
-                                        </a>
-                                    </li>
+                                   <?php
+                                   foreach ($__page->claims as $claim) { ?>
+                                        <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items c_item_<?php echo $claim['c_id']; ?>">
+                                            <a class="d-flex text-decoration-none" href="#">
+                                                <div class="d-flex align-items-center px-4 gap-3">
+                                                    <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
+                                                    <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
+                                                </div>
+                                                <div class="ms-8 col-7">
+                                                    <div class="fs-4 fw-semibold text-truncate">120 $LHP</div>
+                                                    <div class="fw-medium text-truncate"><?php echo $claim['wallet_adr']; ?></div>
+                                                    <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
+                                                </div>
+                                                <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],true); ?></div>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
                                 </ul>
                             </div>
                             <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
@@ -180,39 +57,7 @@
 
                     </div>
                 </div>
-
-                <div class="col-lg-6">
-                    <div class="card shadow">
-                        <div class="card-body p-20">
-                            <div class="display-5 fw-medium">Claim details</div>
-                            <label for="" class="form-label mt-20">Wallet or SNS</label>
-                            <div class="fs-3 fw-semibold">0xbnwegiow923h9ig2nioopg24g247</div>
-                            <label for="" class="form-label mt-18 mb-3">Claim amount</label>
-                            <div class="container-fluid px-4">
-                                <div class="row gap-3">
-                                    <div class="col-3">
-                                        <input type="email" class="form-control rounded-3 py-9 px-7 fs-3" id="" placeholder="120">
-                                    </div>
-                                    <div class="col bg-light rounded-3 py-3 px-7">
-                                        <div class="fs-3">4.5K</div>
-                                        <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
-                                    </div>
-                                    <div class="col bg-light rounded-3 py-3 px-7">
-                                        <div class="fs-3">2.32K</div>
-                                        <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <label for="" class="form-label mt-18 mb-3">Reason</label>
-                            <textarea class="form-control form-control-lg fs-3" id="" rows="2" placeholder=""></textarea>
-                            <label for="" class="form-label mt-18 mb-3">Tags</label>
-                            <textarea class="form-control form-control-lg" id="" rows="2" placeholder=""></textarea>
-                        </div>
-                        <div class="card-body border-top d-flex justify-content-end gap-3">
-                            <button type="button" class="btn btn-white">Deny</button>
-                            <button type="button" class="btn btn-primary">Approve</button>
-                        </div>
-                    </div>
+                <div class="col-lg-6" id="claim_details">
 
                     <div class="card shadow h-100">
                         <div class="card-body">
@@ -221,9 +66,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </section>
@@ -245,5 +88,28 @@
 </div>
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
-    feather.replace()
+    feather.replace();
+
+    $(document).ready(function() {
+
+        $(document).on("click", '.c_items', function(event) {
+            var item = $(this);
+            $(".c_items").removeClass('active');
+            item.addClass('active');
+            var data = {'claim_id': item.data('item_id')};
+
+            $.ajax({
+                url: 'claim-details',
+                dataType: 'json',
+                data: data,
+                type: 'POST',
+                success: function (response) {
+                    if (response.success == true) {
+                        $('#claim_details').html(response.html);
+                    }
+                }
+            });
+        });
+
+    });
 </script>

@@ -3,6 +3,16 @@ use lighthouse\Auth;
 class controller extends Ctrl {
     function init() {
 
+        $sel_wallet_adr = null;
+
+        if(isset($_SESSION['lh_sel_wallet_adr']))
+            $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+        else
+        {
+            header("Location: " . app_url.'admin');
+            die();
+        }
+
         if($this->__lh_request->is_xmlHttpRequest) {
 
         }
@@ -16,6 +26,7 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,
+                'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-stewards.php'
                 ),

@@ -5,7 +5,7 @@
     <div class="main-nav">
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-dashbaord'?'active':'';?>" aria-current="page" href="admin-dashbaord">
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-dashboard'?'active':'';?>" aria-current="page" href="admin-dashboard">
                 <svg class="feather">
                     <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#layers"/>
                 </svg>

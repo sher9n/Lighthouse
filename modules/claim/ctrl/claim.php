@@ -10,6 +10,12 @@ class controller extends Ctrl {
             die();
         }
 
+        $site = Auth::getSite();
+        if($site === false) {
+            header("Location: https://lighthouse.xyz");
+            die();
+        }
+
         if($this->__lh_request->is_xmlHttpRequest) {
             try {
 
@@ -25,7 +31,7 @@ class controller extends Ctrl {
                 else
                     throw new Exception("ntts:Not a valid NTTs");
 
-                $com = Community::getByDomain();
+                $com = Community::getByDomain($site['sub_domain']);
                 $claim = new Claim();
                 $claim->wallet_adr = $wallet_address;
                 $claim->ntts = $ntts;
@@ -49,11 +55,6 @@ class controller extends Ctrl {
         }
         else {
 
-            $site = Auth::getSite();
-            if($site === false) {
-                header("Location: https://lighthouse.xyz");
-                die();
-            }
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,

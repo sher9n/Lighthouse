@@ -13,9 +13,6 @@ class controller extends Ctrl {
             if(__ROUTER_PATH == '/wallet-menu' ) {
                 $selected_adr = $this->getParam('sel_add');
                 $_SESSION['lh_sel_wallet_adr'] = $selected_adr;
-                /*$format_adr = \Core\Utils::WalletAddressFormat($selected_adr);
-                include __DIR__ . '/../tpl/partial/wallet_addresses.php';
-                $html = ob_get_clean();*/
                 echo json_encode(array('success' => true));
                 exit();
             }
@@ -28,6 +25,9 @@ class controller extends Ctrl {
                 header("Location: https://lighthouse.xyz");
                 die();
             }
+
+            $_SESSION['lh_admin_view'] = 0;
+
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,

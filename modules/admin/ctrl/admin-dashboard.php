@@ -8,7 +8,8 @@ class controller extends Ctrl {
 
         if(isset($_SESSION['lh_sel_wallet_adr']))
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
-        else {
+        else
+        {
             header("Location: " . app_url.'admin');
             die();
         }
@@ -24,10 +25,14 @@ class controller extends Ctrl {
                 die();
             }
 
-            $claims = Claim::find("SELECT * FROM claims WHERE ");
+            $domain = $site['sub_domain'];
+            $claims = Claim::find("SELECT c.id,c.clm_tags,com.wallet_adr,com.id FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE com.dao_domain='$domain'");
+
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,
+                'first_admin_view' => (isset($_SESSION['lh_admin_view']) && $_SESSION['lh_admin_view'] == 0 )?true:false,
+                'claims' => $claims,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-dashboard.php'
@@ -44,6 +49,8 @@ class controller extends Ctrl {
                     'https://assets.calendly.com/assets/external/widget.js'
                 )
             );
+
+            $_SESSION['lh_admin_view'] = 0;
             require_once app_template_path . '/base.php';
             exit();
         }

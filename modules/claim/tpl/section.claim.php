@@ -8,7 +8,7 @@
                         <div class="text-muted mt-1">Fill out the details of your contribution</div>
                         <div class="mt-23">
                             <label for="DAOName" class="form-label">Which wallet do you want to distribute NTTs to?</label>
-                            <input type="text" name="w_addr_text" id="w_addr_text" readonly class="form-control form-control-lg" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
+                            <input type="text" name="w_addr_text" id="w_addr_text" class="form-control form-control-lg" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
                             <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3"></div>
                             <input type="hidden" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
                             <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Add Wallet</a>

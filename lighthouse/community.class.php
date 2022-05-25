@@ -23,7 +23,7 @@ class Community{
 
     public static function getByDomain($subdomain) {
         $connect = Ds::connect();
-        $items   = $connect->query("select * from communities where subdomain='$subdomain' limit 1");
+        $items   = $connect->query("select * from communities where dao_domain='$subdomain' limit 1");
 
         if($items->num_rows > 0){
             $community_data = $items->fetch_array(MYSQLI_ASSOC);

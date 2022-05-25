@@ -61,9 +61,9 @@ class Claim{
                 $claim = $claim->load($row);
                 $claims[$claim->id] = $claim;
             }
-            $connect->close();
-            return $claims;
         }
+        else
+            $claims = $results;
         $connect->close();
         return $claims;
     }
