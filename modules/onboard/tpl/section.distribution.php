@@ -22,21 +22,21 @@
         <form id="nttsForm" method="post" action="distribution" autocomplete="off">
             <div class="container-fluid">
                 <div class="row justify-content-lg-center">
-                    <div class="col-lg-7">
+                    <div class="col-xl-7">
                         <div class="display-5 fw-medium mt-25">Take her for a spin</div>
                         <div class="text-muted mt-1">Send yourself some NTTs to test out Lighthouse</div>
                         <div class="mt-23">
                             <label class="form-label mb-4">Which wallet do you want to distribute NTTs to?</label>
                             <input type="hidden" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
-                            <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3"></div>
+                            <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3 text-break"></div>
                             <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Add Wallet</a>
                         </div>
                         <div class="mt-16">
                             <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
-                            <input type="number" class="form-control form-control-lg mb-6" name="ntts" id="ntts" placeholder="100">
-                            <div class="d-flex">
+                            <input type="number" class="form-control form-control-lg" name="ntts" id="ntts" placeholder="100">
+                            <div class="d-flex flex-column flex-lg-row mt-6">
                                 <div class="badge bg-white d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png" class="ms-1"></div>
-                                <div class="badge bg-white d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png" class="ms-1"></div>
+                                <div class="badge bg-white d-flex align-items-center ms-lg-3 mt-3 mt-lg-0">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png" class="ms-1"></div>
                             </div>
                         </div>
                         <div class="mt-16">

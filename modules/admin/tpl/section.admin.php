@@ -30,7 +30,8 @@
 
         $(document).ready(function () {
             dashboard_table.DataTable({
-                sDom: "t"
+                sDom: "t",
+                responsive: true
             });
         });
         
