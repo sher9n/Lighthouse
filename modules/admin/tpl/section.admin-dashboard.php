@@ -32,10 +32,8 @@
                                         <?php
                                         foreach ($__page->claims as $claim) { ?>
                                             <tr>
-                                                <td class="text-center">
-                                                    <svg class="feather feather-lg text-muted">
-                                                        <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#send"/>
-                                                    </svg>
+                                                <td class="text-center">                                                    
+                                                    <i data-feather="send" class="feather-lg text-muted"></i>
                                                 </td>
                                                 <td><?php echo Utils::WalletAddressFormat($claim['wallet_adr']); ?></td>
                                                 <td>8.4K</td>

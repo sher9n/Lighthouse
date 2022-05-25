@@ -16,10 +16,8 @@
                     <div class="fw-medium mt-22">Sheran </div> 
                     <div class="d-flex align-items-center">
                         <div class="fs-3 fw-semibold me-6">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
-                        <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">
-                            <svg class="feather text-danger">
-                                <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#trash"/>
-                            </svg>
+                        <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">                            
+                            <i data-feather="trash" class="text-danger"></i>
                         </a>
                     </div>
 
@@ -27,9 +25,7 @@
                     <div class="d-flex align-items-center">
                         <div class="fs-3 fw-semibold me-6">0xF87cF86F3F0031cB27A1539eAfA4Bd3DBes281752</div>
                         <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">
-                            <svg class="feather text-danger">
-                                <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#trash"/>
-                            </svg>
+                          <i data-feather="trash" class="text-danger"></i>
                         </a>
                     </div>
 
@@ -37,9 +33,7 @@
                     <div class="d-flex align-items-center">
                         <div class="fs-3 fw-semibold me-6">0xM54cF86F3F0031cB27A1539eAfA4Bd3DBes79872</div>
                         <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">
-                            <svg class="feather text-danger">
-                                <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#trash"/>
-                            </svg>
+                          <i data-feather="trash" class="text-danger"></i>
                         </a>
                     </div>
 
