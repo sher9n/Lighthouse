@@ -79,7 +79,7 @@
                                                       <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#x"/>
                                                   </svg>
                                               </a>
-                                              <img src="<?php echo app_cdn_path; ?>img/claim/img-claims-small-2.png" >
+                                              <img src="<?php echo app_cdn_path; ?>img/claim/img-claims-small-3.png" >
                                             </li>
                                         </ul>
                                     </div>
