@@ -4,7 +4,7 @@
     <section class="admin-body-section">
         <div class="container-fluid h-100">
             <div class="row h-100">
-                <div class="col-xl-6 mb-6 mt-xl-0">
+                <div class="col-xl-6 mb-6 mb-xl-0">
                     <div class="card shadow h-100">
                         <div class="card-header border-bottom">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -30,7 +30,7 @@
                                    foreach ($__page->claims as $claim) { ?>
                                         <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items c_item_<?php echo $claim['c_id']; ?>">
                                             <a class="d-flex text-decoration-none" href="#">
-                                                <div class="d-flex align-items-center px-4 gap-3">
+                                                <div class="d-flex align-items-center px-xl-4 gap-3">
                                                     <img src="<?php echo app_cdn_path; ?>img/icon-like.svg" width="40" height="40">
                                                     <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                                 </div>
@@ -58,7 +58,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-6" id="claim_details">
+                <div class="col-xl-6" id="claim_details">
                     <div class="card shadow h-100">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center justify-content-center h-100">

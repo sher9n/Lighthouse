@@ -9,7 +9,7 @@
                             <div class="card-body p-xl-20">
                                 <div class="display-5 fw-medium">Community info</div>
                                 <div class="text-muted mt-1">Configure details and setup your community</div>
-                                <div class="row">
+                                <div class="row mt-20">
                                     <div class="col-xl-6">
                                         <label for="" class="form-label">Community name</label>
                                         <input type="text" class="form-control form-control-lg mb-6"
@@ -18,7 +18,7 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <label for="" class="form-label">Blockchain</label>
-                                            <input type="text" class="form-control" id="blockchain" name="blockchain"
+                                            <input type="text" class="form-control form-control-lg mb-6" id="blockchain" name="blockchain"
                                              readonly value="<?php echo $__page->community->blockchain; ?>">
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
 
     // File upload
     updateList = function() {
-        var input = document.getElementById('uploadClaims');
+        var input = document.getElementById('background_imag');
         var output = document.getElementById('fileList');
         var appBanners = document.getElementsByClassName('text-hide');
 
