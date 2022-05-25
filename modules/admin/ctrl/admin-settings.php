@@ -43,6 +43,26 @@ class controller extends Ctrl {
                     }
                 }
 
+                $claim_images = array();
+                if ($this->hasParam('background_imag')) {
+                    $ticker_images = $this->getParam('background_imag');
+                    if (is_array($ticker_images)) {
+                        foreach ($ticker_images as $index => $image){
+                            if (!Utils::isValidImageSize($image->size))
+                                throw new Exception("background_imag:Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE . "mb.");
+
+                            $amazons3 = new AmazonS3(app_site);
+                            $url = $amazons3->uploadFile($image->tmp_name, "communities/claim." . pathinfo($image->name, PATHINFO_EXTENSION));
+                            $url = 'instances/'.app_site.'/communities.' . pathinfo($image->name, PATHINFO_EXTENSION);
+                            array_push($claim_images,$url);
+                        }
+                    }
+                }
+
+                foreach ($claim_images as $url) {
+                    Community::addClaimImages($community->id,$url);
+                }
+
                 $community->update();
                 echo json_encode(array('success' => true));
             }
@@ -66,7 +86,8 @@ class controller extends Ctrl {
 
 
             $community = Community::getByDomain($site['sub_domain']);
-
+            $images = $community->getClaimImages();
+            //$img_url = $image['claim_image_url'];
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,

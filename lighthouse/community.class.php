@@ -155,6 +155,13 @@ class Community{
         return $id;
     }
 
+    public static function addClaimImages($com_id,$url){
+        $connect = Ds::connect();
+        $insert_sql = "INSERT INTO claim_images (comunity_id,claim_image_url) VALUES ('".$com_id."','".$url."')";
+        $connect->query($insert_sql);
+        $connect->close();
+    }
+
     public function addDefaultClaimImages($com_id){
 
         $connect = Ds::connect();

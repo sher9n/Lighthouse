@@ -52,7 +52,7 @@
                                     <label for="NTTTicker" class="form-label">Personalize claim form</label>
                                     <div class="d-flex flex-column flex-xl-row align-items-center">
                                         <div class="card bg-lighter card-image-uploads p-6 rounded-3">
-                                            <input type="file" name="background_imag" id="background_imag" multiple hidden onchange="javascript:updateList()" />
+                                            <input type="file" name="background_imag[]" id="background_imag" multiple hidden onchange="javascript:updateList()" />
                                             <label class="card-body d-flex flex-column align-items-center" for="background_imag">
                                                 <div class="upload-logo my-8">
                                                     <svg class="feather">
@@ -61,27 +61,21 @@
                                                 </div>
                                                 <div id="fileList"></div>
                                                 <div class="fw-medium text-hide"><span class="text-primary">Browse images</span></div>
-                                                <div class="text-muted mt-2 mb-8 text-center">1060px x 1080px recommended. Max 1MB (png, jpg)</div>
+                                                <div class="text-muted mt-2 mb-8 text-center">1060px x 1080px recommended. Max 1MB</div>
                                             </label>
                                         </div>
                                         <ul class="upload-image-view">
-                                          <li class="upload-image-item">
-                                              <a class="image-del" href="#">
-                                                  <svg class="feather">
-                                                      <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#x"/>
-                                                  </svg>
-                                              </a>
-                                              <img src="<?php echo app_cdn_path; ?>img/claim/img-claims-small-2.png" >
-                                          </li>
-                                          <li class="upload-image-item">
-                                              <a class="image-del" href="#">
-                                                  <svg class="feather">
-                                                      <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#x"/>
-                                                  </svg>
-                                              </a>
-                                              <img src="<?php echo app_cdn_path; ?>img/claim/img-claims-small-3.png" >
-                                            </li>
-                                        </ul>
+                                            <?php
+                                            foreach ($__page->community->getClaimImages() as $image){ ?>
+                                              <li class="upload-image-item">
+                                                  <a class="image-del" href="#">
+                                                      <svg class="feather">
+                                                          <use href="<?php echo app_cdn_path; ?>icons/feather-sprite.svg#x"/>
+                                                      </svg>
+                                                  </a>
+                                                  <img src="<?php echo app_cdn_path.$image; ?>" >
+                                              </li>
+                                            <?php } ?>
                                     </div>
                                   </div>
                                 </div>
