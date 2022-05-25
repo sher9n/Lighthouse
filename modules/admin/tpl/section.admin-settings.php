@@ -70,7 +70,7 @@
                                                   <a class="image-del" href="delete-claim-img?id=<?php echo $id; ?>">
                                                       <i data-feather="x"></i>
                                                   </a>
-                                                  <img width="220" height="250" src="<?php echo app_cdn_path.$image; ?>" >
+                                                  <img width="220" height="250" src="<?php echo app_cdn_path.$image; ?>" class="rounded-3">
                                               </li>
                                             <?php } ?>
                                         </ul>

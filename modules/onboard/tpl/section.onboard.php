@@ -21,7 +21,7 @@
         <form id="nttsForm" method="post" action="onboard" autocomplete="off">
             <div class="container-fluid">
                 <div class="row justify-content-lg-center">
-                    <div class="col-lg-7">
+                    <div class="col-xl-7">
                         <div class="display-5 fw-medium mt-25">Create your NTTs</div>
                         <div class="text-muted mt-1">Make your scoring system your own</div>
                             <div class="mt-23">

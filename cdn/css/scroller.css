@@ -1,0 +1,33 @@
+
+/*
+Custom scrollbar
+*/
+
+
+/* Thin Scrollbar */
+
+:root {
+    scrollbar-color: rgba(0,0,0, .4) transparent !important;
+    scrollbar-width: thin !important;
+}
+
+/* width*/
+::-webkit-scrollbar {
+    width: 4px;
+    height: 2px;
+}
+
+/* Track*/
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle*/
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0, .4);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0, .4);
+}

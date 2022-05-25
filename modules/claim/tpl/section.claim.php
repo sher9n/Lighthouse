@@ -5,25 +5,25 @@
 </style>
 <div class="container-fluid g-0 h-100">
     <div class="row g-0 h-100">
-        <div class="col-lg-6 bg-white">
+        <div class="col-md-6 bg-white">
 
                 <form id="claimForm" method="post" action="claim" autocomplete="off" class="d-flex flex-column h-100">
-                    <div class="px-26">
+                    <div class="px-6 px-xl-26">
                         <div class="display-5 fw-medium mt-25">Submit a claim for <?php echo $__page->site['site_name']; ?></div>
                         <div class="text-muted mt-1">Fill out the details of your contribution</div>
                         <div class="mt-23">
                             <label for="DAOName" class="form-label">Which wallet do you want to distribute NTTs to?</label>
                             <input type="text" name="w_addr_text" id="w_addr_text" class="form-control form-control-lg" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
-                            <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3"></div>
+                            <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3 text-break"></div>
                             <input type="hidden" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
                             <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Add Wallet</a>
                         </div>
                         <div class="mt-16">
                             <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
                             <input type="number" class="form-control form-control-lg"  name="ntts" id="ntts" placeholder="100">
-                            <div class="d-flex mt-6">
+                            <div class="d-flex flex-column flex-lg-row mt-6">
                                 <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png" class="ms-1"></div>
-                                <div class="badge bg-light d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png" class="ms-1"></div>
+                                <div class="badge bg-light d-flex align-items-center ms-lg-3 mt-3 mt-lg-0">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png" class="ms-1"></div>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                 </form>
 
         </div>
-        <div class="col-lg-6 h-100 d-flex justify-content-center">
+        <div class="col-md-6 h-100 d-flex justify-content-center">
             <div class="bg-claim-image"></div> <!-- Full width image -->
             <div class="site-badge d-flex align-items-center">
                 <div class="opacity-50 text-white fw-medium">Powered by</div> <img src="<?php echo app_cdn_path; ?>img/logo-text.png" class="ms-2">
