@@ -12,7 +12,7 @@
                         <a role="button" class="btn btn-light mt-3" href="#">Change Wallet</a>
                         <div class="col-xl-7">
                             <div class="mt-16">
-                                <label for="LHT" class="form-label">How many $LHT do you want to claim?</label>
+                                <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
                                 <input type="text" class="form-control form-control-lg mb-6 fs-3" id="LHT" placeholder="100">
                                 <div class="d-flex">
                                     <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>

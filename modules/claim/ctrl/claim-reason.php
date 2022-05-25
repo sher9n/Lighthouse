@@ -1,6 +1,7 @@
 <?php
 use lighthouse\Auth;
 use lighthouse\Claim;
+use lighthouse\Community;
 class controller extends Ctrl {
     function init() {
 

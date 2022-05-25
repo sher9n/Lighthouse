@@ -64,12 +64,18 @@ class controller extends Ctrl {
             }
             exit();
         } else {
+
+            $solana = false;
+            if($_SESSION['lhc']['b'] == 'solana')
+                $solana = true;
+
             $__page = (object)array(
                 'title' => 'Fist Member',
                 'dao_domain' => $_SESSION['lhc']['d'],
                 'dao_name' => $_SESSION['lhc']['n'],
                 'blockchain' => $_SESSION['lhc']['b'],
                 'ticker' => $_SESSION['lhc']['t'],
+                'solana' => $solana,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.first_member.php'
                 ),
@@ -78,7 +84,9 @@ class controller extends Ctrl {
                     'https://unpkg.com/web3modal@1.9.0/dist/index.js',
                     'https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js',
                     'https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js',
-                    app_cdn_path.'js/connect.js'
+                    app_cdn_path.'js/connect.js',
+                    app_cdn_path.'js/connect-solana.admin.js',
+                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js',
                 )
             );
             require_once app_template_path . '/base.php';

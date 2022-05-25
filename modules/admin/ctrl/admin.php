@@ -31,7 +31,7 @@ class controller extends Ctrl {
             $com    = Community::getByDomain(app_site);
             $solana = false;
 
-            if($com->blockchain == 'soalana')
+            if($com->blockchain == 'solana')
                 $solana = true;
 
             $__page = (object)array(

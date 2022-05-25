@@ -13,10 +13,13 @@
                         <div class="text-muted mt-1">Fill out the details of your contribution</div>
                         <div class="mt-23">
                             <label for="DAOName" class="form-label">Which wallet do you want to distribute NTTs to?</label>
-                            <input type="text" name="w_addr_text" id="w_addr_text" class="form-control form-control-lg" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
-                            <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3 text-break"></div>
-                            <input type="hidden" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
-                            <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Add Wallet</a>
+                            <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
+                            <div class="fs-3 fw-semibold mb-3 text-break"></div>
+                            <?php if($__page->solana == true){ ?>
+                                <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
+                            <?php }else{ ?>
+                                <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Add Wallet</a>
+                            <?php } ?>
                         </div>
                         <div class="mt-16">
                             <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
@@ -52,9 +55,6 @@
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
         if (selectedAccount) {
             $("#wallet_address").val(selectedAccount);
-            $("#sel_wallet_address").html(selectedAccount);
-            $("#w_addr_text").remove();
-            $("#w_addr_text-error").remove();
             $('#add_wallet').html('CHANGE WALLET');
         }
 

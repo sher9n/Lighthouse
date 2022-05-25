@@ -30,7 +30,11 @@
                             <input type="text" class="form-control form-control-lg" name="display_name" id="display_name" placeholder="Bob">
                             <input type="hidden" class="form-control form-control-lg" name="wallet_address" id="wallet_address">
                             <div id="sel_wallet_address" class="fs-3 fw-semibold mt-6 text-break"></div>
-                            <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
+                            <?php if($__page->solana == true){ ?>
+                                <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light mt-6" href="#">Add Wallet</a>
+                            <?php }else{ ?>
+                                <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

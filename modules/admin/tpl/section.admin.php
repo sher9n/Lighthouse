@@ -18,8 +18,6 @@
         </div>
     </div>
 </div>
-
-
 <!-- Phantom Modal -->
 <div class="modal show" id="AdminPhantom" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -27,19 +25,20 @@
             <a class="text-center link-modal" href="#">
                 <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg" height="42">
                 <div class="modal-provider-name">Phantom</div>
-                <div class="modal-provider-description">Connect to your Phantom Wallet </div>                
+                <button type="button" onclick="getSolanaAccount()" class="modal-provider-description">Connect to your Phantom Wallet</button>
             </a>
         </div>
     </div>
 </div>
-
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
     feather.replace();
 
     $(window).on('load', function() {
-        //$('#AdminCenter').modal('show');
-        getSolanaAccount();
+        <?php if($__page->solana == true){ ?>
+            $('#AdminPhantom').modal('show');
+        <?php }else{ ?>
+            $('#AdminCenter').modal('show');
+        <?php } ?>
     });
-    
 </script>

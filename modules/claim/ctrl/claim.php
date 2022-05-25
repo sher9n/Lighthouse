@@ -55,12 +55,17 @@ class controller extends Ctrl {
         }
         else {
 
-            $com = Community::getByDomain($site['sub_domain']);
-            $image = $com->getClaimImages(true);
-            $img_url = $image['claim_image_url'];
+            $com    = Community::getByDomain($site['sub_domain']);
+            $image  = $com->getClaimImages(true);
+            $img_url= $image['claim_image_url'];
+
+            $solana = false;
+            if($com->blockchain == 'solana')
+                $solana = true;
 
             $__page = (object)array(
                 'title' => app_site,
+                'solana' => $solana,
                 'site' => $site,
                 'img_url' => $img_url ,
                 'sections' => array(
@@ -72,6 +77,8 @@ class controller extends Ctrl {
                     'https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js',
                     'https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js',
                     app_cdn_path.'js/connect.claim.js',
+                    app_cdn_path.'js/connect-solana.admin.js',
+                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js',
                     'https://assets.calendly.com/assets/external/widget.js'
                 )
             );

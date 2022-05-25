@@ -49,9 +49,6 @@ async function fetchAccountData(url=false) {
     if (selectedAccount) {
         sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
         document.querySelector("#wallet_address").value = selectedAccount;
-        document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
-        document.querySelector("#w_addr_text").remove();
-        document.querySelector("#w_addr_text-error").remove();
         document.querySelector("#add_wallet").innerHTML = 'CHANGE WALLET';
 
         if (sessionStorage.getItem('lh_wallet_adds')) {
