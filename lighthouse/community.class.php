@@ -123,6 +123,10 @@ class Community{
         return $results;
     }
 
+    public function getTickerImage() {
+        return  app_cdn_path.'instances/'.app_site.'/communities/'.$this->_data['ticker_img_url'];
+    }
+
     public function update(array $updates = array())
     {
         $connect    = Ds::connect();
@@ -134,8 +138,14 @@ class Community{
 
         unset($updates['id']);
 
-        foreach ($updates as $key=>$val)
-            $update_sql .= $key."='".$val."' ";
+        $c=0;
+        foreach ($updates as $key=>$val) {
+            $c++;
+            if(count($updates) != $c)
+                $update_sql .= $key . "='" . $val . "',";
+            else
+                $update_sql .= $key . "='" . $val . "'";
+        }
 
         $update = "UPDATE communities SET ".$update_sql." WHERE id=".$id;
         $connect->query($update);

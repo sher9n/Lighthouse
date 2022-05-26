@@ -58,17 +58,19 @@ class controller extends Ctrl {
 
                     $claim_images = array();
                     if ($this->hasParam('background_imag')) {
-                        $ticker_images = $this->getParam('background_imag');
-                        if (is_array($ticker_images)) {
-                            foreach ($ticker_images as $index => $image) {
-                                if (!Utils::isValidImageSize($image->size))
-                                    throw new Exception("background_imag:Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE . "mb.");
+                        $images = $this->getParam('background_imag');
+                        if (is_array($images)) {
+                            foreach ($images as $index => $image) {
+                                if (!empty($image)) {
+                                    if (!Utils::isValidImageSize($image->size))
+                                        throw new Exception("background_imag:Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE . "mb.");
 
-                                $amazons3 = new AmazonS3(app_site);
-                                $img_name = time() . '-' . $index;
-                                $url = $amazons3->uploadFile($image->tmp_name, "communities/claim-" . $img_name . '.' . pathinfo($image->name, PATHINFO_EXTENSION));
-                                $url = 'instances/' . app_site . '/communities/claim-' . $img_name . '.' . pathinfo($image->name, PATHINFO_EXTENSION);
-                                array_push($claim_images, $url);
+                                    $amazons3 = new AmazonS3(app_site);
+                                    $img_name = time() . '-' . $index;
+                                    $url = $amazons3->uploadFile($image->tmp_name, "communities/claim-" . $img_name . '.' . pathinfo($image->name, PATHINFO_EXTENSION));
+                                    $url = 'instances/' . app_site . '/communities/claim-' . $img_name . '.' . pathinfo($image->name, PATHINFO_EXTENSION);
+                                    array_push($claim_images, $url);
+                                }
                             }
                         }
                     }

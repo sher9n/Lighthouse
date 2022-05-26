@@ -37,8 +37,12 @@
                                     <div class="col-xl-8">
                                         <label for="NTTTicker" class="form-label">NTT ticker image  (25px x 25px)</label>
                                         <div class="d-flex align-items-center mb-6">
-                                            <div class="upload-logo me-6">                                                
+                                            <div class="upload-logo me-6">
+                                                <?php if(is_null($__page->community->ticker_img_url)){ ?>
                                                 <i data-feather="image"></i>
+                                                <?php }else{ ?>
+                                                    <img width="220" height="250" src="<?php echo $__page->community->getTickerImage(); ?>" class="rounded-3">
+                                                <?php } ?>
                                             </div>
                                             <div class="me-6">
                                                 <input type="file" name="ticker_imag" id="ticker_imag" hidden/>
