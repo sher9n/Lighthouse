@@ -22,10 +22,10 @@
 <div class="modal show" id="AdminPhantom" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content p-2">
-            <a class="text-center link-modal" href="#">
+            <a class="text-center link-modal" href="#" onclick="getSolanaAccount()">
                 <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg" height="42">
                 <div class="modal-provider-name">Phantom</div>
-                <button type="button" onclick="getSolanaAccount()" class="modal-provider-description">Connect to your Phantom Wallet</button>
+                <div type="button"  class="modal-provider-description">Connect to your Phantom Wallet</div>
             </a>
         </div>
     </div>
