@@ -4,33 +4,38 @@
         <div class="container-fluid h-100">
             <div class="col">
                 <div class="card shadow">
-                    <div class="card-body p-xl-20">
-                        <div class="display-5 fw-medium">Recognize community participation</div>
-                        <div class="text-muted mt-1">Send NTTs to anyone in your community</div>
-                        <div class="fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
-                        <div class="fs-3 fw-semibold mt-3">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
-                        <a role="button" class="btn btn-light mt-3" href="#">Change Wallet</a>
-                        <div class="col-xl-7">
-                            <div class="mt-16">
-                                <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
-                                <input type="text" class="form-control form-control-lg mb-6 fs-3" id="LHT" placeholder="100">
-                                <div class="d-flex">
-                                    <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
-                                    <div class="badge bg-light d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
+                    <form id="nttsForm" method="post" action="send-ntts" autocomplete="off" class="d-flex flex-column h-100">
+                        <div class="card-body p-xl-20">
+                            <div class="display-5 fw-medium">Recognize community participation</div>
+                            <div class="text-muted mt-1">Send NTTs to anyone in your community</div>
+                            <div class="fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
+                            <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control mb-6 fs-3">
+                            <div class="fs-3 fw-semibold mb-3 text-break"></div>
+                            <?php if($__page->solana == true){ ?>
+                                <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
+                            <?php }else{ ?>
+                                <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Change Wallet</a>
+                            <?php } ?>
+                            <div class="col-xl-7">
+                                <div class="mt-16">
+                                    <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
+                                    <input type="text" class="form-control form-control-lg mb-6 fs-3" name="ntts" id="ntts"  placeholder="100">
+                                    <div class="d-flex">
+                                        <div class="badge bg-light d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
+                                        <div class="badge bg-light d-flex align-items-center ms-3">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
+                                    </div>
                                 </div>
+                                <label class="form-label fw-medium mt-18 mb-3">What's the reason for this distribution?</label>
+                                <textarea class="form-control form-control-lg fs-3" name="claim_reason" id="claim_reason" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
+                                <label class="fw-medium mt-18 mb-3">Tag this distribution to query it later.</label>
+                                <input type="text" class="form-control form-control-lg mb-6 fs-3" name="claim_tags" id="claim_tags" placeholder="Marketing, Development, Strategy">
                             </div>
-
-                            <label class="form-label fw-medium mt-18 mb-3">What's the reason for this distribution?</label>
-                            <textarea class="form-control form-control-lg fs-3" id="" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
-                            <label class="fw-medium mt-18 mb-3">Tag this distribution to query it later.</label>
-                            <input type="text" class="form-control form-control-lg mb-6 fs-3" id="" placeholder="Marketing, Development, Strategy">
-
                         </div>
-                    </div>
-                    <div class="card-body border-top d-flex justify-content-end gap-3">
-                        <button type="button" class="btn btn-white">Deny</button>
-                        <button type="button" class="btn btn-primary">Approve</button>
-                    </div>
+                        <div class="card-body border-top d-flex justify-content-end gap-3">
+                            <button type="button" class="btn btn-white">Deny</button>
+                            <button type="submit" class="btn btn-primary">Approve</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -54,5 +59,38 @@
 </div>
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
-    feather.replace()
+    feather.replace();
+
+    $(document).ready(function() {
+        selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
+        if (selectedAccount) {
+            $("#wallet_address").val(selectedAccount);
+        }
+
+        $('#nttsForm').validate({
+            rules: {
+                ntts:{
+                    required: true
+                },
+                wallet_address:{
+                    required: true
+                }
+            },
+            submitHandler: function(form){
+                $(form).ajaxSubmit({
+                    type:'post',
+                    dataType:'json',
+                    success: function(data){
+                        if(data.success == true){
+                            window.location = data.url;
+                        }
+                        else{
+                            $('#'+data.element).addClass('form-control-lg error');
+                            $('<label class="error">'+data.msg+'</label>').insertAfter('#'+data.element);
+                        }
+                    }
+                });
+            }
+        });
+    });
 </script>
