@@ -9,8 +9,8 @@
                             <div class="display-5 fw-medium">Recognize community participation</div>
                             <div class="text-muted mt-1">Send NTTs to anyone in your community</div>
                             <div class="col-xl-7">
-                            <div class="fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
-                            <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control mb-6 fs-3">
+                            <label class="form-label mt-20">Which wallet do you want to distribute NTTs to?</label>
+                            <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
                             <div class="fs-3 fw-semibold mb-3 text-break"></div>
                             <?php if($__page->solana == true){ ?>
                                 <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
