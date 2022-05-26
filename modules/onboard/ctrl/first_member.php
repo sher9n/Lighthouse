@@ -23,7 +23,7 @@ class controller extends Ctrl {
                 if($this->hasParam('display_name') && strlen($this->getParam('display_name')) > 0)
                     $display_name = $this->getParam('display_name');
                 else
-                    throw new Exception("$display_name:Not a valid name");
+                    throw new Exception("display_name:Not a valid name");
 
                 if($this->hasParam('wallet_address') && strlen($this->getParam('wallet_address')) > 0)
                     $wallet_address = $this->getParam('wallet_address');
