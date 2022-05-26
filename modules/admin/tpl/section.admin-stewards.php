@@ -11,27 +11,15 @@
                   <form class="mt-25 col-xl-6">
                     <div class="fw-medium mt-26">Whitelist members</div>                    
                     <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
-                    <div class="fw-medium mt-22">Sheran </div> 
-                    <div class="d-flex align-items-center">
-                        <div class="fs-3 fw-semibold me-6">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
-                        <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">                            
-                            <i data-feather="trash" class="text-danger"></i>
-                        </a>
-                    </div>
-                    <div class="fw-medium mt-22">Potrock </div> 
-                    <div class="d-flex align-items-center">
-                        <div class="fs-3 fw-semibold me-6">0xF87cF86F3F0031cB27A1539eAfA4Bd3DBes281752</div>
-                        <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">
-                          <i data-feather="trash" class="text-danger"></i>
-                        </a>
-                    </div>
-                    <div class="fw-medium mt-22">0xIshan </div> 
-                    <div class="d-flex align-items-center">
-                        <div class="fs-3 fw-semibold me-6">0xM54cF86F3F0031cB27A1539eAfA4Bd3DBes79872</div>
-                        <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">
-                          <i data-feather="trash" class="text-danger"></i>
-                        </a>
-                    </div>
+                      <?php foreach ($__page->stewards as $steward){ ;?>
+                        <div class="fw-medium mt-22"><?php echo $steward['display_name']; ?> </div>
+                        <div class="d-flex align-items-center">
+                            <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
+                            <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">
+                                <i data-feather="trash" class="text-danger"></i>
+                            </a>
+                        </div>
+                      <?php } ?>
                   </form>
                 </div>
               </div>
@@ -42,21 +30,23 @@
 </main>
 <!-- Modal Add new member -->
 <div class="modal fade" id="addMember" tabindex="-1" aria-labelledby="addMemberLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="fs-2 fw-semibold mb-15">Add new member to whitelist </div>  
-        <label for="Nickname" class="form-label">Nickname</label>
-        <input type="text" class="form-control form-control-lg" name="Nickname" id="Nickname" placeholder="Bob">
-        <label for="WalletAddress" class="form-label mt-16">Wallet address</label>
-        <input type="text" class="form-control form-control-lg" name="WalletAddress" id="WalletAddress" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Save</button>
-      </div>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form id="addStewardsForm" method="post" action="add-stewards" autocomplete="off">
+                <div class="modal-body">
+                    <div class="fs-2 fw-semibold mb-15">Add new member to whitelist </div>
+                    <label for="Nickname" class="form-label">Nickname</label>
+                    <input type="text" class="form-control form-control-lg" name="nickname" id="nickname" placeholder="Bob">
+                    <label for="WalletAddress" class="form-label mt-16">Wallet address</label>
+                    <input type="text" class="form-control form-control-lg" name="wallet_address" id="wallet_address" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal delete member -->
@@ -75,5 +65,26 @@
 
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
-    feather.replace()
+    feather.replace();
+
+
+    $('#addStewardsForm').validate({
+        rules: {
+            nickname:{
+                required: true
+            },
+            wallet_address:{
+                required: true
+            }
+        },
+        submitHandler: function(form) {
+            $(form).ajaxSubmit({
+                type: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    $('#addMember').modal('toggle');
+                }
+            });
+        }
+    });
 </script>
