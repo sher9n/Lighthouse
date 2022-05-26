@@ -25,12 +25,15 @@ function getSolanaAccount() {
             }
             else
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
-
-            updateWalletMenu();
         }
     }).catch(function(error) {
             console.log(error)
     });
+}
+
+async function addSolanaWallet() {
+    $("#AdminCenter").modal('hide');
+    $('#AdminPhantom').modal('show');
 }
 
 function disconnectAccount() {

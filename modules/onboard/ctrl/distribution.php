@@ -66,9 +66,15 @@ class controller extends Ctrl {
             }
             exit();
         } else {
+
+            $solana = false;
+            if($_SESSION['lhc']['b'] == 'solana')
+                $solana = true;
+
             $__page = (object)array(
                 'title' => 'First Distribution',
                 'community' => $community,
+                'solana' => $solana,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.distribution.php'
                 ),

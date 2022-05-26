@@ -83,6 +83,7 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#addMember').modal('toggle');
+                    window.location = data.url;
                 }
             });
         }
