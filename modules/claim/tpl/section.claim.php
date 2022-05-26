@@ -42,7 +42,7 @@
         <div class="col-md-6 h-100 d-flex justify-content-center">
             <div class="bg-claim-image"></div> <!-- Full width image -->
             <div class="site-badge d-flex align-items-center">
-                <div class="opacity-50 text-white fw-medium">Powered by</div> <img src="<?php echo app_cdn_path; ?>img/logo-text.png" class="ms-2">
+                <div class="opacity-75 text-white fw-medium">Powered by</div> <img src="<?php echo app_cdn_path; ?>img/logo-text.png" class="ms-2">
             </div>
         </div>
     </div>

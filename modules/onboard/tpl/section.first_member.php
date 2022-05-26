@@ -55,11 +55,7 @@
         if(selectedAccount) {
             $("#sel_wallet_address").html(selectedAccount);
             $("#wallet_address").val(selectedAccount);
-            <?php if($__page->solana == true){ ?>
-            $('#add_wallet').addClass('fade');
-            <?php }else{ ?>
-                $('#add_wallet').html('CHANGE WALLET');
-            <?php } ?>
+            $('#add_wallet').html('CHANGE WALLET');
         }
 
         $('#nttsForm').validate({

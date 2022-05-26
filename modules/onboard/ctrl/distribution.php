@@ -84,6 +84,8 @@ class controller extends Ctrl {
                     'https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js',
                     'https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js',
                     app_cdn_path.'js/connect.js',
+                    app_cdn_path.'js/connect-solana.js',
+                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js',
                     'https://assets.calendly.com/assets/external/widget.js'
                 )
             );
