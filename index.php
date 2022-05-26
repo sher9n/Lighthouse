@@ -44,6 +44,7 @@ try {
         '/admin-approvals' => 'modules/admin/ctrl/admin-approvals.php',
         '/claim-status' =>  'modules/admin/ctrl/admin-approvals.php',
         '/claim-details' => 'modules/admin/ctrl/admin-approvals.php',
+        '/send-ntts' => 'modules/admin/ctrl/admin-ntts.php',
         '/admin-ntts' => 'modules/admin/ctrl/admin-ntts.php',
         '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-integrations' => 'modules/admin/ctrl/admin-integrations.php',
