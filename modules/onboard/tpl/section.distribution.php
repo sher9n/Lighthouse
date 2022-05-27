@@ -49,7 +49,7 @@
                         </div>
                         <div class="mt-16">
                             <label for="claimCategorize" class="form-label">Tag this distribution to query it later.</label>
-                            <input type="text" class="form-control form-control-lg" name="claim_tags" id="claim_tags" placeholder="Marketing, Development, Strategy">
+                            <select class="form-control form-control-lg" multiple="multiple" name="claim_tags" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
                         </div>
                     </div>
                 </div>
@@ -62,6 +62,29 @@
             </div>
         </form>
     </section>
+    <div class="modal show" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" height="180">
+                    <div class="fs-2 fw-semibold mt-15">Please wait...</div>
+                    <div class="fw-medium mt-3">Your NTTs are getting created.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal show" id="NttsSccess" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="<?php echo app_cdn_path; ?>img/amin-ntts-sent.gif" height="180">
+                    <div class="fs-2 fw-semibold mt-15">Yay!</div>
+                    <div class="fw-medium mt-3">Your NTTs are sent.</div>
+                    <a type="button" id="btn_success" href="#" class="btn btn-primary mt-20 px-10">Okay</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
@@ -74,6 +97,16 @@
             $("#wallet_address").val(selectedAccount);
             $('#add_wallet').html('CHANGE WALLET');
         }
+
+        $("#claim_tags").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+        $(document).on("click", '#btn_success', function(event) {
+            event.preventDefault();
+            window.location = '<?php echo $__page->admin_page; ?>';
+        });
 
         $(document).on("click", '#onboard_skip', function(event) {
 
@@ -102,8 +135,30 @@
                     dataType:'json',
                     success: function(data){
                         if(data.success == true){
-                            $("#body_section").html('');
-                            Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});
+
+                            <?php if($__page->solana == true){ ?>
+
+                                $('#NttsGetting').modal('show');
+
+                                var url = "https://lighthouse-poc-seven.vercel.app/api/addSolPoints";
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", url);
+                                xhr.setRequestHeader("accept", "application/json");
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4) {
+                                        if (xhr.status == 200) {
+                                            $('#NttsGetting').modal('hide');
+                                            $('#NttsSccess').modal('show');
+                                        }
+                                    }
+                                };
+                                var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
+                                xhr.send(data);
+
+                            <?php } ?>
+
+                           // Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});
                         }
                         else{
                             $('#'+data.element).addClass('form-control-lg error');

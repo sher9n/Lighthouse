@@ -16,6 +16,14 @@ class controller extends Ctrl {
 
         if ($this->__lh_request->is_xmlHttpRequest) {
 
+            if(__ROUTER_PATH =='/update-contract-address'){
+                $community = Community::get($_SESSION['lhc']['c_id']);
+                $community->contract_adr = $this->getParam('adr');
+                $community->update();
+                echo json_encode(array('success' => true));
+                exit();
+            }
+
             try {
 
                 $display_name = $wallet_address = '';
@@ -44,7 +52,17 @@ class controller extends Ctrl {
                     $id = $community->insert();
                     $_SESSION['lhc']['c_id'] = $id;
 
-                    echo json_encode(array('success' => true, 'url' => 'distribution'));
+                    echo json_encode(array(
+                            'success' => true,
+                            'url' => 'distribution',
+                            'wallet_adr' => $wallet_address,
+                            'dao_name' => $community->dao_name,
+                            'dao_domain' => $community->dao_domain,
+                            'symbol' => 'nt'.$community->ticker,
+                            'decimal' => 18,
+                            'blockchain' => $community->blockchain
+                        )
+                    );
                 }
                 else {
                     $_SESSION['lhc'] = null;

@@ -45,7 +45,9 @@ function disconnectAccount() {
     });
 
     window.solana.on('disconnect', () => {
-        console.log("Solana Wallet Disconnected!");
+        sessionStorage.removeItem('lh_sel_wallet_add');
+        sessionStorage.removeItem('lh_wallet_adds');
+        window.location = 'admin';
     });
 }
 

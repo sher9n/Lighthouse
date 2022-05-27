@@ -11,6 +11,10 @@
                   <form class="mt-25 col-xl-6">
                     <div class="fw-medium mt-26">Whitelist members</div>                    
                     <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
+                      <div class="fw-medium mt-22"><?php echo $__page->community->display_name; ?> </div>
+                      <div class="d-flex align-items-center">
+                          <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
+                      </div>
                       <?php foreach ($__page->stewards as $steward){ ;?>
                         <div class="fw-medium mt-22"><?php echo $steward['display_name']; ?> </div>
                         <div class="d-flex align-items-center">

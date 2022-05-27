@@ -18,7 +18,7 @@
         </div>
     </aside>
     <section class="body-section">
-        <a role="button" class="btn btn-back mt-3 ms-3" href="index.html"><img src="<?php echo app_cdn_path; ?>img/arrow-left.png"></a>
+        <a role="button" class="btn btn-back mt-3 ms-3" href="/"><img src="<?php echo app_cdn_path; ?>img/arrow-left.png"></a>
         <form id="nttsForm" method="post" action="first-member" autocomplete="off">
             <div class="container-fluid">
                 <div class="row justify-content-lg-center">
@@ -47,6 +47,29 @@
             </div>
         </form>
     </section>
+    <div class="modal show" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" height="180">
+                    <div class="fs-2 fw-semibold mt-15">Please wait...</div>
+                    <div class="fw-medium mt-3">Your NTTs are getting created.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal show" id="NttsSccess" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="<?php echo app_cdn_path; ?>img/amin-ntts-sent.gif" height="180">
+                    <div class="fs-2 fw-semibold mt-15">Yay!</div>
+                    <div class="fw-medium mt-3">Your NTTs are sent.</div>
+                    <a type="button" id="btn_success" href="#" class="btn btn-primary mt-20 px-10">Okay</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
@@ -58,6 +81,13 @@
             $('#add_wallet').html('CHANGE WALLET');
         }
 
+        $(document).on("click", '#btn_success', function(event) {
+            event.preventDefault();
+            var element = $(this);
+            window.location = 'distribution';
+            $('#NttsSccess').modal('hide');
+        });
+
         $('#nttsForm').validate({
             rules: {
                 display_name:{
@@ -68,12 +98,34 @@
                 }
             },
             submitHandler: function(form){
+
                 $(form).ajaxSubmit({
                     type:'post',
                     dataType:'json',
                     success: function(data){
                         if(data.success == true){
-                            window.location = data.url;
+                            if(data.blockchain == 'gnosis_chain') {
+                                $('#NttsGetting').modal('show');
+                                var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI?key=8ccbb99eba0d3d12ca9ed97c6142f411db813064f5593cdf407bc7cb4ae6d4a8";
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", url);
+                                xhr.setRequestHeader("accept", "application/json");
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4) {
+                                        if (xhr.status == 200) {
+                                            obj = JSON.parse(xhr.responseText);
+                                            updatecontractAddress(obj.contractAddress);
+                                            $('#NttsGetting').modal('hide');
+                                            $('#NttsSccess').modal('show');
+                                        }
+                                    }
+                                };
+                                var data = `{"initialAdmin": "` + data.wallet_adr + `","contractName": "` + data.dao_name + `","tokenName": "` + data.dao_domain + `","tokenSymbol": "` + data.symbol + `","tokenDecimals": "` + data.decimal + `"}`;
+                                xhr.send(data);
+                            }
+                            else
+                                window.location = data.url;
                         }
                         else{
                             $('#'+data.element).addClass('form-control-lg error');
@@ -84,4 +136,14 @@
             }
         });
     });
+
+    async function updatecontractAddress(adr) {
+        var data = {'adr': adr};
+        $.ajax({
+            url: 'update-contract-address',
+            dataType: 'json',
+            data: data,
+            type: 'POST'
+        });
+    }
 </script>

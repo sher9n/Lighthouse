@@ -51,16 +51,16 @@
             </button>
             <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton1">
                 <li>
-                    <a class="dropdown-item" href="#">                        
-                        <i data-feather="refresh-ccw"></i>
-                        <div class="ms-12">Disconnect</div>
+                    <a class="dropdown-item" href="admin">
+                        <i data-feather="log-out"></i>
+                        <div class="ms-12">Change Wallet</div>
                     </a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="admin">                        
-                        <i data-feather="log-out"></i>
-                        <div class="ms-12">Change Wallet</div>
+                    <a class="dropdown-item" id="disconnect_wallet" href="#">
+                        <i data-feather="refresh-ccw"></i>
+                        <div class="ms-12">Disconnect</div>
                     </a>
                 </li>
             </ul>

@@ -17,7 +17,15 @@ class controller extends Ctrl {
                 echo json_encode(array('success' => true));
                 exit();
             }
+            else if(__ROUTER_PATH =='/disconnect_wallet') {
+                $com    = Community::getByDomain(app_site);
+                $solana = false;
+                if($com->blockchain == 'solana')
+                    $solana = true;
 
+                echo json_encode(array('success' => true,'solana' => $solana ));
+                exit();
+            }
         }
         else {
 

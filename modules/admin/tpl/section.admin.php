@@ -69,23 +69,6 @@
     </div>
   </div>
 </div>
-
-<!-- Modal NTTs Please wait -->
-<div class="modal show" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" height="180">
-                <!-- <img src="<?php echo app_cdn_path; ?>img/amin-ntts-sent.gif" height="180" -->
-                <div class="fs-2 fw-semibold mt-15">Please wait...</div>
-                <!-- <div class="fs-2 fw-semibold mt-15">Yay!</div> -->
-                <div class="fw-medium mt-3">Your NTTs are getting created.</div>
-                <!-- <div class="fw-medium mt-3">Your NTTs are sent.</div>                
-                <button type="button" id="" class="btn btn-primary mt-20 px-10">Okay</button> -->
-            </div>
-        </div>
-    </div>
-</div>
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
     feather.replace();

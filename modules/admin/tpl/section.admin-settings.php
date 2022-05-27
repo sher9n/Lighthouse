@@ -35,13 +35,14 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-8">
-                                        <label for="NTTTicker" class="form-label">NTT ticker image  (25px x 25px)</label>
+                                        <label for="NTTTicker" class="form-label">NTT ticker image  (64px x 64px)</label>
                                         <div class="d-flex align-items-center mb-6">
                                             <div class="upload-logo me-6">
-                                                <?php if(is_null($__page->community->ticker_img_url)){ ?>
-                                                    <i data-feather="image"></i>
-                                                <?php }else{ ?>
+                                                <?php
+                                                if(strlen($__page->community->ticker_img_url) > 0){ ?>
                                                     <img width="64" height="64" src="<?php echo $__page->community->getTickerImage(); ?>" class="rounded-circle border">
+                                                <?php }else{ ?>
+                                                    <i data-feather="image"></i>
                                                 <?php } ?>
                                             </div>
                                             <div class="me-6">
