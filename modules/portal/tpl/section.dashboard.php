@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white shadow mb-12">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white shadow mb-8">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
         <img src="<?php echo app_cdn_path; ?>img/portal-logo.png" >
@@ -46,7 +46,7 @@
     <div class="container-fluid">
         <div class="row">
           <div class="col">
-            <div class="card shadow">
+            <div class="card shadow mb-8">
               <div class="card-body text-center p-12">
                 <div class="fs-2 d-flex align-items-center justify-content-center">Welcome to the Lighthouse Developer Portal <img src="<?php echo app_cdn_path; ?>img/waving-hand.svg" class="ms-3"></div>
                 <div class="text-muted mt-3">Discover applications you can adopt to work with your community or join hands with the extensive developer community to create your own!</div>
@@ -58,6 +58,138 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="card shadow">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="display-5 fw-medium mb-8">All applications</div>
+                  <input type="text" class="form-control form-search mb-6 mb-xl-0" id="dashboard_table_search" placeholder="Search...">
+                </div>
+                <div class="fs-2 fw-medium mt-14 mb-12">Social</div>
+                    <div class="row">
+                      <div class="col-xl-4">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/brightID.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Customizable Leaderboard</div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Design customizable leaderboards that suit your community and drive participation.</div>
+                          </div>
+                          <div class="border-top card-body d-flex justify-content-between">
+                            <div class="fw-medium"><span class="text-gray-700">Developed by:</span> 0xSushi</div>
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>                      
+                    </div>
+
+                    <div class="fs-2 fw-medium mt-14 mb-12">NFT-based</div>
+                    <div class="row">
+                      <div class="col-xl-4">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/brightID.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Goal based NFT Badges</div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Issue NFT badges when a community member reaches a particular goal or milestone.</div>
+                          </div>
+                          <div class="border-top card-body d-flex justify-content-between">
+                            <div class="fw-medium"><span class=" text-gray-700">Developed by:</span> Ocramius</div>
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-4">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/grape-protocol.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Evolving Reputation NFT</div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Create an NFT that evolves based on contribution to your community.</div>
+                          </div>
+                          <div class="border-top card-body d-flex justify-content-between">
+                            <div class="fw-medium"><span class=" text-gray-700">Developed by:</span> NFT Rabbithole</div>
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="fs-2 fw-medium mt-14 mb-12">Chain-specific tokens</div>
+                    <div class="row">
+                      <div class="col-xl-4">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/brightID.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Arweave NTT Bridge </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Airdrop Arweave PSTs based on member participation within your community.</div>
+                          </div>
+                          <div class="border-top card-body d-flex justify-content-between">
+                            <div class="fw-medium"><span class=" text-gray-700">Developed by:</span> SmartWeave21</div>
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-4">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/grape-protocol.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Solana NTT Bridge</div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Airdrop SPL tokens to members based on participation within your community.</div>
+                          </div>
+                          <div class="border-top card-body d-flex justify-content-between">
+                            <div class="fw-medium"><span class=" text-gray-700">Developed by:</span> Solana Labs</div>
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="fs-2 fw-medium mt-14 mb-12">Governance</div>
+                    <div class="row">
+                      <div class="col-xl-4">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/brightID.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Governance Platform</div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Create powerful governance mechanisms that combine participation with native token governance.</div>
+                          </div>
+                          <div class="border-top card-body d-flex justify-content-between">
+                            <div class="fw-medium"><span class=" text-gray-700">Developed by:</span> Katrina Owen</div>
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
     </div>
 </main>
 
