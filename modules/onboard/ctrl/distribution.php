@@ -49,10 +49,17 @@ class controller extends Ctrl {
                 $claim->clm_reason  = $reason;
                 $claim->clm_tags    = $tags;
                 $claim->comunity_id = $community->id;
+                $claim->status      = 1;
                 $claim->insert();
                 $_SESSION['lhc'] = null;
 
-                echo json_encode(array('success' => true, 'url' => 'distribution'));
+                echo json_encode(array(
+                    'success' => true,
+                    'url' => 'distribution',
+                    'wallet_adr' => 'Fp6Anh3zeSLki97Wje5hgEXBY6mS6zEG8h8e6U9xQWpz',
+                    'to_wallet_adr' => $wallet_address,
+                    'amount' => $ntts
+                ));
             }
             catch (Exception $e)
             {
@@ -75,6 +82,7 @@ class controller extends Ctrl {
                 'title' => 'First Distribution',
                 'community' => $community,
                 'solana' => $solana,
+                'admin_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz/admin',
                 'sections' => array(
                     __DIR__ . '/../tpl/section.distribution.php'
                 ),

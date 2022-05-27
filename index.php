@@ -32,10 +32,12 @@ try {
     }
 
     $localRoutes = array(
+        '/disconnect_wallet' => 'modules/admin/ctrl/admin.php',
         '/skip-onboard' => 'modules/onboard/ctrl/distribution.php',
         '/check-dao-domain' => 'modules/onboard/ctrl/onboard.php',
         '/distribution' => 'modules/onboard/ctrl/distribution.php',
         '/first-member' => 'modules/onboard/ctrl/first_member.php',
+        '/update-contract-address' => 'modules/onboard/ctrl/first_member.php',
         '/claim' => 'modules/claim/ctrl/claim.php',
         '/claim-reason' => 'modules/claim/ctrl/claim-reason.php',
         '/wallet-menu' => 'modules/admin/ctrl/admin.php',

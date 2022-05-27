@@ -17,7 +17,7 @@
                             </div>
                             <div class="mt-16">
                                 <label for="claimCategorize" class="form-label">Add tags to categorize this claim</label>
-                                <input type="text" class="form-control form-control-lg" name="claim_tags" id="claim_tags"placeholder="Marketing, Development, Strategy">
+                                <select class="form-control form-control-lg" multiple="multiple" name="claim_tags" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
                             </div>
                     </div>
                     <div class="mt-auto border-top py-5 px-26">
@@ -42,6 +42,11 @@
 
     $(document).ready(function() {
 
+        $("#claim_tags").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+        
         $('#claimForm').validate({
             rules: {
                 claim_reason:{

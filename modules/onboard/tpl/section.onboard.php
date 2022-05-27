@@ -70,6 +70,7 @@
 
         $(document).on("focusout", '#dao_domain,#dao_name', function(event) {
             var dao_name = $(this).val();
+
             $.ajax({
                 url: 'check-dao-domain',
                 data: {'dao_name':dao_name},

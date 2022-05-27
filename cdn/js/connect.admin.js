@@ -138,6 +138,7 @@ async function onDisconnect() {
     }
 
     selectedAccount = null;
+    window.location = 'admin';
 }
 
 window.addEventListener('load', async () => {
