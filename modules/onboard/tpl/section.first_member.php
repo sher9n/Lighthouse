@@ -55,7 +55,7 @@
         if(selectedAccount) {
             $("#sel_wallet_address").html(selectedAccount);
             $("#wallet_address").val(selectedAccount);
-            $('#add_wallet').html('CHANGE WALLET')
+            $('#add_wallet').html('CHANGE WALLET');
         }
 
         $('#nttsForm').validate({

@@ -11,7 +11,11 @@
                 <img src="<?php echo app_cdn_path; ?>img/logo-circle.svg" height="90">
                 <div class="fs-2 fw-semibold mt-15">MyDAO Admin Center</div>
                 <div class="fw-medium mt-3">To get started please connect a whitelisted wallet</div>
-                <button type="button" id="add_wallet" onclick="addWallet()" class="btn btn-primary mt-20 px-10">Connect Wallet</button>
+                <?php if($__page->solana != true){ ?>
+                    <button type="button" id="add_wallet" onclick="addWallet()" class="btn btn-primary mt-20 px-10">Connect Wallet</button>
+                <?php }else{ ?>
+                    <button type="button" id="add_wallet" onclick="addSolanaWallet()"  class="btn btn-primary mt-20 px-10">Connect Wallet</button>
+                <?php } ?>
                 <!--<div class="text-danger fw-medium mt-20">This wallet does not have access to MyDAO. <br>
                     Please connect with a whitelisted wallet.</div>-->
             </div>
@@ -31,7 +35,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal Send some NTTs -->
 <div class="modal fade" id="SendNTT" tabindex="-1" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -83,17 +86,11 @@
         </div>
     </div>
 </div>
-
-
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
     feather.replace();
 
     $(window).on('load', function() {
-        <?php if($__page->solana == true){ ?>
-            $('#AdminPhantom').modal('show');
-        <?php }else{ ?>
-            $('#AdminCenter').modal('show');
-        <?php } ?>
+        $('#AdminCenter').modal('show');
     });
 </script>

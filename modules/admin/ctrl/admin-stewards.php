@@ -16,6 +16,7 @@ class controller extends Ctrl {
         }
 
         $community = Community::getByDomain(app_site);
+        $community_id = $community->id;
 
         if($this->__lh_request->is_xmlHttpRequest) {
 
@@ -63,7 +64,7 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,
-                'stewards' => Steward::find('SELECT * FROM stewards WHERE is_delete=0'),
+                'stewards' => Steward::find("SELECT * FROM stewards WHERE comunity_id=".$community_id." AND is_delete=0"),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-stewards.php'

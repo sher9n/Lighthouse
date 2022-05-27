@@ -29,7 +29,11 @@
                             <label class="form-label mb-4">Which wallet do you want to distribute NTTs to?</label>
                             <input type="hidden" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
                             <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3 text-break"></div>
-                            <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Add Wallet</a>
+                            <?php if($__page->solana == true){ ?>
+                                <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light mt-6" href="#">Add Wallet</a>
+                            <?php }else{ ?>
+                                <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
+                            <?php } ?>
                         </div>
                         <div class="mt-16">
                             <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
@@ -68,7 +72,7 @@
         if(selectedAccount) {
             $("#sel_wallet_address").html(selectedAccount);
             $("#wallet_address").val(selectedAccount);
-            $('#add_wallet').html('CHANGE WALLET')
+            $('#add_wallet').html('CHANGE WALLET');
         }
 
         $(document).on("click", '#onboard_skip', function(event) {
