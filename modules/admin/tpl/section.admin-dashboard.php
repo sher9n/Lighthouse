@@ -4,6 +4,13 @@
     <?php if($__page->first_admin_view == true){ ?>
         <section class="admin-body-section">
             <div class="container-fluid h-100">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class="d-flex align-items-center">
+                        <img src="<?php echo app_cdn_path; ?>img/icon-checked.png" height="20" class="me-6">
+                        <div class="fw-medium">Success! Your transaction has been logged on-chain and the NTTs have been sent.</div>
+                    </div>                    
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="d-flex flex-column flex-xl-row justify-content-between mb-13">
