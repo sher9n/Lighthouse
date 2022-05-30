@@ -46,7 +46,7 @@
             tags: true,
             tokenSeparators: [',', ' ']
         });
-        
+
         $('#claimForm').validate({
             rules: {
                 claim_reason:{
