@@ -43,6 +43,8 @@ class controller extends Ctrl {
 
                 $reason = $this->hasParam('claim_reason')?$this->getParam('claim_reason'):'';
                 $tags  = $this->hasParam('claim_tags')?$this->getParam('claim_tags'):'';
+                $tags  = is_array($tags)?implode(',',$tags):'';
+
                 $claim = new Claim();
                 $claim->wallet_adr = $wallet_address;
                 $claim->ntts = $ntts;

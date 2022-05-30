@@ -28,7 +28,7 @@
                                 <label class="form-label fw-medium mt-18 mb-3">What's the reason for this distribution?</label>
                                 <textarea class="form-control form-control-lg fs-3" name="claim_reason" id="claim_reason" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
                                 <label class="fw-medium mt-18 mb-3">Tag this distribution to query it later.</label>
-                                <input type="text" class="form-control form-control-lg mb-6 fs-3" name="claim_tags" id="claim_tags" placeholder="Marketing, Development, Strategy">
+                                <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
                             </div>
                         </div>
                         <div class="card-body border-top d-flex justify-content-end gap-3">
@@ -66,6 +66,12 @@
         if (selectedAccount) {
             $("#wallet_address").val(selectedAccount);
         }
+
+        $("#claim_tags").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
 
         $('#nttsForm').validate({
             rules: {

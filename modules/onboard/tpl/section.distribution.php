@@ -49,7 +49,7 @@
                         </div>
                         <div class="mt-16">
                             <label for="claimCategorize" class="form-label">Tag this distribution to query it later.</label>
-                            <select class="form-control form-control-lg" multiple="multiple" name="claim_tags" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
+                            <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
 
                             <?php } ?>
 
-                           // Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});
+                            Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});
                         }
                         else{
                             $('#'+data.element).addClass('form-control-lg error');

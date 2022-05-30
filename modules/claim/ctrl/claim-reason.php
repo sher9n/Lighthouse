@@ -32,6 +32,7 @@ class controller extends Ctrl {
                 else
                     throw new Exception("claim_tags:Not a valid dao tags");
 
+                $tags  = is_array($tags)?implode(',',$tags):'';
                 $claim->clm_reason  = $reason;
                 $claim->clm_tags    = $tags;
                 $claim->m_at        = date("Y-m-d H:i:s");;

@@ -17,7 +17,7 @@
                             </div>
                             <div class="mt-16">
                                 <label for="claimCategorize" class="form-label">Add tags to categorize this claim</label>
-                                <select class="form-control form-control-lg" multiple="multiple" name="claim_tags" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
+                                <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
                             </div>
                     </div>
                     <div class="mt-auto border-top py-5 px-26">
