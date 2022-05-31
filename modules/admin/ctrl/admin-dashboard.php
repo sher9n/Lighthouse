@@ -1,6 +1,7 @@
 <?php
 use lighthouse\Auth;
 use lighthouse\Claim;
+use lighthouse\Community;
 class controller extends Ctrl {
     function init() {
 
@@ -13,6 +14,8 @@ class controller extends Ctrl {
             header("Location: " . app_url.'admin');
             die();
         }
+
+        $community = Community::getByDomain(app_site);
 
         if($this->__lh_request->is_xmlHttpRequest) {
 
@@ -28,11 +31,16 @@ class controller extends Ctrl {
             $domain = $site['sub_domain'];
             $claims = Claim::find("SELECT c.id,c.clm_tags,com.wallet_adr,com.id FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE status=1 AND com.dao_domain='$domain'");
 
+            $solana = false;
+            if($community->blockchain == 'solana')
+                $solana = true;
+
             $__page = (object)array(
-                'title' => app_site,
+                'title' => $site['site_name'],
                 'site' => $site,
                 'first_admin_view' => (isset($_SESSION['lh_admin_view']) && $_SESSION['lh_admin_view'] == 0 )?true:false,
                 'claims' => $claims,
+                'solana' => $solana,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-dashboard.php'

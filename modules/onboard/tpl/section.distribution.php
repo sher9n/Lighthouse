@@ -156,6 +156,25 @@
                                 var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
                                 xhr.send(data);
 
+                            <?php }else{ ?>
+
+                                /*var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.wallet_adr+"/addPoints?key="+data.wallet_adr;
+
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", url);
+
+                                xhr.setRequestHeader("accept", "application/json");
+                                xhr.setRequestHeader("Content-Type", "application/json");
+
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4) {
+                                        console.log(xhr.status);
+                                        console.log(xhr.responseText);
+                                    }};
+
+                                var data = `{"receiver": "`+data.wallet_adr+`","amount": "`+data.amount+`"}`;
+
+                                xhr.send(data);*/
                             <?php } ?>
 
                             Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});

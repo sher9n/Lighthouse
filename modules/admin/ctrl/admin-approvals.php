@@ -53,7 +53,7 @@ class controller extends Ctrl {
             $a_claims = Claim::find("SELECT c.id as c_id,c.clm_tags,c.c_at,com.wallet_adr,com.id as com_id FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE status=1 AND com.dao_domain='$domain'");
 
             $__page = (object)array(
-                'title' => app_site,
+                'title' => $site['site_name'],
                 'site' => $site,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'claims' => $claims,

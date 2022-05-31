@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
                         <div class="d-flex flex-column flex-xl-row justify-content-between mb-13">
                             <input type="text" class="form-control form-search mb-6 mb-xl-0" id="dashboard_table_search"  placeholder="Search...">
-                            <button type="button" class="btn btn-primary">Send NTTs to a new member</button>
+                            <button id="sendNewNtt" type="button" class="btn btn-primary">Send NTTs to a new member</button>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                             foreach ($__page->claims as $claim) { ?>
                                                 <tr>
                                                     <td class="text-center">                                                    
-                                                        <i data-feather="send" class="feather-lg text-muted"></i>
+                                                        <a href="send-ntt?adr=<?php echo $claim['wallet_adr']; ?>" class="send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>
                                                     </td>
                                                     <td><?php echo Utils::WalletAddressFormat($claim['wallet_adr']); ?></td>
                                                     <td>8.4K</td>
@@ -49,25 +49,21 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-column flex-xl-row justify-content-between mt-auto">
-                                
-                                        <select id="dashboard_table_length" class="form-select form-length">
-                                            <option value="10">Rows per page: 10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="-1">All</option>
-                                        </select>
-                                    
-                                        <ul class="pagination justify-content-xl-end justify-content-center mb-0 mt-6 mt-xl-0">
-                                            <li class="page-item">
-                                                <a class="page-link" id="dashboard_table_prev"><img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-left.svg" class="me-2">Previous</a>
-                                            </li>
-                                            <li class="page-item">
-                                            <a class="page-link" href="#" id="dashboard_table_next">Next<img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-right.svg" class="ms-2"></a>
-                                            </li>
-                                        </ul>
-                                    
-                                
+                                <select id="dashboard_table_length" class="form-select form-length">
+                                    <option value="10">Rows per page: 10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="-1">All</option>
+                                </select>
+                                <ul class="pagination justify-content-xl-end justify-content-center mb-0 mt-6 mt-xl-0">
+                                    <li class="page-item">
+                                        <a class="page-link" id="dashboard_table_prev"><img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-left.svg" class="me-2">Previous</a>
+                                    </li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="#" id="dashboard_table_next">Next<img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-right.svg" class="ms-2"></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>                    
@@ -95,36 +91,44 @@
         </section>
     <?php } ?>
     <!-- Modal Send some NTTs -->
-    <div class="modal fade" id="SendNTT" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="sendNewNttPop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <div class="modal-body">
-                    <div class="display-5 fw-medium">Send some NTTs</div>
-                    <div class="fs-5 fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
-                    <div class="fs-3 fw-semibold mt-3">0x9aBbegiow923h9ig2nioopg24380b</div>
-                    <div class="fs-5 fw-medium mt-18 mb-3">How many NTTs do you want to send?</div>
-                    <div class="container-fluid">
-                        <div class="row gap-3">
-                            <div class="col border rounded-3 py-3 px-7 fs-3 d-flex align-items-center">120</div>
-                            <div class="col bg-light rounded-3 py-3 px-7">
-                                <div class="fs-3">4.5K</div>
-                                <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">24</span><img src="img/arrow-up.png"></div>
-                            </div>
-                            <div class="col bg-light rounded-3 py-3 px-7">
-                                <div class="fs-3">2.32K</div>
-                                <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">2</span><img src="img/arrow-bottom.png"></div>
+                <form id="nttsNewForm" method="post" action="distribution" autocomplete="off">
+                    <div class="modal-body">
+                        <div class="display-5 fw-medium">Send some NTTs</div>
+                        <div class="fs-5 fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
+                        <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
+                        <div class="fs-3 fw-semibold mb-3 text-break"></div>
+                        <?php if($__page->solana == true){ ?>
+                            <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
+                        <?php }else{ ?>
+                            <a role="button" id="add_wallet" onclick="addWallet('#sendNewNttPop')" class="btn btn-light" href="#">Change Wallet</a>
+                        <?php } ?>
+                        <div class="fs-5 fw-medium mt-18 mb-3">How many NTTs do you want to send?</div>
+                        <div class="container-fluid">
+                            <div class="row gap-3">
+                                <div class="col border rounded-3 py-3 px-7 fs-3 d-flex align-items-center">120</div>
+                                <div class="col bg-light rounded-3 py-3 px-7">
+                                    <div class="fs-3">4.5K</div>
+                                    <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">24</span><img src="img/arrow-up.png"></div>
+                                </div>
+                                <div class="col bg-light rounded-3 py-3 px-7">
+                                    <div class="fs-3">2.32K</div>
+                                    <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">2</span><img src="img/arrow-bottom.png"></div>
+                                </div>
                             </div>
                         </div>
+                        <div class="fs-5 fw-medium mt-18 mb-3">What's the reason for this distribution?</div>
+                        <textarea class="form-control form-control-lg fs-3 fw-medium" id="" rows="2" placeholder=""></textarea>
+                        <div class="fs-5 fw-medium mt-18 mb-3">Tag this distribution to query it later.</div>
+                        <textarea class="form-control form-control-lg" id="" rows="2" placeholder=""></textarea>
                     </div>
-                    <div class="fs-5 fw-medium mt-18 mb-3">What's the reason for this distribution?</div>
-                    <textarea class="form-control form-control-lg fs-3 fw-medium" id="" rows="2" placeholder=""></textarea>
-                    <div class="fs-5 fw-medium mt-18 mb-3">Tag this distribution to query it later.</div>
-                    <textarea class="form-control form-control-lg" id="" rows="2" placeholder=""></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">CANCEL</button>
-                    <button type="button" class="btn btn-primary">Send</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-bs-dismiss="modal">CANCEL</button>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -134,6 +138,17 @@
     feather.replace();
 
     $(document).ready(function() {
+
+        $(document).on("click", '#sendNewNtt', function(event) {
+            event.preventDefault();
+            $('#sendNewNttPop').modal('show');
+        });
+
+        $(document).on("click", '.send_ntt', function(event) {
+            event.preventDefault();
+            var adr = $(this).attr('href');
+            $('#sendNewNttPop').modal('show');
+        });
 
         if('<?php echo $__page->sel_wallet_adr; ?>' != sessionStorage.getItem("lh_sel_wallet_add"))
             window.location = 'admin';

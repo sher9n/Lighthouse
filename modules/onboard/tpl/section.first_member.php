@@ -64,8 +64,9 @@
                 <div class="modal-body text-center">
                     <img src="<?php echo app_cdn_path; ?>img/amin-ntts-sent.gif" height="180">
                     <div class="fs-2 fw-semibold mt-15">Yay!</div>
-                    <div class="fw-medium mt-3">Your NTTs are sent.</div>
+                    <div class="fw-medium mt-3">Your NTT contract has been created.</div>
                     <a type="button" id="btn_success" href="#" class="btn btn-primary mt-20 px-10">Okay</a>
+                    <a type="button" data-token="" data-symbol="" id="btn_add_metamask" href="#" class="btn btn-primary mt-20 px-10">Add to MetaMask</a>
                 </div>
             </div>
         </div>
@@ -88,6 +89,12 @@
             $('#NttsSccess').modal('hide');
         });
 
+        $(document).on("click", '#btn_add_metamask', function(event) {
+            event.preventDefault();
+            var element = $(this);
+            addTokenFunction(element.data('token'),element.data('symbol'));
+        });
+
         $('#nttsForm').validate({
             rules: {
                 display_name:{
@@ -105,6 +112,8 @@
                     success: function(data){
                         if(data.success == true){
                             if(data.blockchain == 'gnosis_chain') {
+                                $('#btn_add_metamask').data('token',data.wallet_adr);
+                                $('#btn_add_metamask').data('symbol',data.symbol);
                                 $('#NttsGetting').modal('show');
                                 var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI?key=8ccbb99eba0d3d12ca9ed97c6142f411db813064f5593cdf407bc7cb4ae6d4a8";
                                 var xhr = new XMLHttpRequest();
@@ -121,7 +130,7 @@
                                         }
                                     }
                                 };
-                                var data = `{"initialAdmin": "` + data.wallet_adr + `","contractName": "` + data.dao_name + `","tokenName": "` + data.dao_domain + `","tokenSymbol": "` + data.symbol + `","tokenDecimals": "` + data.decimal + `"}`;
+                                var data = `{"initialAdmin": "` + data.wallet_adr + `","contractName": "` + data.dao_domain + `","tokenName": "` + data.dao_domain + `","tokenSymbol": "` + data.symbol + `","tokenDecimals": "` + data.decimal + `"}`;
                                 xhr.send(data);
                             }
                             else
@@ -145,5 +154,30 @@
             data: data,
             type: 'POST'
         });
+    }
+
+    async function addTokenFunction(tokenAddress,tokenSymbol) {
+        try {
+            const wasAdded = await ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20',
+                    options: {
+                        address: tokenAddress,
+                        symbol: tokenSymbol,
+                        decimals: 18,
+                        image: '<?php echo app_cdn_path; ?>img/token_image.jpeg',
+                    },
+                },
+            });
+
+            if (wasAdded) {
+                console.log('Thanks for your interest!');
+            } else {
+                console.log('HelloWorld Coin has not been added');
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 </script>

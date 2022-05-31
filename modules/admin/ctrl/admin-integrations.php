@@ -24,7 +24,7 @@ class controller extends Ctrl {
                 die();
             }
             $__page = (object)array(
-                'title' => app_site,
+                'title' => $site['site_name'],
                 'site' => $site,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(

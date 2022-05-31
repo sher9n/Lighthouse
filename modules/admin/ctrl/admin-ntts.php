@@ -72,7 +72,7 @@ class controller extends Ctrl {
                 $solana = true;
 
             $__page = (object)array(
-                'title' => app_site,
+                'title' => $site['site_name'],
                 'site' => $site,
                 'solana' => $solana,
                 'sel_wallet_adr' => $sel_wallet_adr,

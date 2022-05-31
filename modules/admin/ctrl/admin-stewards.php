@@ -62,7 +62,7 @@ class controller extends Ctrl {
             }
 
             $__page = (object)array(
-                'title' => app_site,
+                'title' => $site['site_name'],
                 'site' => $site,
                 'community' => $community,
                 'stewards' => Steward::find("SELECT * FROM stewards WHERE comunity_id=".$community_id." AND is_delete=0"),
