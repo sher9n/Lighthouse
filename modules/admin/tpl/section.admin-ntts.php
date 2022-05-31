@@ -47,7 +47,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <img src="<?php echo app_cdn_path; ?>img/logo-circle.svg" height="90">
+                <img src="<?php echo app_cdn_path; ?>img/anim-lighthouse-circle.gif"  width="100" height="100" class="align-self-center">
                 <div class="fs-2 fw-semibold mt-15">MyDAO Admin Center</div>
                 <div class="fw-medium mt-3">To get started please connect a whitelisted wallet</div>
                 <button type="button" class="btn btn-primary mt-20 px-10">Connect Wallet</button>

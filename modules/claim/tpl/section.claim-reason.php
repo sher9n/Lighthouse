@@ -18,7 +18,7 @@
                             <div class="mt-16">
                                 <label for="claimCategorize" class="form-label">Add tags to categorize this claim</label>
                                 <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
-                            </div>
+                            </div>                            
                     </div>
                     <div class="mt-auto border-top py-5 px-26">
                         <div class="d-flex justify-content-between">
@@ -27,6 +27,7 @@
                         </div>
                     </div>
                 </form>
+                
 
         </div>
         <div class="col-lg-6 h-100 d-flex justify-content-center">
@@ -34,6 +35,55 @@
             <div class="site-badge d-flex align-items-center">
                 <div class="opacity-75 text-white fw-medium">Powered by</div> <img src="<?php echo app_cdn_path; ?>img/logo-text.png" class="ms-2">
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Creating your NTT contracts... Modal -->
+<div class="modal fade" id="creatingNTT" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content pb-16 text-center">
+            <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" width="180" height="180" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>
+            <div class="fw-medium mt-3 text-center">Your NTT contracts are getting created on the blockchain. <br>
+We will redirect you once this step is completed. </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sending your NTTs... Modal -->
+<div class="modal fade" id="sendingNTTs" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content pb-16 text-center">
+            <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center">Sending your NTTs...</div>
+            <div class="fw-medium mt-3 text-center">Your NTTs should arrive in your wallet shortly.<br>
+We will redirect you once this step is completed. </div>
+        </div>
+    </div>
+</div>
+
+<!-- Let's schedule a call Modal -->
+<div class="modal fade" id="scheduleCall" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-16 text-center">
+            <img src="<?php echo app_cdn_path; ?>img/anim-lighthouse-circle.gif"  width="100" height="100" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center mt-6">Let's schedule a call to<br>
+get you set up!</div>
+            <div><button type="button" id="" class="btn btn-primary mt-16 px-10">Schedule</button></div>            
+        </div>
+    </div>
+</div>
+
+<!-- Congratulations! Modal -->
+<div class="modal fade" id="Congratulations" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content pb-16 text-center">
+            <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center">Congratulations!</div>
+            <div class="fw-medium mt-3 text-center">Your claim has been successfully submitted.</div>
+            <div><button type="button" id="" class="btn btn-primary mt-16 px-10">Okay</button></div>
         </div>
     </div>
 </div>
