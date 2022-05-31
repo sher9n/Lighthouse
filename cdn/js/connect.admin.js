@@ -29,6 +29,30 @@ function init() {
     });
 }
 
+async function fetchChangeData() {
+    // Get a Web3 instance for the wallet
+    const web3 = new Web3(provider);
+
+    // Get connected chain id from Ethereum node
+    const chainId = await web3.eth.getChainId();
+
+    // Load chain information over an HTTP API
+
+    const chainData = evmChains.getChain(chainId);
+    // Get list of accounts of the connected wallet
+
+    const accounts = await web3.eth.getAccounts();
+    // MetaMask does not give you all accounts, only the selected account
+
+    selectedAccount = accounts[0];
+
+    if (selectedAccount) {
+        //document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
+        document.querySelector("#wallet_address").value = selectedAccount;
+        $('#sendNewNttPop').modal('show');
+    }
+}
+
 async function fetchAccountData() {
     // Get a Web3 instance for the wallet
     const web3 = new Web3(provider);
@@ -59,11 +83,12 @@ async function fetchAccountData() {
         else
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
 
-        updateWalletMenu();
+        updateAdminSession();
     }
 }
 
-async function updateWalletMenu() {
+async function updateAdminSession() {
+
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
@@ -96,6 +121,18 @@ async function addWallet() {
     }
     add_nw_wallet = 1;
     await fetchAccountData();
+}
+
+async function changeWallet() {
+    try {
+        $("#sendNewNttPop").modal('hide');
+        provider = await web3Modal.connect();
+
+    } catch (e) {
+        return;
+    }
+    add_nw_wallet = 1;
+    await fetchChangeData();
 }
 
 async function onConnect() {

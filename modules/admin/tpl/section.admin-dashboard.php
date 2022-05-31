@@ -4,13 +4,13 @@
     <?php if($__page->first_admin_view == true){ ?>
         <section class="admin-body-section">
             <div class="container-fluid h-100">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+<!--                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <div class="d-flex align-items-center">
-                        <img src="<?php echo app_cdn_path; ?>img/icon-checked.png" height="20" class="me-6">
+                        <img src="<?php /*echo app_cdn_path; */?>img/icon-checked.png" height="20" class="me-6">
                         <div class="fw-medium">Success! Your transaction has been logged on-chain and the NTTs have been sent.</div>
                     </div>                    
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                </div>-->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="d-flex flex-column flex-xl-row justify-content-between mb-13">
@@ -41,13 +41,13 @@
                                             foreach ($__page->claims as $claim) { ?>
                                                 <tr>
                                                     <td class="text-center">                                                    
-                                                        <a href="send-ntt?adr=<?php echo $claim['wallet_adr']; ?>" class="send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>
+                                                        <a data-adr="<?php echo $claim['adr']; ?>" href="#" class="send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>
                                                     </td>
-                                                    <td><?php echo Utils::WalletAddressFormat($claim['wallet_adr']); ?></td>
-                                                    <td>8.4K</td>
+                                                    <td><?php echo Utils::WalletAddressFormat($claim['adr']); ?></td>
+                                                    <td><?php echo $claim['score']; ?></td>
                                                     <td>215</td>
-                                                    <td>35%</td>
-                                                    <td class="text-truncate text-max-width"><?php echo $claim['clm_tags']; ?></td>
+                                                    <td><?php echo $claim['perc']; ?>%</td>
+                                                    <td class="text-truncate text-max-width"><?php echo $claim['tags']; ?></td>
                                                 </tr>
                                             <?php } ?>
                                             </tbody>
@@ -101,7 +101,7 @@
     <div class="modal fade" id="sendNewNttPop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <form id="nttsNewForm" method="post" action="distribution" autocomplete="off">
+                <form id="nttsNewForm" method="post" action="send-ntts" autocomplete="off">
                     <div class="modal-body">
                         <div class="display-5 fw-medium">Send some NTTs</div>
                         <div class="fs-5 fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
@@ -110,26 +110,26 @@
                         <?php if($__page->solana == true){ ?>
                             <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
                         <?php }else{ ?>
-                            <a role="button" id="add_wallet" onclick="addWallet('#sendNewNttPop')" class="btn btn-light" href="#">Change Wallet</a>
+                            <a role="button" id="add_wallet" onclick="changeWallet()" class="btn btn-light" href="#">Change Wallet</a>
                         <?php } ?>
                         <div class="fs-5 fw-medium mt-18 mb-3">How many NTTs do you want to send?</div>
                         <div class="container-fluid">
                             <div class="row gap-3">
-                                <div class="col border rounded-3 py-3 px-7 fs-3 d-flex align-items-center">120</div>
+                                <input type="text" class="form-control form-control-lg mb-6 fs-3" name="ntts" id="ntts"  placeholder="100">
                                 <div class="col bg-light rounded-3 py-3 px-7">
                                     <div class="fs-3">4.5K</div>
-                                    <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">24</span><img src="img/arrow-up.png"></div>
+                                    <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
                                 </div>
                                 <div class="col bg-light rounded-3 py-3 px-7">
                                     <div class="fs-3">2.32K</div>
-                                    <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">2</span><img src="img/arrow-bottom.png"></div>
+                                    <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="fs-5 fw-medium mt-18 mb-3">What's the reason for this distribution?</div>
-                        <textarea class="form-control form-control-lg fs-3 fw-medium" id="" rows="2" placeholder=""></textarea>
+                        <textarea class="form-control form-control-lg fs-3" name="claim_reason" id="claim_reason" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
                         <div class="fs-5 fw-medium mt-18 mb-3">Tag this distribution to query it later.</div>
-                        <textarea class="form-control form-control-lg" id="" rows="2" placeholder=""></textarea>
+                        <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-bs-dismiss="modal">CANCEL</button>
@@ -146,6 +146,11 @@
 
     $(document).ready(function() {
 
+        $("#claim_tags").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
         $(document).on("click", '#sendNewNtt', function(event) {
             event.preventDefault();
             $('#sendNewNttPop').modal('show');
@@ -153,8 +158,36 @@
 
         $(document).on("click", '.send_ntt', function(event) {
             event.preventDefault();
-            var adr = $(this).attr('href');
+            var adr = $(this).data('adr');
+            $('#wallet_address').val(adr);
             $('#sendNewNttPop').modal('show');
+        });
+
+
+        $('#nttsNewForm').validate({
+            rules: {
+                ntts:{
+                    required: true
+                },
+                wallet_address:{
+                    required: true
+                }
+            },
+            submitHandler: function(form){
+                $(form).ajaxSubmit({
+                    type:'post',
+                    dataType:'json',
+                    success: function(data){
+                        if(data.success == true){
+                            window.location = 'admin-dashboard';
+                        }
+                        else{
+                            $('#'+data.element).addClass('form-control-lg error');
+                            $('<label class="error">'+data.msg+'</label>').insertAfter('#'+data.element);
+                        }
+                    }
+                });
+            }
         });
 
         if('<?php echo $__page->sel_wallet_adr; ?>' != sessionStorage.getItem("lh_sel_wallet_add"))

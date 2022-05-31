@@ -28,8 +28,31 @@ class controller extends Ctrl {
                 die();
             }
 
+            $claim_table = array();
             $domain = $site['sub_domain'];
-            $claims = Claim::find("SELECT c.id,c.clm_tags,com.wallet_adr,com.id FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE status=1 AND com.dao_domain='$domain'");
+            $claims = Claim::find("SELECT GROUP_CONCAT(IF(c.status='1', c.clm_tags,null)) as tags,c.wallet_adr,count(c.id) as count,SUM(if(c.status='1',1,0)) as completed FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE com.dao_domain='$domain' group by c.wallet_adr");
+            foreach ($claims as $claim) {
+                if($claim['completed'] > 0) {
+                    $tags = explode(',', $claim['tags']);
+                    $tem_tags = array();
+                    foreach ($tags as $tag) {
+                        if (isset($tem_tags[$tag]))
+                            $tem_tags[$tag] += 1;
+                        else
+                            $tem_tags[$tag] = 1;
+                    }
+                    $tag_string = array();
+                    foreach ($tem_tags as $key => $c)
+                        array_push($tag_string , $key.':'.$c);
+
+                    $claim_table[] = array(
+                        'tags' => implode(', ',$tag_string),
+                        'adr' => $claim['wallet_adr'],
+                        'score' =>  $claim['completed'],
+                        'perc' => round(($claim['completed']/$claim['count']) * 100)
+                    );
+                }
+            }
 
             $solana = false;
             if($community->blockchain == 'solana')
@@ -39,7 +62,7 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'site' => $site,
                 'first_admin_view' => (isset($_SESSION['lh_admin_view']) && $_SESSION['lh_admin_view'] == 0 )?true:false,
-                'claims' => $claims,
+                'claims' => $claim_table,
                 'solana' => $solana,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
