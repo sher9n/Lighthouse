@@ -4,7 +4,7 @@ use lighthouse\Claim;
 use lighthouse\Community;
 class controller extends Ctrl {
     function init() {
-        
+
         if($this->__lh_request->is_xmlHttpRequest) {
 
         }

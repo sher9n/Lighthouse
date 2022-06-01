@@ -87,7 +87,45 @@
                     dataType:'json',
                     success: function(data){
                         if(data.success == true){
-                            window.location = data.url;
+
+                            <?php
+                            if($__page->solana == true){
+                                ?>
+                                var url = "https://lighthouse-poc-seven.vercel.app/api/addSolPoints";
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", url);
+                                xhr.setRequestHeader("accept", "application/json");
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4) {
+                                        if (xhr.status == 200)
+                                            window.location = 'admin-ntts';
+                                        else
+                                            window.location = 'admin-ntts';
+                                    }
+                                };
+                                var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
+                                xhr.send(data);
+                                <?php
+                            }
+                            else{
+                                ?>
+                                var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.dao_domain+"/addPoints?key=<?php echo API_KEY;?>";
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", url);
+                                xhr.setRequestHeader("accept", "application/json");
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4) {
+                                        if (xhr.status == 200)
+                                            window.location = 'admin-ntts';
+                                        else
+                                            window.location = 'admin-ntts';
+                                    }};
+                                var data = `{"receiver": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
+                                xhr.send(data);
+                                <?php
+                            } ?>
                         }
                         else{
                             $('#'+data.element).addClass('form-control-lg error');

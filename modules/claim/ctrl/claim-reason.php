@@ -38,7 +38,15 @@ class controller extends Ctrl {
                 $claim->m_at        = date("Y-m-d H:i:s");;
                 $claim->update();
                 $_SESSION['lh_claim_id'] = null;
-                echo json_encode(array('success' => true, 'url' => '/'));
+
+                echo json_encode(array(
+                    'success' => true,
+                    'url' => 'claim',
+                    'wallet_adr' => MINT_ADDRESS,
+                    'to_wallet_adr' => $claim->wallet_adr,
+                    'amount' => $claim->ntts,
+                    'dao_domain' => app_site
+                ));
             }
             catch (Exception $e)
             {
@@ -64,9 +72,14 @@ class controller extends Ctrl {
             $image = $com->getClaimImages(true);
             $img_url = $image['claim_image_url'];
 
+            $solana = false;
+            if($com->blockchain == 'solana')
+                $solana = true;
+
             $__page = (object)array(
                 'title' => app_site,
                 'site' => $site,
+                'solana' => $solana,
                 'img_url' => $img_url ,
                 'claim' => $claim,
                 'sections' => array(

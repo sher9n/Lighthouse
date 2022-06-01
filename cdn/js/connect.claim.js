@@ -29,7 +29,7 @@ function init() {
     });
 }
 
-async function fetchAccountData(url=false) {
+async function fetchAccountData() {
     // Get a Web3 instance for the wallet
     const web3 = new Web3(provider);
 
@@ -75,7 +75,7 @@ async function addWallet() {
         return;
     }
     add_nw_wallet = 1;
-    await fetchAccountData(false,false);
+    await fetchAccountData();
 }
 
 async function onConnect() {
