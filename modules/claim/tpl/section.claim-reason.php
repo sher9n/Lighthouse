@@ -3,6 +3,7 @@
         background-image: url(<?php echo app_cdn_path. $__page->img_url; ?>);
     }
 </style>
+<link rel="stylesheet" href="<?php echo app_cdn_path; ?>css/js-snackbar.css" />
 <div class="container-fluid g-0 h-100">
     <div class="row g-0 h-100">
         <div class="col-lg-6 bg-white">
@@ -19,7 +20,8 @@
                                 <label for="claimCategorize" class="form-label">Add tags to categorize this claim</label>
                                 <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
                             </div>                            
-                    </div>
+                    </div>                    
+<button type=button class="button" onclick="demoContent();">Send Ping</button>
                     <div class="mt-auto border-top py-5 px-26">
                         <div class="d-flex justify-content-between">
                             <a role="button" class="btn btn-white" href="claim">Back</a>
@@ -44,10 +46,27 @@
 <div class="modal fade" id="creatingNTT" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content pb-16 text-center">
+            <img src="<?php echo app_cdn_path; ?>img/anim-ntts-create.gif" width="180" height="180" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>            
+        </div>
+    </div>
+</div>
+
+<!-- Contracts created Modal -->
+<div class="modal fade" id="contractsCreated" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content pb-16 text-center">
             <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" width="180" height="180" class="align-self-center">
-            <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>
-            <div class="fw-medium mt-3 text-center">Your NTT contracts are getting created on the blockchain. <br>
-We will redirect you once this step is completed. </div>
+            <div class="fs-2 fw-semibold text-center">Contracts created</div>
+            <div class="d-flex align-items-center justify-content-center mt-3">
+                <div class="">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
+                <i data-feather="copy" class="ms-3 text-primary"></i>
+                <i data-feather="copy" class="ms-3 text-primary"></i>
+            </div>
+            <div class="mt-16 d-flex justify-content-center gap-3">
+                <button type="button" id="" class="btn btn-dark px-10">NEXT</button>
+                <button type="submit" class="btn btn-primary d-flex align-items-center"><img src="<?php echo app_cdn_path; ?>img/logo-fox.png" class="me-2">Add to Metamask</button>
+            </div>
         </div>
     </div>
 </div>
@@ -57,26 +76,75 @@ We will redirect you once this step is completed. </div>
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content pb-16 text-center">
             <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
-            <div class="fs-2 fw-semibold text-center">Sending your NTTs...</div>
-            <div class="fw-medium mt-3 text-center">Your NTTs should arrive in your wallet shortly.<br>
-We will redirect you once this step is completed. </div>
+            <div class="fs-2 fw-semibold text-center">Sending your NTTs...</div>            
         </div>
     </div>
 </div>
 
-<!-- Let's schedule a call Modal -->
+<!-- Your NTTs have been sent Modal -->
+<div class="modal fade" id="yourSendingNTTs" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content pb-16 text-center">
+            <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center">Your NTTs have been sent</div>
+            <div class="mt-16 d-flex justify-content-center gap-3">
+                <button type="button" id="" class="btn btn-dark px-10">Go TO Admin Center</button>
+                <button type="button" id="" class="btn btn-primary px-10">View Transaction</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- wallet Modal -->
+<div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content p-2">
+            <a class="text-center link-modal" href="#" onclick="">
+                <img src="<?php echo app_cdn_path; ?>img/metamast-logo.svg" height="42">
+                <div class="modal-provider-name">MetaMask</div>
+                <div type="button"  class="modal-provider-description">Connect to your MetaMask Wallet</div>
+            </a>
+        
+        <hr class="dropdown-divider">
+        
+            <a class="text-center link-modal" href="#" onclick="">
+                <img src="<?php echo app_cdn_path; ?>img/walletconnect-logo.svg" height="42">
+                <div class="modal-provider-name">WalletConnect</div>
+                <div type="button"  class="modal-provider-description">Scan with WalletConnect to connect</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Sheran or Patrick will help Modal 
+<div class="modal fade" id="helpCall" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-16 text-center">
+            <img src="<?php echo app_cdn_path; ?>img/anim-lighthouse-circle.gif"  width="100" height="100" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center mt-6">Sheran or Patrick will help<br>
+you get setup!</div>
+            <div class="mt-16 d-flex justify-content-center gap-3">
+                <button type="button" id="" class="btn btn-dark px-10">Schedule a call</button>
+                <button type="button" id="" class="btn btn-primary px-10">Chat on Telegram</button>
+            </div>            
+        </div>
+    </div>
+</div>-->
+
+<!-- Let's schedule a call Modal 
 <div class="modal fade" id="scheduleCall" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-16 text-center">
             <img src="<?php echo app_cdn_path; ?>img/anim-lighthouse-circle.gif"  width="100" height="100" class="align-self-center">
             <div class="fs-2 fw-semibold text-center mt-6">Let's schedule a call to<br>
 get you set up!</div>
-            <div><button type="button" id="" class="btn btn-primary mt-16 px-10">Schedule</button></div>            
+            <div class="mt-16 "><button type="button" id="" class="btn btn-primary px-10">Schedule</button></div>            
         </div>
     </div>
-</div>
+</div>-->
 
-<!-- Congratulations! Modal -->
+<!-- Congratulations! Modal 
 <div class="modal fade" id="Congratulations" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content pb-16 text-center">
@@ -86,8 +154,9 @@ get you set up!</div>
             <div><button type="button" id="" class="btn btn-primary mt-16 px-10">Okay</button></div>
         </div>
     </div>
-</div>
+</div>-->
 <?php include_once app_root . '/templates/foot.php'; ?>
+<script src="<?php echo app_cdn_path; ?>js/js-snackbar.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function() {
@@ -123,4 +192,15 @@ get you set up!</div>
             }
         });
     });
+
+    function demoContent() {
+            SnackBar({
+                status: "success",
+                position: "br",
+                icon: "	 ",
+                timeout: 50000, // ms
+                //dismissible: false,
+                message: "Success! Your NTTs have been sent."
+            });
+        }
 </script>
