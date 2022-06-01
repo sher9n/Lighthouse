@@ -51,7 +51,15 @@ class controller extends Ctrl {
                 $claim->comunity_id = $community->id;
                 $claim->insert();
 
-                echo json_encode(array('success' => true, 'url' => 'admin-ntts'));
+                echo json_encode(array(
+                    'success' => true,
+                    'url' => 'admin-ntts',
+                    'wallet_adr' => MINT_ADDRESS,
+                    'to_wallet_adr' => $claim->wallet_adr,
+                    'amount' => $claim->ntts,
+                    'dao_domain' => app_site
+                ));
+
             }
             catch (Exception $e)
             {

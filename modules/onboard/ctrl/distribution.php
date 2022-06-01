@@ -58,7 +58,7 @@ class controller extends Ctrl {
                 echo json_encode(array(
                     'success' => true,
                     'url' => 'distribution',
-                    'wallet_adr' => 'Fp6Anh3zeSLki97Wje5hgEXBY6mS6zEG8h8e6U9xQWpz',
+                    'wallet_adr' => MINT_ADDRESS,
                     'to_wallet_adr' => $wallet_address,
                     'amount' => $ntts,
                     'dao_domain' => $community->dao_domain
