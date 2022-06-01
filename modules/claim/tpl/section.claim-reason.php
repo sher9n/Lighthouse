@@ -20,8 +20,8 @@
                                 <label for="claimCategorize" class="form-label">Add tags to categorize this claim</label>
                                 <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
                             </div>                            
-                    </div>                    
-<button type=button class="button" onclick="demoContent();">Send Ping</button>
+                    </div>                   
+
                     <div class="mt-auto border-top py-5 px-26">
                         <div class="d-flex justify-content-between">
                             <a role="button" class="btn btn-white" href="claim">Back</a>
