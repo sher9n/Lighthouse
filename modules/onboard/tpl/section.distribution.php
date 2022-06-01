@@ -157,7 +157,7 @@
 
                             <?php }else{ ?>
 
-                            var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.dao_domain+"/addPoints?key=8ccbb99eba0d3d12ca9ed97c6142f411db813064f5593cdf407bc7cb4ae6d4a8";
+                            var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.dao_domain+"/addPoints?key=<?php echo API_KEY;?>";
 
                             var xhr = new XMLHttpRequest();
                             xhr.open("POST", url);

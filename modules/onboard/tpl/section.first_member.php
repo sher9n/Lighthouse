@@ -115,7 +115,7 @@
                             if(data.blockchain == 'gnosis_chain') {
                                 $('#btn_add_metamask').data('symbol',data.symbol);
                                 $('#NttsGetting').modal('show');
-                                var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI?key=8ccbb99eba0d3d12ca9ed97c6142f411db813064f5593cdf407bc7cb4ae6d4a8";
+                                var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI?key=<?php echo API_KEY;?>";
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", url);
                                 xhr.setRequestHeader("accept", "application/json");

@@ -40,6 +40,7 @@ try {
         '/update-contract-address' => 'modules/onboard/ctrl/first_member.php',
         '/claim' => 'modules/claim/ctrl/claim.php',
         '/claim-reason' => 'modules/claim/ctrl/claim-reason.php',
+        '/claim-success' => 'modules/claim/ctrl/claim-success.php',
         '/wallet-menu' => 'modules/admin/ctrl/admin.php',
         '/admin' => 'modules/admin/ctrl/admin.php',
         '/admin-dashboard' => 'modules/admin/ctrl/admin-dashboard.php',
