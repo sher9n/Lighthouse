@@ -60,7 +60,8 @@ class controller extends Ctrl {
                     'url' => 'distribution',
                     'wallet_adr' => 'Fp6Anh3zeSLki97Wje5hgEXBY6mS6zEG8h8e6U9xQWpz',
                     'to_wallet_adr' => $wallet_address,
-                    'amount' => $ntts
+                    'amount' => $ntts,
+                    'dao_domain' => $community->dao_domain
                 ));
             }
             catch (Exception $e)

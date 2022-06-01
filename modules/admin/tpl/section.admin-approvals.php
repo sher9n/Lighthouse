@@ -35,11 +35,11 @@
                                                         <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                                     </div>
                                                     <div class="ms-8 col-7">
-                                                        <div class="fs-4 fw-semibold text-truncate">120 $LHP</div>
+                                                        <div class="fs-4 fw-semibold text-truncate"><?php echo $claim['ntts']; ?> nt<?php echo $claim['ticker']; ?></div>
                                                         <div class="fw-medium text-truncate"><?php echo $claim['wallet_adr']; ?></div>
-                                                        <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
+                                                        <div class="fw-medium text-muted mt-1">Last claim <?php echo Utils::time_elapsed_string($__page->claim_adrs[$claim['wallet_adr']]); ?></div>
                                                     </div>
-                                                    <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],true); ?></div>
+                                                    <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                                                 </a>
                                             </li>
                                         <?php
@@ -68,11 +68,11 @@
                                                         <img src="<?php echo app_cdn_path; ?>img/icon-dislike.svg" width="40" height="40">
                                                     </div>
                                                     <div class="ms-8 col-7">
-                                                        <div class="fs-4 fw-semibold text-truncate">120 $LHP</div>
+                                                        <div class="fs-4 fw-semibold text-truncate"><?php echo $claim['ntts']; ?> nt<?php echo $claim['ticker']; ?></div>
                                                         <div class="fw-medium text-truncate"><?php echo $claim['wallet_adr']; ?></div>
-                                                        <div class="fw-medium text-muted mt-1">Last claim 3 days ago</div>
+                                                        <div class="fw-medium text-muted mt-1">Last claim <?php echo Utils::time_elapsed_string($__page->claim_adrs[$claim['wallet_adr']]); ?></div>
                                                     </div>
-                                                    <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],true); ?></div>
+                                                    <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                                                 </a>
                                             </li>
                                             <?php

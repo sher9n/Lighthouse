@@ -48,7 +48,7 @@ async function fetchAccountData(url=false) {
 
     if (selectedAccount) {
         sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
-        document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
+        //document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
         document.querySelector("#wallet_address").value = selectedAccount;
         document.querySelector("#add_wallet").innerHTML = 'CHANGE WALLET';
 
@@ -62,11 +62,6 @@ async function fetchAccountData(url=false) {
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
         }
     }
-}
-
-async function checkAccountData() {
-    selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
-    document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
 }
 
 async function addWallet() {

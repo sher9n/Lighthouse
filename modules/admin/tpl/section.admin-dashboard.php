@@ -108,9 +108,9 @@
                         <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
                         <div class="fs-3 fw-semibold mb-3 text-break"></div>
                         <?php if($__page->solana == true){ ?>
-                            <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
+                            <a role="button" id="add_wallet" onclick="changeSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
                         <?php }else{ ?>
-                            <a role="button" id="add_wallet" onclick="changeWallet()" class="btn btn-light" href="#">Change Wallet</a>
+                            <a role="button" id="add_wallet" onclick="changeWallet(true)" class="btn btn-light" href="#">Change Wallet</a>
                         <?php } ?>
                         <div class="fs-5 fw-medium mt-18 mb-3">How many NTTs do you want to send?</div>
                         <div class="container-fluid">

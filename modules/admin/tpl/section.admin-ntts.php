@@ -13,9 +13,9 @@
                             <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
                             <div class="fs-3 fw-semibold mb-3 text-break"></div>
                             <?php if($__page->solana == true){ ?>
-                                <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
+                                <a role="button" id="add_wallet" onclick="changeSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
                             <?php }else{ ?>
-                                <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light" href="#">Change Wallet</a>
+                                <a role="button" id="add_wallet" onclick="changeWallet()" class="btn btn-light" href="#">Change Wallet</a>
                             <?php } ?>                            
                                 <div class="mt-16">
                                     <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
@@ -32,8 +32,7 @@
                             </div>
                         </div>
                         <div class="card-body border-top d-flex justify-content-end gap-3">
-                            <button type="button" class="btn btn-white">Deny</button>
-                            <button type="submit" class="btn btn-primary">Approve</button>
+                            <button type="submit" class="btn btn-primary">send reward </button>
                         </div>
                     </form>
                 </div>

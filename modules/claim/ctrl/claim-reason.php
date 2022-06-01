@@ -27,7 +27,7 @@ class controller extends Ctrl {
                 else
                     throw new Exception("claim_reason:Not a valid dao reason");
 
-                if($this->hasParam('claim_tags') && strlen($this->getParam('claim_tags')) > 0)
+                if($this->hasParam('claim_tags') && count($this->getParam('claim_tags')) > 0)
                     $tags = $this->getParam('claim_tags');
                 else
                     throw new Exception("claim_tags:Not a valid dao tags");

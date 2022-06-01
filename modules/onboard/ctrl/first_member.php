@@ -18,7 +18,11 @@ class controller extends Ctrl {
 
             if(__ROUTER_PATH =='/update-contract-address'){
                 $community = Community::get($_SESSION['lhc']['c_id']);
-                $community->contract_adr = $this->getParam('adr');
+                var_dump($_POST);exit();
+                $community->token_address = $this->getParam('token_address');
+                $community->community_address = $this->getParam('community_address');
+                $community->gas_address = $this->getParam('gas_address');
+                $community->gas_private_key = $this->getParam('gas_private_key');
                 $community->update();
                 echo json_encode(array('success' => true));
                 exit();

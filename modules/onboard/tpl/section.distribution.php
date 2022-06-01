@@ -27,8 +27,7 @@
                         <div class="text-muted mt-1">Send yourself some NTTs to test out Lighthouse</div>
                         <div class="mt-23">
                             <label class="form-label mb-4">Which wallet do you want to distribute NTTs to?</label>
-                            <input type="hidden" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
-                            <div id="sel_wallet_address" class="fs-3 fw-semibold mb-3 text-break"></div>
+                            <input type="text" class="form-control form-control-lg mb-6" name="wallet_address" id="wallet_address">
                             <?php if($__page->solana == true){ ?>
                                 <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light mt-6" href="#">Add Wallet</a>
                             <?php }else{ ?>
@@ -93,7 +92,7 @@
 
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
         if(selectedAccount) {
-            $("#sel_wallet_address").html(selectedAccount);
+            //$("#sel_wallet_address").html(selectedAccount);
             $("#wallet_address").val(selectedAccount);
             $('#add_wallet').html('CHANGE WALLET');
         }
@@ -136,9 +135,9 @@
                     success: function(data){
                         if(data.success == true){
 
-                            <?php if($__page->solana == true){ ?>
+                            $('#NttsGetting').modal('show');
 
-                                $('#NttsGetting').modal('show');
+                            <?php if($__page->solana == true){ ?>
 
                                 var url = "https://lighthouse-poc-seven.vercel.app/api/addSolPoints";
                                 var xhr = new XMLHttpRequest();
@@ -158,26 +157,25 @@
 
                             <?php }else{ ?>
 
-                                /*var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.wallet_adr+"/addPoints?key="+data.wallet_adr;
+                            var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.dao_domain+"/addPoints?key=8ccbb99eba0d3d12ca9ed97c6142f411db813064f5593cdf407bc7cb4ae6d4a8";
 
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", url);
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", url);
+                            xhr.setRequestHeader("accept", "application/json");
+                            xhr.setRequestHeader("Content-Type", "application/json");
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === 4) {
+                                    if (xhr.status == 200) {
+                                        $('#NttsGetting').modal('hide');
+                                        $('#NttsSccess').modal('show');
+                                    }
+                                }};
+                            var data = `{"receiver": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
+                            xhr.send(data);
 
-                                xhr.setRequestHeader("accept", "application/json");
-                                xhr.setRequestHeader("Content-Type", "application/json");
-
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4) {
-                                        console.log(xhr.status);
-                                        console.log(xhr.responseText);
-                                    }};
-
-                                var data = `{"receiver": "`+data.wallet_adr+`","amount": "`+data.amount+`"}`;
-
-                                xhr.send(data);*/
                             <?php } ?>
 
-                            Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});
+                            //Calendly.initPopupWidget({url: 'https://calendly.com/lighthouse_dao/onboarding'});
                         }
                         else{
                             $('#'+data.element).addClass('form-control-lg error');

@@ -28,8 +28,10 @@
                         <div class="mt-23">
                             <label for="DisplayName" class="form-label">Display name</label>
                             <input type="text" class="form-control form-control-lg" name="display_name" id="display_name" placeholder="Bob">
-                            <input type="hidden" class="form-control form-control-lg" name="wallet_address" id="wallet_address">
-                            <div id="sel_wallet_address" class="fs-3 fw-semibold mt-6 text-break"></div>
+                        </div>
+                        <div class="mt-23">
+                            <label for="DisplayName" class="form-label">Wallet address</label>
+                            <input type="text" class="form-control form-control-lg" name="wallet_address" id="wallet_address">
                             <?php if($__page->solana == true){ ?>
                                 <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light mt-6" href="#">Add Wallet</a>
                             <?php }else{ ?>
@@ -77,7 +79,6 @@
     $(document).ready(function(){
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
         if(selectedAccount) {
-            $("#sel_wallet_address").html(selectedAccount);
             $("#wallet_address").val(selectedAccount);
             $('#add_wallet').html('CHANGE WALLET');
         }
@@ -112,7 +113,6 @@
                     success: function(data){
                         if(data.success == true){
                             if(data.blockchain == 'gnosis_chain') {
-                                $('#btn_add_metamask').data('token',data.wallet_adr);
                                 $('#btn_add_metamask').data('symbol',data.symbol);
                                 $('#NttsGetting').modal('show');
                                 var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI?key=8ccbb99eba0d3d12ca9ed97c6142f411db813064f5593cdf407bc7cb4ae6d4a8";
@@ -124,13 +124,15 @@
                                     if (xhr.readyState === 4) {
                                         if (xhr.status == 200) {
                                             obj = JSON.parse(xhr.responseText);
-                                            updatecontractAddress(obj.contractAddress);
+                                            updatecontractAddress(obj);
+                                            $('#btn_add_metamask').data('token',obj.tokenAddress);
                                             $('#NttsGetting').modal('hide');
                                             $('#NttsSccess').modal('show');
                                         }
                                     }
                                 };
-                                var data = `{"initialAdmin": "` + data.wallet_adr + `","contractName": "` + data.dao_domain + `","tokenName": "` + data.dao_domain + `","tokenSymbol": "` + data.symbol + `","tokenDecimals": "` + data.decimal + `"}`;
+                                var data = `{"initialAdmin": "` + data.wallet_adr + `","contractName": "` + data.dao_domain + `","tokenName": "` + data.dao_domain + `","tokenSymbol": "` + data.symbol + `","tokenDecimals": "` + data.decimal + `","tankTopUpAmount": "`+ 0.0008 + `"}`;
+
                                 xhr.send(data);
                             }
                             else
@@ -146,8 +148,8 @@
         });
     });
 
-    async function updatecontractAddress(adr) {
-        var data = {'adr': adr};
+    async function updatecontractAddress(obj) {
+        var data = {'token_address': obj.tokenAddress,'community_address': obj.communityAddress,'gas_address':obj.gasTankInfo.address,'gas_private_key':obj.gasTankInfo.privateKey};
         $.ajax({
             url: 'update-contract-address',
             dataType: 'json',

@@ -49,7 +49,6 @@ async function fetchChangeData() {
     if (selectedAccount) {
         //document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
         document.querySelector("#wallet_address").value = selectedAccount;
-        $('#sendNewNttPop').modal('show');
     }
 }
 
@@ -123,9 +122,10 @@ async function addWallet() {
     await fetchAccountData();
 }
 
-async function changeWallet() {
+async function changeWallet(pop=false) {
     try {
-        $("#sendNewNttPop").modal('hide');
+        if(pop == true)
+            $("#sendNewNttPop").modal('hide');
         provider = await web3Modal.connect();
 
     } catch (e) {
@@ -133,6 +133,8 @@ async function changeWallet() {
     }
     add_nw_wallet = 1;
     await fetchChangeData();
+    if(pop == true)
+        $('#sendNewNttPop').modal('show');
 }
 
 async function onConnect() {

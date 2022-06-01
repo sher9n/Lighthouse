@@ -14,7 +14,7 @@ class Utils {
             return '';
     }
 
-   public static function time_elapsed_string($datetime, $full = false) {
+   public static function time_elapsed_string($datetime, $full = false,$date = false) {
         $now = new \DateTime;
         $ago = new \DateTime($datetime);
         $diff = $now->diff($ago);
@@ -22,25 +22,56 @@ class Utils {
         $diff->w = floor($diff->d / 7);
         $diff->d -= $diff->w * 7;
 
-        $string = array(
-            'y' => 'Y',
-            'm' => 'M',
-            'w' => 'W',
-            'd' => 'D',
-            'h' => 'h',
-            'i' => 'm',
-          //  's' => 'second',
-        );
-        foreach ($string as $k => &$v) {
-            if ($diff->$k) {
-                $v = $diff->$k . '' . $v ;
-            } else {
-                unset($string[$k]);
-            }
-        }
+        if($date == true ){
 
-        if (!$full) $string = array_slice($string, 0, 1);
-        return $string ? implode(' ', $string) . ' ago' : 'just now';
+            $string = array(
+                'y' => 'Y',
+                'm' => 'M',
+                'w' => 'W',
+                'd' => 'd',
+                'h' => 'h',
+                'i' => 'm',
+                's' => 's',
+            );
+
+            foreach ($string as $k => &$v) {
+                if ($diff->$k) {
+                    $v = $diff->$k . '' . $v ;
+                } else {
+                    unset($string[$k]);
+                }
+            }
+
+            if (!$full) $string = array_slice($string, 0, 1);
+
+            if($diff->days > 0)
+                return $ago->format('j F Y');
+            else
+                 return $string ? implode(' ', $string) . ' ago' : 'just now';
+        }
+        else {
+
+            $string = array(
+                'y' => 'year',
+                'm' => 'month',
+                'w' => 'week',
+                'd' => 'day',
+                'h' => 'hour',
+                'i' => 'minute',
+                's' => 'second',
+            );
+
+            foreach ($string as $k => &$v) {
+                if ($diff->$k) {
+                    $v = $diff->$k . ' ' . $v ;
+                } else {
+                    unset($string[$k]);
+                }
+            }
+
+            if (!$full) $string = array_slice($string, 0, 1);
+            return $string ? implode(' ', $string) . ' ago' : 'just now';
+        }
     }
 
     public static function lineBreak($review) {

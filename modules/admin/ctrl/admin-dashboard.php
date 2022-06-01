@@ -30,16 +30,18 @@ class controller extends Ctrl {
 
             $claim_table = array();
             $domain = $site['sub_domain'];
-            $claims = Claim::find("SELECT GROUP_CONCAT(IF(c.status='1', c.clm_tags,null)) as tags,c.wallet_adr,count(c.id) as count,SUM(if(c.status='1',1,0)) as completed FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE com.dao_domain='$domain' group by c.wallet_adr");
+            $claims = Claim::find("SELECT GROUP_CONCAT(IF(c.status='1', c.clm_tags,null)) as tags ,c.wallet_adr,sum(c.ntts) as score FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE c.status='1' AND com.dao_domain='$domain' group by c.wallet_adr");
             foreach ($claims as $claim) {
-                if($claim['completed'] > 0) {
+
                     $tags = explode(',', $claim['tags']);
                     $tem_tags = array();
                     foreach ($tags as $tag) {
-                        if (isset($tem_tags[$tag]))
-                            $tem_tags[$tag] += 1;
-                        else
-                            $tem_tags[$tag] = 1;
+                        if(strlen($tag) > 0) {
+                            if (isset($tem_tags[$tag]))
+                                $tem_tags[$tag] += 1;
+                            else
+                                $tem_tags[$tag] = 1;
+                        }
                     }
                     $tag_string = array();
                     foreach ($tem_tags as $key => $c)
@@ -48,10 +50,10 @@ class controller extends Ctrl {
                     $claim_table[] = array(
                         'tags' => implode(', ',$tag_string),
                         'adr' => $claim['wallet_adr'],
-                        'score' =>  $claim['completed'],
-                        'perc' => round(($claim['completed']/$claim['count']) * 100)
+                        'score' =>  $claim['score'],
+                        'perc' => 0
                     );
-                }
+
             }
 
             $solana = false;

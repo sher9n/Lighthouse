@@ -49,8 +49,13 @@ class controller extends Ctrl {
             }
 
             $domain = $site['sub_domain'];
-            $claims = Claim::find("SELECT c.id as c_id,c.clm_tags,c.c_at,com.wallet_adr,com.id as com_id FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE status=0 AND com.dao_domain='$domain'");
-            $a_claims = Claim::find("SELECT c.id as c_id,c.clm_tags,c.c_at,com.wallet_adr,com.id as com_id FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE status=1 AND com.dao_domain='$domain'");
+            $claim_adrs = array();
+            $addresses = Claim::find("SELECT max(c.c_at) as date,c.wallet_adr FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE com.dao_domain='$domain' GROUP BY wallet_adr");
+            foreach ($addresses as $address)
+                $claim_adrs[$address['wallet_adr']] = $address['date'];
+
+            $claims = Claim::find("SELECT c.id as c_id,c.c_at,c.wallet_adr,com.id,c.ntts,com.ticker FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE status=0 AND com.dao_domain='$domain'");
+            $a_claims = Claim::find("SELECT c.id as c_id,c.c_at,c.wallet_adr,com.id,c.ntts,com.ticker FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE status=1 AND com.dao_domain='$domain'");
 
             $__page = (object)array(
                 'title' => $site['site_name'],
@@ -58,6 +63,7 @@ class controller extends Ctrl {
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'claims' => $claims,
                 'a_claims' => $a_claims,
+                'claim_adrs' => $claim_adrs,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-approvals.php'
                 ),

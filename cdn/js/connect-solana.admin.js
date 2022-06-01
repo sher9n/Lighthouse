@@ -7,7 +7,19 @@ const getProvider = async () => {
     } else {
         console.log("No Solana wallet detected. Redirecting to Phantom.");
         window.open("https://www.phantom.app/", "_blank");
-    }};
+}};
+
+function changeSolanaAccount() {
+
+    getProvider().then(provider => {
+        if(provider) {
+            selectedAccount = provider.publicKey.toString();
+            document.querySelector("#wallet_address").value = selectedAccount;
+        }
+    }).catch(function(error) {
+        console.log(error)
+    });
+}
 
 function getSolanaAccount() {
 
