@@ -40,21 +40,22 @@
                             <div class="mt-16">
                                 <label for="Blockchain" class="form-label">Which blockchain would you like to issue your NTTs on?</label>
                                 <div class="dropdown">
+                                    <input type="hidden" name="blockchain" id="blockchain" value="gnosis_chain">
                                     <button class="btn btn-white dropdown-toggle d-flex justify-content-between align-items-center w-100" type="button" id="blockchain" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="d-flex align-items-center">
+                                    <div id="selected_blockchain" class="d-flex align-items-center">
                                         <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
                                         <div class="fs-3">Gnosis Chain</div>
                                     </div>
                                     </button>
                                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                                         <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <a data-val="gnosis_chain" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
                                                 <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
                                                 <div class="fs-3">Gnosis Chain</div>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <a data-val="solana" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
                                                 <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="me-3">
                                                 <div class="fs-3">Solana</div>
                                             </a>
@@ -110,6 +111,12 @@
             dao_name = dao_name.replace(/\s+/g, '-');
             $('#dao_domain').val(dao_name.toLowerCase());
             $('#ticker').val(dao_name.toUpperCase());
+        });
+
+        $(document).on("click", '.blockchain_item', function(event) {
+            sel_html = $(this).html();
+            $('#blockchain').val($(this).data('val'));
+            $('#selected_blockchain').html(sel_html);
         });
 
         $('#nttsForm').validate({
