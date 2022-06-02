@@ -52,6 +52,19 @@ class controller extends Ctrl {
                 }
                 exit();
             }
+            elseif (__ROUTER_PATH == '/delete-stewards') {
+                if($this->hasParam('id') && $this->hasParam('adr')) {
+                    $id  = $this->getParam('id');
+                    $adr = $this->getParam('adr');
+                    if(Steward::deleteSteward($id,$adr,$community_id))
+                        echo json_encode(array('success' => true,'stew_id' => $id));
+                    else
+                        echo json_encode(array('success' => false));
+                }
+                else
+                    echo json_encode(array('success' => false));
+                exit();
+            }
         }
         else {
 

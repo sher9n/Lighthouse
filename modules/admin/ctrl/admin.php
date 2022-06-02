@@ -9,16 +9,25 @@ class controller extends Ctrl {
             exit();
         }
 
+        $com = Community::getByDomain(app_site);
+
         if($this->__lh_request->is_xmlHttpRequest) {
 
             if(__ROUTER_PATH == '/wallet-menu' ) {
                 $selected_adr = $this->getParam('sel_add');
-                $_SESSION['lh_sel_wallet_adr'] = $selected_adr;
-                echo json_encode(array('success' => true));
+                if($com->isAdmin($selected_adr)) {
+                    $_SESSION['lh_sel_wallet_adr'] = $selected_adr;
+                    echo json_encode(array('success' => true));
+                }
+                else {
+                    $_SESSION['lh_sel_wallet_adr'] = null;
+                    $_SESSION['lighthouse'] = null;
+                    echo json_encode(array('success' => false));
+                }
                 exit();
             }
             else if(__ROUTER_PATH =='/disconnect_wallet') {
-                $com    = Community::getByDomain(app_site);
+
                 $solana = false;
                 if($com->blockchain == 'solana')
                     $solana = true;

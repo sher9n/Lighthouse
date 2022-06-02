@@ -21,6 +21,15 @@ class Steward{
             $this->_data[$name] = $value;
     }
 
+    public static function deleteSteward($id,$adr,$com_id) {
+        $connect = Ds::connect();
+        $items   = $connect->query("UPDATE stewards SET is_delete=1 WHERE comunity_id='$com_id' AND id='$id' AND wallet_adr='$adr'");
+        if($items == true)
+            return true;
+        else
+            return false;
+    }
+
     public static function get($id){
         $connect = Ds::connect();
         $items   = $connect->query("select * from stewards where id='$id' limit 1");
