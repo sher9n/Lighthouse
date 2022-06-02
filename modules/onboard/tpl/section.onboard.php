@@ -39,10 +39,32 @@
                             </div>
                             <div class="mt-16">
                                 <label for="Blockchain" class="form-label">Which blockchain would you like to issue your NTTs on?</label>
-                                <select class="form-select form-select-lg" name="blockchain" id="blockchain">
+                                <div class="dropdown">
+                                    <button class="btn btn-white dropdown-toggle d-flex justify-content-between align-items-center w-100" type="button" id="blockchain" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="d-flex align-items-center">
+                                        <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
+                                        <div class="fs-3">Gnosis Chain</div>
+                                    </div>
+                                    </button>
+                                    <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
+                                                <div class="fs-3">Gnosis Chain</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="me-3">
+                                                <div class="fs-3">Solana</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--<select class="form-select form-select-lg" name="blockchain" id="blockchain">
                                     <option value="gnosis_chain" selected>Gnosis Chain</option>
                                     <option value="solana">Solana</option>
-                                </select>
+                                </select>-->
                             </div>
                             <div class="mt-16">
                                 <label for="NTTCurrency" class="form-label">What ticker do you want to use for your NTT?</label>
