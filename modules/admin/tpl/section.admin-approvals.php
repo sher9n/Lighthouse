@@ -82,8 +82,8 @@
                                         ?>
                                         <div class="d-flex flex-column align-items-center justify-content-center h-100">
                                             <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                            <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your approved!</div>
-                                            <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
+                                            <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>
+it will show up here</div>
                                         </div>
                                         <?php
                                     } ?>

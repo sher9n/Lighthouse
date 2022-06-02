@@ -13,9 +13,10 @@
                 </div>-->
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="d-flex flex-column flex-xl-row justify-content-between mb-13">
-                            <input type="text" class="form-control form-search mb-6 mb-xl-0" id="dashboard_table_search"  placeholder="Search...">
-                            <button id="sendNewNtt" type="button" class="btn btn-primary">Send NTTs to a new member</button>
+                        <div class="d-flex flex-column flex-xl-row mb-13">
+                            <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto" id="dashboard_table_search"  placeholder="Search...">
+                            <button id="sendNewNtt" type="button" class="btn btn-dark me-xl-3 mb-3 mb-xl-0">Copy Claims LINK</button>
+                            <button id="sendNewNtt" type="button" class="btn btn-primary">Send NTTs</button>
                         </div>
                     </div>
                 </div>
@@ -86,9 +87,8 @@
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center justify-content-center h-100 border rounded">
                                     <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                    <div class="fs-2 fw-semibold mt-20">Welcome to your dashboard!</div>
-                                    <div class="fw-medium text-muted mt-4">To get started, please distribute some NTTs.</div>
-                                    <a role="button" class="btn btn-primary mt-18" href="admin-dashboard">Reward a new member</a>
+                                    <div class="fs-2 fw-semibold mt-20">To get started, send NTTs to your community.</div>
+                                    <a role="button" class="btn btn-primary mt-18" href="admin-dashboard">Send NTTs</a>
                                 </div>
                             </div>
                         </div>
