@@ -61,7 +61,6 @@
             <div class="d-flex align-items-center justify-content-center mt-3">
                 <div class="">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
                 <i data-feather="copy" class="ms-3 text-primary"></i>
-                <i data-feather="copy" class="ms-3 text-primary"></i>
             </div>
             <div class="mt-16 d-flex justify-content-center gap-3">
                 <button type="button" id="" class="btn btn-dark px-10">NEXT</button>
