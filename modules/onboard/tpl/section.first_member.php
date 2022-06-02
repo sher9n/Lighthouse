@@ -49,26 +49,27 @@
             </div>
         </form>
     </section>
-    <div class="modal show" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" height="180">
-                    <div class="fs-2 fw-semibold mt-15">Please wait...</div>
-                    <div class="fw-medium mt-3">Your NTTs are getting created.</div>
-                </div>
+            <div class="modal-content pb-16 text-center">
+                <img src="<?php echo app_cdn_path; ?>img/anim-ntts-create.gif"  width="180" height="180" class="align-self-center">
+                <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>
             </div>
         </div>
     </div>
-    <div class="modal show" id="NttsSccess" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="NttsSccess" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <img src="<?php echo app_cdn_path; ?>img/amin-ntts-sent.gif" height="180">
-                    <div class="fs-2 fw-semibold mt-15">Yay!</div>
-                    <div class="fw-medium mt-3">Your NTT contract has been created.</div>
-                    <a type="button" id="btn_success" href="#" class="btn btn-primary mt-20 px-10">Okay</a>
-                    <a type="button" data-token="" data-symbol="" id="btn_add_metamask" href="#" class="btn btn-primary mt-20 px-10">Add to MetaMask</a>
+            <div class="modal-content pb-16 text-center">
+                <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" width="180" height="180" class="align-self-center">
+                <div class="fs-2 fw-semibold text-center">Contracts created</div>
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                    <div id="com_address">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
+                    <i data-feather="copy" class="ms-3 text-primary"></i>
+                    <i data-feather="copy" class="ms-3 text-primary"></i>
+                </div>
+                <div class="mt-16 d-flex justify-content-center gap-3">
+                    <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>
+                    <button type="button" data-token="" data-symbol="" id="btn_add_metamask" class="btn btn-primary d-flex align-items-center"><img src="<?php echo app_cdn_path; ?>img/logo-fox.png" class="me-2">Add to Metamask</button>
                 </div>
             </div>
         </div>
@@ -77,18 +78,20 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function(){
+        $('#contractsCreated').modal('show');
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
         if(selectedAccount) {
             $("#wallet_address").val(selectedAccount);
             $('#add_wallet').html('CHANGE WALLET');
         }
 
-        $(document).on("click", '#btn_success', function(event) {
+        $(document).on("click", '#btn_next', function(event) {
             event.preventDefault();
             var element = $(this);
             window.location = 'distribution';
             $('#NttsSccess').modal('hide');
         });
+
 
         $(document).on("click", '#btn_add_metamask', function(event) {
             event.preventDefault();
@@ -106,7 +109,7 @@
                 }
             },
             submitHandler: function(form){
-
+                $('#NttsGetting').modal('show');
                 $(form).ajaxSubmit({
                     type:'post',
                     dataType:'json',
@@ -114,7 +117,6 @@
                         if(data.success == true){
                             if(data.blockchain == 'gnosis_chain') {
                                 $('#btn_add_metamask').data('symbol',data.symbol);
-                                $('#NttsGetting').modal('show');
                                 var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI?key=<?php echo API_KEY;?>";
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", url);
@@ -126,6 +128,7 @@
                                             obj = JSON.parse(xhr.responseText);
                                             updatecontractAddress(obj);
                                             $('#btn_add_metamask').data('token',obj.tokenAddress);
+                                            $('#com_address').html(obj.tokenAddress);
                                             $('#NttsGetting').modal('hide');
                                             $('#NttsSccess').modal('show');
                                         }

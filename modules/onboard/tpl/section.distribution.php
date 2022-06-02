@@ -61,26 +61,24 @@
             </div>
         </form>
     </section>
-    <div class="modal show" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" height="180">
-                    <div class="fs-2 fw-semibold mt-15">Please wait...</div>
-                    <div class="fw-medium mt-3">Your NTTs are getting created.</div>
-                </div>
+            <div class="modal-content pb-16 text-center">
+                <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
+                <div class="fs-2 fw-semibold text-center">Sending your NTTs...</div>
             </div>
         </div>
     </div>
-    <div class="modal show" id="NttsSccess" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="NttsSccess" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <img src="<?php echo app_cdn_path; ?>img/amin-ntts-sent.gif" height="180">
-                    <div class="fs-2 fw-semibold mt-15">Yay!</div>
-                    <div class="fw-medium mt-3">Your NTTs are sent.</div>
-                    <a type="button" id="btn_success" href="#" class="btn btn-primary mt-20 px-10">Okay</a>
+            <div class="modal-content pb-16 text-center">
+                <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
+                <div class="fs-2 fw-semibold text-center">Your NTTs have been sent</div>
+                <div class="mt-16 d-flex justify-content-center gap-3">
+                    <button type="button" id="go_to_admin" class="btn btn-dark px-10">Go TO Admin Center</button>
+                    <button type="button" id="view_transaction" class="btn btn-primary px-10">View Transaction</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -102,9 +100,14 @@
             tokenSeparators: [',', ' ']
         });
 
-        $(document).on("click", '#btn_success', function(event) {
+        $(document).on("click", '#go_to_admin', function(event) {
             event.preventDefault();
             window.location = '<?php echo $__page->admin_page; ?>';
+        });
+
+        $(document).on("click", '#view_transaction', function(event) {
+            event.preventDefault();
+            window.location = '<?php echo $__page->claim_page; ?>';
         });
 
         $(document).on("click", '#onboard_skip', function(event) {

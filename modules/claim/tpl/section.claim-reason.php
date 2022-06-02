@@ -64,38 +64,12 @@
                 <i data-feather="copy" class="ms-3 text-primary"></i>
             </div>
             <div class="mt-16 d-flex justify-content-center gap-3">
-                <button type="button" id="" class="btn btn-dark px-10">NEXT</button>
+                <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>
                 <button type="submit" class="btn btn-primary d-flex align-items-center"><img src="<?php echo app_cdn_path; ?>img/logo-fox.png" class="me-2">Add to Metamask</button>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Sending your NTTs... Modal -->
-<div class="modal fade" id="sendingNTTs" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content pb-16 text-center">
-            <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
-            <div class="fs-2 fw-semibold text-center">Sending your NTTs...</div>            
-        </div>
-    </div>
-</div>
-
-<!-- Your NTTs have been sent Modal -->
-<div class="modal fade" id="yourSendingNTTs" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content pb-16 text-center">
-            <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
-            <div class="fs-2 fw-semibold text-center">Your NTTs have been sent</div>
-            <div class="mt-16 d-flex justify-content-center gap-3">
-                <button type="button" id="" class="btn btn-dark px-10">Go TO Admin Center</button>
-                <button type="button" id="" class="btn btn-primary px-10">View Transaction</button>
-            </div>
-            
-        </div>
-    </div>
-</div>
-
 <!-- wallet Modal -->
 <div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -105,9 +79,7 @@
                 <div class="modal-provider-name">MetaMask</div>
                 <div type="button"  class="modal-provider-description">Connect to your MetaMask Wallet</div>
             </a>
-        
-        <hr class="dropdown-divider">
-        
+            <hr class="dropdown-divider">
             <a class="text-center link-modal" href="#" onclick="">
                 <img src="<?php echo app_cdn_path; ?>img/walletconnect-logo.svg" height="42">
                 <div class="modal-provider-name">WalletConnect</div>
@@ -181,46 +153,55 @@ get you set up!</div>
                     dataType:'json',
                     success: function(data){
                         if(data.success == true){
-
+                            var claim_id = data.claim_id;
                             <?php
-                            if($__page->solana == true){
-                                ?>
-                                var url = "https://lighthouse-poc-seven.vercel.app/api/addSolPoints";
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", url);
-                                xhr.setRequestHeader("accept", "application/json");
-                                xhr.setRequestHeader("Content-Type", "application/json");
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4) {
-                                        if (xhr.status == 200)
-                                            window.location = 'claim';
-                                        else
-                                            window.location = 'claim';
-                                    }
-                                };
-                                var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
-                                xhr.send(data);
-                                <?php
+                            if($__page->is_admin === true){
+                                if($__page->solana == true){
+                                    ?>
+                                    var url = "https://lighthouse-poc-seven.vercel.app/api/addSolPoints";
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("POST", url);
+                                    xhr.setRequestHeader("accept", "application/json");
+                                    xhr.setRequestHeader("Content-Type", "application/json");
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState === 4) {
+                                            if (xhr.status == 200) {
+                                                demoContent();
+                                                window.location = 'claim-success?id='+claim_id;
+                                            }
+                                            else
+                                                window.location = 'claim-success?id='+claim_id;
+                                        }
+                                    };
+                                    var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
+                                    xhr.send(data);
+                                    <?php
+                                }
+                                else{
+                                    ?>
+                                    var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.dao_domain+"/addPoints?key=<?php echo API_KEY;?>";
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("POST", url);
+                                    xhr.setRequestHeader("accept", "application/json");
+                                    xhr.setRequestHeader("Content-Type", "application/json");
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState === 4) {
+                                            if (xhr.status == 200) {
+                                                demoContent();
+                                                window.location = 'claim-success?id='+claim_id;
+                                            }
+                                            else
+                                                window.location = 'claim-success?id='+claim_id;
+                                        }};
+                                    var data = `{"receiver": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
+                                    xhr.send(data);
+                                    <?php
+                                }
                             }
-                            else{
-                                ?>
-                                var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.dao_domain+"/addPoints?key=<?php echo API_KEY;?>";
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", url);
-                                xhr.setRequestHeader("accept", "application/json");
-                                xhr.setRequestHeader("Content-Type", "application/json");
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4) {
-                                        if (xhr.status == 200)
-                                            window.location = 'claim';
-                                        else
-                                            window.location = 'claim';
-                                    }};
-                                var data = `{"receiver": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
-                                xhr.send(data);
+                            else{ ?>
+                                window.location = 'claim-success?id='+claim_id;
                                 <?php
                             } ?>
-
                         }
                         else{
                             $('#'+data.element).addClass('form-control-lg error');
@@ -237,8 +218,7 @@ get you set up!</div>
                 status: "success",
                 position: "br",
                 icon: "	 ",
-                timeout: 50000, // ms
-                //dismissible: false,
+                timeout: 50000,
                 message: "Success! Your NTTs have been sent."
             });
         }

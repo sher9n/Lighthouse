@@ -86,6 +86,7 @@ class controller extends Ctrl {
                 'community' => $community,
                 'solana' => $solana,
                 'admin_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz/admin',
+                'claim_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz',
                 'sections' => array(
                     __DIR__ . '/../tpl/section.distribution.php'
                 ),

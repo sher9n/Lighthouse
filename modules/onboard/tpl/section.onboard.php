@@ -42,7 +42,6 @@
                                 <select class="form-select form-select-lg" name="blockchain" id="blockchain">
                                     <option value="gnosis_chain" selected>Gnosis Chain</option>
                                     <option value="solana">Solana</option>
-                                    <option value="other">Other</option>
                                 </select>
                             </div>
                             <div class="mt-16">
