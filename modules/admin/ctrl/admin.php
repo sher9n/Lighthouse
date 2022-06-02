@@ -44,7 +44,6 @@ class controller extends Ctrl {
                 die();
             }
 
-            $_SESSION['lh_admin_view'] = 0;
             $com    = Community::getByDomain(app_site);
             $solana = false;
 

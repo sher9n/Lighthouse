@@ -99,9 +99,9 @@
                                 xhr.onreadystatechange = function () {
                                     if (xhr.readyState === 4) {
                                         if (xhr.status == 200)
-                                            window.location = 'admin-ntts';
+                                            showMessage('success',50000,'Success! Your NTTs have been sent.');
                                         else
-                                            window.location = 'admin-ntts';
+                                            showMessage('danger',50000,'Error! Your NTTs have not been sent.');
                                     }
                                 };
                                 var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
@@ -118,9 +118,9 @@
                                 xhr.onreadystatechange = function () {
                                     if (xhr.readyState === 4) {
                                         if (xhr.status == 200)
-                                            window.location = 'admin-ntts';
+                                            showMessage('success',50000,'Success! Your NTTs have been sent.');
                                         else
-                                            window.location = 'admin-ntts';
+                                            showMessage('danger',50000,'Error! Your NTTs have not been sent');
                                     }};
                                 var data = `{"receiver": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
                                 xhr.send(data);

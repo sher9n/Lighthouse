@@ -16,8 +16,8 @@
                 <?php }else{ ?>
                     <button type="button" id="add_wallet" onclick="addSolanaWallet()"  class="btn btn-primary mt-20 px-10">Connect Wallet</button>
                 <?php } ?>
-                <!--<div class="text-danger fw-medium mt-20">This wallet does not have access to MyDAO. <br>
-                    Please connect with a whitelisted wallet.</div>-->
+                <div id="whitelist_error" class="text-danger fw-medium mt-20 fade">This wallet does not have access to MyDAO. <br>
+                    Please connect with a whitelisted wallet.</div>
             </div>
         </div>
     </div>

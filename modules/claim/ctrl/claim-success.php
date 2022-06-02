@@ -24,11 +24,15 @@ class controller extends Ctrl {
             die();
         }
 
+        $image = $com->getClaimImages(true);
+        $img_url = $image['claim_image_url'];
+
         $__page = (object)array(
             'title' => app_site,
             'site' => $site,
+            'img_url' => $img_url ,
             'solana' => $solana,
-            'claim' => $claim,
+            'com' => $com,
             'sections' => array(
                 __DIR__ . '/../tpl/section.claim-success.php'
             ),

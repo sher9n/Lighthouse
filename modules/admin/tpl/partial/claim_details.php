@@ -26,7 +26,16 @@
         <label for="" class="form-label mt-18 mb-3">Reason</label>
         <textarea class="form-control form-control-lg fs-3" id="" rows="2" placeholder=""><?php echo $claim->clm_reason; ?></textarea>
         <label for="" class="form-label mt-18 mb-3">Tags</label>
-        <textarea class="form-control form-control-lg" id="" rows="2" placeholder=""><?php echo $claim->clm_tags; ?></textarea>
+        <!--<textarea class="form-control form-control-lg" id="" rows="2" placeholder=""><?php /*echo $claim->clm_tags; */?></textarea>-->
+        <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy">
+            <?php
+            if(strlen($claim->clm_tags) > 0){
+                $tags_arry = explode(",",$claim->clm_tags);
+                foreach ($tags_arry as $tag){?>
+                    <option selected="selected"><?php echo $tag;?></option>
+                <?php }
+            } ?>
+        </select>
     </div>
     <?php if($claim->status == 0){ ?>
     <div class="action_buttons card-body border-top d-flex justify-content-end gap-3">
@@ -35,3 +44,13 @@
     </div>
     <?php } ?>
 </div>
+<script>
+    $(document).ready(function() {
+
+        $("#claim_tags").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+    });
+</script>

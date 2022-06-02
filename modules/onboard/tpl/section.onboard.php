@@ -61,10 +61,6 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <!--<select class="form-select form-select-lg" name="blockchain" id="blockchain">
-                                    <option value="gnosis_chain" selected>Gnosis Chain</option>
-                                    <option value="solana">Solana</option>
-                                </select>-->
                             </div>
                             <div class="mt-16">
                                 <label for="NTTCurrency" class="form-label">What ticker do you want to use for your NTT?</label>

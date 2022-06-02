@@ -91,8 +91,10 @@
                     $('#delMember').modal('toggle');
                     if (data.success == true) {
                         $('.stew-'+data.stew_id).remove();
-                       // window.location = 'admin-stewards';
+                        showMessage('success',50000,'Success! Steward has been deleted.');
                     }
+                    else
+                        showMessage('danger',50000,'Error! Steward have not been deleted.');
                 }
             });
         }
@@ -113,6 +115,10 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#addMember').modal('toggle');
+                    if (data.success == true) {
+                        showMessage('success',50000,'Success! A New steward has been added.');
+                    else
+                        showMessage('danger',50000,'Error! A New steward have not been added.');
                     window.location = data.url;
                 }
             });

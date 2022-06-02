@@ -125,7 +125,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.success == true) {
-                            window.location = data.url;
+                            showMessage('success',50000,'Success! Your changes have been saved.');
                         } else {
                             $('#' + data.element).addClass('form-control-lg error');
                             $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);

@@ -104,7 +104,8 @@ async function updateAdminSession() {
             else {
                 sessionStorage.removeItem('lh_sel_wallet_add');
                 sessionStorage.removeItem('lh_wallet_adds');
-                window.location = 'admin';
+                $('#whitelist_error').removeClass('fade');
+                $("#AdminCenter").modal('show');
             }
         }
     });

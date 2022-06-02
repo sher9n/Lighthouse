@@ -63,7 +63,6 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
-                'first_admin_view' => (isset($_SESSION['lh_admin_view']) && $_SESSION['lh_admin_view'] == 0 )?true:false,
                 'claims' => $claim_table,
                 'solana' => $solana,
                 'sel_wallet_adr' => $sel_wallet_adr,
@@ -85,7 +84,6 @@ class controller extends Ctrl {
                 )
             );
 
-            $_SESSION['lh_admin_view'] = 0;
             require_once app_template_path . '/base.php';
             exit();
         }
