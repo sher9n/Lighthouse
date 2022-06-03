@@ -49,6 +49,7 @@ try {
         '/claim-details' => 'modules/admin/ctrl/admin-approvals.php',
         '/send-ntts' => 'modules/admin/ctrl/admin-ntts.php',
         '/admin-ntts' => 'modules/admin/ctrl/admin-ntts.php',
+        '/delete-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/add-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-integrations' => 'modules/admin/ctrl/admin-integrations.php',

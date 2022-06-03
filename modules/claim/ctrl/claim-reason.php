@@ -12,10 +12,12 @@ class controller extends Ctrl {
         else
             $claim = Claim::get($_SESSION['lh_claim_id']);
 
-        if(app_site == 'app' || !$claim instanceof Claim) {
-            header("Location: " . app_url);
+        $site = Auth::getSite();
+        if($site === false || !$claim instanceof Claim) {
+            header("Location: ".app_url);
             die();
         }
+        $com = Community::getByDomain($site['sub_domain']);
 
         if($this->__lh_request->is_xmlHttpRequest) {
             try {
@@ -41,7 +43,9 @@ class controller extends Ctrl {
 
                 echo json_encode(array(
                     'success' => true,
+                    'is_admin' => $com->isAdmin($claim->wallet_adr),
                     'url' => 'claim',
+                    'claim_id' => $claim->id,
                     'wallet_adr' => MINT_ADDRESS,
                     'to_wallet_adr' => $claim->wallet_adr,
                     'amount' => $claim->ntts,
@@ -62,13 +66,6 @@ class controller extends Ctrl {
         }
         else {
 
-            $site = Auth::getSite();
-            if($site === false) {
-                header("Location: https://lighthouse.xyz");
-                die();
-            }
-
-            $com = Community::getByDomain($site['sub_domain']);
             $image = $com->getClaimImages(true);
             $img_url = $image['claim_image_url'];
 
@@ -80,6 +77,7 @@ class controller extends Ctrl {
                 'title' => app_site,
                 'site' => $site,
                 'solana' => $solana,
+                'is_admin' => $com->isAdmin($claim->wallet_adr),
                 'img_url' => $img_url ,
                 'claim' => $claim,
                 'sections' => array(

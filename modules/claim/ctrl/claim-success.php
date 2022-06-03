@@ -4,29 +4,43 @@ use lighthouse\Claim;
 use lighthouse\Community;
 class controller extends Ctrl {
     function init() {
+        $claim = null;
+        if($this->hasParam('id'))
+            $claim = Claim::get($this->getParam('id'));
 
-        if($this->__lh_request->is_xmlHttpRequest) {
-
+        if(!$claim instanceof Claim){
+            header("Location: " . app_url);
+            die();
         }
-        else {
 
-            $site = Auth::getSite();
-            if($site === false) {
-                header("Location: https://lighthouse.xyz");
-                die();
-            }
+        $com    = Community::getByDomain(app_site);
+        $site   = Auth::getSite();
+        $solana = false;
+        if($com->blockchain == 'solana')
+            $solana = true;
 
-            $__page = (object)array(
-                'title' => app_site,
-                'site' => $site,
-                'sections' => array(
-                    __DIR__ . '/../tpl/section.claim-success.php'
-                ),
-                'js' => array()
-            );
-            require_once app_template_path . '/base.php';
-            exit();
+        if($site === false) {
+            header("Location: https://lighthouse.xyz");
+            die();
         }
+
+        $image = $com->getClaimImages(true);
+        $img_url = $image['claim_image_url'];
+
+        $__page = (object)array(
+            'title' => app_site,
+            'site' => $site,
+            'img_url' => $img_url ,
+            'solana' => $solana,
+            'com' => $com,
+            'sections' => array(
+                __DIR__ . '/../tpl/section.claim-success.php'
+            ),
+            'js' => array()
+        );
+        require_once app_template_path . '/base.php';
+        exit();
+
     }
 }
 ?>

@@ -49,6 +49,7 @@ class controller extends Ctrl {
 
                     if($this->hasParam('dao_domain') && strlen($this->getParam('dao_domain')) > 0) {
                         $dao_domain = $this->getParam('dao_domain');
+                        $dao_domain = strtolower(preg_replace("/\s+/", "-", $dao_domain));
                         $domain_check = Community::isExistsCommunity($dao_domain);
 
                         if ($domain_check === FALSE) {

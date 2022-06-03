@@ -101,6 +101,12 @@ async function updateAdminSession() {
             if (response.success == true) {
                 window.location = 'admin-dashboard';
             }
+            else {
+                sessionStorage.removeItem('lh_sel_wallet_add');
+                sessionStorage.removeItem('lh_wallet_adds');
+                $('#whitelist_error').removeClass('fade');
+                $("#AdminCenter").modal('show');
+            }
         }
     });
 }

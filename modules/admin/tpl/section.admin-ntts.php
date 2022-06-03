@@ -43,7 +43,7 @@
 </main>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content">
             <div class="modal-body text-center">
                 <img src="<?php echo app_cdn_path; ?>img/anim-lighthouse-circle.gif"  width="100" height="100" class="align-self-center">
@@ -99,9 +99,9 @@
                                 xhr.onreadystatechange = function () {
                                     if (xhr.readyState === 4) {
                                         if (xhr.status == 200)
-                                            window.location = 'admin-ntts';
+                                            showMessage('success',50000,'Success! Your NTTs have been sent.');
                                         else
-                                            window.location = 'admin-ntts';
+                                            showMessage('danger',50000,'Error! Your NTTs have not been sent.');
                                     }
                                 };
                                 var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
@@ -118,9 +118,9 @@
                                 xhr.onreadystatechange = function () {
                                     if (xhr.readyState === 4) {
                                         if (xhr.status == 200)
-                                            window.location = 'admin-ntts';
+                                            showMessage('success',50000,'Success! Your NTTs have been sent.');
                                         else
-                                            window.location = 'admin-ntts';
+                                            showMessage('danger',50000,'Error! Your NTTs have not been sent');
                                     }};
                                 var data = `{"receiver": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
                                 xhr.send(data);

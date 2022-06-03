@@ -1,16 +1,9 @@
 <?php use Core\Utils; ?>
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
-    <?php if($__page->first_admin_view == true){ ?>
+    <?php if(count($__page->claims) > 0 ){ ?>
         <section class="admin-body-section">
             <div class="container-fluid h-100">
-<!--                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <div class="d-flex align-items-center">
-                        <img src="<?php /*echo app_cdn_path; */?>img/icon-checked.png" height="20" class="me-6">
-                        <div class="fw-medium">Success! Your transaction has been logged on-chain and the NTTs have been sent.</div>
-                    </div>                    
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>-->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="d-flex flex-column flex-xl-row mb-13">
@@ -88,7 +81,7 @@
                                 <div class="d-flex flex-column align-items-center justify-content-center h-100 border rounded">
                                     <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
                                     <div class="fs-2 fw-semibold mt-20">To get started, send NTTs to your community.</div>
-                                    <a role="button" class="btn btn-primary mt-18" href="admin-dashboard">Send NTTs</a>
+                                    <a role="button" id="startSendNewNtt"  class="btn btn-primary mt-18" href="admin-dashboard">Send NTTs</a>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +144,7 @@
             tokenSeparators: [',', ' ']
         });
 
-        $(document).on("click", '#sendNewNtt', function(event) {
+        $(document).on("click", '#sendNewNtt, #startSendNewNtt, #retryNewNtt', function(event) {
             event.preventDefault();
             $('#sendNewNttPop').modal('show');
         });
@@ -178,7 +171,9 @@
                     type:'post',
                     dataType:'json',
                     success: function(data){
+                        $('#sendNewNttPop').modal('hide');
                         if(data.success == true){
+                            showMessage('warning',50000,'Pending... Your NTTs are being sent.');
                             <?php
                             if($__page->solana == true){
                                 ?>
@@ -190,9 +185,9 @@
                                 xhr.onreadystatechange = function () {
                                     if (xhr.readyState === 4) {
                                         if (xhr.status == 200)
-                                            window.location = 'admin-dashboard';
+                                            showMessage('success',50000,'Success! Your NTTs have been sent. <a hre="#">VIEW TRANSACTION</a>');
                                         else
-                                            window.location = 'admin-dashboard';
+                                            showMessage('danger',50000,'Error! Your NTTs have not been sent. <a id="retryNewNtt" hre="#">RETRY</a>');
                                     }
                                 };
                                 var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
@@ -209,9 +204,9 @@
                                 xhr.onreadystatechange = function () {
                                     if (xhr.readyState === 4) {
                                         if (xhr.status == 200)
-                                            window.location = 'admin-dashboard';
+                                            showMessage('success',50000,'Success! Your NTTs have been sent. <a hre="#">VIEW TRANSACTION</a>');
                                         else
-                                            window.location = 'admin-dashboard';
+                                            showMessage('danger',50000,'Error! Your NTTs have not been sent. <a id="retryNewNtt" hre="#">RETRY</a>');
                                     }};
                                 var data = `{"receiver": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
                                 xhr.send(data);

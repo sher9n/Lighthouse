@@ -16,10 +16,10 @@
                           <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
                       </div>
                       <?php foreach ($__page->stewards as $steward){ ;?>
-                        <div class="fw-medium mt-22"><?php echo $steward['display_name']; ?> </div>
-                        <div class="d-flex align-items-center">
+                        <div class="stew-<?php echo $steward['id']; ?> fw-medium mt-22"><?php echo $steward['display_name']; ?> </div>
+                        <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                             <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
-                            <a class="" href="#" data-bs-toggle="modal" data-bs-target="#delMember">
+                            <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
                                 <i data-feather="trash" class="text-danger"></i>
                             </a>
                         </div>
@@ -58,10 +58,12 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <div class="fs-2 fw-semibold mb-3">Hey, wait!</div>  
-        <div class="fw-medium mb-16">Are you sure you want to delete this wallet address?</div>
-        <button type="button" class="btn btn-white me-1" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+          <form id="user-deleteForm" method="post" action="#" autocomplete="off">
+            <div class="fs-2 fw-semibold mb-3">Hey, wait!</div>
+            <div class="fw-medium mb-16">Are you sure you want to delete this wallet address?</div>
+            <button type="button" class="btn btn-white me-1" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
       </div>      
     </div>
   </div>
@@ -71,6 +73,32 @@
 <script>
     feather.replace();
 
+
+    $(document).on('click', '.del_steward', function(event) {
+        event.preventDefault();
+        var element = $(this);
+        $("#user-deleteForm").attr('action', element.attr('href'));
+    });
+
+
+    $('#user-deleteForm').validate({
+        rules: {},
+        submitHandler: function(form) {
+            $(form).ajaxSubmit({
+                type: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    $('#delMember').modal('toggle');
+                    if (data.success == true) {
+                        $('.stew-'+data.stew_id).remove();
+                        showMessage('success',50000,'Success! Steward has been deleted.');
+                    }
+                    else
+                        showMessage('danger',50000,'Error! Steward have not been deleted.');
+                }
+            });
+        }
+    });
 
     $('#addStewardsForm').validate({
         rules: {
@@ -87,6 +115,10 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#addMember').modal('toggle');
+                    if (data.success == true) {
+                        showMessage('success',50000,'Success! A New steward has been added.');
+                    else
+                        showMessage('danger',50000,'Error! A New steward have not been added.');
                     window.location = data.url;
                 }
             });

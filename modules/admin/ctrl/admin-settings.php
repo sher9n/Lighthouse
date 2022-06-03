@@ -99,11 +99,11 @@ class controller extends Ctrl {
         else {
 
             $community = Community::getByDomain($site['sub_domain']);
-
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
                 'community' => $community,
+                'gas_tank_blanace' => Utils::getGasTankBalance(app_site),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-settings.php'

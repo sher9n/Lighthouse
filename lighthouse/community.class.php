@@ -21,6 +21,20 @@ class Community{
             $this->_data[$name] = $value;
     }
 
+    public function isAdmin($adr) {
+        if($this->_data['wallet_adr'] == $adr)
+            return true;
+        else {
+            $connect = Ds::connect();
+            $com_id = $this->_data['id'];
+            $items = $connect->query("select id from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND is_delete=0");
+            if ($items->num_rows > 0)
+                return true;
+            else
+                return false;
+        }
+    }
+
     public function getClaimImages($random=false) {
         $connect = Ds::connect();
         $id      = $this->_data['id'];

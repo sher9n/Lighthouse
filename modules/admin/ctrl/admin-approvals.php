@@ -25,7 +25,14 @@ class controller extends Ctrl {
                     else
                         $claim->status = 2;
                     $claim->update();
-                    echo json_encode(array('success' => true));
+
+                    echo json_encode(array(
+                        'success' => true,
+                        'wallet_adr' => MINT_ADDRESS,
+                        'to_wallet_adr' => $claim->wallet_adr,
+                        'amount' => $claim->ntts,
+                        'dao_domain' => app_site
+                    ));
                 }
                 else
                     echo json_encode(array('success' => false));

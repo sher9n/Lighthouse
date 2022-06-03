@@ -40,32 +40,28 @@
                             <div class="mt-16">
                                 <label for="Blockchain" class="form-label">Which blockchain would you like to issue your NTTs on?</label>
                                 <div class="dropdown">
-                                    <button class="btn btn-white dropdown-toggle d-flex justify-content-between align-items-center w-100" type="button" id="blockchain" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="d-flex align-items-center">
+                                    <input type="hidden" name="blockchain" id="blockchain" value="gnosis_chain">
+                                    <button class="btn btn-white dropdown-toggle d-flex justify-content-between align-items-center text-transform-inherit fw-normal w-100" type="button" id="blockchain" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div id="selected_blockchain" class="d-flex align-items-center">
                                         <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
                                         <div class="fs-3">Gnosis Chain</div>
                                     </div>
                                     </button>
                                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                                         <li class="border-bottom">
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <a data-val="gnosis_chain" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
                                                 <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Gnosis Chain</div>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <a data-val="solana" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
                                                 <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Solana</div>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                                <!--<select class="form-select form-select-lg" name="blockchain" id="blockchain">
-                                    <option value="gnosis_chain" selected>Gnosis Chain</option>
-                                    <option value="solana">Solana</option>
-                                    <option value="other">Other</option>
-                                </select>-->
                             </div>
                             <div class="mt-16">
                                 <label for="NTTCurrency" class="form-label">What ticker do you want to use for your NTT?</label>
@@ -86,6 +82,24 @@
         </form>
     </section>
 </main>
+<!-- wallet Modal -->
+<div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content p-2">
+            <a class="text-center link-modal" href="#" onclick="">
+                <img src="<?php echo app_cdn_path; ?>img/metamast-logo.svg" height="42">
+                <div class="modal-provider-name">MetaMask</div>
+                <div type="button"  class="modal-provider-description">Connect to your MetaMask Wallet</div>
+            </a>
+            <hr class="dropdown-divider">
+            <a class="text-center link-modal" href="#" onclick="">
+                <img src="<?php echo app_cdn_path; ?>img/walletconnect-logo.svg" height="42">
+                <div class="modal-provider-name">WalletConnect</div>
+                <div type="button"  class="modal-provider-description">Scan with WalletConnect to connect</div>
+            </a>
+        </div>
+    </div>
+</div>
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -117,6 +131,12 @@
             $('#ticker').val(dao_name.toUpperCase());
         });
 
+        $(document).on("click", '.blockchain_item', function(event) {
+            sel_html = $(this).html();
+            $('#blockchain').val($(this).data('val'));
+            $('#selected_blockchain').html(sel_html);
+        });
+
         $('#nttsForm').validate({
             rules: {
                 dao_name:{
@@ -143,4 +163,5 @@
             }
         });
     });
+
 </script>

@@ -94,11 +94,11 @@
                             <div class="text-muted mt-1">Send USDC (ERC-20) on the Gnosis chain to run Lighthouse gas-free for your community</div>
                             <div class="mt-23">
                                 <label class="form-label mb-4">Send to :</label>
-                                <div class="fs-3 fw-semibold">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
+                                <div class="fs-3 fw-semibold"><?php echo $__page->community->community_address; ?></div>
                              </div>
                             <div class="mt-16">
                                 <label class="form-label mb-4">Current balance :</label>
-                                <div class="fs-3 fw-semibold">$150 USDC (ERC-20)</div>
+                                <div class="fs-3 fw-semibold">Ξ<?php echo $__page->gas_tank_blanace; ?> (ERC-20)</div>
                             </div>
                             <a role="button" class="btn btn-primary mt-16" href="#">View Transactions</a>
                         </div>
@@ -125,7 +125,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.success == true) {
-                            window.location = data.url;
+                            showMessage('success',50000,'Success! Your changes have been saved.');
                         } else {
                             $('#' + data.element).addClass('form-control-lg error');
                             $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
