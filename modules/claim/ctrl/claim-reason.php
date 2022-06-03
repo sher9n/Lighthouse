@@ -83,9 +83,7 @@ class controller extends Ctrl {
                 'sections' => array(
                     __DIR__ . '/../tpl/section.claim-reason.php'
                 ),
-                'js' => array(
-                    'https://unpkg.com/feather-icons'
-                )
+                'js' => array()
             );
             require_once app_template_path . '/base.php';
             exit();

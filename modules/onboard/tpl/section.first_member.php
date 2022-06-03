@@ -64,7 +64,7 @@
                 <div class="fs-2 fw-semibold text-center">Contracts created</div>
                 <div class="d-flex align-items-center justify-content-center mt-3">
                     <input type="text" id="com_address" value="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
-                    <i data-feather="copy" id="copy_address" class="ms-3 text-primary">copy</i>
+                    <i data-feather="copy" id="copy_address" class="ms-3 text-primary"></i>
                 </div>
                 <div class="mt-16 d-flex justify-content-center gap-3">
                     <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>

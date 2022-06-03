@@ -70,7 +70,6 @@ class controller extends Ctrl {
                     __DIR__ . '/../tpl/section.admin-dashboard.php'
                 ),
                 'js' => array(
-                    'https://unpkg.com/feather-icons',
                     'https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js',
                     'https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js',
                     'https://unpkg.com/web3@1.2.11/dist/web3.min.js',
