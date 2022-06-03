@@ -127,7 +127,7 @@
                                             obj = JSON.parse(xhr.responseText);
                                             updatecontractAddress(obj);
                                             $('#btn_add_metamask').data('token',obj.tokenAddress);
-                                            $('#com_address').html(obj.tokenAddress);
+                                            $('#com_address').val(obj.tokenAddress);
                                             $('#NttsGetting').modal('hide');
                                             $('#NttsSccess').modal('show');
                                         }
