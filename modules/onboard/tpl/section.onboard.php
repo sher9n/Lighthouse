@@ -47,15 +47,15 @@
                                     </div>
                                     </button>
                                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
-                                        <li>
+                                        <li class="border-bottom">
                                             <a class="dropdown-item d-flex align-items-center" href="#">
-                                                <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
+                                                <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Gnosis Chain</div>
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item d-flex align-items-center" href="#">
-                                                <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="me-3">
+                                                <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Solana</div>
                                             </a>
                                         </li>
