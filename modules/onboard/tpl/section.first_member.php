@@ -37,10 +37,7 @@
                             <?php }else{ ?>
                                 <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
                             <?php } ?>
-                        </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#NttsSccess">
-  Launch demo modal
-</button>
+                        </div>                        
                     </div>
                 </div>
             </div>
