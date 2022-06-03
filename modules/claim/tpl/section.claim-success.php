@@ -11,7 +11,7 @@
                     <div class="display-5 fw-medium mt-25">Your claim has been successfully submitted!</div>
                     <div class="fs-3 mt-12">To view nt<?php echo $__page->com->ticker; ?> in your wallet, add the contract below.</div>
                     <div class="mt-12">
-                        <?php  if($__page->solana == true && strlen($__page->com->token_address) > 0){ ?>
+                        <?php  if($__page->solana == false && strlen($__page->com->token_address) > 0){ ?>
                         <button id="btn_add_metamask" type="submit" class="btn btn-primary d-flex align-items-center"><img src="<?php echo app_cdn_path; ?>img/logo-fox.png" class="me-2">Add to Metamask</button>
                         <?php } ?>
                     </div>
@@ -44,7 +44,7 @@
         $(document).on("click", '#btn_add_metamask', function(event) {
             event.preventDefault();
             var element = $(this);
-            addTokenFunction(<?php echo $__page->com->token_address; ?>,<?php echo $__page->com->ticker; ?>);
+            addTokenFunction('<?php echo $__page->com->token_address; ?>','<?php echo $__page->com->ticker; ?>');
         });
         <?php } ?>
     });
