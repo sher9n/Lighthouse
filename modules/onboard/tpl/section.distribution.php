@@ -31,7 +31,7 @@
                             <?php if($__page->solana == true){ ?>
                                 <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light mt-6" href="#">Add Wallet</a>
                             <?php }else{ ?>
-                                <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
+                                <a role="button" id="add_wallet" class="add_wallet btn btn-light mt-6" href="#">Add Wallet</a>
                             <?php } ?>
                         </div>
                         <div class="mt-16">
@@ -92,8 +92,12 @@
         if(selectedAccount) {
             //$("#sel_wallet_address").html(selectedAccount);
             $("#wallet_address").val(selectedAccount);
-            $('#add_wallet').html('CHANGE WALLET');
+            $('.add_wallet').html('CHANGE WALLET');
         }
+
+        $(document).on("click", '.add_wallet', function(event) {
+            $('#wallet').modal('show');
+        });
 
         $("#claim_tags").select2({
             tags: true,

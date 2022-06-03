@@ -40,6 +40,11 @@
 
     $(document).ready(function() {
 
+        if (sessionStorage.getItem('lh_claim_send')) {
+            sessionStorage.removeItem('lh_claim_send');
+            sendNtt();
+        }
+
         <?php if(strlen($__page->com->token_address) >0){ ?>
         $(document).on("click", '#btn_add_metamask', function(event) {
             event.preventDefault();
@@ -48,6 +53,16 @@
         });
         <?php } ?>
     });
+
+    function sendNtt() {
+        SnackBar({
+            status: "success",
+            position: "br",
+            icon: "	 ",
+            timeout: 50000,
+            message: "Success! Your NTTs have been sent."
+        });
+    }
 
     async function addTokenFunction(tokenAddress,tokenSymbol) {
         try {

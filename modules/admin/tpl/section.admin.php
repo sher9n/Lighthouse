@@ -12,7 +12,7 @@
                 <div class="fs-2 fw-semibold mt-15">MyDAO Admin Center</div>
                 <div class="fw-medium mt-3">To get started please connect a whitelisted wallet</div>
                 <?php if($__page->solana != true){ ?>
-                    <button type="button" id="add_wallet" onclick="addWallet()" class="btn btn-primary mt-20 px-10">Connect Wallet</button>
+                    <button type="button" id="add_wallet" class="add_wallet btn btn-primary mt-20 px-10">Connect Wallet</button>
                 <?php }else{ ?>
                     <button type="button" id="add_wallet" onclick="addSolanaWallet()"  class="btn btn-primary mt-20 px-10">Connect Wallet</button>
                 <?php } ?>
@@ -72,6 +72,11 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
     feather.replace();
+
+    $(document).on("click", '.add_wallet', function(event) {
+        $("#AdminCenter").modal('hide');
+        $('#wallet').modal('show');
+    });
 
     $(window).on('load', function() {
         $('#AdminCenter').modal('show');

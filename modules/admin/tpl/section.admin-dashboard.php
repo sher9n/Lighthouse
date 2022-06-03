@@ -103,7 +103,7 @@
                         <?php if($__page->solana == true){ ?>
                             <a role="button" id="add_wallet" onclick="changeSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
                         <?php }else{ ?>
-                            <a role="button" id="add_wallet" onclick="changeWallet(true)" class="btn btn-light" href="#">Change Wallet</a>
+                            <a role="button" id="add_wallet" class="add_wallet btn btn-light" href="#">Change Wallet</a>
                         <?php } ?>
                         <div class="fs-5 fw-medium mt-18 mb-3">How many NTTs do you want to send?</div>
                         <div class="container-fluid">
@@ -136,6 +136,11 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
     feather.replace();
+
+    $(document).on("click", '.add_wallet', function(event) {
+        $("#sendNewNttPop").modal('hide');
+        $('#admin_wallet').modal('show');
+    });
 
     $(document).ready(function() {
 

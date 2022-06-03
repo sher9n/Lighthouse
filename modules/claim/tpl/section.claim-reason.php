@@ -40,23 +40,29 @@
         </div>
     </div>
 </div>
-
-
-<!-- Creating your NTT contracts... Modal -->
-<div class="modal fade" id="creatingNTT" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content pb-16 text-center">
-            <img src="<?php echo app_cdn_path; ?>img/anim-ntts-create.gif" width="180" height="180" class="align-self-center">
-            <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>            
+            <img src="<?php echo app_cdn_path; ?>img/anim-ntts-create.gif"  width="180" height="180" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>
         </div>
     </div>
 </div>
-
-<!-- Contracts created Modal -->
-<div class="modal fade" id="contractsCreated" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+<!-- Creating your NTT contracts... Modal -->
+<!--<div class="modal fade" id="creatingNTT" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content pb-16 text-center">
-            <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" width="180" height="180" class="align-self-center">
+            <img src="<?php /*echo app_cdn_path; */?>img/anim-ntts-create.gif" width="180" height="180" class="align-self-center">
+            <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>            
+        </div>
+    </div>
+</div>-->
+
+<!-- Contracts created Modal -->
+<!--<div class="modal fade" id="contractsCreated" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content pb-16 text-center">
+            <img src="<?php /*echo app_cdn_path; */?>img/anim-please-wait.gif" width="180" height="180" class="align-self-center">
             <div class="fs-2 fw-semibold text-center">Contracts created</div>
             <div class="d-flex align-items-center justify-content-center mt-3">
                 <div class="">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
@@ -64,11 +70,11 @@
             </div>
             <div class="mt-16 d-flex justify-content-center gap-3">
                 <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>
-                <button type="submit" class="btn btn-primary d-flex align-items-center"><img src="<?php echo app_cdn_path; ?>img/logo-fox.png" class="me-2">Add to Metamask</button>
+                <button type="submit" class="btn btn-primary d-flex align-items-center"><img src="<?php /*echo app_cdn_path; */?>img/logo-fox.png" class="me-2">Add to Metamask</button>
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!-- Sheran or Patrick will help Modal 
 <div class="modal fade" id="helpCall" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -134,54 +140,8 @@ get you set up!</div>
                     success: function(data){
                         if(data.success == true){
                             var claim_id = data.claim_id;
-                            <?php
-                            if($__page->is_admin === true){
-                                if($__page->solana == true){
-                                    ?>
-                                    var url = "https://lighthouse-poc-seven.vercel.app/api/addSolPoints";
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.open("POST", url);
-                                    xhr.setRequestHeader("accept", "application/json");
-                                    xhr.setRequestHeader("Content-Type", "application/json");
-                                    xhr.onreadystatechange = function () {
-                                        if (xhr.readyState === 4) {
-                                            if (xhr.status == 200) {
-                                                demoContent();
-                                                window.location = 'claim-success?id='+claim_id;
-                                            }
-                                            else
-                                                window.location = 'claim-success?id='+claim_id;
-                                        }
-                                    };
-                                    var data = `{"mintAddress": "` + data.wallet_adr + `","to": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
-                                    xhr.send(data);
-                                    <?php
-                                }
-                                else{
-                                    ?>
-                                    var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/"+data.dao_domain+"/addPoints?key=<?php echo API_KEY;?>";
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.open("POST", url);
-                                    xhr.setRequestHeader("accept", "application/json");
-                                    xhr.setRequestHeader("Content-Type", "application/json");
-                                    xhr.onreadystatechange = function () {
-                                        if (xhr.readyState === 4) {
-                                            if (xhr.status == 200) {
-                                                demoContent();
-                                                window.location = 'claim-success?id='+claim_id;
-                                            }
-                                            else
-                                                window.location = 'claim-success?id='+claim_id;
-                                        }};
-                                    var data = `{"receiver": "` + data.to_wallet_adr + `","amount": "` + data.amount + `"}`;
-                                    xhr.send(data);
-                                    <?php
-                                }
-                            }
-                            else{ ?>
-                                window.location = 'claim-success?id='+claim_id;
-                                <?php
-                            } ?>
+                            sessionStorage.setItem("lh_claim_send", '1');
+                            window.location = 'claim-success?id='+claim_id;
                         }
                         else{
                             $('#'+data.element).addClass('form-control-lg error');
@@ -192,14 +152,4 @@ get you set up!</div>
             }
         });
     });
-
-    function demoContent() {
-            SnackBar({
-                status: "success",
-                position: "br",
-                icon: "	 ",
-                timeout: 50000,
-                message: "Success! Your NTTs have been sent."
-            });
-        }
 </script>

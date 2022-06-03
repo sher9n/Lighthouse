@@ -35,7 +35,7 @@
                             <?php if($__page->solana == true){ ?>
                                 <a role="button" id="add_wallet" onclick="getSolanaAccount()" class="btn btn-light mt-6" href="#">Add Wallet</a>
                             <?php }else{ ?>
-                                <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
+                                <a role="button" id="add_wallet" class="add_wallet btn btn-light mt-6" href="#">Add Wallet</a>
                             <?php } ?>
                         </div>                        
                     </div>
@@ -64,8 +64,8 @@
                 <div class="fs-2 fw-semibold text-center">Contracts created</div>
                 <div class="d-flex align-items-center justify-content-center mt-3">
                     <input type="text" id="com_address" class="form-control-copy" value="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507" hidden>
-                    <div class="text-break">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
-                    <i data-feather="copy" id="copy_address" class="ms-3 text-primary cursor-pointer"></i>
+                    <div id="com_address-div" class="text-break">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
+                    <div id="copied_div" data-toggle="manual" data-placement="top" title="copied!"><i data-feather="copy" id="copy_address" class="ms-3 text-primary cursor-pointer"></i></div>
                 </div>
                 <div class="mt-16 d-flex justify-content-center gap-3">
                     <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>
@@ -78,12 +78,21 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#contractsCreated').modal('show');
+
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
         if(selectedAccount) {
             $("#wallet_address").val(selectedAccount);
-            $('#add_wallet').html('CHANGE WALLET');
+            $('.add_wallet').html('CHANGE WALLET');
         }
+
+        $(document).on("click", '.add_wallet', function(event) {
+            $('#wallet').modal('show');
+        });
+
+        $(document).on("click", '#copy_address', function(event) {
+            copy_contract(document.getElementById("com_address"));
+            $('#copied_div').tooltip('show');
+        });
 
         $(document).on("click", '#btn_next', function(event) {
             event.preventDefault();
@@ -129,6 +138,7 @@
                                             updatecontractAddress(obj);
                                             $('#btn_add_metamask').data('token',obj.tokenAddress);
                                             $('#com_address').val(obj.tokenAddress);
+                                            $('#com_address-div').html(obj.tokenAddress);
                                             $('#NttsGetting').modal('hide');
                                             $('#NttsSccess').modal('show');
                                         }
@@ -151,58 +161,16 @@
         });
     });
 
-    $(document).on("click", '#copy_address', function(event) {
-        copy_contract(document.getElementById("com_address"));
-    });
-
     function copy_contract(elem) {
-        // create hidden text element, if it doesn't already exist
-        var targetId = "_hiddenCopyText_";
-        var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
         var origSelectionStart, origSelectionEnd;
-        if (isInput) {
-            // can just use the original source element for the selection and copy
-            target = elem;
-            origSelectionStart = elem.selectionStart;
-            origSelectionEnd = elem.selectionEnd;
-        } else {
-            // must use a temporary form element for the selection and copy
-            target = document.getElementById(targetId);
-            if (!target) {
-                var target = document.createElement("textarea");
-                target.style.position = "absolute";
-                target.style.left = "-9999px";
-                target.style.top = "0";
-                target.id = targetId;
-                document.body.appendChild(target);
-            }
-            target.textContent = elem.textContent;
-        }
-        // select the content
-        var currentFocus = document.activeElement;
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd   = elem.selectionEnd;
+        var currentFocus   = document.activeElement;
         target.focus();
-        target.setSelectionRange(0, target.value.length);
+        target.setSelectionRange(origSelectionStart, origSelectionEnd);
+        succeed = document.execCommand("copy");
 
-        // copy the selection
-        var succeed;
-        try {
-            succeed = document.execCommand("copy");
-        } catch(e) {
-            succeed = false;
-        }
-        // restore original focus
-        if (currentFocus && typeof currentFocus.focus === "function") {
-            currentFocus.focus();
-        }
-
-        if (isInput) {
-            // restore prior selection
-            elem.setSelectionRange(origSelectionStart, origSelectionEnd);
-        } else {
-            // clear temporary content
-            target.textContent = "";
-        }
-        return succeed;
     }
 
     async function updatecontractAddress(obj) {

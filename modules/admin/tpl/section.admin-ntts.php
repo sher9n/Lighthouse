@@ -15,7 +15,7 @@
                             <?php if($__page->solana == true){ ?>
                                 <a role="button" id="add_wallet" onclick="changeSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
                             <?php }else{ ?>
-                                <a role="button" id="add_wallet" onclick="changeWallet()" class="btn btn-light" href="#">Change Wallet</a>
+                                <a role="button" id="add_wallet" class="add_wallet btn btn-light" href="#">Change Wallet</a>
                             <?php } ?>                            
                                 <div class="mt-16">
                                     <label for="LHT" class="form-label">How many NTTs do you want to distribute?</label>
@@ -59,6 +59,11 @@
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
     feather.replace();
+
+    $(document).on("click", '.add_wallet', function(event) {
+        $("#sendNewNttPop").modal('hide');
+        $('#admin_wallet').modal('show');
+    });
 
     $(document).ready(function() {
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
