@@ -44,7 +44,7 @@
 
 <!-- Creating your NTT contracts... Modal -->
 <div class="modal fade" id="creatingNTT" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content pb-16 text-center">
             <img src="<?php echo app_cdn_path; ?>img/anim-ntts-create.gif" width="180" height="180" class="align-self-center">
             <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>            
@@ -54,7 +54,7 @@
 
 <!-- Contracts created Modal -->
 <div class="modal fade" id="contractsCreated" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content pb-16 text-center">
             <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" width="180" height="180" class="align-self-center">
             <div class="fs-2 fw-semibold text-center">Contracts created</div>

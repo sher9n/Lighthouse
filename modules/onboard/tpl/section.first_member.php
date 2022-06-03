@@ -29,7 +29,7 @@
                             <label for="DisplayName" class="form-label">Display name</label>
                             <input type="text" class="form-control form-control-lg" name="display_name" id="display_name" placeholder="Bob">
                         </div>
-                        <div class="mt-23">
+                        <div class="mt-16">
                             <label for="DisplayName" class="form-label">Wallet address</label>
                             <input type="text" class="form-control form-control-lg" name="wallet_address" id="wallet_address">
                             <?php if($__page->solana == true){ ?>
@@ -37,7 +37,7 @@
                             <?php }else{ ?>
                                 <a role="button" id="add_wallet" onclick="addWallet()" class="btn btn-light mt-6" href="#">Add Wallet</a>
                             <?php } ?>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
         </form>
     </section>
     <div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content pb-16 text-center">
                 <img src="<?php echo app_cdn_path; ?>img/anim-ntts-create.gif"  width="180" height="180" class="align-self-center">
                 <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>
@@ -58,13 +58,14 @@
         </div>
     </div>
     <div class="modal fade" id="NttsSccess" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content pb-16 text-center">
                 <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" width="180" height="180" class="align-self-center">
                 <div class="fs-2 fw-semibold text-center">Contracts created</div>
                 <div class="d-flex align-items-center justify-content-center mt-3">
-                    <input type="text" id="com_address" value="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
-                    <i data-feather="copy" id="copy_address" class="ms-3 text-primary"></i>
+                    <input type="text" id="com_address" class="form-control-copy" value="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507" hidden>
+                    <div class="text-break">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
+                    <i data-feather="copy" id="copy_address" class="ms-3 text-primary cursor-pointer"></i>
                 </div>
                 <div class="mt-16 d-flex justify-content-center gap-3">
                     <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>

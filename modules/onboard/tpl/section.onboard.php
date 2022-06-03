@@ -41,22 +41,22 @@
                                 <label for="Blockchain" class="form-label">Which blockchain would you like to issue your NTTs on?</label>
                                 <div class="dropdown">
                                     <input type="hidden" name="blockchain" id="blockchain" value="gnosis_chain">
-                                    <button class="btn btn-white dropdown-toggle d-flex justify-content-between align-items-center w-100" type="button" id="blockchain" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-white dropdown-toggle d-flex justify-content-between align-items-center text-transform-inherit fw-normal w-100" type="button" id="blockchain" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div id="selected_blockchain" class="d-flex align-items-center">
                                         <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
                                         <div class="fs-3">Gnosis Chain</div>
                                     </div>
                                     </button>
                                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
-                                        <li>
+                                        <li class="border-bottom">
                                             <a data-val="gnosis_chain" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
-                                                <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
+                                                <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Gnosis Chain</div>
                                             </a>
                                         </li>
                                         <li>
                                             <a data-val="solana" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
-                                                <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="me-3">
+                                                <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Solana</div>
                                             </a>
                                         </li>
