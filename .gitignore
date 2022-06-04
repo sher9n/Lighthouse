@@ -1,16 +1,16 @@
 
 # Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
-.idea
-.idea/*
+app/.elasticbeanstalk/*
+!app/.elasticbeanstalk/*.cfg.yml
+!app/.elasticbeanstalk/*.global.yml
+app/.idea
+app/.idea/*
 
-cdn/node_modules
-cdn/scss
+app/cdn/node_modules
+app/cdn/scss
 
-conf/config.inc.php
-conf/app.constants.inc.php
+app/conf/config.inc.php
+app/conf/app.constants.inc.php
 
-.idea/workspace.xml
-.htaccess
+app/.idea/workspace.xml
+app/.htaccess
