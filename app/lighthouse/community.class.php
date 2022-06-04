@@ -139,7 +139,7 @@ class Community{
     }
 
     public function getTickerImage() {
-        return  app_cdn_path.'instances/'.app_site.'/communities/'.$this->_data['ticker_img_url'];
+        return  app_cdn_path.'instances/'.app_site.'/ticker/'.$this->_data['ticker_img_url'];
     }
 
     public function update(array $updates = array())
@@ -199,8 +199,8 @@ class Community{
         try {
             $doman = $this->_data['dao_domain'];
             $amazons3 = new AmazonS3($doman);
-            $response = $amazons3->copyFile('https://lighthouse-cdn.s3.amazonaws.com/img/token_image.jpeg', 'instances/' . $doman . '/token_image.jpeg');
-            $ticker_img_url = 'instances/' . $doman . '/token_image.jpeg';
+            $response = $amazons3->copyFile('https://lighthouse-cdn.s3.amazonaws.com/img/token_image.jpeg', 'instances/' . $doman . '/ticker/token_image.jpeg');
+            $ticker_img_url = 'token_image.jpeg';
 
             $insert_sql = "UPDATE communities SET ticker_img_url='$ticker_img_url' WHERE id='$com_id'";
             $connect->query($insert_sql);

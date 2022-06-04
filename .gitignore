@@ -3,8 +3,8 @@
 app/.elasticbeanstalk/*
 !app/.elasticbeanstalk/*.cfg.yml
 !app/.elasticbeanstalk/*.global.yml
-app/.idea
-app/.idea/*
+.idea
+.idea/*
 
 app/cdn/node_modules
 app/cdn/scss

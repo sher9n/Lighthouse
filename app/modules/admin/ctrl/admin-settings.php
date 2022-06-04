@@ -55,8 +55,8 @@ class controller extends Ctrl {
 
                             $img_name = time();
                             $amazons3 = new AmazonS3(app_site);
-                            $url = $amazons3->uploadFile($ticker_imag->tmp_name, "communities/ticker-" . $img_name . '.' . pathinfo($ticker_imag->name, PATHINFO_EXTENSION));
-                            $community->ticker_img_url = 'ticker-' . $img_name . '.' . pathinfo($ticker_imag->name, PATHINFO_EXTENSION);
+                            $url = $amazons3->uploadFile($ticker_imag->tmp_name, "/ticker/token_image.jpeg");
+                            $community->ticker_img_url = 'token_image.jpeg';
                         }
                     }
 

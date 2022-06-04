@@ -62,7 +62,7 @@ class controller extends Ctrl {
                             'dao_name' => $community->dao_name,
                             'dao_domain' => $community->dao_domain,
                             'symbol' => 'nt'.$community->ticker,
-                            'image_url' => $community->ticker_img_url,
+                            'image_url' => $community->getTickerImage(),
                             'decimal' => 18,
                             'blockchain' => $community->blockchain
                         )
