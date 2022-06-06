@@ -215,7 +215,7 @@
                 data: data,
                 type: 'POST',
                 beforeSend: function() {
-                    showMessage('success',1000000,'Your NTTs are being sent.');
+                    showMessage('success',10000,'Your NTTs are being sent.');
                 },
                 success: function (data) {
                     if (data.success == true) {
