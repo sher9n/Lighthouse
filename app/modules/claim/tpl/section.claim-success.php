@@ -59,7 +59,7 @@
         $(document).on("click", '#btn_add_metamask', function(event) {
             event.preventDefault();
             var element = $(this);
-            addTokenFunction('<?php echo $__page->com->token_address; ?>','<?php echo $__page->com->ticker; ?>','<?php echo $__page->com->ticker_image_url; ?>');
+            addTokenFunction('<?php echo $__page->com->token_address; ?>','<?php echo $__page->com->ticker; ?>','<?php echo $__page->ticker_image_url; ?>');
         });
         <?php } ?>
     });
@@ -84,7 +84,7 @@
                         address: tokenAddress,
                         symbol: tokenSymbol,
                         decimals: 18,
-                        image: image_url,
+                        image: image_url
                     },
                 },
             });
