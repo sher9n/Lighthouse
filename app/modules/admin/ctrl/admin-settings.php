@@ -50,7 +50,7 @@ class controller extends Ctrl {
                             if (!Utils::isValidImageSize($ticker_imag->size))
                                 throw new Exception("ticker_imag:Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE );
 
-                            if(pathinfo($ticker_imag->name, PATHINFO_EXTENSION) != '.jpeg')
+                            if(pathinfo($ticker_imag->name, PATHINFO_EXTENSION) != 'jpeg')
                                 throw new Exception("ticker_imag:Invalid file extension. File extension should be jpeg");
 
                             $img_name = time();
@@ -71,7 +71,7 @@ class controller extends Ctrl {
 
                                     $amazons3 = new AmazonS3(app_site);
                                     $img_name = time() . '-' . $index;
-                                    $url = $amazons3->uploadFile($image->tmp_name, "communities/claim-" . $img_name . '.' . pathinfo($image->name, PATHINFO_EXTENSION));
+                                    $t_url = $amazons3->uploadFile($image->tmp_name, "communities/claim-" . $img_name . '.' . pathinfo($image->name, PATHINFO_EXTENSION));
                                     $url = 'instances/' . app_site . '/communities/claim-' . $img_name . '.' . pathinfo($image->name, PATHINFO_EXTENSION);
                                     array_push($claim_images, $url);
                                 }
@@ -84,7 +84,7 @@ class controller extends Ctrl {
                     }
 
                     $community->update();
-                    echo json_encode(array('success' => true, 'url' => 'admin-settings'));
+                    echo json_encode(array('success' => true, 'url' => 'admin-settings','t_url' => $t_url));
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());
                     $element = 'error-msg';

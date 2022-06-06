@@ -200,7 +200,7 @@
                         address: tokenAddress,
                         symbol: tokenSymbol,
                         decimals: 18,
-                        image: '<?php echo app_cdn_path; ?>'+image,
+                        image: image,
                     },
                 },
             });

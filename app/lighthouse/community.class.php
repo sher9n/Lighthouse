@@ -139,7 +139,8 @@ class Community{
     }
 
     public function getTickerImage() {
-        return  app_cdn_path.'instances/'.app_site.'/ticker/'.$this->_data['ticker_img_url'];
+        $dao_domain = $this->_data["dao_domain"];
+        return  app_cdn_path.'instances/'.$dao_domain.'/ticker/token_image.jpeg';
     }
 
     public function update(array $updates = array())
