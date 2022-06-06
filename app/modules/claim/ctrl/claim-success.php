@@ -32,6 +32,7 @@ class controller extends Ctrl {
             'site' => $site,
             'img_url' => $img_url ,
             'solana' => $solana,
+            'ticker_image_url' => $com->getTickerImage(),
             'com' => $com,
             'sections' => array(
                 __DIR__ . '/../tpl/section.claim-success.php'
