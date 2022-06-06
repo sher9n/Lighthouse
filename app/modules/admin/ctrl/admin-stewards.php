@@ -40,6 +40,7 @@ class controller extends Ctrl {
                     $steward->wallet_adr = $wallet_address;
                     $steward->display_name = $display_name;
                     $steward->insert();
+
                     echo json_encode(array('success' => true, 'url' => 'admin-stewards'));
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());

@@ -113,7 +113,7 @@
 
         $(document).on("click", '#view_transaction', function(event) {
             event.preventDefault();
-            window.location = '<?php echo KOVAN_OPT_LINK; ?>'+$(this).data('tr_id');
+            window.open('<?php echo KOVAN_OPT_LINK; ?>'+$(this).data('tr_id'), '_blank');
         });
 
         $(document).on("click", '#onboard_skip', function(event) {

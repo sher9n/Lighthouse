@@ -9,14 +9,14 @@
         <div class="modal-content">
             <div class="modal-body text-center">
                 <img src="<?php echo app_cdn_path; ?>img/anim-lighthouse-circle.gif"  width="100" height="100" class="align-self-center">
-                <div class="fs-2 fw-semibold mt-15">MyDAO Admin Center</div>
+                <div class="fs-2 fw-semibold mt-15"><?php echo $__page->dao_name; ?> Admin Center</div>
                 <div class="fw-medium mt-3">To get started please connect a whitelisted wallet</div>
                 <?php if($__page->solana != true){ ?>
                     <button type="button" id="add_wallet" class="add_wallet btn btn-primary mt-20 px-10">Connect Wallet</button>
                 <?php }else{ ?>
                     <button type="button" id="add_wallet" onclick="addSolanaWallet()"  class="btn btn-primary mt-20 px-10">Connect Wallet</button>
                 <?php } ?>
-                <div id="whitelist_error" class="text-danger fw-medium mt-20 d-none">This wallet does not have access to MyDAO. <br>
+                <div id="whitelist_error" class="text-danger fw-medium mt-20 d-none">This wallet does not have access to <?php echo $__page->dao_name; ?>. <br>
                     Please connect with a whitelisted wallet.</div>
             </div>
         </div>

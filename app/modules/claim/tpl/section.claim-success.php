@@ -10,15 +10,15 @@
                 <div class="px-26">
                     <div class="display-5 fw-medium mt-25">Your claim has been successfully submitted!</div>
                     <div class="fs-3 mt-12">To view nt<?php echo $__page->com->ticker; ?> in your wallet, add the contract below.</div>
+                    <?php  if($__page->solana == false && strlen($__page->com->token_address) > 0){ ?>
                     <div class="mt-12">
-                        <?php  if($__page->solana == false && strlen($__page->com->token_address) > 0){ ?>
                         <button id="btn_add_metamask" type="submit" class="btn btn-primary d-flex align-items-center"><img src="<?php echo app_cdn_path; ?>img/logo-fox.png" class="me-2">Add to Metamask</button>
-                        <?php } ?>
                     </div>
                     <div class="mt-16">
                         <label for="claimCategorize" class="form-label">Or add ntMyDAO manually:</label>
                         <div class="d-flex align-items-center"><span class="fw-medium fs-3 text-break" id="com_address_div"><?php echo $__page->com->token_address; ?></span><div id="copied_div" trigger="manual" data-placement="top" title="copied!"><i data-feather="copy" id="copy_address" class="ms-3 text-primary"></i></div></div>
                     </div>
+                    <?php } ?>
                 </div>
                 <div class="mt-auto border-top py-5 px-26">
                     <div class="d-flex justify-content-end">
@@ -59,7 +59,7 @@
         $(document).on("click", '#btn_add_metamask', function(event) {
             event.preventDefault();
             var element = $(this);
-            addTokenFunction('<?php echo $__page->com->token_address; ?>','<?php echo $__page->com->ticker; ?>');
+            addTokenFunction('<?php echo $__page->com->token_address; ?>','<?php echo $__page->com->ticker; ?>','<?php echo $__page->ticker_image_url; ?>');
         });
         <?php } ?>
     });
@@ -70,11 +70,11 @@
             position: "br",
             icon: "	 ",
             timeout: 50000,
-            message: "Success! Your claim are being sent."
+            message: "Success! Your claim has been being sent."
         });
     }
 
-    async function addTokenFunction(tokenAddress,tokenSymbol) {
+    async function addTokenFunction(tokenAddress,tokenSymbol,image_url) {
         try {
             const wasAdded = await ethereum.request({
                 method: 'wallet_watchAsset',
@@ -84,7 +84,7 @@
                         address: tokenAddress,
                         symbol: tokenSymbol,
                         decimals: 18,
-                        image: '<?php echo app_cdn_path; ?>img/token_image.jpeg',
+                        image: image_url
                     },
                 },
             });
