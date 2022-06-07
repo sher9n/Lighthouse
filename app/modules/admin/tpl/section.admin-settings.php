@@ -21,8 +21,15 @@
                                     ?>
                                     <div class="col-xl-6">
                                         <label for="" class="form-label">Blockchain</label>
-                                            <input type="text" class="form-control form-control-lg mb-6" id="blockchain" name="blockchain"
-                                             readonly value="<?php echo $block_chain[$__page->community->blockchain]; ?>">
+                                        <div id="selected_blockchain" class="d-flex align-items-center">
+                                            <?php if($__page->community->blockchain != 'solana'){ ?>
+                                                <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
+                                                <div class="fs-3">Gnosis Chain</div>
+                                            <?php }else{ ?>
+                                                <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
+                                                <div class="fs-3">Solana</div>
+                                            <?php } ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row mt-xl-12">

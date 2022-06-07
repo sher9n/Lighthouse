@@ -140,7 +140,7 @@ class Community{
 
     public function getTickerImage() {
         $dao_domain = $this->_data["dao_domain"];
-        return  app_cdn_path.'instances/'.$dao_domain.'/ticker/token_image.jpeg';
+        return  'https://lighthouse-cdn.s3.amazonaws.com/instances/'.$dao_domain.'/ticker/token_image.jpeg';
     }
 
     public function update(array $updates = array())

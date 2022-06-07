@@ -50,13 +50,15 @@ class controller extends Ctrl {
                             if (!Utils::isValidImageSize($ticker_imag->size))
                                 throw new Exception("ticker_imag:Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE );
 
-                            if(pathinfo($ticker_imag->name, PATHINFO_EXTENSION) != 'jpeg')
+                            if(pathinfo($ticker_imag->name, PATHINFO_EXTENSION) == 'jpeg' || pathinfo($ticker_imag->name, PATHINFO_EXTENSION) == 'jpg'){
+                                $img_name = time();
+                                $amazons3 = new AmazonS3(app_site);
+                                $t_url = $amazons3->uploadFile($ticker_imag->tmp_name, "ticker/token_image.jpeg");
+                                $community->ticker_img_url = 'token_image.jpeg';
+                            }
+                            else
                                 throw new Exception("ticker_imag:Invalid file extension. File extension should be jpeg");
 
-                            $img_name = time();
-                            $amazons3 = new AmazonS3(app_site);
-                            $t_url = $amazons3->uploadFile($ticker_imag->tmp_name, "ticker/token_image.jpeg");
-                            $community->ticker_img_url = 'token_image.jpeg';
                         }
                     }
 
@@ -112,13 +114,9 @@ class controller extends Ctrl {
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-settings.php'
                 ),
-                'js' => array(
-                    app_cdn_path.'js/wallet.connect.admin.js',
-                    app_cdn_path.'js/connect-solana.admin.js',
-                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js'
-                )
+                'js' => array()
             );
-            require_once app_template_path . '/base.php';
+            require_once app_template_path . '/admin-base.php';
             exit();
         }
     }

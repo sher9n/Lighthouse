@@ -30,7 +30,7 @@ class controller extends Ctrl {
                         $api_response = api::gnosis_addPoints(app_site,$claim->wallet_adr,$claim->ntts);
 
                     if(isset($api_response->error)) {
-                        echo json_encode(array('success' => false,'message' =>'Error! Your NTTs have not been sent. <a id="retryNewNtt" hre="#">RETRY</a>'));
+                        echo json_encode(array('success' => false,'message' =>'Error! Your NTTs have not been sent. <a class="text-white ms-1" id="retryNewNtt" hre="#">RETRY</a>'));
                         exit();
                     }
                     else {
@@ -44,7 +44,7 @@ class controller extends Ctrl {
                         $claim->chainId = $api_response->chainId;
                         $claim->update();
 
-                        echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a target="_blank" href="'.KOVAN_OPT_LINK.$claim->txHash.'"> VIEW TRANSACTION</a>'));
+                        echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.KOVAN_OPT_LINK.$claim->txHash.'"> VIEW TRANSACTION</a>'));
                     }
                 }
                 else
@@ -102,13 +102,9 @@ class controller extends Ctrl {
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-approvals.php'
                 ),
-                'js' => array(
-                    app_cdn_path.'js/wallet.connect.admin.js',
-                    app_cdn_path.'js/connect-solana.admin.js',
-                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js'
-                )
+                'js' => array()
             );
-            require_once app_template_path . '/base.php';
+            require_once app_template_path . '/admin-base.php';
             exit();
         }
     }

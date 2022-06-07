@@ -39,7 +39,7 @@ class controller extends Ctrl {
             ),
             'js' => array()
         );
-        require_once app_template_path . '/base.php';
+        require_once app_template_path . '/claim-base.php';
         exit();
 
     }

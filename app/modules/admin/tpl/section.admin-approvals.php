@@ -224,7 +224,7 @@
                         next.trigger("click");
                     }
                     else
-                        showMessage('danger',10000,data.message);
+                        showMessage('danger',100000,data.message);
                 }
             });
         });

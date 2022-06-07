@@ -103,12 +103,7 @@ class controller extends Ctrl {
                 'sections' => array(
                     __DIR__ . '/../tpl/section.distribution.php'
                 ),
-                'js' => array(
-                    app_cdn_path.'js/wallet.connect.js',
-                    app_cdn_path.'js/connect-solana.js',
-                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js',
-                    'https://assets.calendly.com/assets/external/widget.js'
-                )
+                'js' => array('https://assets.calendly.com/assets/external/widget.js')
             );
             require_once app_template_path . '/base.php';
             exit();

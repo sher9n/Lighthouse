@@ -7,7 +7,6 @@
     <link href="<?php echo app_cdn_path; ?>css/style.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="<?php echo app_cdn_path; ?>css/select2.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="<?php echo app_cdn_path; ?>css/js-snackbar.css" rel="stylesheet" crossorigin="anonymous">
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <link rel="shortcut icon" href="<?php echo app_cdn_path; ?>img/logo-favicon.png"/>
     <title><?php echo app_name; ?> - <?php echo $__page->title; ?></title>
 </head>

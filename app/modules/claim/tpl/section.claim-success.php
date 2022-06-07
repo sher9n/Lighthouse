@@ -70,7 +70,7 @@
             position: "br",
             icon: "	 ",
             timeout: 50000,
-            message: "Success! Your claim has been being sent."
+            message: "Success! Your claim has been sent."
         });
     }
 

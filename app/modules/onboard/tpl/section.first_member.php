@@ -64,7 +64,7 @@
                 <div class="fs-2 fw-semibold text-center">Contracts created</div>
                 <div class="d-flex align-items-center justify-content-center mt-3">
                     <div id="com_address_div" class="text-break"></div>
-                    <div id="copied_div" trigger="manual" data-placement="top" title="copied!"><i data-feather="copy" id="copy_address" class="ms-3 text-primary cursor-pointer"></i></div>
+                    <div id="copied_div" trigger="manual" data-placement="top" title="Copied!"><i data-feather="copy" id="copy_address" class="ms-3 text-primary cursor-pointer"></i></div>
                 </div>
                 <div class="mt-16 d-flex justify-content-center gap-3">
                     <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>

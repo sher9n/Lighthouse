@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
                         <div class="d-flex flex-column flex-xl-row mb-13">
                             <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto" id="dashboard_table_search"  placeholder="Search...">
-                            <button id="copy_claim_link" type="button" class="btn btn-dark me-xl-3 mb-3 mb-xl-0" trigger="manual" data-placement="top" title="copied!">Copy Claims LINK</button>
+                            <button id="copy_claim_link" type="button" class="btn btn-dark me-xl-3 mb-3 mb-xl-0" trigger="manual" data-placement="top" title="Copied!">Copy Claims LINK</button>
                             <button id="sendNewNtt" type="button" class="btn btn-primary">Send NTTs</button>
                         </div>
                     </div>

@@ -58,13 +58,9 @@ class controller extends Ctrl {
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin.php'
                 ),
-                'js' => array(
-                    app_cdn_path.'js/wallet.connect.admin.js',
-                    app_cdn_path.'js/connect-solana.admin.js',
-                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js'
-                )
+                'js' => array()
             );
-            require_once app_template_path . '/base.php';
+            require_once app_template_path . '/admin-base.php';
             exit();
         }
     }
