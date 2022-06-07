@@ -113,7 +113,9 @@
 
         $(document).on("click", '#view_transaction', function(event) {
             event.preventDefault();
-            window.open('<?php echo KOVAN_OPT_LINK; ?>'+$(this).data('tr_id'), '_blank');
+            <?php if($__page->blockchain == 'gnosis_chain' || $__page->blockchain == 'optimism' ){ ?>
+                window.open('<?php echo constant(strtoupper(gnosis_chain)).'_TX_LINK'; ?>'+$(this).data('tr_id'), '_blank');
+            <?php } ?>
         });
 
         $(document).on("click", '#onboard_skip', function(event) {

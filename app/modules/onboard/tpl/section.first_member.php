@@ -123,35 +123,24 @@
                 }
             },
             submitHandler: function(form){
-                $('#NttsGetting').modal('show');
                 $(form).ajaxSubmit({
                     type:'post',
                     dataType:'json',
+                    beforeSend: function() {
+                        $('#NttsGetting').modal('show');
+                    },
                     success: function(data){
                         if(data.success == true){
-                            if(data.blockchain == 'gnosis_chain') {
+                            if(data.blockchain != 'solana') {
+
                                 $('#btn_add_metamask').data('symbol',data.symbol);
                                 $('#btn_add_metamask').data('image_url',data.image_url);
-                                var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI?key=<?php echo API_KEY;?>";
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", url);
-                                xhr.setRequestHeader("accept", "application/json");
-                                xhr.setRequestHeader("Content-Type", "application/json");
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4) {
-                                        if (xhr.status == 200) {
-                                            obj = JSON.parse(xhr.responseText);
-                                            updatecontractAddress(obj);
-                                            $('#btn_add_metamask').data('token',obj.tokenAddress);
-                                            $('#com_address_div').html(obj.tokenAddress);
-                                            $('#NttsGetting').modal('hide');
-                                            $('#NttsSccess').modal('show');
-                                        }
-                                    }
-                                };
-                                var data = `{"initialAdmin": "` + data.wallet_adr + `","contractName": "` + data.dao_domain + `","tokenName": "` + data.dao_domain + `","tokenSymbol": "` + data.symbol + `","tokenDecimals": "` + data.decimal + `","tankTopUpAmount": "`+ 0.0008 + `"}`;
 
-                                xhr.send(data);
+                                $('#btn_add_metamask').data('token',data.tokenAddress);
+                                $('#com_address_div').html(data.tokenAddress);
+
+                                $('#NttsGetting').modal('hide');
+                                $('#NttsSccess').modal('show');
                             }
                             else
                                 window.location = data.url;
@@ -178,16 +167,6 @@
             window.getSelection().addRange(range);
             document.execCommand("copy");
         }
-    }
-
-    async function updatecontractAddress(obj) {
-        var data = {'token_address': obj.tokenAddress,'community_address': obj.communityAddress,'gas_address':obj.gasTankInfo.address,'gas_private_key':obj.gasTankInfo.privateKey};
-        $.ajax({
-            url: 'update-contract-address',
-            dataType: 'json',
-            data: data,
-            type: 'POST'
-        });
     }
 
     async function addTokenFunction(tokenAddress,tokenSymbol,image) {

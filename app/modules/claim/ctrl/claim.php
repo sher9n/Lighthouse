@@ -66,6 +66,7 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => app_site,
                 'solana' => $solana,
+                'blockchain' => $com->blockchain,
                 'site' => $site,
                 'img_url' => $img_url ,
                 'sections' => array(

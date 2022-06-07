@@ -66,6 +66,7 @@ class controller extends Ctrl {
                 'site' => $site,
                 'claims' => $claim_table,
                 'solana' => $solana,
+                'blockchain' => $community->blockchain,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-dashboard.php'

@@ -61,7 +61,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a data-val="solana" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
+                                            <a data-val="optimism" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
                                                 <img src="<?php echo app_cdn_path; ?>img/optimism-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Optimism</div>
                                             </a>

@@ -54,6 +54,7 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'site' => $site,
                 'solana' => $solana,
+                'blockchain' => $com->blockchain,
                 'dao_name' => $com->dao_name,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin.php'

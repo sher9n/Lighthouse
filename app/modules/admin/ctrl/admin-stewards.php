@@ -79,6 +79,7 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'site' => $site,
                 'community' => $community,
+                'blockchain' => $community->blockchain,
                 'stewards' => Steward::find("SELECT * FROM stewards WHERE comunity_id=".$community_id." AND is_delete=0"),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(

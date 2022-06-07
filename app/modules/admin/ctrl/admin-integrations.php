@@ -26,6 +26,7 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'blockchain' => 'gnosis_chain',
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-integrations.php'

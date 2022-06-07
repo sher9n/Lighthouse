@@ -49,7 +49,7 @@ class controller extends Ctrl {
                 if($community->blockchain == 'solana')
                     $api_response = api::solana_addPoints($wallet_address,$ntts);
                 else
-                    $api_response = api::gnosis_addPoints($community->dao_domain,$wallet_address,$ntts);
+                    $api_response = api::addPoints(constant(strtoupper($community->blockchain).'_API'),$community->dao_domain,$wallet_address,$ntts);
 
                 if(isset($api_response->error)) {
                     echo json_encode(array('success' => false,'msg' =>'Your NTTs have not been sent','element' => 'wallet_address'));
@@ -98,6 +98,7 @@ class controller extends Ctrl {
                 'title' => 'First Distribution',
                 'community' => $community,
                 'solana' => $solana,
+                'blockchain' => $_SESSION['lhc']['b'],
                 'admin_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz/admin',
                 'claim_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz',
                 'sections' => array(

@@ -22,12 +22,15 @@
                                     <div class="col-xl-6">
                                         <label for="" class="form-label">Blockchain</label>
                                         <div id="selected_blockchain" class="d-flex align-items-center">
-                                            <?php if($__page->community->blockchain != 'solana'){ ?>
+                                            <?php if($__page->community->blockchain == 'solana'){ ?>
+                                                <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
+                                                <div class="fs-3">Solana</div>
+                                            <?php }else if($__page->community->blockchain == 'gnosis_chain'){ ?>
                                                 <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
                                                 <div class="fs-3">Gnosis Chain</div>
                                             <?php }else{ ?>
-                                                <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
-                                                <div class="fs-3">Solana</div>
+                                                <img src="<?php echo app_cdn_path; ?>img/optimism-logo.png" class="mx-3" width="40">
+                                                <div class="fs-3">Optimism</div>
                                             <?php } ?>
                                         </div>
                                     </div>

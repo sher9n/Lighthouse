@@ -50,8 +50,8 @@ class Api{
         return json_decode($response);
     }
 
-    public static function gnosis_addPoints($dao_domain,$receiver,$amount) {
-        $url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/".$dao_domain."/addPoints?key=".API_KEY;
+    public static function addPoints($url,$dao_domain,$receiver,$amount) {
+        $url = $url."api/contractsAPI/".$dao_domain."/addPoints?key=".API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -64,6 +64,35 @@ class Api{
         $data = '{
             "receiver": "'.$receiver.'",
             "amount": "'.$amount.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function addCommunity($url,$initialAdmin,$contractName,$tokenName,$tokenSymbol,$tokenDecimals,$tankTopUpAmount) {
+        $url = $url."api/contractsAPI?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "initialAdmin": "'.$initialAdmin.'",
+          "contractName": "'.$contractName.'",
+          "tokenName": "'.$tokenName.'",
+          "tokenSymbol": "'.$tokenSymbol.'",
+          "tokenDecimals": "'.$tokenDecimals.'",
+          "tankTopUpAmount": "'.$tankTopUpAmount.'"
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);

@@ -109,6 +109,7 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'site' => $site,
                 'community' => $community,
+                'blockchain' => $community->blockchain,
                 'gas_tank_blanace' => \lighthouse\Api::getGasTankBalance(app_site),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(

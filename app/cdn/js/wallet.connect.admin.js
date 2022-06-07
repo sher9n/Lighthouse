@@ -15,7 +15,7 @@ async function changeWallet(pop=false) {
         $('#sendNewNttPop').modal('show');
 }
 
-async function connectToEth(){
+async function connectToEth(blockchain='gnosis_chain'){
     console.log('connecting metamask.........');
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     await provider.send("eth_requestAccounts", []);
@@ -41,10 +41,10 @@ async function connectToEth(){
         updateAdminSession();
     }
 
-    switchNetwork();
+    switchNetwork(blockchain);
 }
 
-function connectToWCEth(){
+function connectToWCEth(blockchain='gnosis_chain'){
 
     //An infura ID, or custom ETH node is required for Ethereum, for Binance Smart Chain you can just use their public endpoint
     var provider = new WalletConnectProvider.default(
@@ -72,6 +72,7 @@ function connectToWCEth(){
 
             $('#wallet').modal('hide');
             updateAdminSession();
+           // switchNetwork(blockchain);
         }
     });
 }
@@ -138,24 +139,43 @@ async function updateAdminSession() {
     });
 }
 
-function switchNetwork() {
-    window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [{
-            chainId: '0x45', //69
-            chainName: 'Optimism Kovan',
-            nativeCurrency: {
-                name: 'KOR',
-                symbol: 'KOR',
-                decimals: 18
-            },
-            rpcUrls: ['https://kovan.optimism.io/'],
-            blockExplorerUrls: ['https://kovan-optimistic.etherscan.io']
-        }]
-    })
-        .catch((error) => {
+function switchNetwork(blockchain) {
+    if(blockchain != 'gnosis_chain') {
+        window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+                chainId: '0x45', //69
+                chainName: 'Optimism Kovan',
+                nativeCurrency: {
+                    name: 'KOR',
+                    symbol: 'KOR',
+                    decimals: 18
+                },
+                rpcUrls: ['https://kovan.optimism.io/'],
+                blockExplorerUrls: ['https://kovan-optimistic.etherscan.io']
+            }]
+        }).catch((error) => {
             console.log(error)
-        })
+        });
+    }
+    else{
+        window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+                chainId: '0x4D', //77
+                chainName: 'POA Sokol Testnet',
+                nativeCurrency: {
+                    name: 'SPOA',
+                    symbol: 'SPOA',
+                    decimals: 18
+                },
+                rpcUrls: ['https://sokol.poa.network/'],
+                blockExplorerUrls: ['https://sokol.poa.network']
+            }]
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
 }
 
 async function onDisconnect() {

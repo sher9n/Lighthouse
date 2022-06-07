@@ -1,6 +1,7 @@
 <?php
 use Core\Utils;
 use lighthouse\Community;
+use lighthouse\Api;
 class controller extends Ctrl {
     function init() {
 
@@ -29,7 +30,7 @@ class controller extends Ctrl {
 
             try {
 
-                $display_name = $wallet_address = '';
+                $display_name = $wallet_address = $block_chain =  '';
 
                 if($this->hasParam('display_name') && strlen($this->getParam('display_name')) > 0)
                     $display_name = $this->getParam('display_name');
@@ -45,28 +46,43 @@ class controller extends Ctrl {
                 $domain_check = Community::isExistsCommunity($dao_domain);
 
                 if ($domain_check === FALSE) {
-                    $community = new Community();
-                    $community->dao_name = $_SESSION['lhc']['n'];
-                    $community->dao_domain = $_SESSION['lhc']['d'];
-                    $community->blockchain = $_SESSION['lhc']['b'];
-                    $community->ticker = $_SESSION['lhc']['t'];
-                    $community->wallet_adr = $wallet_address;
-                    $community->display_name = $display_name;
-                    $id = $community->insert();
-                    $_SESSION['lhc']['c_id'] = $id;
+                    $block_chain = $_SESSION['lhc']['b'];
 
-                    echo json_encode(array(
-                            'success' => true,
-                            'url' => 'distribution',
-                            'wallet_adr' => $wallet_address,
-                            'dao_name' => $community->dao_name,
-                            'dao_domain' => $community->dao_domain,
-                            'symbol' => 'nt'.$community->ticker,
-                            'image_url' => $community->getTickerImage(),
-                            'decimal' => 18,
-                            'blockchain' => $community->blockchain
-                        )
-                    );
+                    if($block_chain != 'solana')
+                        $api_response = api::addCommunity(constant(strtoupper($block_chain)."_API"),$wallet_address,$_SESSION['lhc']['d'],$_SESSION['lhc']['d'],$_SESSION['lhc']['t'],18,0.0008);
+
+                    if(isset($api_response->error)) {
+                        echo json_encode(array('success' => false,'msg' =>'Your NTTs has not been created.','element' => 'display_name'));
+                        exit();
+                    }
+                    else {
+
+                        $community = new Community();
+                        $community->dao_name = $_SESSION['lhc']['n'];
+                        $community->dao_domain = $_SESSION['lhc']['d'];
+                        $community->blockchain = $_SESSION['lhc']['b'];
+                        $community->ticker = $_SESSION['lhc']['t'];
+                        $community->wallet_adr = $wallet_address;
+                        $community->display_name = $display_name;
+                        /*------from api response-------*/
+                        $community->token_address = $api_response->tokenAddress;
+                        $community->community_address = $api_response->communityAddress;
+                        $community->gas_address = $api_response->gasTankInfo->address;
+                        $community->gas_private_key = $api_response->gasTankInfo->privateKey;
+
+                        $id = $community->insert();
+                        $_SESSION['lhc']['c_id'] = $id;
+
+                        echo json_encode(array(
+                                'success' => true,
+                                'url' => 'distribution',
+                                'tokenAddress' => $api_response->tokenAddress,
+                                'symbol' => 'nt' . $community->ticker,
+                                'image_url' => $community->getTickerImage(),
+                                'blockchain' => $community->blockchain
+                            )
+                        );
+                    }
                 }
                 else {
                     $_SESSION['lhc'] = null;
