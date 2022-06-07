@@ -69,7 +69,7 @@
   </div>
 </div>
 
-<?php include_once app_root . '/templates/foot.php'; ?>
+<?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     feather.replace();
 

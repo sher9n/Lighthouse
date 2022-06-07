@@ -113,8 +113,7 @@ get you set up!</div>
         </div>
     </div>
 </div>-->
-<?php include_once app_root . '/templates/foot.php'; ?>
-<script src="<?php echo app_cdn_path; ?>js/js-snackbar.js"></script>
+<?php include_once app_root . '/templates/claim-foot.php'; ?>
 <script type="text/javascript">
 
     $(document).ready(function() {
