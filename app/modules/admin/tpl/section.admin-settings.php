@@ -1,9 +1,9 @@
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
-        <div class="container-fluid h-100">
-            <div class="row h-100">
-                <div class="col h-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
                     <div class="card shadow">
                         <form id="settingsForm" method="post" action="admin-settings" autocomplete="off">
                             <div class="card-body p-xl-20">
@@ -21,7 +21,7 @@
                                     ?>
                                     <div class="col-xl-6">
                                         <label for="" class="form-label">Blockchain</label>
-                                        <div id="selected_blockchain" class="d-flex align-items-center">
+                                        <div id="selected_blockchain" class="d-flex align-items-center form-control form-control-lg py-3 mb-6">
                                             <?php if($__page->community->blockchain == 'solana'){ ?>
                                                 <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Solana</div>
@@ -98,7 +98,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="card shadow mt-12">
+                    <div class="card shadow mt-12 mb-6">
                         <div class="card-body p-xl-20">
                             <div class="display-5 fw-medium">Gas tank</div>
                             <div class="text-muted mt-1">Send USDC (ERC-20) on the Gnosis chain to run Lighthouse gas-free for your community</div>
