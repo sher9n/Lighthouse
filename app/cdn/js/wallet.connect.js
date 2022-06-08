@@ -89,15 +89,15 @@ function switchNetwork(blockchain) {
         window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [{
-                chainId: '0x4D', //77
-                chainName: 'POA Sokol Testnet',
+                chainId: '0x64', //100
+                chainName: 'Gnosis',
                 nativeCurrency: {
-                    name: 'SPOA',
-                    symbol: 'SPOA',
+                    name: 'xDai',
+                    symbol: 'xDai',
                     decimals: 18
                 },
-                rpcUrls: ['https://sokol.poa.network/'],
-                blockExplorerUrls: ['https://sokol.poa.network']
+                rpcUrls: ['https://rpc.gnosischain.com/'],
+                blockExplorerUrls: ['https://blockscout.com/xdai/mainnet']
             }]
         }).catch((error) => {
             console.log(error)

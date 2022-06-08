@@ -65,10 +65,12 @@ class controller extends Ctrl {
                         $community->wallet_adr = $wallet_address;
                         $community->display_name = $display_name;
                         /*------from api response-------*/
-                        $community->token_address = $api_response->tokenAddress;
-                        $community->community_address = $api_response->communityAddress;
-                        $community->gas_address = $api_response->gasTankInfo->address;
-                        $community->gas_private_key = $api_response->gasTankInfo->privateKey;
+                        if($block_chain != 'solana') {
+                            $community->token_address = $api_response->tokenAddress;
+                            $community->community_address = $api_response->communityAddress;
+                            $community->gas_address = $api_response->gasTankInfo->address;
+                            $community->gas_private_key = $api_response->gasTankInfo->privateKey;
+                        }
 
                         $id = $community->insert();
                         $_SESSION['lhc']['c_id'] = $id;
@@ -76,7 +78,7 @@ class controller extends Ctrl {
                         echo json_encode(array(
                                 'success' => true,
                                 'url' => 'distribution',
-                                'tokenAddress' => $api_response->tokenAddress,
+                                'tokenAddress' => $community->token_address,
                                 'symbol' => 'nt' . $community->ticker,
                                 'image_url' => $community->getTickerImage(),
                                 'blockchain' => $community->blockchain

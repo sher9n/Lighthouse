@@ -259,7 +259,7 @@
                     if (response.success == true) {
 
                         showMessage('success',10000,'Success! Your changes have been saved.');
-                        
+
                         if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
 
                             $('#claim_details').html('');

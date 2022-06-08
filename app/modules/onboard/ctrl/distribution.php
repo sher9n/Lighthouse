@@ -64,8 +64,10 @@ class controller extends Ctrl {
                     $claim->clm_tags = $tags;
                     $claim->comunity_id = $community->id;
                     $claim->status = 1;
-                    $claim->txHash = $api_response->txHash;
-                    $claim->chainId = $api_response->chainId;
+                    if($community->blockchain != 'solana') {
+                        $claim->txHash = $api_response->txHash;
+                        $claim->chainId = $api_response->chainId;
+                    }
                     $claim->insert();
                     $_SESSION['lhc'] = null;
 
@@ -74,7 +76,7 @@ class controller extends Ctrl {
                 echo json_encode(array(
                     'success' => true,
                     'url' => 'distribution',
-                    'txHash' => $api_response->txHash
+                    'txHash' => $claim->txHash
                 ));
             }
             catch (Exception $e)

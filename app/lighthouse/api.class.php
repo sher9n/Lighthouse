@@ -26,7 +26,7 @@ class Api{
 
     public static function solana_addPoints($to_address,$amount) {
 
-        $url = "https://lighthouse-poc-seven.vercel.app/api/addSolPoints";
+        $url = SOLANA_API."api/addSolPoints";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
