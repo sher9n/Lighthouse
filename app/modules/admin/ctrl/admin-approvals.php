@@ -22,7 +22,15 @@ class controller extends Ctrl {
             if(__ROUTER_PATH == '/claim-status' && $this->getParam('claim_id')){
                 $claim_id = $this->getParam('claim_id');
                 $claim = Claim::get($claim_id);
+
                 if($this->hasParam('status')) {
+
+                    if($this->getParam('status') != 1){
+                        $claim->status = 2;
+                        $claim->update();
+                        echo json_encode(array('success' => true));
+                        exit();
+                    }
 
                     if($com->blockchain == 'solana')
                         $api_response = api::solana_addPoints($claim->wallet_adr,$claim->ntts);
@@ -35,16 +43,12 @@ class controller extends Ctrl {
                     }
                     else {
 
-                        if($this->getParam('status') == 1)
-                            $claim->status = 1;
-                        else
-                            $claim->status = 2;
-
+                        $claim->status = 1;
                         $claim->txHash = $api_response->txHash;
                         $claim->chainId = $api_response->chainId;
                         $claim->update();
 
-                        echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_BALANCE_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
+                        echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
                     }
                 }
                 else

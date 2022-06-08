@@ -153,7 +153,7 @@ class Community{
             $updates = $this->_data;
 
         unset($updates['id']);
-
+        $updates['m_at'] = date("Y-m-d H:i:s");
         $c=0;
         foreach ($updates as $key=>$val) {
             $c++;

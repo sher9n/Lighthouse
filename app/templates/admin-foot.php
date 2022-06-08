@@ -19,7 +19,7 @@
 <div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content p-2">
-            <a class="text-center link-modal" href="#" onclick="connectToEth(<?php echo $__page->blockchain; ?>)">
+            <a class="text-center link-modal" href="#" onclick="connectToEth('<?php echo $__page->blockchain; ?>')">
                 <img src="<?php echo app_cdn_path; ?>img/metamast-logo.svg" height="42">
                 <div class="modal-provider-name">MetaMask</div>
                 <div type="button" class="modal-provider-description">Connect to your MetaMask Wallet</div>
@@ -67,6 +67,8 @@ foreach ($__page->js as $page_js) { ?>
     }
 
     $(document).ready(function() {
+
+        feather.replace();
 
         $(document).on("click", '#disconnect_wallet', function(event) {
             event.preventDefault();

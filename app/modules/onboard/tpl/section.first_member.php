@@ -80,6 +80,7 @@
     $(document).ready(function(){
 
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
+
         if(selectedAccount) {
             $("#wallet_address").val(selectedAccount);
             $('.add_wallet').html('CHANGE WALLET');

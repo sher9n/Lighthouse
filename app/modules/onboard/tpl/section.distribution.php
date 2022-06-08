@@ -114,7 +114,7 @@
         $(document).on("click", '#view_transaction', function(event) {
             event.preventDefault();
             <?php if($__page->blockchain == 'gnosis_chain' || $__page->blockchain == 'optimism' ){ ?>
-                window.open('<?php echo constant(strtoupper(gnosis_chain)).'_TX_LINK'; ?>'+$(this).data('tr_id'), '_blank');
+                window.open('<?php echo $__page->view_transaction_link; ?>'+$(this).data('tr_id'), '_blank');
             <?php } ?>
         });
 

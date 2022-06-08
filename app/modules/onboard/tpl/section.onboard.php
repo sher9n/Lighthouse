@@ -54,13 +54,13 @@
                                                 <div class="fs-3">Gnosis Chain</div>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li class="border-bottom">
                                             <a data-val="solana" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
                                                 <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Solana</div>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li class="border-bottom">
                                             <a data-val="optimism" class="blockchain_item dropdown-item d-flex align-items-center" href="#">
                                                 <img src="<?php echo app_cdn_path; ?>img/optimism-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Optimism</div>

@@ -9,16 +9,16 @@
                         <div class="card-header border-bottom">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="pills-queue-tab" data-bs-toggle="pill" data-bs-target="#pills-queue" type="button" role="tab" aria-controls="pills-queue" aria-selected="true">Queue</button>
+                                    <button class="tab_link nav-link active" id="pills-queue-tab" data-bs-toggle="pill" data-bs-target="#pills-queue" type="button" role="tab" aria-controls="pills-queue" aria-selected="true">Queue</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-approved-tab" data-bs-toggle="pill" data-bs-target="#pills-approved" type="button" role="tab" aria-controls="pills-approved" aria-selected="false">Approved</button>
+                                    <button class="tab_link nav-link" id="pills-approved-tab" data-bs-toggle="pill" data-bs-target="#pills-approved" type="button" role="tab" aria-controls="pills-approved" aria-selected="false">Approved</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-reviewed-tab" data-bs-toggle="pill" data-bs-target="#pills-reviewed" type="button" role="tab" aria-controls="pills-reviewed" aria-selected="false">Reviewed</button>
+                                    <button class="tab_link nav-link" id="pills-reviewed-tab" data-bs-toggle="pill" data-bs-target="#pills-reviewed" type="button" role="tab" aria-controls="pills-reviewed" aria-selected="false">Reviewed</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-denied-tab" data-bs-toggle="pill" data-bs-target="#pills-denied" type="button" role="tab" aria-controls="pills-denied" aria-selected="false">Denied</button>
+                                    <button class="tab_link nav-link" id="pills-denied-tab" data-bs-toggle="pill" data-bs-target="#pills-denied" type="button" role="tab" aria-controls="pills-denied" aria-selected="false">Denied</button>
                                 </li>
                             </ul>
                         </div>
@@ -157,15 +157,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6" id="claim_details">
-                    <div class="card shadow h-100">
-                        <div class="card-body">
-                            <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-xl-6" id="claim_details"></div>
             </div>
         </div>
     </section>
@@ -182,6 +174,10 @@
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     feather.replace();
+
+    $(document).on('shown.bs.tab', function (e) {
+        $('#claim_details').html('');
+    });
 
     $(document).ready(function() {
 
@@ -206,7 +202,7 @@
 
         $(document).on("click", '.claim_approve', function(event) {
             var item = $(this);
-            var next = $('#cq_item_'+item.data('claim_id')).next();
+            var c_id = item.data('claim_id');
             var data = {'claim_id': item.data('claim_id'),'status':1};
 
             $.ajax({
@@ -219,18 +215,36 @@
                 },
                 success: function (data) {
                     if (data.success == true) {
+
                         showMessage('success', 10000, data.message);
-                        $('#cq_item_'+item.data('claim_id')).remove();
-                        next.trigger("click");
+
+                        if($('#cq_item_'+c_id).parent().parent().find("li").length == 0) {
+                            $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                                '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                                '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>it will show up here</div>' +
+                                '</div>');
+                            $('#claim_details').html('');
+                        }
+                        else {
+                            $('#claim_details').html('<div class="card shadow h-100">\n' +
+                                '                        <div class="card-body">\n' +
+                                '                            <div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                                '                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                                '                            </div>\n' +
+                                '                        </div>\n' +
+                                '                    </div>');
+                        }
+                        $('#cq_item_'+c_id).remove();
                     }
                     else
-                        showMessage('danger',10000,data.message);
+                        showMessage('danger',1000,data.message);
                 }
             });
         });
 
         $(document).on("click", '.claim_deny', function(event) {
             var item = $(this);
+            var c_id = item.data('claim_id');
             var data = {'claim_id': item.data('claim_id'),'status':0};
 
             $.ajax({
@@ -238,11 +252,35 @@
                 dataType: 'json',
                 data: data,
                 type: 'POST',
+                beforeSend: function() {
+                    showMessage('success',10000,'Your NTTs are being sent.');
+                },
                 success: function (response) {
                     if (response.success == true) {
+
                         showMessage('success',10000,'Success! Your changes have been saved.');
-                        $('#cq_item_'+item.data('claim_id')).remove();
-                        next.trigger("click");
+                        
+                        if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
+
+                            $('#claim_details').html('');
+                            $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                            '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                            '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>it will show up here</div>' +
+                            '</div>');
+
+                        }
+                        else {
+
+                            $('#claim_details').html('<div class="card shadow h-100">\n' +
+                                '                        <div class="card-body">\n' +
+                                '                            <div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                                '                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                                '                            </div>\n' +
+                                '                        </div>\n' +
+                                '                    </div>');
+                        }
+
+                        $('#cq_item_'+c_id).remove();
                     }
                 }
             });

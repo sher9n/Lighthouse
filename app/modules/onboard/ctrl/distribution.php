@@ -99,6 +99,7 @@ class controller extends Ctrl {
                 'community' => $community,
                 'solana' => $solana,
                 'blockchain' => $_SESSION['lhc']['b'],
+                'view_transaction_link' => constant(strtoupper($community->blockchain).'_TX_LINK'),
                 'admin_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz/admin',
                 'claim_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz',
                 'sections' => array(
