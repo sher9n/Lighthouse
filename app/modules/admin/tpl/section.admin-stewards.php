@@ -2,35 +2,35 @@
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
         <div class="container-fluid h-100">
-          <div class="row h-100"> 
-            <div class="col h-100">           
-              <div class="card shadow h-100">
-                <div class="card-body p-xl-20">
-                  <div class="display-5 fw-medium">Manage stewards</div>
-                  <div class="text-muted mt-1">Add or remove members that can distribute NTTs and approve claims</div>
-                  <form class="mt-25 col-xl-6">
-                    <div class="fw-medium mt-26">Whitelist members</div>                    
-                    <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
-                      <div class="fw-medium mt-22"><?php echo $__page->community->display_name; ?> </div>
-                      <div class="d-flex align-items-center">
-                          <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
-                      </div>
-                      <?php foreach ($__page->stewards as $steward){ ;?>
-                        <div class="stew-<?php echo $steward['id']; ?> fw-medium mt-22"><?php echo $steward['display_name']; ?> </div>
-                        <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
-                            <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
-                            <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
-                                <i data-feather="trash" class="text-danger"></i>
-                            </a>
+            <div class="row h-100">
+                <div class="col h-100">
+                    <div class="card shadow h-100">
+                        <div class="card-body p-xl-20">
+                            <div class="display-5 fw-medium">Manage stewards</div>
+                            <div class="text-muted mt-1">Add or remove members that can distribute NTTs and approve claims</div>
+                            <form id="frm_stewards" class="mt-25 col-xl-6">
+                                <div class="fw-medium mt-26">Whitelist members</div>
+                                <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
+                                <div class="fw-medium mt-22"><?php echo $__page->community->display_name; ?> </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
+                                </div>
+                                <?php foreach ($__page->stewards as $steward){ ;?>
+                                <div class="stew-<?php echo $steward['id']; ?> fw-medium mt-22"><?php echo $steward['display_name']; ?> </div>
+                                <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
+                                    <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
+                                    <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
+                                        <i data-feather="trash" class="text-danger"></i>
+                                    </a>
+                                </div>
+                                <?php } ?>
+                            </form>
                         </div>
-                      <?php } ?>
-                  </form>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 </main>
 <!-- Modal Add new member -->
 <div class="modal fade" id="addMember" tabindex="-1" aria-labelledby="addMemberLabel" aria-hidden="true">
@@ -69,11 +69,8 @@
   </div>
 </div>
 
-<?php include_once app_root . '/templates/foot.php'; ?>
+<?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
-    feather.replace();
-
-
     $(document).on('click', '.del_steward', function(event) {
         event.preventDefault();
         var element = $(this);
@@ -91,10 +88,10 @@
                     $('#delMember').modal('toggle');
                     if (data.success == true) {
                         $('.stew-'+data.stew_id).remove();
-                        showMessage('success',50000,'Success! Steward has been deleted.');
+                        showMessage('success',10000,'Success! Steward has been deleted.');
                     }
                     else
-                        showMessage('danger',50000,'Error! Steward have not been deleted.');
+                        showMessage('danger',10000,'Error! Steward have not been deleted.');
                 }
             });
         }
@@ -116,10 +113,12 @@
                 success: function(data) {
                     $('#addMember').modal('toggle');
                     if (data.success == true) {
-                        showMessage('success',50000,'Success! A New steward has been added.');
+                        $('#frm_stewards').append(data.html);
+                        feather.replace();
+                        showMessage('success', 10000, 'Success! A New steward has been added.');
+                    }
                     else
-                        showMessage('danger',50000,'Error! A New steward have not been added.');
-                    window.location = data.url;
+                        showMessage('danger',10000,'Error! A New steward have not been added.');
                 }
             });
         }

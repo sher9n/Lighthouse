@@ -139,7 +139,8 @@ class Community{
     }
 
     public function getTickerImage() {
-        return  app_cdn_path.'instances/'.app_site.'/ticker/'.$this->_data['ticker_img_url'];
+        $dao_domain = $this->_data["dao_domain"];
+        return  'https://lighthouse-cdn.s3.amazonaws.com/instances/'.$dao_domain.'/ticker/token_image.jpeg';
     }
 
     public function update(array $updates = array())
@@ -152,7 +153,7 @@ class Community{
             $updates = $this->_data;
 
         unset($updates['id']);
-
+        $updates['m_at'] = date("Y-m-d H:i:s");
         $c=0;
         foreach ($updates as $key=>$val) {
             $c++;

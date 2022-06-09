@@ -43,6 +43,7 @@ try {
         '/claim-success' => 'modules/claim/ctrl/claim-success.php',
         '/wallet-menu' => 'modules/admin/ctrl/admin.php',
         '/admin' => 'modules/admin/ctrl/admin.php',
+        '/get-ntts' => 'modules/admin/ctrl/admin-dashboard.php',
         '/admin-dashboard' => 'modules/admin/ctrl/admin-dashboard.php',
         '/admin-approvals' => 'modules/admin/ctrl/admin-approvals.php',
         '/claim-status' =>  'modules/admin/ctrl/admin-approvals.php',

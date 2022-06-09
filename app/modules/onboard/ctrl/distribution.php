@@ -49,7 +49,7 @@ class controller extends Ctrl {
                 if($community->blockchain == 'solana')
                     $api_response = api::solana_addPoints($wallet_address,$ntts);
                 else
-                    $api_response = api::gnosis_addPoints($community->dao_domain,$wallet_address,$ntts);
+                    $api_response = api::addPoints(constant(strtoupper($community->blockchain).'_API'),$community->dao_domain,$wallet_address,$ntts);
 
                 if(isset($api_response->error)) {
                     echo json_encode(array('success' => false,'msg' =>'Your NTTs have not been sent','element' => 'wallet_address'));
@@ -64,8 +64,10 @@ class controller extends Ctrl {
                     $claim->clm_tags = $tags;
                     $claim->comunity_id = $community->id;
                     $claim->status = 1;
-                    $claim->txHash = $api_response->txHash;
-                    $claim->chainId = $api_response->chainId;
+                    if($community->blockchain != 'solana') {
+                        $claim->txHash = $api_response->txHash;
+                        $claim->chainId = $api_response->chainId;
+                    }
                     $claim->insert();
                     $_SESSION['lhc'] = null;
 
@@ -74,7 +76,7 @@ class controller extends Ctrl {
                 echo json_encode(array(
                     'success' => true,
                     'url' => 'distribution',
-                    'txHash' => $api_response->txHash
+                    'txHash' => $claim->txHash
                 ));
             }
             catch (Exception $e)
@@ -98,17 +100,14 @@ class controller extends Ctrl {
                 'title' => 'First Distribution',
                 'community' => $community,
                 'solana' => $solana,
+                'blockchain' => $_SESSION['lhc']['b'],
+                'view_transaction_link' => constant(strtoupper($community->blockchain).'_TX_LINK'),
                 'admin_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz/admin',
                 'claim_page' => 'http://'.$community->dao_domain.'.lighthouse.xyz',
                 'sections' => array(
                     __DIR__ . '/../tpl/section.distribution.php'
                 ),
-                'js' => array(
-                    app_cdn_path.'js/wallet.connect.js',
-                    app_cdn_path.'js/connect-solana.js',
-                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js',
-                    'https://assets.calendly.com/assets/external/widget.js'
-                )
+                'js' => array('https://assets.calendly.com/assets/external/widget.js')
             );
             require_once app_template_path . '/base.php';
             exit();

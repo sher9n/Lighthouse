@@ -66,19 +66,15 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => app_site,
                 'solana' => $solana,
+                'blockchain' => $com->blockchain,
                 'site' => $site,
                 'img_url' => $img_url ,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.claim.php'
                 ),
-                'js' => array(
-                    app_cdn_path.'js/wallet.connect.js',
-                    app_cdn_path.'js/connect-solana.claim.js',
-                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js',
-                    'https://assets.calendly.com/assets/external/widget.js'
-                )
+                'js' => array()
             );
-            require_once app_template_path . '/base.php';
+            require_once app_template_path . '/claim-base.php';
             exit();
         }
     }

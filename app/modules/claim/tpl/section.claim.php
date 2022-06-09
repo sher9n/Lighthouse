@@ -47,8 +47,7 @@
         </div>
     </div>
 </div>
-
-<?php include_once app_root . '/templates/foot.php'; ?>
+<?php include_once app_root . '/templates/claim-foot.php'; ?>
 <script type="text/javascript">
 
     $(document).ready(function() {

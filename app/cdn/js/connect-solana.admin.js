@@ -77,6 +77,11 @@ async function updateWalletMenu() {
             if (response.success == true) {
                 window.location = 'admin-dashboard';
             }
+            else {
+                sessionStorage.removeItem('lh_sel_wallet_add');
+                sessionStorage.removeItem('lh_wallet_adds');
+                $('#whitelist_solana_error').removeClass('d-none');
+            }
         }
     });
 }

@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="card-body border-top d-flex justify-content-end gap-3">
-                            <button type="submit" class="btn btn-primary">send reward </button>
+                            <button type="submit" id="btn_submit" class="btn btn-primary">send reward </button>
                         </div>
                     </form>
                 </div>
@@ -42,14 +42,14 @@
     </section>
 </main>
 <div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content pb-16 text-center">
             <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
             <div class="fs-2 fw-semibold text-center">Sending your NTTs...</div>
         </div>
     </div>
 </div>
-<?php include_once app_root . '/templates/foot.php'; ?>
+<?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     feather.replace();
 
@@ -86,15 +86,26 @@
                     type:'post',
                     dataType:'json',
                     beforeSend: function() {
+                        $('#btn_submit').prop('disabled', true);
                         showMessage('success',10000,'Your NTTs are being sent.');
                     },
                     success: function(data){
+                        $('#btn_submit').prop('disabled', false);
                         if(data.success == true){
                             showMessage('success', 10000, data.message);
+                            $('#wallet_address').val('');
+                            $('#ntts').val('');
+                            $('#claim_reason').val('');
+                            $("#claim_tags").val(null).trigger('change');
                         }
                         else{
-                            if(data.message)
-                                showMessage('danger',10000,data.message);
+                            if(data.message) {
+                                showMessage('danger', 10000, data.message);
+                                $('#wallet_address').val('');
+                                $('#ntts').val('');
+                                $('#claim_reason').val('');
+                                $("#claim_tags").val(null).trigger('change');
+                            }
                             else {
                                 $('#' + data.element).addClass('form-control-lg error');
                                 $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);

@@ -77,6 +77,7 @@ class controller extends Ctrl {
                 'title' => app_site,
                 'site' => $site,
                 'solana' => $solana,
+                'blockchain' => $com->blockchain,
                 'is_admin' => $com->isAdmin($claim->wallet_adr),
                 'img_url' => $img_url ,
                 'claim' => $claim,
@@ -85,7 +86,7 @@ class controller extends Ctrl {
                 ),
                 'js' => array()
             );
-            require_once app_template_path . '/base.php';
+            require_once app_template_path . '/claim-base.php';
             exit();
         }
     }

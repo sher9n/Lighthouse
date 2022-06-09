@@ -50,7 +50,7 @@
         </form>
     </section>
     <div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content pb-16 text-center">
                 <img src="<?php echo app_cdn_path; ?>img/anim-ntts-create.gif"  width="180" height="180" class="align-self-center">
                 <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>
@@ -58,13 +58,13 @@
         </div>
     </div>
     <div class="modal fade" id="NttsSccess" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content pb-16 text-center">
                 <img src="<?php echo app_cdn_path; ?>img/anim-please-wait.gif" width="180" height="180" class="align-self-center">
                 <div class="fs-2 fw-semibold text-center">Contracts created</div>
                 <div class="d-flex align-items-center justify-content-center mt-3">
                     <div id="com_address_div" class="text-break"></div>
-                    <div id="copied_div" trigger="manual" data-placement="top" title="copied!"><i data-feather="copy" id="copy_address" class="ms-3 text-primary cursor-pointer"></i></div>
+                    <div id="copied_div" trigger="manual" data-placement="top" title="Copied!"><i data-feather="copy" id="copy_address" class="ms-3 text-primary cursor-pointer"></i></div>
                 </div>
                 <div class="mt-16 d-flex justify-content-center gap-3">
                     <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>
@@ -80,6 +80,7 @@
     $(document).ready(function(){
 
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
+
         if(selectedAccount) {
             $("#wallet_address").val(selectedAccount);
             $('.add_wallet').html('CHANGE WALLET');
@@ -123,35 +124,24 @@
                 }
             },
             submitHandler: function(form){
-                $('#NttsGetting').modal('show');
                 $(form).ajaxSubmit({
                     type:'post',
                     dataType:'json',
+                    beforeSend: function() {
+                        $('#NttsGetting').modal('show');
+                    },
                     success: function(data){
                         if(data.success == true){
-                            if(data.blockchain == 'gnosis_chain') {
+                            if(data.blockchain != 'solana') {
+
                                 $('#btn_add_metamask').data('symbol',data.symbol);
                                 $('#btn_add_metamask').data('image_url',data.image_url);
-                                var url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI?key=<?php echo API_KEY;?>";
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", url);
-                                xhr.setRequestHeader("accept", "application/json");
-                                xhr.setRequestHeader("Content-Type", "application/json");
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4) {
-                                        if (xhr.status == 200) {
-                                            obj = JSON.parse(xhr.responseText);
-                                            updatecontractAddress(obj);
-                                            $('#btn_add_metamask').data('token',obj.tokenAddress);
-                                            $('#com_address_div').html(obj.tokenAddress);
-                                            $('#NttsGetting').modal('hide');
-                                            $('#NttsSccess').modal('show');
-                                        }
-                                    }
-                                };
-                                var data = `{"initialAdmin": "` + data.wallet_adr + `","contractName": "` + data.dao_domain + `","tokenName": "` + data.dao_domain + `","tokenSymbol": "` + data.symbol + `","tokenDecimals": "` + data.decimal + `","tankTopUpAmount": "`+ 0.0008 + `"}`;
 
-                                xhr.send(data);
+                                $('#btn_add_metamask').data('token',data.tokenAddress);
+                                $('#com_address_div').html(data.tokenAddress);
+
+                                $('#NttsGetting').modal('hide');
+                                $('#NttsSccess').modal('show');
                             }
                             else
                                 window.location = data.url;
@@ -180,16 +170,6 @@
         }
     }
 
-    async function updatecontractAddress(obj) {
-        var data = {'token_address': obj.tokenAddress,'community_address': obj.communityAddress,'gas_address':obj.gasTankInfo.address,'gas_private_key':obj.gasTankInfo.privateKey};
-        $.ajax({
-            url: 'update-contract-address',
-            dataType: 'json',
-            data: data,
-            type: 'POST'
-        });
-    }
-
     async function addTokenFunction(tokenAddress,tokenSymbol,image) {
         try {
             const wasAdded = await ethereum.request({
@@ -200,7 +180,7 @@
                         address: tokenAddress,
                         symbol: tokenSymbol,
                         decimals: 18,
-                        image: '<?php echo app_cdn_path; ?>'+image,
+                        image: image,
                     },
                 },
             });

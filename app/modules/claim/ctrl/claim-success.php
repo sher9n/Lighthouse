@@ -32,13 +32,15 @@ class controller extends Ctrl {
             'site' => $site,
             'img_url' => $img_url ,
             'solana' => $solana,
+            'blockchain' => $com->blockchain,
+            'ticker_image_url' => $com->getTickerImage(),
             'com' => $com,
             'sections' => array(
                 __DIR__ . '/../tpl/section.claim-success.php'
             ),
             'js' => array()
         );
-        require_once app_template_path . '/base.php';
+        require_once app_template_path . '/claim-base.php';
         exit();
 
     }

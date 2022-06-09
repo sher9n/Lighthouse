@@ -26,17 +26,14 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'blockchain' => 'gnosis_chain',
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-integrations.php'
                 ),
-                'js' => array(
-                    app_cdn_path.'js/wallet.connect.admin.js',
-                    app_cdn_path.'js/connect-solana.admin.js',
-                    'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js'
-                )
+                'js' => array()
             );
-            require_once app_template_path . '/base.php';
+            require_once app_template_path . '/admin-base.php';
             exit();
         }
     }

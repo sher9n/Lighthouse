@@ -41,7 +41,7 @@
     </div>
 </div>
 <div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content pb-16 text-center">
             <img src="<?php echo app_cdn_path; ?>img/anim-ntts-create.gif"  width="180" height="180" class="align-self-center">
             <div class="fs-2 fw-semibold text-center">Creating your NTT contracts...</div>
@@ -113,8 +113,7 @@ get you set up!</div>
         </div>
     </div>
 </div>-->
-<?php include_once app_root . '/templates/foot.php'; ?>
-<script src="<?php echo app_cdn_path; ?>js/js-snackbar.js"></script>
+<?php include_once app_root . '/templates/claim-foot.php'; ?>
 <script type="text/javascript">
 
     $(document).ready(function() {
