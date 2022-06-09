@@ -1,7 +1,5 @@
-<?php use Core\Utils; ?>
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
-    <?php if(count($__page->claims) > 0 ){ ?>
         <section class="admin-body-section">
             <div class="container-fluid h-100">
                 <div class="row">
@@ -30,21 +28,6 @@
                                                 <th>Tags</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <?php
-                                            foreach ($__page->claims as $claim) { ?>
-                                                <tr>
-                                                    <td class="text-center">                                                    
-                                                        <a data-adr="<?php echo $claim['adr']; ?>" href="#" class="send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>
-                                                    </td>
-                                                    <td><?php echo Utils::WalletAddressFormat($claim['adr']); ?></td>
-                                                    <td><?php echo $claim['score']; ?></td>
-                                                    <td>215</td>
-                                                    <td><?php echo $claim['perc']; ?>%</td>
-                                                    <td class="text-truncate text-max-width"><?php echo $claim['tags']; ?></td>
-                                                </tr>
-                                            <?php } ?>
-                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -71,15 +54,14 @@
                 </div>                
             </div>
         </section>
-    <?php }else{ ?>
-        <section class="admin-body-section">
+        <!--<section class="admin-body-section">
             <div class="container-fluid h-100">
                 <div class="row h-100">
                     <div class="col-lg-12">
                         <div class="card shadow h-100">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center justify-content-center h-100 border rounded">
-                                    <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
+                                    <img src="<?php /*echo app_cdn_path; */?>img/img-empty.svg" width="208">
                                     <div class="fs-2 fw-semibold mt-20">To get started, send NTTs to your community.</div>
                                     <a role="button" id="startSendNewNtt"  class="btn btn-primary mt-18" href="admin-dashboard">Send NTTs</a>
                                 </div>
@@ -88,8 +70,8 @@
                     </div>
                 </div>
             </div>
-        </section>
-    <?php } ?>
+        </section>-->
+
     <!-- Modal Send some NTTs -->
     <div class="modal fade" id="sendNewNttPop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -136,6 +118,7 @@
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     feather.replace();
+    var dashboard_table = $('#dashboard_table');
 
     $(document).on("click", '.add_wallet', function(event) {
         $("#sendNewNttPop").modal('hide');
@@ -143,6 +126,8 @@
     });
 
     $(document).ready(function() {
+
+        dataLoad();
 
         $("#claim_tags").select2({
             tags: true,
@@ -162,6 +147,10 @@
 
         $(document).on("click", '#sendNewNtt, #startSendNewNtt, #retryNewNtt', function(event) {
             event.preventDefault();
+            $('#wallet_address').val('');
+            $('#ntts').val('');
+            $('#claim_reason').val('');
+            $("#claim_tags").val(null).trigger('change');
             $('#sendNewNttPop').modal('show');
         });
 
@@ -169,9 +158,11 @@
             event.preventDefault();
             var adr = $(this).data('adr');
             $('#wallet_address').val(adr);
+            $('#ntts').val('');
+            $('#claim_reason').val('');
+            $("#claim_tags").val(null).trigger('change');
             $('#sendNewNttPop').modal('show');
         });
-
 
         $('#nttsNewForm').validate({
             rules: {
@@ -191,6 +182,7 @@
                     },
                     success: function(data){
                         if(data.success == true){
+                            dashboard_table.ajax.reload();
                             $('#sendNewNttPop').modal('hide');
                             showMessage('success', 10000, data.message);
                         }
@@ -212,29 +204,41 @@
         if('<?php echo $__page->sel_wallet_adr; ?>' != sessionStorage.getItem("lh_sel_wallet_add"))
             window.location = 'admin';
 
-            var dashboard_table = $('#dashboard_table');
+        $('#dashboard_table_prev').click(function(){
+            dashboard_table.dataTable().fnPageChange( 'previous' );
+        });
 
-            $(document).ready(function () {
-                dashboard_table.DataTable({
-                    sDom: "t",
-                    responsive: true
-                });
-            });
+        $('#dashboard_table_next').click(function(){
+            dashboard_table.dataTable().fnPageChange( 'next' );
+        });
 
-            $('#dashboard_table_prev').click(function(){
-                dashboard_table.dataTable().fnPageChange( 'previous' );
-            });
+        $('#dashboard_table_length').change(function(){
+            dashboard_table.dataTable().api().page.len($(this).val()).draw();
+        });
 
-            $('#dashboard_table_next').click(function(){
-                dashboard_table.dataTable().fnPageChange( 'next' );
-            });
-
-            $('#dashboard_table_length').change(function(){
-                dashboard_table.dataTable().api().page.len($(this).val()).draw();
-            });
-
-            $('#dashboard_table_search').on( 'keyup', function () {
-                dashboard_table.dataTable().api().search(this.value).draw();
-            });
+        $('#dashboard_table_search').on( 'keyup', function () {
+            dashboard_table.dataTable().api().search(this.value).draw();
+        });
     } );
+
+    function dataLoad(){
+        dashboard_table = $('#dashboard_table').DataTable({
+            "sDom": "t",
+            "responsive": true,
+            "processing": true,
+            "bLengthChange": false,
+            "ordering": false,
+            "info": false,
+            "language": {
+                processing: "<img src='<?php echo app_cdn_path; ?>img/loading-.svg' width='100' height='100'>"
+            },
+            "drawCallback": function( settings ) {
+                feather.replace();
+            },
+            "ajax": "get-ntts"
+        });
+
+        dashboard_table.ajax.reload();
+        feather.replace();
+    }
 </script>

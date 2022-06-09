@@ -43,6 +43,9 @@ class controller extends Ctrl {
                     else
                         throw new Exception("dao_name:Not a valid name");
 
+                    $tick_change = $bg_change = false;
+                    $html = '';
+
                     if ($this->hasParam('ticker_imag')) {
                         $ticker_imag = $this->getParam('ticker_imag');
 
@@ -51,6 +54,7 @@ class controller extends Ctrl {
                                 throw new Exception("ticker_imag:Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE );
 
                             if(pathinfo($ticker_imag->name, PATHINFO_EXTENSION) == 'jpeg' || pathinfo($ticker_imag->name, PATHINFO_EXTENSION) == 'jpg'){
+                                $tick_change = true;
                                 $img_name = time();
                                 $amazons3 = new AmazonS3(app_site);
                                 $t_url = $amazons3->uploadFile($ticker_imag->tmp_name, "ticker/token_image.jpeg");
@@ -71,6 +75,7 @@ class controller extends Ctrl {
                                     if (!Utils::isValidImageSize($image->size))
                                         throw new Exception("background_imag:Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE . "mb.");
 
+                                    $bg_change = true;
                                     $amazons3 = new AmazonS3(app_site);
                                     $img_name = time() . '-' . $index;
                                     $t_url = $amazons3->uploadFile($image->tmp_name, "communities/claim-" . $img_name . '.' . pathinfo($image->name, PATHINFO_EXTENSION));
@@ -81,12 +86,31 @@ class controller extends Ctrl {
                         }
                     }
 
+                    $i = 0;
                     foreach ($claim_images as $url) {
+                        $i++;
                         Community::addClaimImages($community->id, $url);
+
+                         $html.='<li class="upload-image-item" id="claim-img-'.$i.'">
+                                <a class="image-del" href="delete-claim-img?id='.$i.'">
+                                    <i data-feather="x"></i>
+                                </a>
+                                <img width="220" height="250" src="'.app_cdn_path.$url.'" class="rounded-3">
+                            </li>';
+
                     }
 
                     $community->update();
-                    echo json_encode(array('success' => true, 'url' => 'admin-settings','t_url' => $t_url));
+
+                    echo json_encode(array(
+                        'success' => true,
+                        'url' => 'admin-settings',
+                        'tick_change' => $tick_change,
+                        'ticket_img_url' => 'https://lighthouse-cdn.s3.amazonaws.com/instances/'.$community->dao_domain.'/ticker/token_image.jpeg',
+                        'bg_change' => $bg_change,
+                        'bg_img_html' => $html
+                    ));
+
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());
                     $element = 'error-msg';

@@ -45,18 +45,18 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-8">
-                                        <label for="NTTTicker" class="form-label">NTT ticker image  (64px x 64px)</label>
+                                        <label for="NTTTicker" class="form-label">NTT ticker image  <span id="ticker_imag_name">(64px x 64px)</span></label>
                                         <div class="d-flex align-items-center mb-6">
                                             <div class="upload-logo me-6">
                                                 <?php
                                                 if(strlen($__page->community->ticker_img_url) > 0){ ?>
-                                                    <img width="64" height="64" src="<?php echo $__page->community->getTickerImage(); ?>" class="rounded-circle border">
+                                                    <img id="ticker_imag_link" width="64" height="64" src="<?php echo $__page->community->getTickerImage(); ?>" class="rounded-circle border">
                                                 <?php }else{ ?>
                                                     <i data-feather="image"></i>
                                                 <?php } ?>
                                             </div>
                                             <div class="me-6">
-                                                <input type="file" name="ticker_imag" id="ticker_imag" accept="image/jpeg"  hidden/>
+                                                <input type="file" name="ticker_imag" id="ticker_imag" accept="image/jpeg"  hidden onchange="javascript:updateTickerImage()"/>
                                                 <label class="btn btn-light btn-upload" for="ticker_imag">Upload Image</label>
                                             </div>
                                             <a class="text-muted fw-medium fs-5 text-decoration-none" href="#">Remove image</a>
@@ -78,7 +78,7 @@
                                                 <div class="text-muted mt-2 mb-8 text-center">1060px x 1080px recommended. Max 1MB</div>
                                             </label>
                                         </div>
-                                        <ul class="upload-image-view">
+                                        <ul id="bg_images" class="upload-image-view">
                                             <?php
                                             foreach ($__page->community->getClaimImages() as $id => $image){ ?>
                                               <li class="upload-image-item" id="claim-img-<?php echo $id; ?>">
@@ -120,8 +120,6 @@
 </main>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
-    feather.replace();
-
     $(document).ready(function() {
         $('#settingsForm').validate({
             rules: {
@@ -135,6 +133,15 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.success == true) {
+                            if(data.tick_change == true) {
+                                $('#ticker_imag_link').attr("src", data.ticket_img_url);
+                                $('#ticker_imag_name').html('');
+                            }
+                            if(data.bg_change == true) {
+                                $('#bg_images').html(data.bg_img_html);
+                                $('#fileList').html('');
+                            }
+                            feather.replace();
                             showMessage('success',50000,'Success! Your changes have been saved.');
                         } else {
                             $('#' + data.element).addClass('form-control-lg error');
@@ -161,6 +168,12 @@
     });
 
     // File upload
+    updateTickerImage = function () {
+        var input = document.getElementById('ticker_imag');
+        if(input.files.item(0))
+            $('#ticker_imag_name').html('( '+input.files.item(0).name+' )');
+    }
+
     updateList = function() {
         var input = document.getElementById('background_imag');
         var output = document.getElementById('fileList');

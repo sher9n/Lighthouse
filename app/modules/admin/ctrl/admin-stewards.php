@@ -39,9 +39,17 @@ class controller extends Ctrl {
                     $steward->comunity_id = $community->id;
                     $steward->wallet_adr = $wallet_address;
                     $steward->display_name = $display_name;
-                    $steward->insert();
+                    $id = $steward->insert();
 
-                    echo json_encode(array('success' => true, 'url' => 'admin-stewards'));
+                    $html = '<div class="stew-'.$id.' fw-medium mt-22">'.$display_name.'</div>
+                                <div class="stew-'.$id.' d-flex align-items-center">
+                                    <div class="fs-3 fw-semibold me-6">'.$wallet_address.'</div>
+                                    <a class="del_steward" href="delete-stewards?id='.$id.'&adr='.$wallet_address.'" data-bs-toggle="modal" data-bs-target="#delMember">
+                                        <i data-feather="trash" class="text-danger"></i>
+                                    </a>
+                                </div>';
+
+                    echo json_encode(array('success' => true, 'html' => $html));
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());
                     $element = 'error-msg';

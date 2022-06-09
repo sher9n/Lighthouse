@@ -31,6 +31,8 @@
                 <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg" height="42">
                 <div class="modal-provider-name">Phantom</div>
                 <div type="button"  class="modal-provider-description">Connect to your Phantom Wallet</div>
+                <div id="whitelist_solana_error" class="text-danger fw-medium mt-20 d-none">This wallet does not have access to <?php echo $__page->dao_name; ?>. <br>
+                    Please connect with a whitelisted wallet.</div>
             </a>
         </div>
     </div>

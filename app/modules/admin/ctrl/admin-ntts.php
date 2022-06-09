@@ -66,7 +66,7 @@ class controller extends Ctrl {
                     $claim->chainId = $api_response->chainId;
                     $claim->insert();
 
-                    echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($community->blockchain).'_BALANCE_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
+                    echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($community->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
                 }
             }
             catch (Exception $e)
