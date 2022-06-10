@@ -22,11 +22,20 @@ class controller extends Ctrl {
 
             if( __ROUTER_PATH == '/get-ntts'){
 
-                $claim_table = array();
+                $claim_table = $rank_table = array();
+                $total = 0;
+                $com_id = $community->id;
                 $domain = app_site;
                 $claims = Claim::find("SELECT GROUP_CONCAT(IF(c.status='1', c.clm_tags,null)) as tags ,c.wallet_adr,sum(c.ntts) as score FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE c.status='1' AND com.dao_domain='$domain' group by c.wallet_adr");
-                foreach ($claims as $claim) {
+                $ranks  = Claim::find("SELECT wallet_adr,sum(ntts) as ntts FROM lighthouse.claims WHERE comunity_id='$com_id' AND status=1 group by wallet_adr order by ntts DESC");
+                $rank_index = 0;
+                foreach ($ranks as $rank) {
+                    $rank_index++;
+                    $rank_table[$rank['wallet_adr']] = array('rank' => $rank_index,'sum' => $rank['ntts'])  ;
+                    $total += $rank['ntts'];
+                }
 
+                foreach ($claims as $claim) {
                     $tags = explode(',', $claim['tags']);
                     $tem_tags = array();
                     foreach ($tags as $tag) {
@@ -43,13 +52,18 @@ class controller extends Ctrl {
                         array_push($tag_string , $key.':'.$c);
 
                     $wallet_adr = $claim['wallet_adr'];
+                    $r = $p = '-';
+                    if(isset($rank_table[$wallet_adr])){
+                        $r = $rank_table[$wallet_adr]['rank'];
+                        $p = number_format((($rank_table[$wallet_adr]['sum'] / $total) * 100),2).'%';
+                    }
 
                     $claim_table[] = array(
                         '<a data-adr="'.$wallet_adr.'" href="#" class="send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>',
                         Utils::WalletAddressFormat($wallet_adr),
                         $claim['score'],
-                        '215',
-                        '0%',
+                        $r,
+                        $p,
                         '<div class="text-truncate text-max-width">'.implode(', ',$tag_string).'</div>'
                     );
 
@@ -68,23 +82,15 @@ class controller extends Ctrl {
                 die();
             }
 
-            $solana = false;
-            if($community->blockchain == 'solana')
-                $solana = true;
-
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
-                'solana' => $solana,
                 'blockchain' => $community->blockchain,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-dashboard.php'
                 ),
-                'js' => array(
-                    'https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js',
-                    'https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js'
-                )
+                'js' => array()
             );
 
             require_once app_template_path . '/admin-base.php';

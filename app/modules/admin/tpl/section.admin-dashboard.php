@@ -1,63 +1,62 @@
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
-        <section class="admin-body-section">
-            <div class="container-fluid h-100">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="d-flex flex-column flex-xl-row mb-13">
-                            <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto" id="dashboard_table_search"  placeholder="Search...">
-                            <button id="copy_claim_link" type="button" class="btn btn-dark me-xl-3 mb-3 mb-xl-0" trigger="manual" data-placement="top" title="Copied!">Copy Claims LINK</button>
-                            <button id="sendNewNtt" type="button" class="btn btn-primary">Send NTTs</button>
+    <section class="admin-body-section">
+        <div class="container-fluid h-100">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="d-flex flex-column flex-xl-row mb-13">
+                        <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto" id="dashboard_table_search"  placeholder="Search...">
+                        <button id="copy_claim_link" type="button" class="btn btn-dark me-xl-3 mb-3 mb-xl-0" trigger="manual" data-placement="top" title="Copied!">Copy Claims LINK</button>
+                        <button id="sendNewNtt" type="button" class="btn btn-primary">Send NTTs</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row h-100">
+                <div class="col-lg-12">
+                    <div class="d-flex flex-column" style="min-height: 86vh;">
+                        <div class="card shadow mb-6">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="dashboard_table" class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Send NTTs</th>
+                                            <th>Wallet or SNS</th>
+                                            <th>Score</th>
+                                            <th>Rank</th>
+                                            <th>Percentile</th>
+                                            <th>Tags</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column flex-xl-row justify-content-between mt-auto">
+                            <select id="dashboard_table_length" class="form-select form-length">
+                                <option value="10">Rows per page: 10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="-1">All</option>
+                            </select>
+                            <ul class="pagination justify-content-xl-end justify-content-center mb-0 mt-6 mt-xl-0">
+                                <li class="page-item">
+                                    <a class="page-link" id="dashboard_table_prev"><img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-left.svg" class="me-2">Previous</a>
+                                </li>
+                                <li class="page-item">
+                                <a class="page-link" href="#" id="dashboard_table_next">Next<img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-right.svg" class="ms-2"></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="row h-100">
-                    <div class="col-lg-12">
-                        <div class="d-flex flex-column" style="min-height: 86vh;">
-                            <div class="card shadow mb-6">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="dashboard_table" class="table table-striped table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th>Send NTTs</th>
-                                                <th>Wallet or SNS</th>
-                                                <th>Score</th>
-                                                <th>Rank</th>
-                                                <th>Percentile</th>
-                                                <th>Tags</th>
-                                            </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-xl-row justify-content-between mt-auto">
-                                <select id="dashboard_table_length" class="form-select form-length">
-                                    <option value="10">Rows per page: 10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="-1">All</option>
-                                </select>
-                                <ul class="pagination justify-content-xl-end justify-content-center mb-0 mt-6 mt-xl-0">
-                                    <li class="page-item">
-                                        <a class="page-link" id="dashboard_table_prev"><img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-left.svg" class="me-2">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                    <a class="page-link" href="#" id="dashboard_table_next">Next<img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-right.svg" class="ms-2"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>                
             </div>
-        </section>
-
+        </div>
+    </section>
 
 <!-- skeleton loader -->
-        <section class="admin-body-section d-none">
+<section class="admin-body-section d-none">
             <div class="container-fluid h-100">
                 <div class="row">
                     <div class="col-lg-12">
@@ -200,24 +199,6 @@
         </section>
 <!-- skeleton loader END -->
 
-        <!--<section class="admin-body-section">
-            <div class="container-fluid h-100">
-                <div class="row h-100">
-                    <div class="col-lg-12">
-                        <div class="card shadow h-100">
-                            <div class="card-body">
-                                <div class="d-flex flex-column align-items-center justify-content-center h-100 border rounded">
-                                    <img src="<?php /*echo app_cdn_path; */?>img/img-empty.svg" width="208">
-                                    <div class="fs-2 fw-semibold mt-20">To get started, send NTTs to your community.</div>
-                                    <a role="button" id="startSendNewNtt"  class="btn btn-primary mt-18" href="admin-dashboard">Send NTTs</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>-->
-
     <!-- Modal Send some NTTs -->
     <div class="modal fade" id="sendNewNttPop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -228,7 +209,7 @@
                         <div class="fs-5 fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
                         <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
                         <div class="fs-3 fw-semibold mb-3 text-break"></div>
-                        <?php if($__page->solana == true){ ?>
+                        <?php if($__page->blockchain == SOLANA){ ?>
                             <a role="button" id="add_wallet" onclick="changeSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
                         <?php }else{ ?>
                             <a role="button" id="add_wallet" class="add_wallet btn btn-light" href="#">Change Wallet</a>

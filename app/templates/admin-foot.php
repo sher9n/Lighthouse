@@ -41,6 +41,8 @@
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/select2.full.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/js-snackbar.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
 <!--Wallet connect JS-->
 <script type="text/javascript" src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
 <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>

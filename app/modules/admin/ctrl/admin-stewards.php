@@ -2,6 +2,7 @@
 use lighthouse\Auth;
 use lighthouse\Steward;
 use lighthouse\Community;
+use lighthouse\Log;
 class controller extends Ctrl {
     function init() {
 
@@ -40,6 +41,13 @@ class controller extends Ctrl {
                     $steward->wallet_adr = $wallet_address;
                     $steward->display_name = $display_name;
                     $id = $steward->insert();
+
+                    $log = new Log();
+                    $log->type = 'Steward';
+                    $log->type_id = $id;
+                    $log->action = 'create';
+                    $log->c_by = $wallet_address;
+                    $log->insert();
 
                     $html = '<div class="stew-'.$id.' fw-medium mt-22">'.$display_name.'</div>
                                 <div class="stew-'.$id.' d-flex align-items-center">

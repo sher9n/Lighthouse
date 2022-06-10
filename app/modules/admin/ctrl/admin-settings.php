@@ -1,6 +1,7 @@
 <?php
 use lighthouse\Auth;
 use lighthouse\Community;
+use lighthouse\Log;
 use Core\AmazonS3;
 use Core\Utils;
 class controller extends Ctrl {
@@ -101,6 +102,13 @@ class controller extends Ctrl {
                     }
 
                     $community->update();
+
+                    $log = new Log();
+                    $log->type = 'Community';
+                    $log->type_id = $community->id;
+                    $log->action = 'update-settings';
+                    $log->c_by = $sel_wallet_adr;
+                    $log->insert();
 
                     echo json_encode(array(
                         'success' => true,

@@ -3,6 +3,7 @@ use Core\Utils;
 use lighthouse\Claim;
 use lighthouse\Community;
 use lighthouse\Api;
+use lighthouse\Log;
 class controller extends Ctrl {
     function init() {
 
@@ -68,9 +69,15 @@ class controller extends Ctrl {
                         $claim->txHash = $api_response->txHash;
                         $claim->chainId = $api_response->chainId;
                     }
-                    $claim->insert();
+                    $id = $claim->insert();
                     $_SESSION['lhc'] = null;
 
+                    $log = new Log();
+                    $log->type = 'Claim';
+                    $log->type_id = $id;
+                    $log->action = 'create';
+                    $log->c_by = $wallet_address;
+                    $log->insert();
                 }
 
                 echo json_encode(array(
