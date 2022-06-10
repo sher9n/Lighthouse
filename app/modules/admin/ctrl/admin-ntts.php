@@ -3,6 +3,7 @@ use lighthouse\Auth;
 use lighthouse\Community;
 use lighthouse\Claim;
 use lighthouse\Api;
+use lighthouse\Log;
 class controller extends Ctrl {
     function init() {
 
@@ -65,6 +66,13 @@ class controller extends Ctrl {
                     $claim->txHash = $api_response->txHash;
                     $claim->chainId = $api_response->chainId;
                     $claim->insert();
+
+                    $log = new Log();
+                    $log->type = 'Claim';
+                    $log->type_id = $claim->id;
+                    $log->action = 'created';
+                    $log->c_by = $sel_wallet_adr;
+                    $log->insert();
 
                     echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($community->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
                 }

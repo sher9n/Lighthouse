@@ -3,6 +3,7 @@ use lighthouse\Auth;
 use lighthouse\Claim;
 use lighthouse\Community;
 use lighthouse\Api;
+use lighthouse\Log;
 class controller extends Ctrl {
     function init() {
 
@@ -38,6 +39,12 @@ class controller extends Ctrl {
                         $api_response = api::addPoints(constant(strtoupper($com->blockchain).'_API'),app_site,$claim->wallet_adr,$claim->ntts);
 
                     if(isset($api_response->error)) {
+                        $log = new Log();
+                        $log->type = 'Claim';
+                        $log->type_id = $claim->id;
+                        $log->action = 'rejected';
+                        $log->c_by = $sel_wallet_adr;
+                        $log->insert();
                         echo json_encode(array('success' => false,'message' =>'Error! Your NTTs have not been sent. <a class="text-white ms-1" id="retryNewNtt" hre="#">RETRY</a>'));
                         exit();
                     }
@@ -47,6 +54,13 @@ class controller extends Ctrl {
                         $claim->txHash = $api_response->txHash;
                         $claim->chainId = $api_response->chainId;
                         $claim->update();
+
+                        $log = new Log();
+                        $log->type = 'Claim';
+                        $log->type_id = $claim->id;
+                        $log->action = 'approved';
+                        $log->c_by = $sel_wallet_adr;
+                        $log->insert();
 
                         echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
                     }

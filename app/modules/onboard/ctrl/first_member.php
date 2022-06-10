@@ -2,6 +2,7 @@
 use Core\Utils;
 use lighthouse\Community;
 use lighthouse\Api;
+use lighthouse\Log;
 class controller extends Ctrl {
     function init() {
 
@@ -48,8 +49,9 @@ class controller extends Ctrl {
                 if ($domain_check === FALSE) {
                     $block_chain = $_SESSION['lhc']['b'];
 
-                    if($block_chain != 'solana')
-                        $api_response = api::addCommunity(constant(strtoupper($block_chain)."_API"),$wallet_address,$_SESSION['lhc']['d'],$_SESSION['lhc']['d'],$_SESSION['lhc']['t'],18,0.0008);
+                    if($block_chain != 'solana') {
+                        $api_response = api::addCommunity(constant(strtoupper($block_chain) . "_API"), $wallet_address, $_SESSION['lhc']['d'], $_SESSION['lhc']['d'], $_SESSION['lhc']['t'], 18, 0.0008);
+                    }
 
                     if(isset($api_response->error)) {
                         echo json_encode(array('success' => false,'msg' =>'Your NTTs has not been created.','element' => 'display_name'));
@@ -74,6 +76,13 @@ class controller extends Ctrl {
 
                         $id = $community->insert();
                         $_SESSION['lhc']['c_id'] = $id;
+
+                        $log = new Log();
+                        $log->type = 'Community';
+                        $log->type_id = $id;
+                        $log->action = 'create';
+                        $log->c_by = $community->wallet_adr;
+                        $log->insert();
 
                         echo json_encode(array(
                                 'success' => true,

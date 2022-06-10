@@ -2,6 +2,7 @@
 use lighthouse\Claim;
 use lighthouse\Community;
 use lighthouse\Auth;
+uee lighthouse\Log;
 class controller extends Ctrl {
     function init() {
 
@@ -38,6 +39,13 @@ class controller extends Ctrl {
                 $claim->comunity_id = $com->id;
                 $id = $claim->insert();
                 $_SESSION['lh_claim_id'] = $id;
+
+                $log = new Log();
+                $log->type = 'Community';
+                $log->type_id = $id;
+                $log->action = 'create-pending';
+                $log->c_by = $wallet_address;
+                $log->insert();
 
                 echo json_encode(array('success' => true, 'url' => 'claim-reason'));
             }
