@@ -54,6 +54,152 @@
                 </div>                
             </div>
         </section>
+
+
+<!-- skeleton loader -->
+        <section class="admin-body-section d-none">
+            <div class="container-fluid h-100">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="d-flex flex-column flex-xl-row mb-13">
+                            <div class="input-search mb-6 mb-xl-0 me-xl-auto rounded loading-gray"></div>
+                            <div class="skeleton-btn mb-6 mb-xl-0  me-xl-3 mb-3 mb-xl-0 rounded loading-gray"></div>
+                            <div class="skeleton-btn rounded loading-gray"></div>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row h-100">
+                    <div class="col-lg-12">
+                        <div class="d-flex flex-column" style="min-height: 86vh;">
+                            <div class="card shadow mb-6">
+                                <div class="card-body">                                    
+                                        <table id="" class="table table-striped table-bordered skeleton-table">
+                                            <thead>
+                                                <tr>
+                                                    <th><div class="text-content w-60"></div></th>
+                                                    <th><div class="text-content w-80"></div></th>
+                                                    <th><div class="text-content w-40"></div></th>
+                                                    <th><div class="text-content w-60"></div></th>
+                                                    <th><div class="text-content w-60"></div></th>
+                                                    <th><div class="text-content w-40"></div></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="text-content w-30"></div></td>
+                                                    <td><div class="text-content w-60"></div></td>
+                                                    <td><div class="text-content w-20"></div></td>
+                                                    <td><div class="text-content w-40"></div></td>
+                                                    <td><div class="text-content w-50"></div></td>
+                                                    <td><div class="text-content w-100"></div></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>                                    
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column flex-xl-row justify-content-between mt-auto">
+                                <div class="text-content w-30"></div>
+                                
+                                <div class="mb-0 mt-6 mt-xl-0 w-60">                                
+                                    <div class="skeleton-btn rounded loading-gray"></div>
+                                    <div class="skeleton-btn rounded loading-gray"></div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>                    
+                </div>                
+            </div>
+        </section>
+<!-- skeleton loader END -->
+
         <!--<section class="admin-body-section">
             <div class="container-fluid h-100">
                 <div class="row h-100">
