@@ -5,7 +5,7 @@
     <div class="main-nav">
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-dashboard'?'active':'';?>" aria-current="page" href="admin-dashboard">               
+            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-dashboard'?'active':'';?>" aria-current="page" href="admin-dashboard">
                 <i data-feather="layers"></i>
                 <div class="ms-12">Dashboard</div>
             </a>
