@@ -20,7 +20,7 @@
                                     <table id="dashboard_table" class="table table-striped table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>Send NTTs</th>
+                                            <th style="width: 100px">Send NTTs</th>
                                             <th>Wallet or SNS</th>
                                             <th>Score</th>
                                             <th>Rank</th>
@@ -352,6 +352,7 @@
     function dataLoad(){
         dashboard_table = $('#dashboard_table').DataTable({
             "sDom": "t",
+            "autoWidth": false,
             "responsive": true,
             "processing": true,
             "bLengthChange": false,

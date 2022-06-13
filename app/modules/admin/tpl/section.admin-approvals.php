@@ -5,7 +5,7 @@
         <div class="container-fluid h-100">
             <div class="row h-100">
                 <div class="col-xl-6 mb-6 mb-xl-0">
-                    <div class="card shadow h-100">
+                    <div  id="claim_item" class="card shadow h-100 d-none">
                         <div class="card-header border-bottom">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
@@ -24,9 +24,11 @@
                         </div>
                         <div class="tab-content h-100" id="pills-tabContent">
                             <div class="tab-pane fade h-100 show active" id="pills-queue" role="tabpanel" aria-labelledby="pills-queue-tab">
-                                <ul class="list-approvals">
                                    <?php
                                    if(count($__page->claims) > 0) {
+                                       ?>
+                                        <ul class="list-approvals">
+                                       <?php
                                        foreach ($__page->claims as $claim) { ?>
                                             <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items" id="cq_item_<?php echo $claim['c_id']; ?>">
                                                 <a class="d-flex text-decoration-none" href="#">
@@ -44,6 +46,9 @@
                                             </li>
                                         <?php
                                        }
+                                       ?>
+                                        </ul>
+                                     <?php
                                    }
                                    else{
                                        ?>
@@ -54,7 +59,7 @@
                                        </div>
                                         <?php
                                    } ?>
-                                </ul>
+
                             </div>
                             <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
                                 <ul class="list-approvals">
@@ -156,9 +161,8 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- skeleton loader -->
-                    <div class="card shadow h-100 d-none">
+                    <div id="skeleton_claim" class="card shadow h-100">
                         <div class="card-header border-bottom">
                             <div class="d-flex loading">
                                 <div class="nav-link"><div class="text-content mw-80"></div></div>                                
@@ -271,41 +275,10 @@
                         </div>
                     </div>
                     <!-- skeleton loader END -->
-
                 </div>
                 <div class="col-xl-6" id="claim_details">
                     <!-- skeleton loader -->
-                    <div class="card shadow d-none">
-                        <div class="card-body p-xl-20 mb-xl-20">
-                            <div class="display-5-text-content w-30 loading"></div>
-                            <div class="text-content w-20 mt-20 mb-3 loading"></div>                            
-                            <div class="fs-3-text-content w-40 loading"></div>
-                            <div class="text-content w-20 mt-18 mb-3 loading"></div>                            
-                            <div>
-                                <div class="row g-6 loading">
-                                    <div class="col-xl-3">
-                                        <div class="input-form-lg rounded-3"></div>                                        
-                                    </div>
-                                    <div class="col-xl">
-                                        <div class="input-form-lg rounded-3"></div>
-                                    </div>
-                                    <div class="col-xl">
-                                        <div class="input-form-lg rounded-3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-content w-20 mt-18 mb-3 loading"></div>
-                            <div class="input-form-xl rounded-3 loading"></div>
-                            <div class="text-content w-20 mt-18 mb-3 loading"></div>
-                            <div class="input-form-xxl rounded-3 loading"></div>
-                        </div>
-                       
-                        <div class="action_buttons card-body border-top d-flex justify-content-end gap-3">
-                            <div class="skeleton-btn-gray rounded loading"></div>
-                            <div class="skeleton-btn-gray rounded loading"></div>
-                        </div>
-                       
-                    </div>
+
                     <!-- skeleton loader END -->
                 </div>
             </div>
@@ -324,6 +297,8 @@
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     feather.replace();
+    $("#claim_item").removeClass('d-none');
+    $("#skeleton_claim").addClass('d-none');
 
     $(document).on('shown.bs.tab', function (e) {
         $('#claim_details').html('');
@@ -333,10 +308,40 @@
 
         $(document).on("click", '.c_items', function(event) {
             var item = $(this);
-            $(".c_items").removeClass('active');
-            item.addClass('active');
             var data = {'claim_id': item.data('item_id')};
 
+            $(".c_items").removeClass('active');
+            item.addClass('active');
+
+            $('#claim_details').html('<div id="skeleton_claim_details" class="card shadow">\n' +
+                '                        <div class="card-body p-xl-20 mb-xl-20">\n' +
+                '                            <div class="display-5-text-content w-30 loading"></div>\n' +
+                '                            <div class="text-content w-20 mt-20 mb-3 loading"></div>                            \n' +
+                '                            <div class="fs-3-text-content w-40 loading"></div>\n' +
+                '                            <div class="text-content w-20 mt-18 mb-3 loading"></div>                            \n' +
+                '                            <div>\n' +
+                '                                <div class="row g-6 loading">\n' +
+                '                                    <div class="col-xl-3">\n' +
+                '                                        <div class="input-form-lg rounded-3"></div>                                        \n' +
+                '                                    </div>\n' +
+                '                                    <div class="col-xl">\n' +
+                '                                        <div class="input-form-lg rounded-3"></div>\n' +
+                '                                    </div>\n' +
+                '                                    <div class="col-xl">\n' +
+                '                                        <div class="input-form-lg rounded-3"></div>\n' +
+                '                                    </div>\n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                            <div class="text-content w-20 mt-18 mb-3 loading"></div>\n' +
+                '                            <div class="input-form-xl rounded-3 loading"></div>\n' +
+                '                            <div class="text-content w-20 mt-18 mb-3 loading"></div>\n' +
+                '                            <div class="input-form-xxl rounded-3 loading"></div>\n' +
+                '                        </div>\n' +
+                '                        <div class="action_buttons card-body border-top d-flex justify-content-end gap-3">\n' +
+                '                            <div class="skeleton-btn-gray rounded loading"></div>\n' +
+                '                            <div class="skeleton-btn-gray rounded loading"></div>\n' +
+                '                        </div>\n' +
+                '                    </div>');
             $.ajax({
                 url: 'claim-details',
                 dataType: 'json',
