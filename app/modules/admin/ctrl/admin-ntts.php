@@ -65,11 +65,11 @@ class controller extends Ctrl {
                     $claim->comunity_id = $community->id;
                     $claim->txHash = $api_response->txHash;
                     $claim->chainId = $api_response->chainId;
-                    $claim->insert();
+                    $id = $claim->insert();
 
                     $log = new Log();
                     $log->type = 'Claim';
-                    $log->type_id = $claim->id;
+                    $log->type_id = $id;
                     $log->action = 'created';
                     $log->c_by = $sel_wallet_adr;
                     $log->insert();
