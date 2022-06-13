@@ -60,3 +60,57 @@
         </div>
     </div>
 </aside>
+
+<!-- skeleton loader -->
+<aside class="admin-left-aside d-none">
+    <div class="ms-3">
+        <div class="skeleton-logo loading rounded"></div>
+    </div>
+    <div class="main-nav">
+        <ul class="nav flex-column loading">
+            <li class="nav-item">
+                <div class="nav-link">
+                    <div class="skeleton-nav-icon rounded-circle"></div>
+                    <div class="skeleton-nav-text rounded ms-12"></div>
+                </div>                
+            </li>
+            <li class="nav-item">
+                <div class="nav-link">
+                    <div class="skeleton-nav-icon rounded-circle"></div>
+                    <div class="skeleton-nav-text rounded ms-12"></div>
+                </div>                
+            </li>
+            <li class="nav-item">
+                <div class="nav-link">
+                    <div class="skeleton-nav-icon rounded-circle"></div>
+                    <div class="skeleton-nav-text rounded ms-12"></div>
+                </div>                
+            </li>
+            <li class="nav-item">
+                <div class="nav-link">
+                    <div class="skeleton-nav-icon rounded-circle"></div>
+                    <div class="skeleton-nav-text rounded ms-12"></div>
+                </div>                
+            </li>
+            <li class="nav-item">
+                <div class="nav-link">
+                    <div class="skeleton-nav-icon rounded-circle"></div>
+                    <div class="skeleton-nav-text rounded ms-12"></div>
+                </div>                
+            </li>
+            <li class="nav-item">
+                <div class="nav-link">
+                    <div class="skeleton-nav-icon rounded-circle"></div>
+                    <div class="skeleton-nav-text rounded ms-12"></div>
+                </div>                
+            </li>
+        </ul>
+    </div>
+    <div class="user-nav">
+        <div class="d-flex align-items-center">
+            <div class="skeleton-nav-icon-lg rounded-circle"></div>
+            <div class="skeleton-nav-text-lg rounded ms-12"></div>
+        </div>
+    </div>
+</aside>
+<!-- skeleton loader END -->
