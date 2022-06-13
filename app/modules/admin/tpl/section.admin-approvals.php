@@ -156,8 +156,158 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- skeleton loader -->
+                    <div class="card shadow h-100 d-none">
+                        <div class="card-header border-bottom">
+                            <div class="d-flex loading">
+                                <div class="nav-link"><div class="text-content mw-80"></div></div>                                
+                                <div class="nav-link"><div class="text-content mw-80"></div></div>
+                                <div class="nav-link"><div class="text-content mw-80"></div></div>
+                                <div class="nav-link"><div class="text-content mw-80"></div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="list-approvals">
+                                <li class="list-approvals-item">
+                                    <a class="d-flex text-decoration-none loading" href="#">
+                                        <div class="d-flex align-items-center px-xl-4 gap-3">
+                                            <div class="icon-content rounded-circle"></div>
+                                            <div class="icon-content rounded-circle"></div>
+                                        </div>
+                                        <div class="ms-8 col-7">
+                                            <div class="fs-4-text-content w-60"></div>
+                                            <div class="text-content mt-2 w-100"></div>
+                                            <div class="text-content mt-1 w-30"></div>
+                                        </div>
+                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
+                                    </a>
+                                </li>
+                                <li class="list-approvals-item">
+                                    <a class="d-flex text-decoration-none loading" href="#">
+                                        <div class="d-flex align-items-center px-xl-4 gap-3">
+                                            <div class="icon-content rounded-circle"></div>
+                                            <div class="icon-content rounded-circle"></div>
+                                        </div>
+                                        <div class="ms-8 col-7">
+                                            <div class="fs-4-text-content w-60"></div>
+                                            <div class="text-content mt-2 w-100"></div>
+                                            <div class="text-content mt-1 w-30"></div>
+                                        </div>
+                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
+                                    </a>
+                                </li>
+                                <li class="list-approvals-item">
+                                    <a class="d-flex text-decoration-none loading" href="#">
+                                        <div class="d-flex align-items-center px-xl-4 gap-3">
+                                            <div class="icon-content rounded-circle"></div>
+                                            <div class="icon-content rounded-circle"></div>
+                                        </div>
+                                        <div class="ms-8 col-7">
+                                            <div class="fs-4-text-content w-60"></div>
+                                            <div class="text-content mt-2 w-100"></div>
+                                            <div class="text-content mt-1 w-30"></div>
+                                        </div>
+                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
+                                    </a>
+                                </li>
+                                <li class="list-approvals-item">
+                                    <a class="d-flex text-decoration-none loading" href="#">
+                                        <div class="d-flex align-items-center px-xl-4 gap-3">
+                                            <div class="icon-content rounded-circle"></div>
+                                            <div class="icon-content rounded-circle"></div>
+                                        </div>
+                                        <div class="ms-8 col-7">
+                                            <div class="fs-4-text-content w-60"></div>
+                                            <div class="text-content mt-2 w-100"></div>
+                                            <div class="text-content mt-1 w-30"></div>
+                                        </div>
+                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
+                                    </a>
+                                </li>
+                                <li class="list-approvals-item">
+                                    <a class="d-flex text-decoration-none loading" href="#">
+                                        <div class="d-flex align-items-center px-xl-4 gap-3">
+                                            <div class="icon-content rounded-circle"></div>
+                                            <div class="icon-content rounded-circle"></div>
+                                        </div>
+                                        <div class="ms-8 col-7">
+                                            <div class="fs-4-text-content w-60"></div>
+                                            <div class="text-content mt-2 w-100"></div>
+                                            <div class="text-content mt-1 w-30"></div>
+                                        </div>
+                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
+                                    </a>
+                                </li>
+                                <li class="list-approvals-item">
+                                    <a class="d-flex text-decoration-none loading" href="#">
+                                        <div class="d-flex align-items-center px-xl-4 gap-3">
+                                            <div class="icon-content rounded-circle"></div>
+                                            <div class="icon-content rounded-circle"></div>
+                                        </div>
+                                        <div class="ms-8 col-7">
+                                            <div class="fs-4-text-content w-60"></div>
+                                            <div class="text-content mt-2 w-100"></div>
+                                            <div class="text-content mt-1 w-30"></div>
+                                        </div>
+                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
+                                    </a>
+                                </li>
+                                <li class="list-approvals-item">
+                                    <a class="d-flex text-decoration-none loading" href="#">
+                                        <div class="d-flex align-items-center px-xl-4 gap-3">
+                                            <div class="icon-content rounded-circle"></div>
+                                            <div class="icon-content rounded-circle"></div>
+                                        </div>
+                                        <div class="ms-8 col-7">
+                                            <div class="fs-4-text-content w-60"></div>
+                                            <div class="text-content mt-2 w-100"></div>
+                                            <div class="text-content mt-1 w-30"></div>
+                                        </div>
+                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- skeleton loader END -->
+
                 </div>
-                <div class="col-xl-6" id="claim_details"></div>
+                <div class="col-xl-6" id="claim_details">
+                    <!-- skeleton loader -->
+                    <div class="card shadow d-none">
+                        <div class="card-body p-xl-20 mb-xl-20">
+                            <div class="display-5-text-content w-30 loading"></div>
+                            <div class="text-content w-20 mt-20 mb-3 loading"></div>                            
+                            <div class="fs-3-text-content w-40 loading"></div>
+                            <div class="text-content w-20 mt-18 mb-3 loading"></div>                            
+                            <div>
+                                <div class="row g-6 loading">
+                                    <div class="col-xl-3">
+                                        <div class="input-form-lg rounded-3"></div>                                        
+                                    </div>
+                                    <div class="col-xl">
+                                        <div class="input-form-lg rounded-3"></div>
+                                    </div>
+                                    <div class="col-xl">
+                                        <div class="input-form-lg rounded-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-content w-20 mt-18 mb-3 loading"></div>
+                            <div class="input-form-xl rounded-3 loading"></div>
+                            <div class="text-content w-20 mt-18 mb-3 loading"></div>
+                            <div class="input-form-xxl rounded-3 loading"></div>
+                        </div>
+                       
+                        <div class="action_buttons card-body border-top d-flex justify-content-end gap-3">
+                            <div class="skeleton-btn-gray rounded loading"></div>
+                            <div class="skeleton-btn-gray rounded loading"></div>
+                        </div>
+                       
+                    </div>
+                    <!-- skeleton loader END -->
+                </div>
             </div>
         </div>
     </section>
