@@ -2,7 +2,7 @@
 use lighthouse\Claim;
 use lighthouse\Community;
 use lighthouse\Auth;
-uee lighthouse\Log;
+use lighthouse\Log;
 class controller extends Ctrl {
     function init() {
 
@@ -41,7 +41,7 @@ class controller extends Ctrl {
                 $_SESSION['lh_claim_id'] = $id;
 
                 $log = new Log();
-                $log->type = 'Community';
+                $log->type = 'Claim';
                 $log->type_id = $id;
                 $log->action = 'create-pending';
                 $log->c_by = $wallet_address;

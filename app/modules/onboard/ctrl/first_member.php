@@ -80,7 +80,7 @@ class controller extends Ctrl {
                         $log = new Log();
                         $log->type = 'Community';
                         $log->type_id = $id;
-                        $log->action = 'create';
+                        $log->action = 'created';
                         $log->c_by = $community->wallet_adr;
                         $log->insert();
 

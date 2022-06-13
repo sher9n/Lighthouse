@@ -368,7 +368,7 @@
 
                         showMessage('success', 10000, data.message);
 
-                        if($('#cq_item_'+c_id).parent().parent().find("li").length == 0) {
+                        if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
                             $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
                                 '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
                                 '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>it will show up here</div>' +
