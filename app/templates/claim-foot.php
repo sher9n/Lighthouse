@@ -15,7 +15,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="https://unpkg.com/feather-icons"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/jquery.form.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/jquery.validate.min.js"></script>

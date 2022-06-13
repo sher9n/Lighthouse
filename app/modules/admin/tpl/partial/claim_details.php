@@ -3,11 +3,11 @@
         <div class="display-5 fw-medium">Claim details</div>
         <label for="" class="form-label mt-20">Wallet or SNS</label>
         <div class="fs-3 fw-semibold"><?php echo $claim->wallet_adr; ?></div>
-        <label for="" class="form-label mt-18 mb-3">Claim amount</label>
+        <label for="" class="form-label mt-18 mb-3">Claim amount <?php echo $claim->status ; ?></label>
         <div>
             <div class="row g-6">
                 <div class="col-xl-3">
-                    <input type="number" class="form-control rounded-3 py-9 px-7 fs-3 h-100" readonly value="<?php echo $claim->ntts; ?>" placeholder="120">
+                    <input type="number" class="form-control rounded-3 py-9 px-7 fs-3 h-100" <?php echo ($claim->status != 0)?'readonly':'' ?> value="<?php echo $claim->ntts; ?>" placeholder="120">
                 </div>
                 <div class="col-xl">
                     <div class="bg-light rounded-3 py-3 px-7">
@@ -24,7 +24,7 @@
             </div>
         </div>
         <label for="" class="form-label mt-18 mb-3">Reason</label>
-        <textarea class="form-control form-control-lg fs-3" id="" rows="2" placeholder=""><?php echo $claim->clm_reason; ?></textarea>
+        <textarea class="form-control form-control-lg fs-3" <?php echo ($claim->status != 0)?'readonly':'' ?> rows="2" placeholder=""><?php echo $claim->clm_reason; ?></textarea>
         <label for="" class="form-label mt-18 mb-3">Tags</label>
         <!--<textarea class="form-control form-control-lg" id="" rows="2" placeholder=""><?php /*echo $claim->clm_tags; */?></textarea>-->
         <select class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy">
@@ -48,6 +48,9 @@
     $(document).ready(function() {
 
         $("#claim_tags").select2({
+            <?php if($claim->status != 0){?>
+            disabled:'readonly',
+            <?php } ?>
             tags: true,
             tokenSeparators: [',', ' ']
         });

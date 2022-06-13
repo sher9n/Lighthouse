@@ -41,18 +41,31 @@ class controller extends Ctrl {
                         exit();
                     }
 
-/*                    if($com->blockchain == 'solana')
+                    if($com->blockchain == 'solana')
                         $api_response = api::solana_addPoints($claim->wallet_adr,$claim->ntts);
                     else
                         $api_response = api::addPoints(constant(strtoupper($com->blockchain).'_API'),app_site,$claim->wallet_adr,$claim->ntts);
-
+                    
                     if(isset($api_response->error)) {
                         echo json_encode(array('success' => false,'message' =>'Error! Your NTTs have not been sent. <a class="text-white ms-1" id="retryNewNtt" hre="#">RETRY</a>'));
                         exit();
                     }
                     else {
+                        $ntts = 0;
 
+                        if($this->hasParam('ntts'))
+                            $ntts = floatval($this->getParam('ntts'));
+                        else
+                            throw new Exception("ntts:Not a valid NTTs");
+
+                        $reason = $this->hasParam('claim_reason') ? $this->getParam('claim_reason') : '';
+                        $tags   = $this->hasParam('claim_tags') ? $this->getParam('claim_tags') : '';
+                        $tags   = is_array($tags) ? implode(',', $tags) : '';
+                        $claim->ntts = $ntts;
+                        $claim->clm_reason = $reason;
+                        $claim->clm_tags = $tags;
                         $claim->status = 1;
+                        $claim->
                         $claim->txHash = $api_response->txHash;
                         $claim->chainId = $api_response->chainId;
                         $claim->update();
@@ -65,7 +78,7 @@ class controller extends Ctrl {
                         $log->insert();
 
                         echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
-                    }*/
+                    }
 
                     echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').'"> VIEW TRANSACTION</a>'));
                 }

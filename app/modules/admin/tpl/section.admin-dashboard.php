@@ -1,6 +1,6 @@
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
-    <section id="dashboard" class="admin-body-section d-none">
+    <section id="dashboard" class="admin-body-section">
         <div class="container-fluid h-100">
             <div class="row">
                 <div class="col-lg-12">
@@ -54,150 +54,6 @@
             </div>
         </div>
     </section>
-
-    <!-- skeleton loader -->
-    <section id="skeleton_dashboard" class="admin-body-section">
-        <div class="container-fluid h-100">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="d-flex flex-column flex-xl-row mb-13">
-                        <div class="input-search mb-6 mb-xl-0 me-xl-auto rounded loading-gray"></div>
-                        <div class="skeleton-btn mb-6 mb-xl-0  me-xl-3 mb-3 mb-xl-0 rounded loading-gray"></div>
-                        <div class="skeleton-btn rounded loading-gray"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row h-100">
-                <div class="col-lg-12">
-                    <div class="d-flex flex-column" style="min-height: 86vh;">
-                        <div class="card shadow mb-6">
-                            <div class="card-body">
-                                    <table id="" class="table table-striped table-bordered skeleton-table">
-                                        <thead>
-                                            <tr>
-                                                <th><div class="text-content w-60"></div></th>
-                                                <th><div class="text-content w-80"></div></th>
-                                                <th><div class="text-content w-40"></div></th>
-                                                <th><div class="text-content w-60"></div></th>
-                                                <th><div class="text-content w-60"></div></th>
-                                                <th><div class="text-content w-40"></div></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="text-content w-30"></div></td>
-                                                <td><div class="text-content w-60"></div></td>
-                                                <td><div class="text-content w-20"></div></td>
-                                                <td><div class="text-content w-40"></div></td>
-                                                <td><div class="text-content w-50"></div></td>
-                                                <td><div class="text-content w-100"></div></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column flex-xl-row justify-content-between mt-auto">
-                            <div class="text-content w-30"></div>
-                            <div class="mb-0 mt-6 mt-xl-0 w-60">
-                                <div class="skeleton-btn rounded loading-gray"></div>
-                                <div class="skeleton-btn rounded loading-gray"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- skeleton loader END -->
-
     <!-- Modal Send some NTTs -->
     <div class="modal fade" id="sendNewNttPop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -308,8 +164,6 @@
                     },
                     success: function(data){
                         if(data.success == true){
-                            $('#skeleton_dashboard').removeClass('d-none');
-                            $('#dashboard').addClass('d-none');
                             dashboard_table.ajax.reload();
                             $('#sendNewNttPop').modal('hide');
                             showMessage('success', 10000, data.message);
@@ -362,14 +216,12 @@
                 processing: "<img src='<?php echo app_cdn_path; ?>img/loading-.svg' width='100' height='100'>"
             },
             "drawCallback": function( settings ) {
-                $('#skeleton_dashboard').addClass('d-none');
-                $('#dashboard').removeClass('d-none');
                 feather.replace();
             },
             "ajax": "get-ntts"
         });
 
-        dashboard_table.ajax.reload();
-        feather.replace();
+        //dashboard_table.ajax.reload();
+        //feather.replace();
     }
 </script>

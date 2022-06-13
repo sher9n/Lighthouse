@@ -59,12 +59,13 @@
                                        </div>
                                         <?php
                                    } ?>
-
                             </div>
                             <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
-                                <ul class="list-approvals">
                                     <?php
                                     if(count($__page->a_claims) > 0) {
+                                        ?>
+                                        <ul class="list-approvals">
+                                        <?php
                                         foreach ($__page->a_claims as $claim) { ?>
                                             <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items ca_item_<?php echo $claim['c_id']; ?>">
                                                 <a class="d-flex text-decoration-none" href="#">
@@ -82,6 +83,9 @@
                                             </li>
                                             <?php
                                         }
+                                        ?>
+                                        </ul>
+                                      <?php
                                     }
                                     else{
                                         ?>
@@ -91,12 +95,13 @@
                                         </div>
                                         <?php
                                     } ?>
-                                </ul>
                             </div>
                             <div class="tab-pane fade h-100" id="pills-reviewed" role="tabpanel" aria-labelledby="pills-reviewed-tab">
-                                <ul class="list-approvals">
                                     <?php
                                     if($__page->all_claims->num_rows > 0) {
+                                        ?>
+                                        <ul class="list-approvals">
+                                        <?php
                                         foreach ($__page->all_claims as $claim) { ?>
                                             <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items ca_item_<?php echo $claim['c_id']; ?>">
                                                 <a class="d-flex text-decoration-none" href="#">
@@ -114,6 +119,9 @@
                                             </li>
                                             <?php
                                         }
+                                         ?>
+                                        </ul>
+                                       <?php
                                     }
                                     else{
                                         ?>
@@ -124,12 +132,13 @@
                                         </div>
                                         <?php
                                     } ?>
-                                </ul>
                             </div>
                             <div class="tab-pane fade h-100" id="pills-denied" role="tabpanel" aria-labelledby="pills-denied-tab">
-                                <ul class="list-approvals">
                                     <?php
                                     if(count($__page->r_claims) > 0) {
+                                        ?>
+                                        <ul class="list-approvals">
+                                        <?php
                                         foreach ($__page->r_claims as $claim) { ?>
                                             <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item c_items ca_item_<?php echo $claim['c_id']; ?>">
                                                 <a class="d-flex text-decoration-none" href="#">
@@ -147,6 +156,9 @@
                                             </li>
                                             <?php
                                         }
+                                        ?>
+                                        </ul>
+                                    <?php
                                     }
                                     else{
                                         ?>
@@ -157,129 +169,11 @@
                                         </div>
                                         <?php
                                     } ?>
-                                </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- skeleton loader -->
-                    <div id="skeleton_claim" class="card shadow h-100">
-                        <div class="card-header border-bottom">
-                            <div class="d-flex loading">
-                                <div class="nav-link"><div class="text-content mw-80"></div></div>                                
-                                <div class="nav-link"><div class="text-content mw-80"></div></div>
-                                <div class="nav-link"><div class="text-content mw-80"></div></div>
-                                <div class="nav-link"><div class="text-content mw-80"></div></div>
-                            </div>
-                        </div>
-                        <div>
-                            <ul class="list-approvals">
-                                <li class="list-approvals-item">
-                                    <a class="d-flex text-decoration-none loading" href="#">
-                                        <div class="d-flex align-items-center px-xl-4 gap-3">
-                                            <div class="icon-content rounded-circle"></div>
-                                            <div class="icon-content rounded-circle"></div>
-                                        </div>
-                                        <div class="ms-8 col-7">
-                                            <div class="fs-4-text-content w-60"></div>
-                                            <div class="text-content mt-2 w-100"></div>
-                                            <div class="text-content mt-1 w-30"></div>
-                                        </div>
-                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
-                                    </a>
-                                </li>
-                                <li class="list-approvals-item">
-                                    <a class="d-flex text-decoration-none loading" href="#">
-                                        <div class="d-flex align-items-center px-xl-4 gap-3">
-                                            <div class="icon-content rounded-circle"></div>
-                                            <div class="icon-content rounded-circle"></div>
-                                        </div>
-                                        <div class="ms-8 col-7">
-                                            <div class="fs-4-text-content w-60"></div>
-                                            <div class="text-content mt-2 w-100"></div>
-                                            <div class="text-content mt-1 w-30"></div>
-                                        </div>
-                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
-                                    </a>
-                                </li>
-                                <li class="list-approvals-item">
-                                    <a class="d-flex text-decoration-none loading" href="#">
-                                        <div class="d-flex align-items-center px-xl-4 gap-3">
-                                            <div class="icon-content rounded-circle"></div>
-                                            <div class="icon-content rounded-circle"></div>
-                                        </div>
-                                        <div class="ms-8 col-7">
-                                            <div class="fs-4-text-content w-60"></div>
-                                            <div class="text-content mt-2 w-100"></div>
-                                            <div class="text-content mt-1 w-30"></div>
-                                        </div>
-                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
-                                    </a>
-                                </li>
-                                <li class="list-approvals-item">
-                                    <a class="d-flex text-decoration-none loading" href="#">
-                                        <div class="d-flex align-items-center px-xl-4 gap-3">
-                                            <div class="icon-content rounded-circle"></div>
-                                            <div class="icon-content rounded-circle"></div>
-                                        </div>
-                                        <div class="ms-8 col-7">
-                                            <div class="fs-4-text-content w-60"></div>
-                                            <div class="text-content mt-2 w-100"></div>
-                                            <div class="text-content mt-1 w-30"></div>
-                                        </div>
-                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
-                                    </a>
-                                </li>
-                                <li class="list-approvals-item">
-                                    <a class="d-flex text-decoration-none loading" href="#">
-                                        <div class="d-flex align-items-center px-xl-4 gap-3">
-                                            <div class="icon-content rounded-circle"></div>
-                                            <div class="icon-content rounded-circle"></div>
-                                        </div>
-                                        <div class="ms-8 col-7">
-                                            <div class="fs-4-text-content w-60"></div>
-                                            <div class="text-content mt-2 w-100"></div>
-                                            <div class="text-content mt-1 w-30"></div>
-                                        </div>
-                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
-                                    </a>
-                                </li>
-                                <li class="list-approvals-item">
-                                    <a class="d-flex text-decoration-none loading" href="#">
-                                        <div class="d-flex align-items-center px-xl-4 gap-3">
-                                            <div class="icon-content rounded-circle"></div>
-                                            <div class="icon-content rounded-circle"></div>
-                                        </div>
-                                        <div class="ms-8 col-7">
-                                            <div class="fs-4-text-content w-60"></div>
-                                            <div class="text-content mt-2 w-100"></div>
-                                            <div class="text-content mt-1 w-30"></div>
-                                        </div>
-                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
-                                    </a>
-                                </li>
-                                <li class="list-approvals-item">
-                                    <a class="d-flex text-decoration-none loading" href="#">
-                                        <div class="d-flex align-items-center px-xl-4 gap-3">
-                                            <div class="icon-content rounded-circle"></div>
-                                            <div class="icon-content rounded-circle"></div>
-                                        </div>
-                                        <div class="ms-8 col-7">
-                                            <div class="fs-4-text-content w-60"></div>
-                                            <div class="text-content mt-2 w-100"></div>
-                                            <div class="text-content mt-1 w-30"></div>
-                                        </div>
-                                        <div class="ms-auto"><div class="text-content mw-40"></div></div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- skeleton loader END -->
                 </div>
                 <div class="col-xl-6" id="claim_details">
-                    <!-- skeleton loader -->
-
-                    <!-- skeleton loader END -->
                 </div>
             </div>
         </div>
@@ -313,35 +207,6 @@
             $(".c_items").removeClass('active');
             item.addClass('active');
 
-            $('#claim_details').html('<div id="skeleton_claim_details" class="card shadow">\n' +
-                '                        <div class="card-body p-xl-20 mb-xl-20">\n' +
-                '                            <div class="display-5-text-content w-30 loading"></div>\n' +
-                '                            <div class="text-content w-20 mt-20 mb-3 loading"></div>                            \n' +
-                '                            <div class="fs-3-text-content w-40 loading"></div>\n' +
-                '                            <div class="text-content w-20 mt-18 mb-3 loading"></div>                            \n' +
-                '                            <div>\n' +
-                '                                <div class="row g-6 loading">\n' +
-                '                                    <div class="col-xl-3">\n' +
-                '                                        <div class="input-form-lg rounded-3"></div>                                        \n' +
-                '                                    </div>\n' +
-                '                                    <div class="col-xl">\n' +
-                '                                        <div class="input-form-lg rounded-3"></div>\n' +
-                '                                    </div>\n' +
-                '                                    <div class="col-xl">\n' +
-                '                                        <div class="input-form-lg rounded-3"></div>\n' +
-                '                                    </div>\n' +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                            <div class="text-content w-20 mt-18 mb-3 loading"></div>\n' +
-                '                            <div class="input-form-xl rounded-3 loading"></div>\n' +
-                '                            <div class="text-content w-20 mt-18 mb-3 loading"></div>\n' +
-                '                            <div class="input-form-xxl rounded-3 loading"></div>\n' +
-                '                        </div>\n' +
-                '                        <div class="action_buttons card-body border-top d-flex justify-content-end gap-3">\n' +
-                '                            <div class="skeleton-btn-gray rounded loading"></div>\n' +
-                '                            <div class="skeleton-btn-gray rounded loading"></div>\n' +
-                '                        </div>\n' +
-                '                    </div>');
             $.ajax({
                 url: 'claim-details',
                 dataType: 'json',

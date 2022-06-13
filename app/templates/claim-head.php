@@ -25,4 +25,5 @@
     <link href="<?php echo app_cdn_path; ?>css/select2.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="<?php echo app_cdn_path; ?>css/js-snackbar.css" rel="stylesheet" crossorigin="anonymous">
     <title><?php echo app_name; ?> - <?php echo $__page->title; ?></title>
+    <script type="text/javascript" src="https://unpkg.com/feather-icons"></script>
 </head>
