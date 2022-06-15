@@ -220,48 +220,6 @@
             });
         });
 
-        $(document).on("click", '.claim_approve', function(event) {
-            var item = $(this);
-            var c_id = item.data('claim_id');
-            var data = {'claim_id': item.data('claim_id'),'status':1};
-
-            $.ajax({
-                url: 'claim-status',
-                dataType: 'json',
-                data: data,
-                type: 'POST',
-                beforeSend: function() {
-                    showMessage('success',10000,'Your NTTs are being sent.');
-                },
-                success: function (data) {
-                    if (data.success == true) {
-
-                        showMessage('success', 10000, data.message);
-
-                        if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
-                            $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                                '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                                '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>it will show up here</div>' +
-                                '</div>');
-                            $('#claim_details').html('');
-                        }
-                        else {
-                            $('#claim_details').html('<div class="card shadow h-100">\n' +
-                                '                        <div class="card-body">\n' +
-                                '                            <div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                                '                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                                '                            </div>\n' +
-                                '                        </div>\n' +
-                                '                    </div>');
-                        }
-                        $('#cq_item_'+c_id).remove();
-                    }
-                    else
-                        showMessage('danger',1000,data.message);
-                }
-            });
-        });
-
         $(document).on("click", '.claim_deny', function(event) {
             var item = $(this);
             var c_id = item.data('claim_id');

@@ -41,22 +41,23 @@ class controller extends Ctrl {
                         exit();
                     }
 
-                    if($com->blockchain == 'solana')
-                        $api_response = api::solana_addPoints($claim->wallet_adr,$claim->ntts);
+                    $ntts = 0;
+
+                    if($this->hasParam('ntts'))
+                        $ntts = floatval($this->getParam('ntts'));
                     else
-                        $api_response = api::addPoints(constant(strtoupper($com->blockchain).'_API'),app_site,$claim->wallet_adr,$claim->ntts);
-                    
+                        throw new Exception("ntts:Not a valid NTTs");
+
+                    if($com->blockchain == 'solana')
+                        $api_response = api::solana_addPoints($claim->wallet_adr,$ntts);
+                    else
+                        $api_response = api::addPoints(constant(strtoupper($com->blockchain).'_API'),app_site,$claim->wallet_adr,$ntts);
+
                     if(isset($api_response->error)) {
                         echo json_encode(array('success' => false,'message' =>'Error! Your NTTs have not been sent. <a class="text-white ms-1" id="retryNewNtt" hre="#">RETRY</a>'));
                         exit();
                     }
                     else {
-                        $ntts = 0;
-
-                        if($this->hasParam('ntts'))
-                            $ntts = floatval($this->getParam('ntts'));
-                        else
-                            throw new Exception("ntts:Not a valid NTTs");
 
                         $reason = $this->hasParam('claim_reason') ? $this->getParam('claim_reason') : '';
                         $tags   = $this->hasParam('claim_tags') ? $this->getParam('claim_tags') : '';
@@ -65,7 +66,6 @@ class controller extends Ctrl {
                         $claim->clm_reason = $reason;
                         $claim->clm_tags = $tags;
                         $claim->status = 1;
-                        $claim->
                         $claim->txHash = $api_response->txHash;
                         $claim->chainId = $api_response->chainId;
                         $claim->update();
@@ -77,10 +77,9 @@ class controller extends Ctrl {
                         $log->c_by = $sel_wallet_adr;
                         $log->insert();
 
-                        echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
+                        echo json_encode(array('success' => true, 'c_id' => $claim->id, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
+                        exit();
                     }
-
-                    echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').'"> VIEW TRANSACTION</a>'));
                 }
                 else
                     echo json_encode(array('success' => false,'message' => 'Error! Something went wrong.'));

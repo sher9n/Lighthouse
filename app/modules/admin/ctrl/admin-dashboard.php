@@ -58,14 +58,16 @@ class controller extends Ctrl {
                         $p = number_format((($rank_table[$wallet_adr]['sum'] / $total) * 100),2).'%';
                     }
 
+
                     $claim_table[] = array(
-                        '<a data-adr="'.$wallet_adr.'" href="#" class="send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>',
+                        '<a data-adr="' . $wallet_adr . '" href="#" class="send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>',
                         Utils::WalletAddressFormat($wallet_adr),
                         $claim['score'],
                         $r,
                         $p,
-                        '<div class="text-truncate text-max-width">'.implode(', ',$tag_string).'</div>'
+                        '<div class="text-truncate text-max-width">' . implode(', ', $tag_string) . '</div>'
                     );
+
 
                 }
 

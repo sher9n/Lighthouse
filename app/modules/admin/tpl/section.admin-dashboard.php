@@ -35,9 +35,9 @@
                         <div class="d-flex flex-column flex-xl-row justify-content-between mt-auto">
                             <select id="dashboard_table_length" class="form-select form-length">
                                 <option value="10">Rows per page: 10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
+                                <option value="25">Rows per page: 25</option>
+                                <option value="50">Rows per page: 50</option>
+                                <option value="100">Rows per page: 100</option>
                                 <option value="-1">All</option>
                             </select>
                             <ul class="pagination justify-content-xl-end justify-content-center mb-0 mt-6 mt-xl-0">
@@ -100,7 +100,7 @@
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     feather.replace();
-    var dashboard_table = $('#dashboard_table');
+    var dashboard_table ;
 
     $(document).on("click", '.add_wallet', function(event) {
         $("#sendNewNttPop").modal('hide');
@@ -187,19 +187,19 @@
             window.location = 'admin';
 
         $('#dashboard_table_prev').click(function(){
-            dashboard_table.dataTable().fnPageChange( 'previous' );
+            dashboard_table.page( 'previous' ).draw( 'page' );
         });
 
         $('#dashboard_table_next').click(function(){
-            dashboard_table.dataTable().fnPageChange( 'next' );
+            dashboard_table.page( 'next' ).draw( 'page' );
         });
 
         $('#dashboard_table_length').change(function(){
-            dashboard_table.dataTable().api().page.len($(this).val()).draw();
+            dashboard_table.page.len($(this).val()).draw();
         });
 
         $('#dashboard_table_search').on( 'keyup', function () {
-            dashboard_table.dataTable().api().search(this.value).draw();
+            dashboard_table.table().search(this.value).draw();
         });
     } );
 
@@ -220,8 +220,5 @@
             },
             "ajax": "get-ntts"
         });
-
-        //dashboard_table.ajax.reload();
-        //feather.replace();
     }
 </script>
