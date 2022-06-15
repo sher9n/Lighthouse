@@ -11,9 +11,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row h-100">
+            <div class="row">
                 <div class="col-lg-12">
-                    <div class="d-flex flex-column" style="min-height: 86vh;">
+                    <div class="d-flex flex-column" style="min-height: 85.4vh;">
                         <div class="card shadow mb-6">
                             <div class="card-body">
                                 <div class="table-responsive">

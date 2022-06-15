@@ -60,7 +60,7 @@ class controller extends Ctrl {
 
 
                     $claim_table[] = array(
-                        '<a data-adr="' . $wallet_adr . '" href="#" class="send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>',
+                        '<a data-adr="' . $wallet_adr . '" href="#" class="text-center d-block send_ntt"><i data-feather="send" class="feather-lg text-muted"></i></a>',
                         Utils::WalletAddressFormat($wallet_adr),
                         $claim['score'],
                         $r,
