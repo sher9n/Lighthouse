@@ -48,12 +48,8 @@
                                         <label for="NTTTicker" class="form-label">NTT ticker image  <span id="ticker_imag_name">(64px x 64px)</span></label>
                                         <div class="d-flex align-items-center mb-6">
                                             <div class="upload-logo me-6">
-                                                <?php
-                                                if(strlen($__page->community->ticker_img_url) > 0){ ?>
-                                                    <img id="ticker_imag_link" width="64" height="64" src="<?php echo $__page->community->getTickerImage(); ?>" class="rounded-circle border">
-                                                <?php }else{ ?>
-                                                    <i data-feather="image"></i>
-                                                <?php } ?>
+                                                    <img id="ticker_imag_link" width="64" height="64" src="<?php echo $__page->community->getTickerImage(); ?>" class="rounded-circle border <?php echo (strlen($__page->community->ticker_img_url) > 0)?'':'d-none'; ?>">
+                                                    <i id="ticker_d_imag_link" data-feather="image" class="<?php echo (strlen($__page->community->ticker_img_url) > 0)?'d-none':''; ?>"></i>
                                             </div>
                                             <div class="me-6">
                                                 <input type="file" name="ticker_imag" id="ticker_imag" accept="image/jpeg"  hidden onchange="javascript:updateTickerImage()"/>
@@ -142,10 +138,14 @@
                                 $('#fileList').html('');
                             }
                             feather.replace();
-                            showMessage('success',50000,'Success! Your changes have been saved.');
+                            showMessage('success',10000,'Success! Your changes have been saved.');
                         } else {
-                            $('#' + data.element).addClass('form-control-lg error');
-                            $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            if(data.element) {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            }
+                            else
+                                showMessage('danger', 10000, data.msg);
                         }
                     }
                 });
@@ -170,8 +170,12 @@
     // File upload
     updateTickerImage = function () {
         var input = document.getElementById('ticker_imag');
-        if(input.files.item(0))
-            $('#ticker_imag_name').html('( '+input.files.item(0).name+' )');
+        if(input.files.item(0)) {
+            $('#ticker_imag_name').html('( ' + input.files.item(0).name + ' )');
+            $('#ticker_imag_link').attr("src",URL.createObjectURL(input.files.item(0)));
+            $('#ticker_imag_link').removeClass('d-none');
+            $('#ticker_d_imag_link').addClass('d-none');
+        }
     }
 
     updateList = function() {
@@ -183,8 +187,11 @@
         for (var i = 0; i < input.files.length; ++i) {
             output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
             appBanners[i].style.display = 'none';
+            $('#bg_images').append('<li class="upload-image-item" id="claim-img-'+i+'"><a class="image-del" href="delete-claim-img?id='+i+'"><i data-feather="x"></i></a><img width="220" height="250" src="'+URL.createObjectURL(input.files.item(i))+'" class="rounded-3"></li>');
+            feather.replace();
         }
         output.innerHTML += '</ul>';
+
     }
 
 </script>

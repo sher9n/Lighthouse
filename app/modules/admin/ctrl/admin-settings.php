@@ -126,9 +126,13 @@ class controller extends Ctrl {
                         $element = $msg[0];
                         if ($element == 'dao_name' || $element == 'ticker_imag' || $element == 'background_imag')
                             $msg = $msg[1];
-                        else
+                        else {
                             $msg = $e->getMessage();
+                            echo json_encode(array('success' => false, 'msg' => $msg));
+                            exit();
+                        }
                     }
+
                     echo json_encode(array('success' => false, 'msg' => $msg, 'element' => $element));
                 }
                 exit();
