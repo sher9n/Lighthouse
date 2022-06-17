@@ -62,7 +62,7 @@ class controller extends Ctrl {
                             echo json_encode(array('success' => true, 'url' => 'first-member'));
                         }
                         else
-                            echo json_encode(array('success' => false, 'msg' => "Duplicate or invalid subdomain", 'element' => 'dao_domain'));
+                            echo json_encode(array('success' => false, 'msg' => "This name is already taken. Please try a different name.", 'element' => 'dao_domain'));
                     }
                     else
                         throw new Exception("dao_domain:Not a valid dao domain");

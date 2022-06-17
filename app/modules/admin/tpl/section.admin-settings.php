@@ -186,10 +186,10 @@
         output.innerHTML = '<ul>';
         for (var i = 0; i < input.files.length; ++i) {
             output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
-            appBanners[i].style.display = 'none';
+            //appBanners[i].style.display = 'none';
             $('#bg_images').append('<li class="upload-image-item" id="claim-img-'+i+'"><a class="image-del" href="delete-claim-img?id='+i+'"><i data-feather="x"></i></a><img width="220" height="250" src="'+URL.createObjectURL(input.files.item(i))+'" class="rounded-3"></li>');
-            feather.replace();
         }
+        feather.replace();
         output.innerHTML += '</ul>';
 
     }

@@ -92,7 +92,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        $(document).on("focusout", '#dao_domain,#dao_name', function(event) {
+        $(document).on("focusout", '#dao_domain', function(event) {
             var dao_name = $(this).val();
 
             $.ajax({
@@ -143,8 +143,14 @@
                             window.location = data.url;
                         }
                         else{
-                            $('#'+data.element).addClass('form-control-lg error');
-                            $('<label class="error">'+data.msg+'</label>').insertAfter('#'+data.element);
+                            if(data.element == 'dao_domain') {
+                                $('#dao_domain-error').html(data.msg);
+                                $('#dao_domain-error').show();
+                            }
+                            else {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            }
                         }
                     }
                 });

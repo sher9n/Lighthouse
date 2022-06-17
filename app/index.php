@@ -57,8 +57,7 @@ try {
         '/delete-claim-img' => 'modules/admin/ctrl/admin-settings.php',
         '/admin-settings' => 'modules/admin/ctrl/admin-settings.php',
         '/portal-dashboard' => 'modules/portal/ctrl/portal-dashboard.php',
-        '/404' => 'modules/default/ctrl/http-404.php',
-        '/test' => 'modules/default/ctrl/http-404.php'
+        '/404' => 'modules/default/ctrl/http-404.php'
     );
 
     function routeLocator($routerPath, $localRoutes)
