@@ -2,15 +2,15 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../src/Token.sol";
+import "../src/NTT.sol";
 
-contract TokenTest is Test {
+contract NTTTest is Test {
     address constant alice = address(0xbabe);
     address constant bob = address(0xb0b);
-    Token token;
+    NTT token;
 
     function setUp() public {
-        token = new Token("Lighthouse Token", "LHT", 18);
+        token = new NTT("Lighthouse Token", "LHT", 18);
     }
 
     function testFailTransfer() public {
@@ -22,7 +22,7 @@ contract TokenTest is Test {
 
     function testWhitelistTransfer() public {
         token.mint(alice, 100);
-        token.addToWhitelist(bob);
+        token.whitelist(bob);
 
         hoax(alice);
         token.transfer(bob, 50);
@@ -40,7 +40,7 @@ contract TokenTest is Test {
 
     function testApproveToWhitelist() public {
         token.mint(alice, 100);
-        token.addToWhitelist(bob);
+        token.whitelist(bob);
 
         hoax(alice);
         token.approve(bob, 50);
@@ -48,7 +48,7 @@ contract TokenTest is Test {
 
     function testFailApprovedToNonWhitelisted() public {
         token.mint(alice, 100);
-        token.addToWhitelist(bob);
+        token.whitelist(bob);
 
         hoax(alice);
         token.approve(bob, 50);
@@ -59,7 +59,7 @@ contract TokenTest is Test {
 
     function testTransferFromToWhitelist() public {
         token.mint(alice, 100);
-        token.addToWhitelist(bob);
+        token.whitelist(bob);
 
         hoax(alice);
         token.approve(bob, 50);

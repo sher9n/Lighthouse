@@ -3,15 +3,18 @@ pragma solidity ^0.8.13;
 
 import "solmate/tokens/ERC20.sol";
 
-contract Token is ERC20 {
+contract NTT is ERC20 {
+    address public lighthouse;
+
     mapping(address => bool) public isWhitelisted;
-    address public creator;
 
     modifier onlyWhitelisted(address _to) {
-        require(
-            isWhitelisted[_to],
-            "Can only transfer/approve to whitelisted addresses"
-        );
+        require(isWhitelisted[_to], "NOT_WHITELISTED");
+        _;
+    }
+
+    modifier onlyLighthouse() {
+        require(msg.sender == lighthouse, "UNATHORIZED");
         _;
     }
 
@@ -20,7 +23,7 @@ contract Token is ERC20 {
         string memory _symbol,
         uint8 _decimals
     ) ERC20(_name, _symbol, _decimals) {
-        creator = msg.sender;
+        lighthouse = msg.sender;
     }
 
     function transfer(address _to, uint256 _amount)
@@ -125,21 +128,15 @@ contract Token is ERC20 {
         emit Approval(owner, spender, value);
     }
 
-    function mint(address _to, uint256 _amount) external {
-        require(msg.sender == creator, "Only creator can mint");
-
-        _mint(_to, _amount);
+    function mint(address to, uint256 amount) external onlyLighthouse {
+        _mint(to, amount);
     }
 
-    function slash(address _from, uint256 _amount) external {
-        require(msg.sender == creator, "Only creator can slash");
-
-        _burn(_from, _amount);
+    function slash(address from, uint256 amount) external onlyLighthouse {
+        _burn(from, amount);
     }
 
-    function addToWhitelist(address _whitelisted) public {
-        require(msg.sender == creator, "Only creator can add to whitelist");
-
+    function whitelist(address _whitelisted) external onlyLighthouse {
         isWhitelisted[_whitelisted] = true;
     }
 }

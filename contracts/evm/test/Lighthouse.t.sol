@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import "forge-std/Test.sol";
 import "../src/LighthouseFactory.sol";
 import "../src/Lighthouse.sol";
-import "../src/interfaces/IToken.sol";
+import "../src/NTT.sol";
 
 contract LighthouseTest is Test {
     Lighthouse lighthouse;
@@ -38,14 +38,14 @@ contract LighthouseTest is Test {
 
     function testAddPoints() public {
         lighthouse.addPointsTo(alice, 100);
-        assertEq(IToken(tokenAddress).balanceOf(alice), 100);
+        assertEq(NTT(tokenAddress).balanceOf(alice), 100);
     }
 
     function testFactoryAddPoints() public {
         address factoryAddr = lighthouse.factoryAddress();
         hoax(factoryAddr);
         lighthouse.addPointsTo(alice, 100);
-        assertEq(IToken(tokenAddress).balanceOf(alice), 100);
+        assertEq(NTT(tokenAddress).balanceOf(alice), 100);
     }
 
     function testFailAddPoints() public {
@@ -54,11 +54,11 @@ contract LighthouseTest is Test {
     }
 
     function testPointMint() public {
-        uint256 initialSupply = IToken(tokenAddress).totalSupply();
+        uint256 initialSupply = NTT(tokenAddress).totalSupply();
 
         lighthouse.addPointsTo(alice, 100);
 
-        uint256 finalSupply = IToken(tokenAddress).totalSupply();
+        uint256 finalSupply = NTT(tokenAddress).totalSupply();
 
         assertEq(finalSupply, initialSupply + 100);
     }
@@ -69,27 +69,27 @@ contract LighthouseTest is Test {
         lighthouse.addPointsTo(bob, 100);
 
         hoax(bob);
-        IToken(tokenAddress).transfer(alice, 100);
+        NTT(tokenAddress).transfer(alice, 100);
 
-        assertEq(IToken(tokenAddress).balanceOf(alice), 100);
+        assertEq(NTT(tokenAddress).balanceOf(alice), 100);
     }
 
     function testFailPointTransferNotWhitelist() public {
         lighthouse.addPointsTo(bob, 100);
 
         hoax(bob);
-        IToken(tokenAddress).transfer(alice, 100);
+        NTT(tokenAddress).transfer(alice, 100);
     }
 
     function testSlashing() public {
         lighthouse.addPointsTo(bob, 100);
 
-        assertEq(IToken(tokenAddress).balanceOf(bob), 100);
-        assertEq(IToken(tokenAddress).totalSupply(), 100);
+        assertEq(NTT(tokenAddress).balanceOf(bob), 100);
+        assertEq(NTT(tokenAddress).totalSupply(), 100);
 
         lighthouse.slashPoints(bob, 50);
 
-        assertEq(IToken(tokenAddress).balanceOf(bob), 50);
-        assertEq(IToken(tokenAddress).totalSupply(), 50);
+        assertEq(NTT(tokenAddress).balanceOf(bob), 50);
+        assertEq(NTT(tokenAddress).totalSupply(), 50);
     }
 }
