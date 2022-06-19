@@ -69,14 +69,15 @@ contract LighthouseV2 {
         string calldata name,
         string calldata tokenName,
         string calldata tokenSymbol,
-        uint8 tokenDecimals
+        uint8 tokenDecimals,
+        address firstSteward
     ) external {
         require(nameToCommunityToken[name] == address(0), "ALREADY_EXISTS");
         NTT token = new NTT(tokenName, tokenSymbol, tokenDecimals);
 
         nameToCommunityToken[name] = address(token);
 
-        isSteward[name][msg.sender] = true;
+        isSteward[name][firstSteward] = true;
 
         emit CommunityCreated(name);
     }

@@ -12,8 +12,7 @@ contract LighthouseV2Test is Test, Events {
     address constant normie = address(0xb0b);
 
     function setUp() public {
-        hoax(steward);
-        lighthouse.create("Uniswap", "Uniswap points", "UNI", 18);
+        lighthouse.create("Uniswap", "Uniswap points", "UNI", 18, steward);
     }
 
     function testCreate() public {
@@ -29,13 +28,13 @@ contract LighthouseV2Test is Test, Events {
 
     function testCreateDup() public {
         vm.expectRevert("ALREADY_EXISTS");
-        lighthouse.create("Uniswap", "Uniswap points", "UNI", 18);
+        lighthouse.create("Uniswap", "Uniswap points", "UNI", 18, steward);
     }
 
     function testCreateEvent() public {
         vm.expectEmit(false, false, false, true);
         emit CommunityCreated("Unisocks");
-        lighthouse.create("Unisocks", "Uniswap points", "UNI", 18);
+        lighthouse.create("Unisocks", "Uniswap points", "UNI", 18, steward);
     }
 
     function testReward() public {
