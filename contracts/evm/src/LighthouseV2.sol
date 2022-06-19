@@ -9,17 +9,6 @@ import "./NTT.sol";
     @notice The Lighthouse contract is used to manage logic for all Lighthouse communities.
 */
 contract LighthouseV2 {
-    // /**
-    //     Community struct
-    //     @notice The Community struct is used to store the details of a community.
-    //     @dev Although a separate community struct isn't neccesary right now
-    //     @dev but it may be useful in the future, when adding more functionality.
-    // */
-    // struct Community {
-    //     address tokenAddress;
-    //     address gasTank; // NOTE: should this just be a steward?
-    // }
-
     mapping(string => mapping(address => bool)) public isSteward;
     mapping(string => address) public nameToCommunityToken;
 
