@@ -83,7 +83,7 @@ class controller extends Ctrl {
         } else {
             $__page = (object)array(
                 'title' => 'Create NTTs',
-                'blockchain' => 'gnosis_chain',
+                'blockchain' => GNOSIS_CHAIN,
                  'sections' => array(
                     __DIR__ . '/../tpl/section.onboard.php'
                 ),

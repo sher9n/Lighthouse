@@ -113,8 +113,10 @@
 
         $(document).on("click", '#view_transaction', function(event) {
             event.preventDefault();
-            <?php if($__page->blockchain == 'gnosis_chain' || $__page->blockchain == 'optimism' ){ ?>
+            <?php if($__page->blockchain == GNOSIS_CHAIN || $__page->blockchain == OPTIMISM ){ ?>
                 window.open('<?php echo $__page->view_transaction_link; ?>'+$(this).data('tr_id'), '_blank');
+            <?php }else{ ?>
+                window.open('<?php echo $__page->view_transaction_link; ?>'+$(this).data('tr_id')+'?cluster=devnet', '_blank');
             <?php } ?>
         });
 

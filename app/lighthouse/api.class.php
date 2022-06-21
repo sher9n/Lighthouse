@@ -1,7 +1,7 @@
 <?php
 namespace lighthouse;
 class Api{
-    public static function getGasTankBalance($slug) {
+    public static function getGasTankBalance($url,$slug) {
         $url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/".$slug."/getTankBalance?key=".API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -24,9 +24,9 @@ class Api{
             return null;
     }
 
-    public static function solana_addPoints($to_address,$amount) {
+    public static function addSolanaPoints($dao_domain,$to_address,$amount) {
 
-        $url = SOLANA_API."api/addSolPoints";
+        $url = SOLANA_API."api/".$dao_domain."/addPoints";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -37,15 +37,17 @@ class Api{
         );
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $data = '{
-            "mintAddress": "'.MINT_ADDRESS.'",
-            "to": "'.$to_address.'",
+            "receiver": "'.$to_address.'",
             "amount": "'.$amount.'"
         }';
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+      //  curl_setopt($curl, CURLOPT_FAILONERROR,true);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
         $response = curl_exec($curl);
+/*        $error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
         curl_close($curl);
         return json_decode($response);
     }
@@ -75,7 +77,7 @@ class Api{
         return json_decode($response);
     }
 
-    public static function addCommunity($url,$initialAdmin,$contractName,$tokenName,$tokenSymbol,$tokenDecimals,$tankTopUpAmount) {
+    public static function addCommunity($url,$contractName,$tokenName,$tokenSymbol,$tokenDecimals,$tankTopUpAmount) {
         $url = $url."api/contractsAPI?key=".API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -87,12 +89,38 @@ class Api{
         );
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $data = '{
-          "initialAdmin": "'.$initialAdmin.'",
-          "contractName": "'.$contractName.'",
+          "communityName": "'.$contractName.'",
           "tokenName": "'.$tokenName.'",
           "tokenSymbol": "'.$tokenSymbol.'",
           "tokenDecimals": "'.$tokenDecimals.'",
           "tankTopUpAmount": "'.$tankTopUpAmount.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function addSolanaCommunity($contractName,$tokenName,$tokenSymbol,$tokenDecimals) {
+        $url = SOLANA_API."api/create";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "name": "'.$contractName.'",
+          "tokenName": "'.$tokenName.'",
+          "tokenSymbol": "'.$tokenSymbol.'",
+          "tokenDecimals": "'.$tokenDecimals.'"
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);

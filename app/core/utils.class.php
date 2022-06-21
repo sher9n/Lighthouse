@@ -14,6 +14,10 @@ class Utils {
             return '';
     }
 
+    public static function block_chains() {
+        return array(GNOSIS_CHAIN =>"Gnosis Chain", SOLANA=> "Solana", OPTIMISM => "optimism");
+    }
+
    public static function time_elapsed_string($datetime, $full = false,$date = false) {
         $now = new \DateTime;
         $ago = new \DateTime($datetime);

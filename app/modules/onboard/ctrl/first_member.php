@@ -49,9 +49,10 @@ class controller extends Ctrl {
                 if ($domain_check === FALSE) {
                     $block_chain = $_SESSION['lhc']['b'];
 
-                    if($block_chain != 'solana') {
-                        $api_response = api::addCommunity(constant(strtoupper($block_chain) . "_API"), $wallet_address, $_SESSION['lhc']['d'], $_SESSION['lhc']['d'], $_SESSION['lhc']['t'], 18, 0.0008);
-                    }
+                    if($block_chain != SOLANA)
+                        $api_response = api::addCommunity(constant(strtoupper($block_chain) . "_API"), $_SESSION['lhc']['d'], $_SESSION['lhc']['d'], $_SESSION['lhc']['t'], 18, 0.0008);
+                    else
+                        $api_response = api::addSolanaCommunity($_SESSION['lhc']['d'],$_SESSION['lhc']['d'],$_SESSION['lhc']['t'], 18);
 
                     if(isset($api_response->error)) {
                         echo json_encode(array('success' => false,'msg' =>'Your NTTs has not been created.','element' => 'display_name'));
@@ -66,13 +67,15 @@ class controller extends Ctrl {
                         $community->ticker = $_SESSION['lhc']['t'];
                         $community->wallet_adr = $wallet_address;
                         $community->display_name = $display_name;
+
                         /*------from api response-------*/
-                        if($block_chain != 'solana') {
-                            $community->token_address = $api_response->tokenAddress;
-                            $community->community_address = $api_response->communityAddress;
-                            $community->gas_address = $api_response->gasTankInfo->address;
-                            $community->gas_private_key = $api_response->gasTankInfo->privateKey;
-                        }
+                        $community->token_address = $api_response->tokenAddress;
+                        $community->community_address = $api_response->communityAddress;
+                        $community->gas_address = $api_response->gasTankInfo->address;
+                        $community->gas_private_key = $api_response->gasTankInfo->privateKey;
+
+                        if($block_chain == SOLANA)
+                            $community->txHash = $api_response->txHash;
 
                         $id = $community->insert();
                         $_SESSION['lhc']['c_id'] = $id;

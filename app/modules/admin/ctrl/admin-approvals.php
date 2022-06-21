@@ -48,7 +48,7 @@ class controller extends Ctrl {
                     else
                         throw new Exception("ntts:Not a valid NTTs");
 
-                    if($com->blockchain == 'solana')
+                    if($com->blockchain == SOLANA)
                         $api_response = api::solana_addPoints($claim->wallet_adr,$ntts);
                     else
                         $api_response = api::addPoints(constant(strtoupper($com->blockchain).'_API'),app_site,$claim->wallet_adr,$ntts);
@@ -77,7 +77,10 @@ class controller extends Ctrl {
                         $log->c_by = $sel_wallet_adr;
                         $log->insert();
 
-                        echo json_encode(array('success' => true, 'c_id' => $claim->id, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
+                        if($com->blockchain == SOLANA)
+                            echo json_encode(array('success' => true, 'c_id' => $claim->id, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'?cluster=devnet"> VIEW TRANSACTION</a>'));
+                        else
+                            echo json_encode(array('success' => true, 'c_id' => $claim->id, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
                         exit();
                     }
                 }

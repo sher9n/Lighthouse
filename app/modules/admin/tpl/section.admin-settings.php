@@ -16,16 +16,13 @@
                                              value="<?php echo $__page->community->dao_name; ?>" name="dao_name"
                                              id="dao_name">
                                     </div>
-                                    <?php
-                                       $block_chain = array("gnosis_chain" =>"Gnosis Chain","solana" => "Solana","other" => "Other");
-                                    ?>
                                     <div class="col-xl-6">
                                         <label for="" class="form-label">Blockchain</label>
                                         <div id="selected_blockchain" class="d-flex align-items-center form-control form-control-lg py-3 mb-6">
-                                            <?php if($__page->community->blockchain == 'solana'){ ?>
+                                            <?php if($__page->community->blockchain == SOLANA){ ?>
                                                 <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Solana</div>
-                                            <?php }else if($__page->community->blockchain == 'gnosis_chain'){ ?>
+                                            <?php }else if($__page->community->blockchain == GNOSIS_CHAIN){ ?>
                                                 <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
                                                 <div class="fs-3">Gnosis Chain</div>
                                             <?php }else{ ?>
@@ -104,7 +101,7 @@
                              </div>
                             <div class="mt-16">
                                 <label class="form-label mb-4">Current balance :</label>
-                                <div class="fs-3 fw-semibold">Ξ<?php echo $__page->gas_tank_blanace; ?> (ERC-20)</div>
+                                <div class="fs-3 fw-semibold" id="balance"></div>
                             </div>
                             <a role="button" class="btn btn-primary mt-16" href="#">View Transactions</a>
                         </div>
@@ -117,6 +114,8 @@
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     $(document).ready(function() {
+
+
         $('#settingsForm').validate({
             rules: {
                 dao_name: {
@@ -166,7 +165,7 @@
             });
         });
     });
-
+    getBalance();
     // File upload
     updateTickerImage = function () {
         var input = document.getElementById('ticker_imag');
@@ -191,7 +190,19 @@
         }
         feather.replace();
         output.innerHTML += '</ul>';
+    }
 
+    function getBalance() {
+        $.ajax({
+            url: 'gas_tank_balance',
+            dataType: 'json',
+            type: 'GET',
+            success: function (response) {
+                if (response.success == true) {
+                    $('#balance').html(response.balance);
+                }
+            }
+        });
     }
 
 </script>

@@ -55,6 +55,7 @@ try {
         '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-integrations' => 'modules/admin/ctrl/admin-integrations.php',
         '/delete-claim-img' => 'modules/admin/ctrl/admin-settings.php',
+        '/gas_tank_balance' => 'modules/admin/ctrl/admin-settings.php',
         '/admin-settings' => 'modules/admin/ctrl/admin-settings.php',
         '/portal-dashboard' => 'modules/portal/ctrl/portal-dashboard.php',
         '/404' => 'modules/default/ctrl/http-404.php'

@@ -4,6 +4,7 @@ use lighthouse\Community;
 use lighthouse\Log;
 use Core\AmazonS3;
 use Core\Utils;
+use lighthouse\Api;
 class controller extends Ctrl {
     function init() {
 
@@ -33,6 +34,14 @@ class controller extends Ctrl {
                 }
                 else
                     echo json_encode(array('success' => false, 'msg' => 'Invalid image'));
+                exit();
+            }
+            elseif (__ROUTER_PATH == '/gas_tank_balance' ) {
+                $community = Community::getByDomain($site['sub_domain']);
+                $balance = Api::getGasTankBalance(constant(strtoupper($community->blockchain).'_API'),app_site);
+                if(is_null($balance))
+                    $balance = 0;
+                echo json_encode(array('success' => true, 'balance' => 'Ξ'.$balance.' (ERC-20)'));
                 exit();
             }
             else {
@@ -146,7 +155,6 @@ class controller extends Ctrl {
                 'site' => $site,
                 'community' => $community,
                 'blockchain' => $community->blockchain,
-                'gas_tank_blanace' => \lighthouse\Api::getGasTankBalance(app_site),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-settings.php'
