@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "./Token.sol";
+import "./NTT.sol";
 
 contract Lighthouse {
     string public name;
@@ -31,17 +31,17 @@ contract Lighthouse {
         name = _name;
         isAdmin[_initialAdmin] = true;
         factoryAddress = msg.sender;
-        Token token = new Token(_tokenName, _tokenSymbol, _tokenDecimals);
+        NTT token = new NTT(_tokenName, _tokenSymbol, _tokenDecimals);
         tokenAddress = address(token);
     }
 
     function addPointsTo(address receiver, uint256 amount) public onlyAllowed {
-        Token(tokenAddress).mint(receiver, amount);
+        NTT(tokenAddress).mint(receiver, amount);
     }
 
     function slashPoints(address _from, uint256 _amount) public onlyAllowed {
         // TODO: add an event if necessary.
-        Token(tokenAddress).slash(_from, _amount);
+        NTT(tokenAddress).slash(_from, _amount);
     }
 
     function makeAdmin(address _newAdmin) public onlyAllowed {
@@ -49,7 +49,7 @@ contract Lighthouse {
     }
 
     function addToTokenWhitelist(address _whitelisted) public onlyAllowed {
-        Token(tokenAddress).addToWhitelist(_whitelisted);
+        NTT(tokenAddress).whitelist(_whitelisted);
         emit TokenWhitelistAdded(name, _whitelisted);
     }
 }

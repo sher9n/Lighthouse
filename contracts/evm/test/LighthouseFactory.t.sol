@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import "forge-std/Test.sol";
 import "../src/LighthouseFactory.sol";
 import "../src/Lighthouse.sol";
-import "../src/interfaces/IToken.sol";
+import "../src/NTT.sol";
 import "../src/interfaces/ILighthouse.sol";
 
 contract LighthouseFactoryTest is Test {
@@ -42,7 +42,7 @@ contract LighthouseFactoryTest is Test {
     }
 
     function testCreatingLighthouse() public {
-        IToken token = IToken(Lighthouse(newLighthouseAddr).tokenAddress());
+        NTT token = NTT(Lighthouse(newLighthouseAddr).tokenAddress());
 
         assertEq(factory.nameToAddress("Uniswap"), newLighthouseAddr);
         assertEq(factory.gasTankOf(newLighthouseAddr), gasTank);
@@ -96,7 +96,7 @@ contract LighthouseFactoryTest is Test {
         hoax(gasTank);
         factory.slashPoints(bob, 50, newLighthouseAddr);
         assertEq(
-            IToken(Lighthouse(newLighthouseAddr).tokenAddress()).balanceOf(bob),
+            NTT(Lighthouse(newLighthouseAddr).tokenAddress()).balanceOf(bob),
             50
         );
     }
@@ -118,7 +118,7 @@ contract LighthouseFactoryTest is Test {
         hoax(alice);
         factory.addToTokenWhitelist(bob, newLighthouseAddr);
         address tokenAddr = Lighthouse(newLighthouseAddr).tokenAddress();
-        assertTrue(IToken(tokenAddr).isWhitelisted(bob));
+        assertTrue(NTT(tokenAddr).isWhitelisted(bob));
     }
 
     function testAddSolPoints() public {
