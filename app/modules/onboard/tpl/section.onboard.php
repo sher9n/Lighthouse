@@ -106,7 +106,7 @@
         </form>     
       </div>
       <div class="modal-footer pe-10">
-        <button type="button" class="btn btn-success m-0">Create</button>
+        <button type="button" class="btn btn-primary m-0">Create</button>
       </div>
     </div>
   </div>

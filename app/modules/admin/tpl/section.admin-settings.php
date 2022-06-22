@@ -33,26 +33,11 @@
                                     </div>
                                 </div>
                                 <div class="row mt-xl-12">
-                                    <div class="col-xl-4">
-                                        <label for="NTTTicker" class="form-label">NTT ticker</label>
-                                        <div class="input-group input-group-lg mb-6">
-                                            <span class="input-group-text fw-medium" id="">nt</span>
-                                            <input type="text" class="form-control" readonly id="ticker"
-                                                   name="ticker" value="<?php echo $__page->community->ticker; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-8">
-                                        <label for="NTTTicker" class="form-label">NTT ticker image  <span id="ticker_imag_name">(64px x 64px)</span></label>
+                                    <div class="col">
+                                        <label for="NTTTicker" class="form-label">Contact address:</label>
                                         <div class="d-flex align-items-center mb-6">
-                                            <div class="upload-logo me-6">
-                                                    <img id="ticker_imag_link" width="64" height="64" src="<?php echo $__page->community->getTickerImage(); ?>" class="rounded-circle border <?php echo (strlen($__page->community->ticker_img_url) > 0)?'':'d-none'; ?>">
-                                                    <i id="ticker_d_imag_link" data-feather="image" class="<?php echo (strlen($__page->community->ticker_img_url) > 0)?'d-none':''; ?>"></i>
-                                            </div>
-                                            <div class="me-6">
-                                                <input type="file" name="ticker_imag" id="ticker_imag" accept="image/jpeg"  hidden onchange="javascript:updateTickerImage()"/>
-                                                <label class="btn btn-light btn-upload" for="ticker_imag">Upload Image</label>
-                                            </div>
-                                            <a class="text-muted fw-medium fs-5 text-decoration-none" href="#">Remove image</a>
+                                            <div class="fw-semibold fs-3">FCFgr8r2V2J5AmvzRXKzPJiA19gfqE9kaPra5LM5ygrE</div>
+                                            <i data-feather="copy" class="ms-3 text-primary"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +53,7 @@
                                                 </div>
                                                 <div id="fileList"></div>
                                                 <div class="fw-medium text-hide"><span class="text-primary">Browse images</span></div>
-                                                <div class="text-muted mt-2 mb-8 text-center">1060px x 1080px recommended. Max 1MB</div>
+                                                <div class="text-muted mt-2 mb-8 text-center">1060px x 1080px recommended. Max 1MB (png, jpg)</div>
                                             </label>
                                         </div>
                                         <ul id="bg_images" class="upload-image-view">
@@ -94,7 +79,7 @@
                     <div class="card shadow mt-12 mb-6">
                         <div class="card-body p-xl-20">
                             <div class="display-5 fw-medium">Gas tank</div>
-                            <div class="text-muted mt-1">Send USDC (ERC-20) on the Gnosis chain to run Lighthouse gas-free for your community</div>
+                            <div class="text-muted mt-1">Send SOL on Solana Mainnet to run Lighthouse gas-free for your community</div>
                             <div class="mt-23">
                                 <label class="form-label mb-4">Send to :</label>
                                 <div class="fs-3 fw-semibold"><?php echo $__page->community->community_address; ?></div>

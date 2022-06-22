@@ -174,6 +174,13 @@
                     </div>
                 </div>
                 <div class="col-xl-6" id="claim_details">
+                    <div class="card shadow">
+                        <form id="" method="post" action="" autocomplete="off" class="d-flex flex-column h-100">
+                            <div class="card-body p-xl-20 mb-xl-20">
+                                <div class="display-5 fw-medium">Review this contribution</div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
