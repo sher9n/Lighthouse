@@ -147,8 +147,14 @@
                                 window.location = data.url;
                         }
                         else{
-                            $('#'+data.element).addClass('form-control-lg error');
-                            $('<label class="error">'+data.msg+'</label>').insertAfter('#'+data.element);
+                            $('#NttsGetting').modal('hide');
+                            if(data.element) {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            }
+                            else {
+                                showMessage('danger', 10000, data.msg);
+                            }
                         }
                     }
                 });

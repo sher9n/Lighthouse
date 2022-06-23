@@ -55,7 +55,14 @@ class controller extends Ctrl {
                         $api_response = api::addSolanaCommunity($_SESSION['lhc']['d'],$_SESSION['lhc']['d'],$_SESSION['lhc']['t'], 18);
 
                     if(isset($api_response->error)) {
-                        echo json_encode(array('success' => false,'msg' =>'Your NTTs has not been created.','element' => 'display_name'));
+                        $log = new Log();
+                        $log->type = 'Community';
+                        $log->log = serialize($api_response->error);
+                        $log->action = 'create-failed';
+                        $log->c_by = $wallet_address;
+                        $log->insert();
+
+                        echo json_encode(array('success' => false,'msg' =>'Your NTTs has not been created, please contact your admin'));
                         exit();
                     }
                     else {
@@ -70,12 +77,13 @@ class controller extends Ctrl {
 
                         /*------from api response-------*/
                         $community->token_address = $api_response->tokenAddress;
-                        $community->community_address = $api_response->communityAddress;
-                        $community->gas_address = $api_response->gasTankInfo->address;
-                        $community->gas_private_key = $api_response->gasTankInfo->privateKey;
+                        $community->gas_address = $api_response->gasTankInfo->gasTankAddress;
+                        $community->gas_private_key = $api_response->gasTankInfo->gasTankPrivateKey;
 
-                        if($block_chain == SOLANA)
+                        if($block_chain == SOLANA) {
                             $community->txHash = $api_response->txHash;
+                            $community->community_address = $api_response->communityAddress;
+                        }
 
                         $id = $community->insert();
                         $_SESSION['lhc']['c_id'] = $id;
