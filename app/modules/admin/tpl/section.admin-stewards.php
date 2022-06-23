@@ -7,9 +7,14 @@
                     <div class="card shadow h-100">
                         <div class="card-body p-xl-20">
                             <div class="display-5 fw-medium">Manage stewards</div>
-                            <div class="text-muted mt-1">Add or remove members that can distribute NTTs and approve claims</div>
+                            <div class="text-muted mt-1">Add or remove community elected stewards and set multisig parameters</div>
                             <form id="frm_stewards" class="mt-25 col-xl-6">
-                                <div class="fw-medium mt-26">Whitelist members</div>
+                                <div class="fw-medium mt-26">Percentage to approve</div>
+                                <div class="d-flex align-items-center mt-6">
+                                    <div class="display-4 fw-medium text-gray-700">30%</div>
+                                    <a href="#" class="btn btn-primary ms-12">Change</a>
+                                </div>
+                                <div class="fw-medium mt-22">Whitelist members</div>
                                 <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
                                 <div class="fw-medium mt-22"><?php echo $__page->community->display_name; ?> </div>
                                 <div class="d-flex align-items-center">

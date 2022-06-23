@@ -24,6 +24,25 @@
                         </div>
                         <div class="tab-content h-100" id="pills-tabContent">
                             <div class="tab-pane fade h-100 show active" id="pills-queue" role="tabpanel" aria-labelledby="pills-queue-tab">
+                                <ul class="list-approvals">
+                                    <li class="list-approvals-item-two active">
+                                    <a class="text-decoration-none" href="#"> 
+                                        <div class="d-flex align-items-center">                   
+                                            <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
+                                                <div>Simple claim form </div>
+                                            </div>
+                                            <div class="ms-auto fw-medium text-muted">2h 30m ago</div>
+                                        </div>
+                                        <div class="fw-medium text-truncate text-muted my-1">Completed the Twitter automation bot for marketing.</div>
+                                        <ul class="select2-selection__rendered d-flex gap-3">
+                                            <li class="select2-selection__choice" title="dfddsfsdf" data-select2-id="141">
+                                                <span class="select2-selection__choice__remove" role="presentation">×</span>dfddsfsdf</li>
+                                            <li class="select2-selection__choice" title="dfdsfdsf" data-select2-id="142">
+                                                <span class="select2-selection__choice__remove" role="presentation">×</span>dfdsfdsf</li>
+                                        </ul>
+                                    </a>
+                                    </li>
+                                </ul>
                                    <?php
                                    if(count($__page->claims) > 0) {
                                        ?>
