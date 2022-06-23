@@ -174,6 +174,100 @@
                     </div>
                 </div>
                 <div class="col-xl-6" id="claim_details">
+                    <div class="card shadow">
+                        <form id="" method="post" action="" autocomplete="off" class="d-flex flex-column h-100">
+                            <div class="card-body p-xl-20 mb-xl-20">
+                                <div class="display-5 fw-medium mb-25">Review this contribution</div>
+                                <div class="row">
+                                    <div class="col-8 offset-md-4">
+                                        <div class="text-muted fs-sm d-flex justify-content-between mb-3">
+                                            <div>Least</div>
+                                            <div>Most</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 align-self-center">
+                                        <div class="fw-medium fs-lg">Complexity</div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="list-rating-scale">
+                                            <input type="radio" class="btn-check" name="ComplexityOptions" id="Complexityoption1" autocomplete="off">
+                                            <label class="btn btn-light ms-0" for="Complexityoption1">1</label>
+
+                                            <input type="radio" class="btn-check" name="ComplexityOptions" id="Complexityoption2" autocomplete="off">
+                                            <label class="btn btn-light" for="Complexityoption2">2</label>
+
+                                            <input type="radio" class="btn-check" name="ComplexityOptions" id="Complexityoption3" autocomplete="off">
+                                            <label class="btn btn-light" for="Complexityoption3">3</label>
+
+                                            <input type="radio" class="btn-check" name="ComplexityOptions" id="Complexityoption4" autocomplete="off">
+                                            <label class="btn btn-light" for="Complexityoption4">4</label>
+
+                                            <input type="radio" class="btn-check" name="ComplexityOptions" id="Complexityoption5" autocomplete="off">
+                                            <label class="btn btn-light me-0" for="Complexityoption5">5</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-4 align-self-center">
+                                        <div class="fw-medium fs-lg">Importance</div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="list-rating-scale">
+                                            <input type="radio" class="btn-check" name="ImportanceOptions" id="Importanceoption1" autocomplete="off">
+                                            <label class="btn btn-light ms-0" for="Importanceoption1">1</label>
+
+                                            <input type="radio" class="btn-check" name="ImportanceOptions" id="Importanceoption2" autocomplete="off">
+                                            <label class="btn btn-light" for="Importanceoption2">2</label>
+
+                                            <input type="radio" class="btn-check" name="ImportanceOptions" id="Importanceoption3" autocomplete="off">
+                                            <label class="btn btn-light" for="Importanceoption3">3</label>
+
+                                            <input type="radio" class="btn-check" name="ImportanceOptions" id="Importanceoption4" autocomplete="off">
+                                            <label class="btn btn-light" for="Importanceoption4">4</label>
+
+                                            <input type="radio" class="btn-check" name="ImportanceOptions" id="Importanceoption5" autocomplete="off">
+                                            <label class="btn btn-light me-0" for="Importanceoption5">5</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-4 align-self-center">
+                                        <div class="fw-medium fs-lg">Quality</div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="list-rating-scale">
+                                            <input type="radio" class="btn-check" name="QualityOptions" id="Qualityoption1" autocomplete="off">
+                                            <label class="btn btn-light ms-0" for="Qualityoption1">1</label>
+
+                                            <input type="radio" class="btn-check" name="QualityOptions" id="Qualityoption2" autocomplete="off">
+                                            <label class="btn btn-light" for="Qualityoption2">2</label>
+
+                                            <input type="radio" class="btn-check" name="QualityOptions" id="Qualityoption3" autocomplete="off">
+                                            <label class="btn btn-light" for="Qualityoption3">3</label>
+
+                                            <input type="radio" class="btn-check" name="QualityOptions" id="Qualityoption4" autocomplete="off">
+                                            <label class="btn btn-light" for="Qualityoption4">4</label>
+
+                                            <input type="radio" class="btn-check" name="QualityOptions" id="Qualityoption5" autocomplete="off">
+                                            <label class="btn btn-light me-0" for="Qualityoption5">5</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-10">
+                                    <div class="col-8 offset-md-4 text-end">
+                                        <button type="button" class="btn btn-white">Deny</button>
+                                        <button type="button" class="btn btn-primary">Approve</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

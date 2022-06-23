@@ -5,16 +5,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="d-flex flex-column flex-xl-row mb-13">
-                        <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto" id="dashboard_table_search"  placeholder="Search...">
-                        <button id="copy_claim_link" type="button" class="btn btn-dark me-xl-3 mb-3 mb-xl-0" trigger="manual" data-placement="top" title="Copied!">Copy Claims LINK</button>
-                        <button id="sendNewNtt" type="button" class="btn btn-primary">Send NTTs</button>
+                        <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto" id="dashboard_table_search"  placeholder="Search...">                        
+                        <button id="sendNewNtt" type="button" class="btn btn-primary">Submit Contribution</button>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="d-flex flex-column" style="min-height: 85.4vh;">
-                        <div class="card shadow mb-6">
+                    <div class="d-flex flex-column">
+                        <div class="card shadow mb-8" style="min-height: 78vh;">
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="dashboard_table" class="table table-striped table-bordered">
@@ -32,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex flex-column flex-xl-row justify-content-between mt-auto">
+                        <div class="d-flex flex-column flex-xl-row justify-content-between">
                             <select id="dashboard_table_length" class="form-select form-length">
                                 <option value="10">Rows per page: 10</option>
                                 <option value="25">Rows per page: 25</option>
@@ -54,6 +53,39 @@
             </div>
         </div>
     </section>
+
+<div class="offcanvas offcanvas-end shadow" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">      
+      <div class="offcanvas-body p-0">
+        <div class="px-12 py-13">
+            <div class="display-6 fw-medium">History</div>
+            <div class="text-break fw-medium text-muted mt-3">Pra5LM5ygrEXKzPJiA1FCFgr8r29kaV2J5AmvzR9gfqE</div>
+        </div>
+        <ul class="list-history">
+            <li class="list-history-item">
+                <a class="text-decoration-none" href="#"> 
+                    <div class="d-flex align-items-center">                   
+                        <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
+                            <div>120 points</div>
+                            <div class="text-muted mx-3">•</div>
+                            <div>Simple claim form</div>
+                        </div>
+                        <div class="ms-auto fw-medium text-muted">2h 30m ago</div>
+                    </div>
+                    <div class="fw-medium text-truncate text-muted my-1">Completed the Twitter automation bot for marketing.</div>
+                    <ul class="select2-selection__rendered d-flex gap-3">
+                        <li class="select2-selection__choice" title="dfddsfsdf" data-select2-id="141">
+                            <span class="select2-selection__choice__remove" role="presentation">×</span>dfddsfsdf</li>
+                        <li class="select2-selection__choice" title="dfdsfdsf" data-select2-id="142">
+                            <span class="select2-selection__choice__remove" role="presentation">×</span>dfdsfdsf</li>
+                    </ul>
+                    
+                    
+                </a>
+            </li>
+        </ul>
+      </div>
+</div>
+
     <!-- Modal Send some NTTs -->
     <div class="modal fade" id="sendNewNttPop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">

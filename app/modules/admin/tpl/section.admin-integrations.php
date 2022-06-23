@@ -9,39 +9,18 @@
                 <div class="card-body p-xl-20">
                   <div class="display-5 fw-medium">Lighthouse integrations</div>
                   <div class="text-muted mt-1">Integrate with third party data sources and applications using pre-built connectors or APIs</div>
-                  <form class="mt-25 col-xxl-10">
+                  <div class="fs-2 fw-medium mt-14" id="Forms">Forms</div>
+                  <div class="fw-medium">Design forms to collect contributions from your community</div>
+                  <form class="mt-10 col-xxl-10">
                     <div class="row">
                       <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12">
-                          <div class="card-body">
-                            <div class="fs-4 fw-semibold">Lighthouse Attestation API</div>
-                            <div class="fw-semibold mt-6 mb-13">Lighthouse Attestation API</div>
-                            <button type="button" class="btn btn-primary">READ THE DOCS</button>
-                            <button type="button" class="btn btn-light mt-3 mt-lg-0">generate new key</button>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12">
-                          <div class="card-body">
-                            <div class="fs-4 fw-semibold">Lighthouse Application API</div>
-                            <div class="fw-semibold mt-6 mb-13">Develop applications that use Lighthouse NTTs.</div>
-                            <button type="button" class="btn btn-primary">Open Developer Platform</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="fs-2 fw-medium mt-14 mb-12">Identity verification</div>
-                    <div class="row">
-                      <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12">
+                        <div class="card border rounded-3 mb-12 mb-lg-0">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
                                     <img src="<?php echo app_cdn_path; ?>img/company-logo/brightID.png">
                                 </div>
-                                <div class="fs-4 fw-semibold">BrightID</div>
+                                <div class="fs-4 fw-semibold">Simple claim form</div>
                                 <div class="ms-auto">
                                     <label class="switch">
                                         <input type="checkbox" class="form-switch-input">
@@ -49,7 +28,44 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="fw-medium lh-lg two-lines-wrap">BrightID is a social identity network that allows you to prove that you’re only using one account</div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">This form can be used by community members to
+request attestations for any purpose.</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Active</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-6">
+                        <a class="card border-dashed rounded-3 mb-12 mb-lg-0 h-100 text-decoration-none" role="button" data-bs-toggle="modal" data-bs-target="#modalForm"> 
+                          <div class="d-flex align-items-center justify-content-center flex-column h-100">                         
+                            <img src="<?php echo app_cdn_path; ?>img/icon-add.png">
+                            <div class="fw-medium mt-4">New form</div>   
+                          </div>                       
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="fs-2 fw-medium mt-14" id="Interactions">Interactions</div>
+                    <div class="fw-medium">Capture interactions from community members across apps, dapps and blockchains</div>
+                    <div class="row mt-10">
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12 mb-lg-0">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/brightID.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">MEE6 - The Discord bot</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Configure moderation, leveling, twitch alerts,
+and much more.</div>
                           </div>
                           <div class="border-top card-body text-end">
                             <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
@@ -57,13 +73,26 @@
                         </div>
                       </div>
                       <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12">
+                        <a class="card border-dashed rounded-3 mb-12 mb-lg-0 h-100 text-decoration-none" role="button" data-bs-toggle="modal" data-bs-target="#modalInteraction"> 
+                          <div class="d-flex align-items-center justify-content-center flex-column h-100">                         
+                            <img src="<?php echo app_cdn_path; ?>img/icon-add.png">
+                            <div class="fw-medium mt-4">New Interaction</div>   
+                          </div>                       
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="fs-2 fw-medium mt-14" id="Identity">Identity</div>
+                    <div class="fw-medium">Enable identity verification to increase security, trust and transparency in your community</div>
+                    <div class="row mt-10">
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12 mb-lg-0">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/grape-protocol.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/coordinape.png">
                                 </div>
-                                <div class="fs-4 fw-semibold">Grape Protocol</div>
+                                <div class="fs-4 fw-semibold">Grape protocol</div>
                                 <div class="ms-auto">
                                     <label class="switch">
                                         <input type="checkbox" class="form-switch-input">
@@ -71,17 +100,42 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="fw-medium lh-lg two-lines-wrap">Create, Reward & Secure any online community</div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Direct proof of "Skin in the Game" for every community 
+member.</div>
                           </div>
                           <div class="border-top card-body text-end">
                             <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
                           </div>
                         </div>
                       </div>
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12 mb-lg-0">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Civic pass</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">An integrated permissioning tool that helps businesses
+control access to their dApps.</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>                      
                     </div>
 
-                    <div class="fs-2 fw-medium mt-14 mb-12">Siloed scores</div>
-                    <div class="row">
+                    <div class="fs-2 fw-medium mt-14" id="Apps">Apps</div>
+                    <div class="fw-medium">Activate and expand your decentralized community</div>
+                    <div class="row mt-10">
                       <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
@@ -89,7 +143,7 @@
                                 <div class="card-logo me-8">
                                     <img src="<?php echo app_cdn_path; ?>img/company-logo/coordinape.png">
                                 </div>
-                                <div class="fs-4 fw-semibold">Coordinape</div>
+                                <div class="fs-4 fw-semibold">NTTs </div>
                                 <div class="ms-auto">
                                     <label class="switch">
                                         <input type="checkbox" class="form-switch-input">
@@ -97,13 +151,18 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="fw-medium lh-lg two-lines-wrap">Reward contributors, incentivize participation and manage resources</div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Mint and distribute non-transferrable tokens to your 
+community.</div>
                           </div>
-                          <div class="border-top card-body text-end">
-                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          <div class="border-top card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Aklaim</div>
+                              <a href="#" class="fw-medium text-decoration-none text-danger">Not Activated</a>
+                            </div>                            
                           </div>
                         </div>
                       </div>
+
                       <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
@@ -111,7 +170,7 @@
                                 <div class="card-logo me-8">
                                     <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
                                 </div>
-                                <div class="fs-4 fw-semibold">SourceCred</div>
+                                <div class="fs-4 fw-semibold">Goal based NFT badges</div>
                                 <div class="ms-auto">
                                     <label class="switch">
                                         <input type="checkbox" class="form-switch-input">
@@ -119,104 +178,99 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="fw-medium lh-lg two-lines-wrap">A tool for communities to measure and reward value creation</div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Issue NFT badges when a community member reaches a
+particular goal or milestone.</div>
                           </div>
-                          <div class="border-top card-body text-end">
-                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12">
-                          <div class="card-body">
-                            <div class="d-flex align-items-center mb-7">
-                                <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/daoHaus.png">
-                                </div>
-                                <div class="fs-4 fw-semibold">DAOhaus</div>
-                                <div class="ms-auto">
-                                    <label class="switch">
-                                        <input type="checkbox" class="form-switch-input">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="fw-medium lh-lg two-lines-wrap">Unlock the next tier in community cooperation utilizing the glorious open-source code of Moloch</div>
-                          </div>
-                          <div class="border-top card-body text-end">
-                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12">
-                          <div class="card-body">
-                            <div class="d-flex align-items-center mb-7">
-                                <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/discord-bot.png">
-                                </div>
-                                <div class="fs-4 fw-semibold">MEE6 - The Discord Bot</div>
-                                <div class="ms-auto">
-                                    <label class="switch">
-                                        <input type="checkbox" class="form-switch-input">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="fw-medium lh-lg two-lines-wrap">Configure moderation, leveling, twitch alerts, and much more!</div>
-                          </div>
-                          <div class="border-top card-body text-end">
-                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12">
-                          <div class="card-body">
-                            <div class="d-flex align-items-center mb-7">
-                                <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/colony.png">
-                                </div>
-                                <div class="fs-4 fw-semibold">Colony</div>
-                                <div class="ms-auto">
-                                    <label class="switch">
-                                        <input type="checkbox" class="form-switch-input">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="fw-medium lh-lg two-lines-wrap">Colony makes it easy for people all over the world to build organizations together, online</div>
-                          </div>
-                          <div class="border-top card-body text-end">
-                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12">
-                          <div class="card-body">
-                            <div class="d-flex align-items-center mb-7">
-                                <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/omnid.png">
-                                </div>
-                                <div class="fs-4 fw-semibold">Omnid</div>
-                                <div class="ms-auto">
-                                    <label class="switch">
-                                        <input type="checkbox" class="form-switch-input">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="fw-medium lh-lg two-lines-wrap">Omnid aggregates multiple on/off-chain sources of reputation into a singular TrustScore for any wallet</div>
-                          </div>
-                          <div class="border-top card-body text-end">
-                            <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                          <div class="border-top card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Cardinal</div>
+                              <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                            </div>                            
                           </div>
                         </div>
                       </div>
                       
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Evolving reputation NFT</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Create an NFT that evolves based on contribution to your 
+community.</div>
+                          </div>
+                          <div class="border-top card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Cardinal</div>
+                              <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                            </div>                            
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Token payments </div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Airdrop tokens to your community based on active 
+participation.</div>
+                          </div>
+                          <div class="border-top card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Streamflow</div>
+                              <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                            </div>                            
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Token streams</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Periodically stream tokens to your community, based on
+active participation.</div>
+                          </div>
+                          <div class="border-top card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Streamflow</div>
+                              <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
+                            </div>                            
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
 
                   </form>
@@ -227,6 +281,39 @@
         </div>
       </section>
 </main>
+<!-- Modal From -->
+<div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-size-02">
+    <div class="modal-content">
+      <div class="modal-body p-10">
+        <div class="fs-2 fw-semibold mb-22 mt-3">Drop your contact details and we'll get in touch <br>
+to set up your form.</div>
+        <input type="text" class="form-control form-control-lg mb-16" id="" placeholder="Email / Telegram / Discord handle">
+      </div> 
+      <div class="modal-footer pe-10">
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary m-0">SAVE</button>
+      </div>   
+    </div>
+  </div>
+</div>
+
+<!-- Modal From -->
+<div class="modal fade" id="modalInteraction" tabindex="-1" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-size-02">
+    <div class="modal-content">
+      <div class="modal-body p-10">
+        <div class="fs-2 fw-semibold mb-22 mt-3">Drop your contact details and we'll get in touch<br>
+to set up your integration.</div>
+        <input type="text" class="form-control form-control-lg mb-16" id="" placeholder="Email / Telegram / Discord handle">
+      </div> 
+      <div class="modal-footer pe-10">
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary m-0">SAVE</button>
+      </div>   
+    </div>
+  </div>
+</div>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     feather.replace()

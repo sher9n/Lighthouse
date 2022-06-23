@@ -13,13 +13,13 @@
         <li class="nav-item">
             <a class="nav-link <?php echo __ROUTER_PATH=='/admin-approvals'?'active':'';?>" href="admin-approvals">                
                 <i data-feather="check-circle"></i>
-                <div class="ms-12">Approvals</div>
+                <div class="ms-12">Contribution Stream</div>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link <?php echo __ROUTER_PATH=='/admin-ntts'?'active':'';?>" href="admin-ntts">                
-                <i data-feather="move"></i>
-                <div class="ms-12">Send NTTs</div>
+                <i data-feather="send"></i>
+                <div class="ms-12">Submit Contribution</div>
             </a>
         </li>
         <li class="nav-item">
@@ -28,12 +28,18 @@
                 <div class="ms-12">Stewards</div>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item tree-toggle">
             <a class="nav-link <?php echo __ROUTER_PATH=='/admin-integrations'?'active':'';?>"  href="admin-integrations">
                 <!-- <img src="img/icon-integrations.svg">  -->                
                 <i data-feather="terminal"></i>
                 <div class="ms-12">Integrations</div>
             </a>
+            <ul class="nav-sub tree" style="display: none;">
+                <li class="nav-item"><a class="nav-link" href="#Forms">> Forms</a></li>
+                <li class="nav-item"><a class="nav-link" href="#Interactions">> Interactions</a></li>
+                <li class="nav-item"><a class="nav-link" href="#Identity">> Identity</a></li>
+                <li class="nav-item"><a class="nav-link" href="#Apps">> Apps</a></li>
+            </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link <?php echo __ROUTER_PATH=='/admin-settings'?'active':'';?>" href="admin-settings">                
