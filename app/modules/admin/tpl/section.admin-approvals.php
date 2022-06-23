@@ -176,7 +176,7 @@
                 <div class="col-xl-6" id="claim_details">
                     <div class="card shadow">
                         <form id="" method="post" action="" autocomplete="off" class="d-flex flex-column h-100">
-                            <div class="card-body p-xl-20 mb-xl-20">
+                            <div class="card-body p-xl-20">
                                 <div class="display-5 fw-medium mb-25">Review this contribution</div>
                                 <div class="row">
                                     <div class="col-8 offset-md-4">
@@ -265,6 +265,73 @@
                                     </div>
                                 </div>
 
+                            </div>
+                            <div class="card-body p-xl-20 border-top">
+                                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                    <li class="nav-item ps-0 pt-0" role="presentation">
+                                        <button class="tab_link nav-link active" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab" aria-controls="pills-details" aria-selected="true">Details</button>
+                                    </li>
+                                    <li class="nav-item pt-0" role="presentation">
+                                        <button class="tab_link nav-link" id="pills-history-tab" data-bs-toggle="pill" data-bs-target="#pills-history" type="button" role="tab" aria-controls="pills-history" aria-selected="false">History</button>
+                                    </li>
+                                    <li class="nav-item pt-0" role="presentation">
+                                        <button class="tab_link nav-link" id="pills-approvals-tab" data-bs-toggle="pill" data-bs-target="#pills-approvals" type="button" role="tab" aria-controls="pills-approvals" aria-selected="false">Approvals (2/3)</button>
+                                    </li>
+                                    <li class="nav-item pt-0" role="presentation">
+                                        <button class="tab_link nav-link" id="pills-similar-tab" data-bs-toggle="pill" data-bs-target="#pills-similar" type="button" role="tab" aria-controls="pills-similar" aria-selected="false">Similar Contributions</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content mt-6" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
+                                        <div class="fw-semibold">Wallet or SNS</div>
+                                        <div class="fw-medium fs-4 mt-1">E9kzRXFCiA19gfqFgr8raVygrPra5L2KzPJM5J5Amv2E</div>
+                                        <div class="fw-semibold mt-12">Reason</div>
+                                        <div class="fw-medium fs-4 mt-1">Grant application to develop an extension to the Mee6 bot on
+Discord to auto calculate reputation and provide gated access
+to different areas in the server.</div>
+                                        <div class="fw-semibold mt-12">Tags</div>
+                                        <ul class="select2-selection__rendered d-flex gap-3 mt-1">
+                                            <li class="select2-selection__choice" title="dfddsfsdf" data-select2-id="141">
+                                                <span class="select2-selection__choice__remove" role="presentation">×</span>dfddsfsdf</li>
+                                            <li class="select2-selection__choice" title="dfdsfdsf" data-select2-id="142">
+                                                <span class="select2-selection__choice__remove" role="presentation">×</span>dfdsfdsf</li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-history" role="tabpanel" aria-labelledby="pills-history-tab" tabindex="0">
+                                        <div class="p-8 bg-lighter rounded-1 mb-6">
+                                            <div class="text-muted fs-sm">5m ago</div>
+                                            <div class="fw-medium mt-1">Completed the Twitter automation bot for marketing.</div>
+                                        </div>
+                                        <div class="p-8 bg-lighter rounded-1 mb-6">
+                                            <div class="text-muted fs-sm">45m ago</div>
+                                            <div class="fw-medium mt-1">Submitted proposal for new reputation NFT design.</div>
+                                        </div>
+                                        <div class="p-8 bg-lighter rounded-1 mb-6">
+                                            <div class="text-muted fs-sm">2h 30m ago</div>
+                                            <div class="fw-medium mt-1">Grant application to develop an extension to the Mee6 bot
+on Discord to auto calculate reputation and provide gated
+access to different areas in the server.</div>
+                                        </div>
+                                        <div class="p-8 bg-lighter rounded-1">
+                                            <div class="text-muted fs-sm">5h 15m ago</div>
+                                            <div class="fw-medium mt-1">Submitted proposal for new emissions cycle.</div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-approvals" role="tabpanel" aria-labelledby="pills-approvals-tab" tabindex="0">
+                                        <div class="fw-semibold">Sheran</div>
+                                        <div class="fw-medium fs-4 mt-1">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
+                                        <a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>
+                                        <div class="fw-semibold mt-12">Potrock</div>
+                                        <div class="fw-medium fs-4 mt-1">0xF87cF86F3F0031cB27A1539eAfA4Bd3DBes281752</div>
+                                        <a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-similar" role="tabpanel" aria-labelledby="pills-similar-tab" tabindex="0">
+                                        <div class="d-flex flex-column align-items-center justify-content-center py-25">
+                                           <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">                                           
+                                           <div class="fw-medium mt-4">No data found.</div>
+                                       </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
