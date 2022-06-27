@@ -18,7 +18,7 @@
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/brightID.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">Simple claim form</div>
                                 <div class="ms-auto">
@@ -54,7 +54,7 @@ request attestations for any purpose.</div>
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/brightID.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-discord.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">MEE6 - The Discord bot</div>
                                 <div class="ms-auto">
@@ -90,7 +90,7 @@ and much more.</div>
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/coordinape.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-grape.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">Grape protocol</div>
                                 <div class="ms-auto">
@@ -113,7 +113,7 @@ member.</div>
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-civic.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">Civic pass</div>
                                 <div class="ms-auto">
@@ -141,7 +141,7 @@ control access to their dApps.</div>
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/coordinape.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-ntts.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">NTTs </div>
                                 <div class="ms-auto">
@@ -168,7 +168,7 @@ community.</div>
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-goal.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">Goal based NFT badges</div>
                                 <div class="ms-auto">
@@ -195,7 +195,7 @@ particular goal or milestone.</div>
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-evolving.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">Evolving reputation NFT</div>
                                 <div class="ms-auto">
@@ -222,7 +222,7 @@ community.</div>
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-token.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">Token payments </div>
                                 <div class="ms-auto">
@@ -249,7 +249,7 @@ participation.</div>
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/source-cred.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-streams.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">Token streams</div>
                                 <div class="ms-auto">

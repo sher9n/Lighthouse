@@ -78,8 +78,6 @@
                         <li class="select2-selection__choice" title="dfdsfdsf" data-select2-id="142">
                             <span class="select2-selection__choice__remove" role="presentation">×</span>dfdsfdsf</li>
                     </ul>
-                    
-                    
                 </a>
             </li>
         </ul>
