@@ -31,44 +31,44 @@
                 <button class="btn btn-lg dropdown-toggle d-flex justify-content-between align-items-center text-transform-inherit fw-medium w-100 border rounded-1" type="button" id="" data-bs-toggle="dropdown" aria-expanded="false">
                   <div id="" class="d-flex align-items-center text-dark">
                     <i data-feather="align-left" class="me-3"></i>
-                    <div class="fs-3">Short answer</div>
+                    <div class="fs-4">Short answer</div>
                   </div>
                 </button>
                 <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                   <li class="border-bottom">
-                    <a class="dropdown-item d-flex align-items-center p-6" href="#">
+                    <a class="dropdown-item d-flex align-items-center py-6  px-12" href="#">
                       <i data-feather="align-left" class="me-6"></i>
-                      <div class="fs-3">Short answer</div>
+                      <div class="fs-4">Short answer</div>
                     </a>
                   </li>
                   <li class="border-bottom">
-                    <a class="dropdown-item d-flex align-items-center p-6" href="#">
+                    <a class="dropdown-item d-flex align-items-center py-6  px-12" href="#">
                       <i data-feather="align-justify" class="me-6"></i>
-                      <div class="fs-3">Pragraph</div>
+                      <div class="fs-4">Pragraph</div>
                     </a>
                   </li>
                   <li class="border-bottom">
-                    <a class="dropdown-item d-flex align-items-center p-6" href="#">
+                    <a class="dropdown-item d-flex align-items-center py-6  px-12" href="#">
                       <i data-feather="circle" class="me-6"></i>
-                      <div class="fs-3">Multiple choice</div>
+                      <div class="fs-4">Multiple choice</div>
                     </a>
                   </li>
                   <li class="border-bottom">
-                    <a class="dropdown-item d-flex align-items-center p-6" href="#">
+                    <a class="dropdown-item d-flex align-items-center py-6  px-12" href="#">
                       <i data-feather="check-square" class="me-6"></i>
-                      <div class="fs-3">Checkboxes</div>
+                      <div class="fs-4">Checkboxes</div>
                     </a>
                   </li>
                   <li class="border-bottom">
-                    <a class="dropdown-item d-flex align-items-center p-6" href="#">
+                    <a class="dropdown-item d-flex align-items-center py-6  px-12" href="#">
                       <i data-feather="arrow-down-circle" class="me-6"></i>
-                      <div class="fs-3">Dropdown</div>
+                      <div class="fs-4">Dropdown</div>
                     </a>
                   </li>
                   <li class="">
-                    <a class="dropdown-item d-flex align-items-center p-6" href="#">
+                    <a class="dropdown-item d-flex align-items-center py-6  px-12" href="#">
                       <i data-feather="upload" class="me-6"></i>
-                      <div class="fs-3">File upload</div>
+                      <div class="fs-4">File upload</div>
                     </a>
                   </li>
                 </ul>
