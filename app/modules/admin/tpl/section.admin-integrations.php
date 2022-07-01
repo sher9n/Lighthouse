@@ -292,7 +292,7 @@ to set up your form.</div>
       </div> 
       <div class="modal-footer pe-10">
         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary m-0">SAVE</button>
+        <a role="button" class="btn btn-primary m-0" href="admin-integrations-form">SAVE</a>
       </div>   
     </div>
   </div>
@@ -309,7 +309,7 @@ to set up your integration.</div>
       </div> 
       <div class="modal-footer pe-10">
         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary m-0">SAVE</button>
+        <a role="button" class="btn btn-primary m-0" href="admin-integrations-form">SAVE</a>
       </div>   
     </div>
   </div>
