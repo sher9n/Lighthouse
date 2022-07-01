@@ -77,7 +77,7 @@ class controller extends Ctrl {
 
                             $post = array('tags' => implode(',',array($dao_domain,'community')));
                             $contribusion = new Contribution();
-                            $contribusion->comunity_id = $community->id;
+                            $contribusion->comunity_id = $com_id;
                             $contribusion->wallet_from = $community->wallet_adr;
                             $contribusion->contribution_reason = "Community creating contribution";
                             $contribusion->wallet_to = $community->wallet_adr;

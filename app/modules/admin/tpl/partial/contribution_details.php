@@ -82,7 +82,7 @@
             </div>
             <div class="row mt-10">
                 <div class="col-8 offset-md-4 text-end">
-                    <?php if(in_array($sel_wallet_adr, $approvals)) { ?>
+                    <?php if($contribution->status == 1 || in_array($sel_wallet_adr, $approvals)) { ?>
                         <button id="btn_deny" disabled type="button" class="btn btn-white">Deny</button>
                         <button id="btn_approve" disabled type="button" class="btn btn-primary">Approve</button>
                     <?php }else{ ?>
@@ -146,11 +146,19 @@
                     } ?>
                 </div>
                 <div class="tab-pane fade" id="claim-history" role="tabpanel" aria-labelledby="claim-history-tab" tabindex="0">
-                    <?php foreach ($contributions as $con){ ?>
-                    <div class="p-8 bg-lighter rounded-1 mb-6">
-                        <div class="text-muted fs-sm"><?php echo Utils::time_elapsed_string($con['c_at'],false,true); ?></div>
-                        <div class="fw-medium mt-1"><?php echo $con['contribution_reason']; ?></div>
-                    </div>
+                    <?php
+                    if($contributions->num_rows > 0){
+                        foreach ($contributions as $con){ ?>
+                        <div class="p-8 bg-lighter rounded-1 mb-6">
+                            <div class="text-muted fs-sm"><?php echo Utils::time_elapsed_string($con['c_at'],false,true); ?></div>
+                            <div class="fw-medium mt-1"><?php echo $con['contribution_reason']; ?></div>
+                        </div>
+                        <?php }
+                    }else{ ?>
+                        <div class="d-flex flex-column align-items-center justify-content-center py-25">
+                            <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
+                            <div class="fw-medium mt-4">No data found.</div>
+                        </div>
                     <?php } ?>
                 </div>
                 <div class="tab-pane fade" id="claim-approvals" role="tabpanel" aria-labelledby="claim-approvals-tab" tabindex="0">

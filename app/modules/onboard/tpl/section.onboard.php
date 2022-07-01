@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="modal-footer pe-10">
-                    <button type="submit" class="btn btn-primary m-0">Create</button>
+                    <button type="submit" id="btn_submit" class="btn btn-primary m-0">Create</button>
                 </div>
             </form>
         </div>
@@ -155,6 +155,10 @@
             $(form).ajaxSubmit({
                 type:'post',
                 dataType:'json',
+                beforeSend: function () {
+                    $('#btn_submit').prop('disabled', false);
+                    showMessage('success', 10000, 'Your Community is creating...');
+                },
                 success: function(data){
                     if(data.success == true){
                         window.location.replace(data.url);

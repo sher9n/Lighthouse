@@ -30,8 +30,8 @@ class controller extends Ctrl {
 /*                $claims = Claim::find("SELECT GROUP_CONCAT(IF(c.status='1', c.clm_tags,null)) as tags ,c.wallet_adr,sum(c.ntts) as score FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE c.status='1' AND com.dao_domain='$domain' group by c.wallet_adr");
                 $ranks  = Claim::find("SELECT wallet_adr,sum(ntts) as ntts FROM lighthouse.claims WHERE comunity_id='$com_id' AND status=1 group by wallet_adr order by ntts DESC");*/
 
-                $claims = Claim::find("SELECT wallet_to,sum(score) as score FROM contributions WHERE status='0' AND comunity_id='$com_id' group by wallet_to");
-                $ranks  = Claim::find("SELECT wallet_to,sum(score) as ntts FROM contributions WHERE comunity_id='$com_id' AND status=0 group by wallet_to order by ntts DESC");
+                $claims = Claim::find("SELECT wallet_to,sum(score) as score FROM contributions WHERE status=1 AND comunity_id='$com_id' group by wallet_to");
+                $ranks  = Claim::find("SELECT wallet_to,sum(score) as ntts FROM contributions WHERE comunity_id='$com_id' AND status=1 group by wallet_to order by ntts DESC");
 
                 $rank_index = 0;
                 foreach ($ranks as $rank) {

@@ -153,96 +153,6 @@
                     </div>
                 </div>
                 <div class="col-xl-6" id="claim_details">
-                    <!-- Skeleton loader  -->
-                    <div class="card shadow loading">
-                        <div class="d-flex flex-column h-100">
-                            <div class="card-body p-xl-20">
-                                <div class="display-5-text-content mb-25 w-70"></div>
-                                <div class="row">
-                                    <div class="col-8 offset-md-4">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <div class="text-content w-20"></div>
-                                            <div class="text-content w-20"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 align-self-center">
-                                        <div class="fs-lg-text-content w-60"></div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="list-rating-scale">
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-4">
-                                    <div class="col-4 align-self-center">
-                                        <div class="fs-lg-text-content w-60"></div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="list-rating-scale">
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-4">
-                                    <div class="col-4 align-self-center">
-                                        <div class="fs-lg-text-content w-60"></div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="list-rating-scale">
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                            <div class="btn btn-content"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-10">
-                                    <div class="col-8 offset-md-4 text-end">
-                                        <div class="btn btn-content w-20"></div>
-                                        <div class="btn btn-content w-20"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-xl-20 border-top">
-                                <ul class="nav nav-pills" role="tablist">
-                                    <li class="nav-item ps-0 pt-0" role="presentation">
-                                        <div class="skeleton-tab-nav"></div>
-                                    </li>
-                                    <li class="nav-item pt-0" role="presentation">
-                                        <div class="skeleton-tab-nav"></div>
-                                    </li>
-                                    <li class="nav-item pt-0" role="presentation">
-                                        <div class="skeleton-tab-nav"></div>
-                                    </li>
-                                    <li class="nav-item pt-0" role="presentation">
-                                        <div class="skeleton-tab-nav"></div>
-                                    </li>
-                                </ul>
-                                <div class="mt-10">
-                                    <div class="text-content w-20"></div>
-                                    <div class="fs-4-text-content mt-3"></div>
-                                    <div class="text-content w-40 mt-16"></div>
-                                    <div class="fs-4-text-content mt-3"></div>
-                                    <div class="fs-4-text-content mt-3"></div>
-                                    <div class="text-content w-30 mt-16"></div>
-                                    <div class="fs-4-text-content mt-3"></div>
-                                </div>
-                            </div>                              
-                        </div>
-                    </div>
-                    <!-- Skeleton loader  END -->
                 </div>
             </div>
         </div>
@@ -283,6 +193,96 @@
                 dataType: 'json',
                 data: data,
                 type: 'POST',
+                beforeSend: function () {
+                    $("#claim_details").html('<div class="card shadow loading">\n' +
+                        '                        <div class="d-flex flex-column h-100">\n' +
+                        '                            <div class="card-body p-xl-20">\n' +
+                        '                                <div class="display-5-text-content mb-25 w-70"></div>\n' +
+                        '                                <div class="row">\n' +
+                        '                                    <div class="col-8 offset-md-4">\n' +
+                        '                                        <div class="d-flex justify-content-between mb-3">\n' +
+                        '                                            <div class="text-content w-20"></div>\n' +
+                        '                                            <div class="text-content w-20"></div>\n' +
+                        '                                        </div>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>\n' +
+                        '                                <div class="row">\n' +
+                        '                                    <div class="col-4 align-self-center">\n' +
+                        '                                        <div class="fs-lg-text-content w-60"></div>\n' +
+                        '                                    </div>\n' +
+                        '                                    <div class="col-8">\n' +
+                        '                                        <div class="list-rating-scale">\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                        </div>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>\n' +
+                        '                                <div class="row mt-4">\n' +
+                        '                                    <div class="col-4 align-self-center">\n' +
+                        '                                        <div class="fs-lg-text-content w-60"></div>\n' +
+                        '                                    </div>\n' +
+                        '                                    <div class="col-8">\n' +
+                        '                                        <div class="list-rating-scale">\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                        </div>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>\n' +
+                        '                                <div class="row mt-4">\n' +
+                        '                                    <div class="col-4 align-self-center">\n' +
+                        '                                        <div class="fs-lg-text-content w-60"></div>\n' +
+                        '                                    </div>\n' +
+                        '                                    <div class="col-8">\n' +
+                        '                                        <div class="list-rating-scale">\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                            <div class="btn btn-content"></div>\n' +
+                        '                                        </div>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>\n' +
+                        '                                <div class="row mt-10">\n' +
+                        '                                    <div class="col-8 offset-md-4 text-end">\n' +
+                        '                                        <div class="btn btn-content w-20"></div>\n' +
+                        '                                        <div class="btn btn-content w-20"></div>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                            <div class="card-body p-xl-20 border-top">\n' +
+                        '                                <ul class="nav nav-pills" role="tablist">\n' +
+                        '                                    <li class="nav-item ps-0 pt-0" role="presentation">\n' +
+                        '                                        <div class="skeleton-tab-nav"></div>\n' +
+                        '                                    </li>\n' +
+                        '                                    <li class="nav-item pt-0" role="presentation">\n' +
+                        '                                        <div class="skeleton-tab-nav"></div>\n' +
+                        '                                    </li>\n' +
+                        '                                    <li class="nav-item pt-0" role="presentation">\n' +
+                        '                                        <div class="skeleton-tab-nav"></div>\n' +
+                        '                                    </li>\n' +
+                        '                                    <li class="nav-item pt-0" role="presentation">\n' +
+                        '                                        <div class="skeleton-tab-nav"></div>\n' +
+                        '                                    </li>\n' +
+                        '                                </ul>\n' +
+                        '                                <div class="mt-10">\n' +
+                        '                                    <div class="text-content w-20"></div>\n' +
+                        '                                    <div class="fs-4-text-content mt-3"></div>\n' +
+                        '                                    <div class="text-content w-40 mt-16"></div>\n' +
+                        '                                    <div class="fs-4-text-content mt-3"></div>\n' +
+                        '                                    <div class="fs-4-text-content mt-3"></div>\n' +
+                        '                                    <div class="text-content w-30 mt-16"></div>\n' +
+                        '                                    <div class="fs-4-text-content mt-3"></div>\n' +
+                        '                                </div>\n' +
+                        '                            </div>                              \n' +
+                        '                        </div>\n' +
+                        '                    </div>')
+                },
                 success: function (response) {
                     if (response.success == true) {
                         $('#claim_details').html(response.html);

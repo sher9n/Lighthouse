@@ -97,7 +97,7 @@ class controller extends Ctrl {
                 $wallet_to     = $contribution->wallet_to;
                 $stewards      = $com->getStewards();
                 $approvals     = Approval::getApprovals($contribution->id);
-                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM lighthouse.contributions where wallet_to='$wallet_to' order by c_at");
+                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where comunity_id='$con_id' AND wallet_to='$wallet_to' order by c_at");
 
                 include __DIR__ . '/../tpl/partial/contribution_details.php';
                 $html = ob_get_clean();

@@ -56,9 +56,10 @@
         <div class="offcanvas-body p-0">
             <div class="px-12 py-13">
                 <div class="display-6 fw-medium">History</div>
-                <div id="history_wallet" class="text-break fw-medium text-muted mt-3">...</div>
-                <ul id="list_history" class="list-history"></ul>
+                <div class="text-break fw-medium text-muted mt-3">Pra5LM5ygrEXKzPJiA1FCFgr8r29kaV2J5AmvzR9gfqE</div>
             </div>
+            <ul id="list_history" class="list-history">
+            </ul>
         </div>
     </div>
     <!-- Modal Send some NTTs -->
@@ -161,11 +162,13 @@
                 url: 'contribution-history?wallet='+adr,
                 dataType: 'json',
                 type: 'GET',
+                beforeSend: function() {
+                    $('#list_history').html('');
+                },
                 success: function (response) {
-                    $('#claim-similar').html(response.html);
+                    $('#list_history').html(response.html);
                 }
             });
-            $('#list_history').html();
         });
 
         $('#nttsNewForm').validate({
