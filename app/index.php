@@ -3,7 +3,7 @@
 try {
     session_start();
     ob_start();
-
+    
     date_default_timezone_set('UTC');
 
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'config.inc.php';
