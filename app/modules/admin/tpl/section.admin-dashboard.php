@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="d-flex flex-column flex-xl-row justify-content-between">
-                            <select id="dashboard_table_length" class="form-select form-length">
+                            <select id="dashboard_table_length" class="form-select form-length rounded border-light">
                                 <option value="10">Rows per page: 10</option>
                                 <option value="25">Rows per page: 25</option>
                                 <option value="50">Rows per page: 50</option>
