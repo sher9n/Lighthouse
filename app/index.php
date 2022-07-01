@@ -35,6 +35,7 @@ try {
         '/admin' => 'modules/admin/ctrl/admin.php',
         '/get-ntts' => 'modules/admin/ctrl/admin-dashboard.php',
         '/admin-dashboard' => 'modules/admin/ctrl/admin-dashboard.php',
+        '/contribution-history' => 'modules/admin/ctrl/admin-dashboard.php',
         '/admin-approvals' => 'modules/admin/ctrl/admin-approvals.php',
         '/contribution-status' =>  'modules/admin/ctrl/admin-approvals.php',
         '/contribution' => 'modules/admin/ctrl/contribution.php',

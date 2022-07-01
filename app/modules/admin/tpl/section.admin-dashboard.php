@@ -19,11 +19,10 @@
                                     <table id="dashboard_table" class="table table-striped table-bordered">
                                         <thead>
                                         <tr>
-                                            <th style="width: 100px">Send NTTs</th>
-                                            <th>Wallet or SNS</th>
-                                            <th>Score</th>
-                                            <th>Rank</th>
-                                            <th>Percentile</th>
+                                            <th style="width: 200px">Wallet or SNS</th>
+                                            <th style="width: 200px">Score</th>
+                                            <th style="width: 200px">Rank</th>
+                                            <th style="width: 200px">Percentile</th>
                                             <th>Tags</th>
                                         </tr>
                                         </thead>
@@ -53,37 +52,15 @@
             </div>
         </div>
     </section>
-
-<div class="offcanvas offcanvas-end shadow" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">      
-      <div class="offcanvas-body p-0">
-        <div class="px-12 py-13">
-            <div class="display-6 fw-medium">History</div>
-            <div class="text-break fw-medium text-muted mt-3">Pra5LM5ygrEXKzPJiA1FCFgr8r29kaV2J5AmvzR9gfqE</div>
+    <div class="offcanvas offcanvas-end shadow" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-body p-0">
+            <div class="px-12 py-13">
+                <div class="display-6 fw-medium">History</div>
+                <div id="history_wallet" class="text-break fw-medium text-muted mt-3">...</div>
+                <ul id="list_history" class="list-history"></ul>
+            </div>
         </div>
-        <ul class="list-history">
-            <li class="list-history-item">
-                <a class="text-decoration-none" href="#"> 
-                    <div class="d-flex align-items-center">                   
-                        <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
-                            <div>120 points</div>
-                            <div class="text-muted mx-3">•</div>
-                            <div>Simple claim form</div>
-                        </div>
-                        <div class="ms-auto fw-medium text-muted">2h 30m ago</div>
-                    </div>
-                    <div class="fw-medium text-truncate text-muted my-1">Completed the Twitter automation bot for marketing.</div>
-                    <ul class="select2-selection__rendered d-flex gap-3">
-                        <li class="select2-selection__choice" title="dfddsfsdf" data-select2-id="141">
-                            <span class="select2-selection__choice__remove" role="presentation">×</span>dfddsfsdf</li>
-                        <li class="select2-selection__choice" title="dfdsfdsf" data-select2-id="142">
-                            <span class="select2-selection__choice__remove" role="presentation">×</span>dfdsfdsf</li>
-                    </ul>
-                </a>
-            </li>
-        </ul>
-      </div>
-</div>
-
+    </div>
     <!-- Modal Send some NTTs -->
     <div class="modal fade" id="sendNewNttPop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -174,6 +151,21 @@
             $('#claim_reason').val('');
             $("#claim_tags").val(null).trigger('change');
             $('#sendNewNttPop').modal('show');
+        });
+
+        $(document).on("click", '.contribution_history', function(event) {
+            event.preventDefault();
+            var adr = $(this).data('adr');
+            $('#history_wallet').html(adr);
+            $.ajax({
+                url: 'contribution-history?wallet='+adr,
+                dataType: 'json',
+                type: 'GET',
+                success: function (response) {
+                    $('#claim-similar').html(response.html);
+                }
+            });
+            $('#list_history').html();
         });
 
         $('#nttsNewForm').validate({

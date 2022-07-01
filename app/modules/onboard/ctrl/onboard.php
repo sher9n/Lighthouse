@@ -3,6 +3,7 @@ use Core\Utils;
 use lighthouse\Community;
 use lighthouse\Log;
 use lighthouse\Claim;
+use lighthouse\Contribution;
 class controller extends Ctrl {
     function init() {
 
@@ -74,17 +75,20 @@ class controller extends Ctrl {
                             $log->c_by = $community->wallet_adr;
                             $log->insert();
 
-                            $claim = new Claim();
-                            $claim->wallet_adr = $wallet_address;
-                            $claim->ntts = 11;
-                            $claim->clm_reason  = "Community creating contribution";
-                            $claim->clm_tags    = implode(',',array($dao_domain,'community'));
-                            $claim->comunity_id = $com_id;
-                            $claim_id = $claim->insert();
+                            $post = array('tags' => implode(',',array($dao_domain,'community')));
+                            $contribusion = new Contribution();
+                            $contribusion->comunity_id = $community->id;
+                            $contribusion->wallet_from = $community->wallet_adr;
+                            $contribusion->contribution_reason = "Community creating contribution";
+                            $contribusion->wallet_to = $community->wallet_adr;
+                            $contribusion->form_id = 1;
+                            $contribusion->status = 1;
+                            $contribusion->form_data = json_encode($post);
+                            $con_id = $contribusion->insert();
 
                             $log = new Log();
-                            $log->type = 'Claim';
-                            $log->type_id = $claim_id;
+                            $log->type = 'Contribution';
+                            $log->type_id = $con_id;
                             $log->action = 'create-pending';
                             $log->c_by = $wallet_address;
                             $log->insert();
