@@ -1,9 +1,10 @@
 <?php
 use lighthouse\Auth;
-use lighthouse\Claim;
+use lighthouse\Contribution;
 use lighthouse\Community;
-use lighthouse\Api;
+use lighthouse\Approval;
 use lighthouse\Log;
+use lighthouse\Form;
 class controller extends Ctrl {
     function init() {
 
@@ -16,23 +17,23 @@ class controller extends Ctrl {
             header("Location: " . app_url.'admin');
             die();
         }
-        $com = Community::getByDomain(app_site);
 
         if($this->__lh_request->is_xmlHttpRequest) {
+            $com = Community::getByDomain(app_site);
 
-            if(__ROUTER_PATH == '/claim-status' && $this->getParam('claim_id')){
-                $claim_id = $this->getParam('claim_id');
-                $claim = Claim::get($claim_id);
+            if(__ROUTER_PATH == '/contribution-status' && $this->getParam('con_id')){
+                $con_id = $this->getParam('con_id');
+                $contribution = Contribution::get($con_id);
 
                 if($this->hasParam('status')) {
 
-                    if($this->getParam('status') != 1){
-                        $claim->status = 2;
-                        $claim->update();
+                    if($this->getParam('status') == 2){
+                        $contribution->status = 2;
+                        $contribution->update();
 
                         $log = new Log();
-                        $log->type = 'Claim';
-                        $log->type_id = $claim->id;
+                        $log->type = 'Contribution';
+                        $log->type_id = $contribution->id;
                         $log->action = 'rejected';
                         $log->c_by = $sel_wallet_adr;
                         $log->insert();
@@ -40,58 +41,42 @@ class controller extends Ctrl {
                         echo json_encode(array('success' => true));
                         exit();
                     }
-
-                    $ntts = 0;
-
-                    if($this->hasParam('ntts'))
-                        $ntts = floatval($this->getParam('ntts'));
-                    else
-                        throw new Exception("ntts:Not a valid NTTs");
-
-                    if($com->blockchain == SOLANA)
-                        $api_response = api::solana_addPoints($claim->wallet_adr,$ntts);
-                    else
-                        $api_response = api::addPoints(constant(strtoupper($com->blockchain).'_API'),app_site,$claim->wallet_adr,$ntts);
-
-                    if(isset($api_response->error)) {
-                        echo json_encode(array('success' => false,'message' =>'Error! Your NTTs have not been sent. <a class="text-white ms-1" id="retryNewNtt" hre="#">RETRY</a>'));
-                        exit();
-                    }
                     else {
 
-                        $reason = $this->hasParam('claim_reason') ? $this->getParam('claim_reason') : '';
-                        $tags   = $this->hasParam('claim_tags') ? $this->getParam('claim_tags') : '';
-                        $tags   = is_array($tags) ? implode(',', $tags) : '';
-                        $claim->ntts = $ntts;
-                        $claim->clm_reason = $reason;
-                        $claim->clm_tags = $tags;
-                        $claim->status = 1;
-                        $claim->txHash = $api_response->txHash;
-                        $claim->chainId = $api_response->chainId;
-                        $claim->update();
+                        $c = $this->hasParam('c') ? $this->getParam('c') : 0;
+                        $i = $this->hasParam('i') ? $this->getParam('i') : 0;
+                        $q = $this->hasParam('q') ? $this->getParam('q') : 0;
 
-                        $log = new Log();
-                        $log->type = 'Claim';
-                        $log->type_id = $claim->id;
-                        $log->action = 'approved';
-                        $log->c_by = $sel_wallet_adr;
-                        $log->insert();
+                        $approval = new Approval();
+                        $approval->approval_by = $sel_wallet_adr;
+                        $approval->contribution_id = $contribution->id;
+                        $approval->subdomain = app_site;
+                        $approval->complexity = $c;
+                        $approval->importance = $i;
+                        $approval->quality = $q;
+                        $approval->insert();
 
-                        if($com->blockchain == SOLANA)
-                            echo json_encode(array('success' => true, 'c_id' => $claim->id, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'?cluster=devnet"> VIEW TRANSACTION</a>'));
-                        else
-                            echo json_encode(array('success' => true, 'c_id' => $claim->id, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($com->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
+                        $contribution->approvals += 1;
+
+                        echo json_encode(array('success' => true, 'c_id' => $claim->id, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="' . constant(strtoupper($com->blockchain) . '_TX_LINK') . $claim->txHash . '"> VIEW TRANSACTION</a>'));
                         exit();
                     }
+
                 }
                 else
                     echo json_encode(array('success' => false,'message' => 'Error! Something went wrong.'));
                 exit();
             }
-            elseif (__ROUTER_PATH == '/claim-details' && $this->getParam('claim_id')) {
-                $claim_id = $this->getParam('claim_id');
-                $claim = Claim::get($claim_id);
-                include __DIR__ . '/../tpl/partial/claim_details.php';
+            elseif (__ROUTER_PATH == '/contribution-details' && $this->getParam('con_id')) {
+                $con_id        = $this->getParam('con_id');
+                $contribution  = Contribution::get($con_id);
+                $form          = Form::get($contribution->form_id);
+                $elements      = $form->getElements();
+                $wallet_to     = $contribution->wallet_to;
+                $claim_adrs    = array();
+                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM lighthouse.contributions where wallet_to='0x7E51813e7a8715aBf4099fa87e825B24Bde5e7FF' order by c_at");
+
+                include __DIR__ . '/../tpl/partial/contribution_details.php';
                 $html = ob_get_clean();
                 echo json_encode(array('success' => true,'html'=>$html));
                 exit();
@@ -106,37 +91,33 @@ class controller extends Ctrl {
             }
 
             $domain = $site['sub_domain'];
-            $claim_adrs = array();
-            $addresses = Claim::find("SELECT max(c.c_at) as date,c.wallet_adr FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE com.dao_domain='$domain' GROUP BY wallet_adr");
-            foreach ($addresses as $address)
-                $claim_adrs[$address['wallet_adr']] = $address['date'];
+            $all_claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id WHERE com.dao_domain='$domain'");
+            $claims = $a_claims = $r_claims = $d_claims= array();
 
-           $all_claims = Claim::find("SELECT c.id as c_id,c.c_at,c.wallet_adr,com.id,c.ntts,com.ticker,c.status FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE com.dao_domain='$domain'");
-           $claims = $a_claims = $r_claims = array();
-           foreach ($all_claims as $claim){
-               if($claim['status'] == 0)
-                   array_push($claims,$claim);
-               elseif ($claim['status'] == 1)
-                   array_push($a_claims,$claim);
-               else
-                   array_push($r_claims,$claim);
-           }
-
-            $solana = false;
-            if($com->blockchain == 'solana')
-                $solana = true;
+            if($all_claims != false) {
+                foreach ($all_claims as $claim) {
+                    if ($claim['status'] == 0)
+                        array_push($claims, $claim);
+                    elseif ($claim['status'] == 1) {
+                        array_push($a_claims, $claim);
+                        array_push($r_claims, $claim);
+                    } else {
+                        array_push($d_claims, $claim);
+                        array_push($r_claims, $claim);
+                    }
+                }
+            }
 
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
-                'solana' => $solana,
-                'blockchain' => $com->blockchain,
+                'blockchain' => $site['blockchain'],
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'claims' => $claims,
                 'a_claims' => $a_claims,
                 'all_claims' => $all_claims,
                 'r_claims' => $r_claims,
-                'claim_adrs' => $claim_adrs,
+                'd_claims' => $d_claims,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-approvals.php'
                 ),

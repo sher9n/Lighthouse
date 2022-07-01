@@ -1,6 +1,8 @@
 <?php
 use Core\Utils;
 use lighthouse\Community;
+use lighthouse\Log;
+use lighthouse\Claim;
 class controller extends Ctrl {
     function init() {
 
@@ -30,7 +32,8 @@ class controller extends Ctrl {
 
                 try {
 
-                    $dao_name = $dao_domain = $blockchain = $ticker = '';
+                    $dao_name = $wallet_address = $dao_domain = $ticker = '';
+                    $blockchain = SOLANA;
 
                     if($this->hasParam('dao_name') && strlen($this->getParam('dao_name')) > 0)
                         $dao_name = $this->getParam('dao_name');
@@ -39,13 +42,11 @@ class controller extends Ctrl {
 
                     if($this->hasParam('blockchain') && strlen($this->getParam('blockchain')) > 0)
                         $blockchain = $this->getParam('blockchain');
-                    else
-                        throw new Exception("blockchain:Not a valid block chain");
 
-                    if($this->hasParam('ticker') && strlen($this->getParam('ticker')) > 0)
-                        $ticker = $this->getParam('ticker');
+                    if($this->hasParam('wallet_address') && strlen($this->getParam('wallet_address')) > 0)
+                        $wallet_address = $this->getParam('wallet_address');
                     else
-                        throw new Exception("ticker:Not a valid ticker");
+                        throw new Exception("dao_name:Please connect the wallet");
 
                     if($this->hasParam('dao_domain') && strlen($this->getParam('dao_domain')) > 0) {
                         $dao_domain = $this->getParam('dao_domain');
@@ -53,13 +54,42 @@ class controller extends Ctrl {
                         $domain_check = Community::isExistsCommunity($dao_domain);
 
                         if ($domain_check === FALSE) {
-                            $subdomain = strtolower(preg_replace("/\s+/", "", $dao_domain));
-                            $_SESSION['lhc']['n'] = $dao_name;
-                            $_SESSION['lhc']['d'] = $dao_domain;
-                            $_SESSION['lhc']['b'] = $blockchain;
-                            $_SESSION['lhc']['t'] = $ticker;
+                            $ticker = strtoupper($dao_domain);
+                            $subdomain = $dao_domain;
 
-                            echo json_encode(array('success' => true, 'url' => 'first-member'));
+                            $community = new Community();
+                            $community->dao_name = $dao_name;
+                            $community->dao_domain = $dao_domain;
+                            $community->blockchain = $blockchain;
+                            $community->ticker = $ticker;
+                            $community->wallet_adr = $wallet_address;
+                            $community->display_name = $dao_name;
+                            $community->ch = Utils::getUniqid();
+                            $com_id = $community->insert();
+
+                            $log = new Log();
+                            $log->type = 'Community';
+                            $log->type_id = $com_id;
+                            $log->action = 'created';
+                            $log->c_by = $community->wallet_adr;
+                            $log->insert();
+
+                            $claim = new Claim();
+                            $claim->wallet_adr = $wallet_address;
+                            $claim->ntts = 11;
+                            $claim->clm_reason  = "Community creating contribution";
+                            $claim->clm_tags    = implode(',',array($dao_domain,'community'));
+                            $claim->comunity_id = $com_id;
+                            $claim_id = $claim->insert();
+
+                            $log = new Log();
+                            $log->type = 'Claim';
+                            $log->type_id = $claim_id;
+                            $log->action = 'create-pending';
+                            $log->c_by = $wallet_address;
+                            $log->insert();
+
+                            echo json_encode(array('success' => true, 'url' => 'https://'.$dao_domain.'.'.base_app_url.'?ch='.$community->ch));
                         }
                         else
                             echo json_encode(array('success' => false, 'msg' => "This name is already taken. Please try a different name.", 'element' => 'dao_domain'));

@@ -1,10 +1,9 @@
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
-    <?php if(is_null($__page->form)){ ?>
     <section class="admin-body-section">
         <div class="container-fluid h-100">
             <div class="col h-100">
-                <div class="card shadow h-100">
+                <div class="card shadow h-100">                    
                     <div class="card-body p-xl-20">
                         <div class="display-5 fw-medium">Submit a contribution</div>
                         <div class="text-muted mt-1">Request attestations for completed activity</div>
@@ -16,11 +15,11 @@
                                         <div class="card-logo me-8">
                                             <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
                                         </div>
-                                        <div class="fs-4 fw-semibold">Simple claim form</div>
+                                        <div class="fs-4 fw-semibold">Simple claim form</div>                                        
                                     </div>
                                     <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Use this form to request an attestation for completed activity. </div>
-                                    <a href="#" class="btn btn-primary mt-8">View Form</a>
-                                </div>
+                                    <a href="contribution?form=1" class="btn btn-primary mt-8">View Form</a>
+                                </div>                                
                                 </div>
                             </div>
                             <div class="col-xl-5">
@@ -30,24 +29,19 @@
                                         <div class="card-logo me-8">
                                             <img src="<?php echo app_cdn_path; ?>img/company-logo/icob-grants.png">
                                         </div>
-                                        <div class="fs-4 fw-semibold">Grants request form</div>
+                                        <div class="fs-4 fw-semibold">Grants request form</div>                                        
                                     </div>
                                     <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Use this form to request attestations for  contributions related to grants. </div>
                                     <a href="#" class="btn btn-primary mt-8">View Form</a>
-                                </div>
+                                </div>                                
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
     </section>
-    <?php
-    }
-    else {
-        require_once 'partial/form_template.php';
-    }?>
 </main>
 <div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -79,8 +73,7 @@
             closeOnSelect: false
         });
 
-
-        $('#nttsForm').validate({
+        $('#simpleForm').validate({
             rules: {
                 ntts:{
                     required: true

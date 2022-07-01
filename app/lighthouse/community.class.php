@@ -109,11 +109,16 @@ class Community{
     public static function isExistsCommunity($subdomain) {
         $subdomain = strtolower(preg_replace("/\s+/", "", $subdomain));
         $connect = Ds::connect();
-        $results = $connect->query("SELECT id,dao_name FROM communities WHERE dao_domain='$subdomain' AND is_delete=0 LIMIT 1");
+        $results = $connect->query("SELECT id,dao_name,blockchain,ch,wallet_adr FROM communities WHERE dao_domain='$subdomain' AND is_delete=0 LIMIT 1");
 
         if($results->num_rows > 0) {
             $community_data = $results->fetch_array(MYSQLI_ASSOC);
-            return array('dao_domain' => $subdomain, 'dao_name' => $community_data['dao_name']);
+            return array('dao_domain' => $subdomain,
+                'dao_name' => $community_data['dao_name'],
+                'blockchain' => $community_data['blockchain'],
+                'ch' => $community_data['ch'],
+                'wallet_adr' => $community_data['wallet_adr']
+            );
         }
         else
             return FALSE;

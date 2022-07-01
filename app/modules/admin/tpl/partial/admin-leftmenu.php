@@ -17,7 +17,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-ntts'?'active':'';?>" href="admin-ntts">                
+            <a class="nav-link <?php echo __ROUTER_PATH=='/contribution'?'active':'';?>" href="contribution">
                 <i data-feather="send"></i>
                 <div class="ms-12">Submit Contribution</div>
             </a>

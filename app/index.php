@@ -18,38 +18,27 @@ try {
         define('__ROUTER_PATH', '/' . trim((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
 
     if(app_site != 'app') {
-        if (!isset($_SESSION['lighthouse']['site_name']) || !isset($_SESSION['lighthouse']['site_domain']) || $_SESSION['lighthouse']['site_domain'] != app_site) {
-            $sub_domain = \lighthouse\Community::isExistsCommunity(app_site);
 
-            if ($sub_domain !== FALSE) {
-                $_SESSION['lighthouse']['site_name'] = $sub_domain['dao_name'];
-                $_SESSION['lighthouse']['site_domain'] = $sub_domain['dao_domain'];
-            } else {
-                header("Location: https://lighthouse.xyz");
-                die();
-            }
+        $site = \lighthouse\Auth::getSite();
+
+        if($site === false) {
+            header("Location: https://lighthouse.xyz");
+            die();
         }
     }
 
     $localRoutes = array(
         '/disconnect_wallet' => 'modules/admin/ctrl/admin.php',
-        '/skip-onboard' => 'modules/onboard/ctrl/distribution.php',
         '/check-dao-domain' => 'modules/onboard/ctrl/onboard.php',
-        '/distribution' => 'modules/onboard/ctrl/distribution.php',
-        '/first-member' => 'modules/onboard/ctrl/first_member.php',
         '/update-contract-address' => 'modules/onboard/ctrl/first_member.php',
-        '/claim' => 'modules/claim/ctrl/claim.php',
-        '/claim-reason' => 'modules/claim/ctrl/claim-reason.php',
-        '/claim-success' => 'modules/claim/ctrl/claim-success.php',
         '/wallet-menu' => 'modules/admin/ctrl/admin.php',
         '/admin' => 'modules/admin/ctrl/admin.php',
         '/get-ntts' => 'modules/admin/ctrl/admin-dashboard.php',
         '/admin-dashboard' => 'modules/admin/ctrl/admin-dashboard.php',
         '/admin-approvals' => 'modules/admin/ctrl/admin-approvals.php',
-        '/claim-status' =>  'modules/admin/ctrl/admin-approvals.php',
-        '/claim-details' => 'modules/admin/ctrl/admin-approvals.php',
-        '/send-ntts' => 'modules/admin/ctrl/admin-ntts.php',
-        '/admin-ntts' => 'modules/admin/ctrl/admin-ntts.php',
+        '/contribution-status' =>  'modules/admin/ctrl/admin-approvals.php',
+        '/contribution' => 'modules/admin/ctrl/contribution.php',
+        '/contribution-details' => 'modules/admin/ctrl/admin-approvals.php',
         '/delete-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/add-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
@@ -59,6 +48,16 @@ try {
         '/admin-settings' => 'modules/admin/ctrl/admin-settings.php',
         '/portal-dashboard' => 'modules/portal/ctrl/portal-dashboard.php',
         '/404' => 'modules/default/ctrl/http-404.php'
+        /* claim and onboard routes
+        '/send-ntts' => 'modules/admin/ctrl/admin-ntts.php',
+        '/admin-ntts' => 'modules/admin/ctrl/admin-ntts.php',
+        '/claim' => 'modules/claim/ctrl/claim.php',
+        '/claim-reason' => 'modules/claim/ctrl/claim-reason.php',
+        '/claim-success' => 'modules/claim/ctrl/claim-success.php',
+        '/claim-details' => 'modules/admin/ctrl/admin-approvals.php',
+        '/distribution' => 'modules/onboard/ctrl/distribution.php',
+        '/first-member' => 'modules/onboard/ctrl/first_member.php',
+        '/skip-onboard' => 'modules/onboard/ctrl/distribution.php',*/
     );
 
     function routeLocator($routerPath, $localRoutes)
@@ -66,7 +65,7 @@ try {
         if(app_site == 'app')
             $route = __DIR__ . DS . 'modules/onboard/ctrl/onboard.php';
         else
-            $route = __DIR__ . DS . 'modules/claim/ctrl/claim.php';
+            $route = __DIR__ . DS . 'modules/admin/ctrl/admin.php';
 
         if (array_key_exists($routerPath, $localRoutes))
             $route = __DIR__ . DS . $localRoutes[$routerPath];

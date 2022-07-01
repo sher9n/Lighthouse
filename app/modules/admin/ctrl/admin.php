@@ -9,9 +9,11 @@ class controller extends Ctrl {
             exit();
         }
 
-        $com = Community::getByDomain(app_site);
+
 
         if($this->__lh_request->is_xmlHttpRequest) {
+
+            $com = Community::getByDomain(app_site);
 
             if(__ROUTER_PATH == '/wallet-menu' ) {
                 $selected_adr = $this->getParam('sel_add');
@@ -37,25 +39,40 @@ class controller extends Ctrl {
             }
         }
         else {
+            $wallet_adr = null;
 
-            $site = Auth::getSite();
-            if($site === false) {
-                header("Location: https://lighthouse.xyz");
-                die();
+            if($this->hasParam('ch') && strlen($this->getParam('ch'))) {
+                $ch = $this->getParam('ch');
+                $_SESSION['lighthouse'] = null;
+                $site = Auth::getSite();
+                if($site === false) {
+                    header("Location: https://lighthouse.xyz");
+                    die();
+                }
+
+                if(isset($site['ch']) && $ch == $site['ch']){
+                    $_SESSION['lh_sel_wallet_adr'] = $site['wallet_adr'];
+                    $wallet_adr = $site['wallet_adr'];
+                    $com = Community::getByDomain(app_site);
+                    $com->ch = null;
+                    $com->update();
+                }
             }
+            else {
 
-            $com    = Community::getByDomain(app_site);
-            $solana = false;
-
-            if($com->blockchain == 'solana')
-                $solana = true;
+                $site = Auth::getSite();
+                if($site === false) {
+                    header("Location: https://lighthouse.xyz");
+                    die();
+                }
+            }
 
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
-                'solana' => $solana,
-                'blockchain' => $com->blockchain,
-                'dao_name' => $com->dao_name,
+                'wallet_adr' => $wallet_adr,
+                'blockchain' => $site['blockchain'],
+                'dao_name' => strtoupper($site['sub_domain']),
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin.php'
                 ),

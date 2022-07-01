@@ -4,14 +4,14 @@
     <!-- Modal backbround image END -->
 </main>
 <!-- Modal -->
-<div class="modal show" id="AdminCenter" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="AdminCenter" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center">
                 <img src="<?php echo app_cdn_path; ?>img/anim-lighthouse-circle.gif"  width="100" height="100" class="align-self-center">
                 <div class="fs-2 fw-semibold mt-15"><?php echo $__page->dao_name; ?> Admin Center</div>
                 <div class="fw-medium mt-3">To get started please connect a whitelisted wallet</div>
-                <?php if($__page->solana != true){ ?>
+                <?php if($__page->blockchain != SOLANA){ ?>
                     <button type="button" id="add_wallet" class="add_wallet btn btn-primary mt-20 px-10">Connect Wallet</button>
                 <?php }else{ ?>
                     <button type="button" id="add_wallet" onclick="addSolanaWallet()"  class="btn btn-primary mt-20 px-10">Connect Wallet</button>
@@ -75,12 +75,18 @@
 <script>
     feather.replace();
 
-    $(document).on("click", '.add_wallet', function(event) {
-        $("#AdminCenter").modal('hide');
-        $('#wallet').modal('show');
-    });
-
     $(window).on('load', function() {
-        $('#AdminCenter').modal('show');
+
+        <?php if(strlen($__page->wallet_adr) > 0){ ?>
+            sessionStorage.setItem("lh_sel_wallet_add", '<?php echo $__page->wallet_adr; ?>');
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify(['<?php echo $__page->wallet_adr; ?>']));
+            window.location = 'admin-dashboard';
+        <?php }else{
+            if($__page->blockchain != SOLANA){ ?>
+                $('#wallet').modal('show');
+            <?php }else{ ?>
+                addSolanaWallet();
+            <?php }
+        } ?>
     });
 </script>
