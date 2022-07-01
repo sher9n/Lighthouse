@@ -11,17 +11,19 @@
                             <form id="frm_stewards" class="mt-25 col-xl-6">
                                 <div class="fw-medium mt-26">Percentage to approve</div>
                                 <div class="d-flex align-items-center mt-6">
-                                    <div class="display-4 fw-medium text-gray-700">30%</div>
+                                    <div class="display-4 fw-medium text-gray-700"><?php echo round(($__page->community->approval_count/count($__page->stewards)) * 100); ?> %</div>
                                     <a href="#" class="btn btn-primary ms-12">Change</a>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
                                 <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
-                                <div class="fw-medium mt-22"><?php echo $__page->community->display_name; ?> </div>
+                                <div class="fw-medium mt-22"><?php echo $__page->stewards[0]['name']; ?> </div>
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
+                                    <div class="fs-3 fw-semibold me-6"><?php echo $__page->stewards[0]['wallet_adr']; ?></div>
                                 </div>
-                                <?php foreach ($__page->stewards as $steward){ ;?>
-                                <div class="stew-<?php echo $steward['id']; ?> fw-medium mt-22"><?php echo $steward['display_name']; ?> </div>
+                                <?php
+                                unset($__page->stewards[0]);
+                                foreach ($__page->stewards as $steward){ ;?>
+                                <div class="stew-<?php echo $steward['id']; ?> fw-medium mt-22"><?php echo $steward['name']; ?> </div>
                                 <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                     <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                     <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">

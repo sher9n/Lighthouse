@@ -28,6 +28,8 @@ class controller extends Ctrl {
                 if($this->hasParam('status')) {
 
                     if($this->getParam('status') == 2){
+
+                        $contribution->refusal += 1;
                         $contribution->status = 2;
                         $contribution->update();
 
@@ -42,7 +44,7 @@ class controller extends Ctrl {
                         exit();
                     }
                     else {
-
+                        $approve = false;
                         $c = $this->hasParam('c') ? $this->getParam('c') : 0;
                         $i = $this->hasParam('i') ? $this->getParam('i') : 0;
                         $q = $this->hasParam('q') ? $this->getParam('q') : 0;
@@ -57,8 +59,28 @@ class controller extends Ctrl {
                         $approval->insert();
 
                         $contribution->approvals += 1;
+                        if($contribution->approvals == $com->approval_count) {
+                            $contribution->status = 1;
+                            $approve = true;
+                        }
+                        $contribution->update();
 
-                        echo json_encode(array('success' => true, 'c_id' => $claim->id, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="' . constant(strtoupper($com->blockchain) . '_TX_LINK') . $claim->txHash . '"> VIEW TRANSACTION</a>'));
+                        $log = new Log();
+                        $log->type = 'Contribution';
+                        $log->type_id = $contribution->id;
+                        $log->action = 'approved';
+                        $log->c_by = $sel_wallet_adr;
+                        $log->insert();
+
+                        $contribution_id = $contribution->id;
+                        $stewards = $com->getStewards();
+                        $html = '';
+                        foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
+                            $steward = $stewards[$stewd_adr];
+                            $html .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div><a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>';
+                        }
+
+                        echo json_encode(array('success' => true, 'approve' => $approve ,'steward_html' => $html,'c_id' => $contribution->id,'message' => 'Success! Your contribution have been updated.'));
                         exit();
                     }
 
@@ -73,8 +95,9 @@ class controller extends Ctrl {
                 $form          = Form::get($contribution->form_id);
                 $elements      = $form->getElements();
                 $wallet_to     = $contribution->wallet_to;
-                $claim_adrs    = array();
-                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM lighthouse.contributions where wallet_to='0x7E51813e7a8715aBf4099fa87e825B24Bde5e7FF' order by c_at");
+                $stewards      = $com->getStewards();
+                $approvals     = Approval::getApprovals($contribution->id);
+                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM lighthouse.contributions where wallet_to='$wallet_to' order by c_at");
 
                 include __DIR__ . '/../tpl/partial/contribution_details.php';
                 $html = ob_get_clean();

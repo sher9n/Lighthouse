@@ -73,8 +73,9 @@ class controller extends Ctrl {
                 if($this->hasParam('id') && $this->hasParam('adr')) {
                     $id  = $this->getParam('id');
                     $adr = $this->getParam('adr');
-                    if(Steward::deleteSteward($id,$adr,$community_id))
-                        echo json_encode(array('success' => true,'stew_id' => $id));
+                    if(Steward::deleteSteward($id,$adr,$community_id)) {
+                        echo json_encode(array('success' => true, 'stew_id' => $id));
+                    }
                     else
                         echo json_encode(array('success' => false));
                 }
@@ -96,7 +97,7 @@ class controller extends Ctrl {
                 'site' => $site,
                 'community' => $community,
                 'blockchain' => $community->blockchain,
-                'stewards' => Steward::find("SELECT * FROM stewards WHERE comunity_id=".$community_id." AND is_delete=0"),
+                'stewards' => $community->getStewards(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-stewards.php'

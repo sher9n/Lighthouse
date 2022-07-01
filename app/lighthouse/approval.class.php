@@ -49,6 +49,19 @@ class Approval{
         return $this;
     }
 
+    public static function getApprovals($contribution_id) {
+        $stewards = array();
+        $connect = Ds::connect();
+        $results = $connect->query("SELECT approval_by FROM lighthouse.approvals where contribution_id='$contribution_id'");
+
+        if($results != false){
+            while ($row = $results->fetch_array(MYSQLI_ASSOC)) {
+                array_push($stewards,$row['approval_by']);
+            }
+        }
+        return $stewards;
+    }
+
     public static function find($query,$objects=false)
     {
         $approvals = array();

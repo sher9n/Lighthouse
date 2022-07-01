@@ -96,7 +96,7 @@
                     <button class="tab_link nav-link" id="claim-history-tab" data-bs-toggle="tab" data-bs-target="#claim-history" type="button" role="tab" aria-controls="claim-history" aria-selected="false">History</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
-                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Approvals (2/3)</button>
+                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Approvals (<?php echo count($approvals); ?>/<?php echo $com->approval_count; ?>)</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
                     <button class="tab_link nav-link" id="claim-similar-tab" data-bs-toggle="tab" data-bs-target="#claim-similar" type="button" role="tab" aria-controls="claim-similar" aria-selected="false">Similar Contributions</button>
@@ -149,12 +149,25 @@
                     <?php } ?>
                 </div>
                 <div class="tab-pane fade" id="claim-approvals" role="tabpanel" aria-labelledby="claim-approvals-tab" tabindex="0">
-                    <div class="fw-semibold">Sheran</div>
-                    <div class="fw-medium fs-4 mt-1">0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507</div>
-                    <a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>
-                    <div class="fw-semibold mt-12">Potrock</div>
-                    <div class="fw-medium fs-4 mt-1">0xF87cF86F3F0031cB27A1539eAfA4Bd3DBes281752</div>
-                    <a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>
+                    <?php
+                    if(count($approvals) > 0){
+                        foreach ($approvals as $stewd_adr) {
+                            $steward = $stewards[$stewd_adr]; ?>
+                            <div class="fw-semibold"><?php echo $steward['name']; ?></div>
+                            <div class="fw-medium fs-4 mt-1"><?php echo $steward['wallet_adr']; ?></div>
+                            <a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>
+                            <?php
+                        }
+                    }
+                    else {
+                        ?>
+                        <div class="d-flex flex-column align-items-center justify-content-center py-25">
+                            <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
+                            <div class="fw-medium mt-4">No data found.</div>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
                 <div class="tab-pane fade" id="claim-similar" role="tabpanel" aria-labelledby="claim-similar-tab" tabindex="0">
                     <div class="d-flex flex-column align-items-center justify-content-center py-25">
@@ -197,6 +210,28 @@
             success: function (response) {
                 if (response.success == true) {
                     showMessage('success',10000,'Success! Your changes have been saved.');
+                    $('#claim-approvals').html(response.steward_html);
+                    if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
+
+                        //$('#claim_details').html('');
+                        $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                            '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                            '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
+                            '</div>');
+
+                    }
+                    /*else {
+
+                        $('#claim_details').html('<div class="card shadow h-100">\n' +
+                            '                        <div class="card-body">\n' +
+                            '                            <div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                            '                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                            '                            </div>\n' +
+                            '                        </div>\n' +
+                            '                    </div>');
+                    }*/
+
+                    $('#cq_item_'+c_id).remove();
                 }
             }
         });
