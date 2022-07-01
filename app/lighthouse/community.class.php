@@ -36,6 +36,31 @@ class Community{
         }
     }
 
+    public function getStewards($count=false) {
+        $connect  = Ds::connect();
+        $com_id   = $this->_data['id'];
+
+        if($count==true){
+            $stewards = 0;
+            $items = Steward::find("SELECT count(id) c FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0");
+            if ($items->num_rows > 0) {
+                $response = $items->fetch_array(MYSQLI_ASSOC);
+                $stewards = $response['c'];
+            }
+            return ($stewards +1);
+        }
+        else {
+            $stewards = array();
+            $stewards[$this->_data['wallet_adr']] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr']);
+
+            $stewds = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0");
+            foreach ($stewds as $steward) {
+                $stewards[$steward['wallet_adr']] = array('id' => $steward['id'], 'name' => $steward['display_name'], 'wallet_adr' => $steward['wallet_adr']);
+            }
+        }
+        return $stewards;
+    }
+
     public function getClaimImages($random=false) {
         $connect = Ds::connect();
         $id      = $this->_data['id'];

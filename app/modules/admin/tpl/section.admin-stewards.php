@@ -11,7 +11,7 @@
                             <form id="frm_stewards" class="mt-25 col-xl-6">
                                 <div class="fw-medium mt-26">Percentage to approve</div>
                                 <div class="d-flex align-items-center mt-6">
-                                    <div class="display-4 fw-medium text-gray-700">30%</div>
+                                    <div id="steward_percentage" class="display-4 fw-medium text-gray-700"><?php echo round(($__page->community->approval_count/count($__page->stewards)) * 100); ?> %</div>
                                     <button type="button" class="btn btn-primary ms-12" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
@@ -20,8 +20,10 @@
                                 <div class="d-flex align-items-center">
                                     <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
                                 </div>
-                                <?php foreach ($__page->stewards as $steward){ ;?>
-                                <div class="stew-<?php echo $steward['id']; ?> fw-medium mt-22"><?php echo $steward['display_name']; ?> </div>
+                                <?php
+                                unset($__page->stewards[$__page->community->wallet_adr]);
+                                foreach ($__page->stewards as $steward){ ;?>
+                                <div class="stew-<?php echo $steward['id']; ?> fw-medium mt-22"><?php echo $steward['name']; ?> </div>
                                 <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                     <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                     <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
@@ -58,7 +60,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal delete member -->
 <div class="modal fade" id="delMember" tabindex="-1" aria-labelledby="delMemberLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -74,22 +75,23 @@
     </div>
   </div>
 </div>
-
 <!-- Modal Change -->
 <div class="modal fade" id="ModalChange" tabindex="-1" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
-      <div class="modal-body">
-        <div class="fs-2 fw-semibold mb-15">Select members to approve</div>
-        <div class="range-wrap mb-3">
-            <input type="range" class="range form-range" min="1" max="7" step="1">
-            <output class="bubble"></output>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
+        <form id="stewardForm" method="post" action="steward-percentage" autocomplete="off">
+          <div class="modal-body">
+            <div class="fs-2 fw-semibold mb-15">Select members to approve</div>
+            <div class="range-wrap mb-3">
+                <input type="range" name="range" class="range form-range" min="1" max="<?php echo count($__page->stewards) + 1; ?>" step="1">
+                <output class="bubble"></output>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="btn_cancel" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" id="btn_save" class="btn btn-primary">Save</button>
+          </div>
+        </form>
     </div>
   </div>
 </div>
@@ -102,6 +104,25 @@
         $("#user-deleteForm").attr('action', element.attr('href'));
     });
 
+
+    $('#stewardForm').validate({
+        rules: {},
+        submitHandler: function(form) {
+            $(form).ajaxSubmit({
+                type: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    $('#ModalChange').modal('toggle');
+                    if (data.success == true) {
+                        $('#steward_percentage').html(data.percentage);
+                        showMessage('success',10000,'Success! Steward percentage has been updated.');
+                    }
+                    else
+                        showMessage('danger',10000,'Error! Steward percentage have not been updated.');
+                }
+            });
+        }
+    });
 
     $('#user-deleteForm').validate({
         rules: {},
