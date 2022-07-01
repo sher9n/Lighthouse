@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="d-flex py-6">
         <a role="button" class="btn btn-white me-auto" href="admin-integrations"><i data-feather="arrow-left" class="me-2"></i> Back</a>
-        <button type="button" class="btn btn-primary me-2">Preview</button>
+        <button type="button" class="btn btn-blue-stone me-2">Preview</button>
         <button type="button" class="btn btn-primary">SAVE</button>
       </div>
     </div>
@@ -91,6 +91,9 @@
             </label>
           </div>
         </div>
+        <a role="button" class="position-absolute top-0 start-100 p-6 bg-white rounded ms-6 shadow" href="#">
+          <i data-feather="plus-circle" class=""></i>
+        </a>
       </div>
     </div>
 

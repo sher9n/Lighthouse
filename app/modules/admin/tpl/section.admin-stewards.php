@@ -12,7 +12,7 @@
                                 <div class="fw-medium mt-26">Percentage to approve</div>
                                 <div class="d-flex align-items-center mt-6">
                                     <div class="display-4 fw-medium text-gray-700"><?php echo round(($__page->community->approval_count/count($__page->stewards)) * 100); ?> %</div>
-                                    <a href="#" class="btn btn-primary ms-12">Change</a>
+                                    <button type="button" class="btn btn-primary ms-12" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
                                 <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
@@ -44,12 +44,13 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <form id="addStewardsForm" method="post" action="add-stewards" autocomplete="off">
-                <div class="modal-body">
+                <div class="modal-body pb-3">
                     <div class="fs-2 fw-semibold mb-15">Add new member to whitelist </div>
                     <label for="Nickname" class="form-label">Nickname</label>
                     <input type="text" class="form-control form-control-lg" name="nickname" id="nickname" placeholder="Bob">
                     <label for="WalletAddress" class="form-label mt-16">Wallet address</label>
                     <input type="text" class="form-control form-control-lg" name="wallet_address" id="wallet_address" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
+                    <button type="button" class="btn btn-light mt-6">Change Wallet</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
@@ -72,6 +73,25 @@
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
       </div>      
+    </div>
+  </div>
+</div>
+
+<!-- Modal Change -->
+<div class="modal fade" id="ModalChange" tabindex="-1" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="fs-2 fw-semibold mb-15">Select members to approve</div>
+        <div class="range-wrap mb-3">
+            <input type="range" class="range form-range" min="1" max="7" step="1">
+            <output class="bubble"></output>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
     </div>
   </div>
 </div>
@@ -130,4 +150,27 @@
             });
         }
     });
+
+    // Range 
+    const allRanges = document.querySelectorAll(".range-wrap");
+    allRanges.forEach(wrap => {
+    const range = wrap.querySelector(".range");
+    const bubble = wrap.querySelector(".bubble");
+
+    range.addEventListener("input", () => {
+        setBubble(range, bubble);
+    });
+    setBubble(range, bubble);
+    });
+
+    function setBubble(range, bubble) {
+    const val = range.value;
+    const min = range.min ? range.min : 0;
+    const max = range.max ? range.max : 100;
+    const newVal = Number(((val - min) * 100) / (max - min));
+    bubble.innerHTML = val;
+
+    // Sorta magic numbers based on size of the native UI thumb
+    bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
+    }
 </script>
