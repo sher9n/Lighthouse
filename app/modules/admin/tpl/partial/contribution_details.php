@@ -82,8 +82,13 @@
             </div>
             <div class="row mt-10">
                 <div class="col-8 offset-md-4 text-end">
-                    <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
-                    <button id="btn_approve" type="button" class="btn btn-primary">Approve</button>
+                    <?php if(in_array($sel_wallet_adr, $approvals)) { ?>
+                        <button id="btn_deny" disabled type="button" class="btn btn-white">Deny</button>
+                        <button id="btn_approve" disabled type="button" class="btn btn-primary">Approve</button>
+                    <?php }else{ ?>
+                        <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
+                        <button id="btn_approve" type="button" class="btn btn-primary">Approve</button>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -186,14 +191,38 @@
 
     $(document).on("click", '.btn_complexity', function(event) {
         c = $(this).data('val');
+        $.ajax({
+            url: 'similar-contributions?c='+c+'&i='+i+'&q='+q,
+            dataType: 'json',
+            type: 'GET',
+            success: function (response) {
+                $('#claim-similar').html(response.html);
+            }
+        });
     });
 
     $(document).on("click", '.btn_importance', function(event) {
         i = $(this).data('val');
+        $.ajax({
+            url: 'similar-contributions?c='+c+'&i='+i+'&q='+q,
+            dataType: 'json',
+            type: 'GET',
+            success: function (response) {
+                $('#claim-similar').html(response.html);
+            }
+        });
     });
 
     $(document).on("click", '.btn_quality', function(event) {
         q = $(this).data('val');
+        $.ajax({
+            url: 'similar-contributions?c='+c+'&i='+i+'&q='+q,
+            dataType: 'json',
+            type: 'GET',
+            success: function (response) {
+                $('#claim-similar').html(response.html);
+            }
+        });
     });
 
     $(document).on("click", '#btn_approve', function(event) {
@@ -206,6 +235,8 @@
             type: 'POST',
             beforeSend: function () {
                 showMessage('success', 10000, 'Your contribution are being sent.');
+                $('#btn_deny').prop('disabled', false);
+                $('#btn_approve').prop('disabled', false);
             },
             success: function (response) {
                 if (response.success == true) {
@@ -247,6 +278,8 @@
             type: 'POST',
             beforeSend: function() {
                 showMessage('success',10000,'Your contribution are being sent.');
+                $('#btn_deny').prop('disabled', false);
+                $('#btn_approve').prop('disabled', false);
             },
             success: function (response) {
                 if (response.success == true) {
@@ -255,14 +288,14 @@
 
                     if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
 
-                        $('#claim_details').html('');
+                      //  $('#claim_details').html('');
                         $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
                             '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
                             '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
                             '</div>');
 
                     }
-                    else {
+/*                    else {
 
                         $('#claim_details').html('<div class="card shadow h-100">\n' +
                             '                        <div class="card-body">\n' +
@@ -271,7 +304,7 @@
                             '                            </div>\n' +
                             '                        </div>\n' +
                             '                    </div>');
-                    }
+                    }*/
 
                     $('#cq_item_'+c_id).remove();
                 }

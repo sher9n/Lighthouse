@@ -83,6 +83,17 @@ class controller extends Ctrl {
                     echo json_encode(array('success' => false));
                 exit();
             }
+            elseif (__ROUTER_PATH == '/steward-percentage') {
+                if($this->hasParam('range') && $this->getParam('range') > 0) {
+                    $community->approval_count = $this->getParam('range');
+                    $community->update();
+                    $percentage =  round(($community->approval_count/$community->getStewards(true)) * 100 );
+                    echo json_encode(array('success' => true, 'percentage' => $percentage.' %'));
+                }
+                else
+                    echo json_encode(array('success' => false));
+                exit();
+            }
         }
         else {
 
