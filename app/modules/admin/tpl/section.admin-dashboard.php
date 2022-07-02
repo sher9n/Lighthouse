@@ -137,11 +137,12 @@
 
         $(document).on("click", '#sendNewNtt, #startSendNewNtt, #retryNewNtt', function(event) {
             event.preventDefault();
-            $('#wallet_address').val('');
+            window.location.replace("contribution");
+            /*$('#wallet_address').val('');
             $('#ntts').val('');
             $('#claim_reason').val('');
             $("#claim_tags").val(null).trigger('change');
-            $('#sendNewNttPop').modal('show');
+            $('#sendNewNttPop').modal('show');*/
         });
 
         $(document).on("click", '.send_ntt', function(event) {

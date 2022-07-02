@@ -80,7 +80,8 @@ class controller extends Ctrl {
             }
             elseif (__ROUTER_PATH =='/contribution-history') {
                 $wallet = $this->getParam('wallet');
-                $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at,c.score,f.form_title FROM contributions c LEFT JOIN forms f ON c.form_id=f.id where c.status=1 AND c.wallet_to='$wallet'");
+                $com_id = $community->id;
+                $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at,c.score,f.form_title FROM contributions c LEFT JOIN forms f ON c.form_id=f.id where c.comunity_id='$com_id' AND c.status=1 AND c.wallet_to='$wallet'");
                 include __DIR__ . '/../tpl/partial/contribution_history.php';
                 $html = ob_get_clean();
                 echo json_encode(array('success' => true,'html'=>$html));

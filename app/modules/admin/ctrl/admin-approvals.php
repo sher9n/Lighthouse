@@ -114,7 +114,7 @@ class controller extends Ctrl {
             }
 
             $domain = $site['sub_domain'];
-            $all_claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id WHERE com.dao_domain='$domain'");
+            $all_claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id WHERE com.dao_domain='$domain'");
             $claims = $a_claims = $r_claims = $d_claims= array();
 
             if($all_claims != false) {

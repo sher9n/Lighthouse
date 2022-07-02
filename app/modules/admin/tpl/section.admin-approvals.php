@@ -41,7 +41,7 @@
                                                    <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
                                                    <ul class="select2-selection__rendered d-flex gap-3">
                                                        <?php
-                                                       if(strlen($claim['tags']) > 0){
+                                                       if(isset($claim['tags']) && strlen($claim['tags']) > 0){
                                                            $tags_arry = explode(",",$claim['tags']);
                                                            foreach ($tags_arry as $tag){ ?>
 
@@ -86,7 +86,7 @@
                                                     <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
                                                     <ul class="select2-selection__rendered d-flex gap-3">
                                                         <?php
-                                                        if(strlen($claim['tags']) > 0){
+                                                        if(isset($claim['tags']) && strlen($claim['tags']) > 0){
                                                             $tags_arry = explode(",",$claim['tags']);
                                                             foreach ($tags_arry as $tag){ ?>
 
@@ -127,7 +127,7 @@
                                             <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
                                             <ul class="select2-selection__rendered d-flex gap-3">
                                                 <?php
-                                                if(strlen($claim['tags']) > 0){
+                                                if(isset($claim['tags']) && strlen($claim['tags']) > 0 ){
                                                     $tags_arry = explode(",",$claim['tags']);
                                                     foreach ($tags_arry as $tag){ ?>
 
@@ -166,7 +166,7 @@
                                                     <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?>/div>
                                                     <ul class="select2-selection__rendered d-flex gap-3">
                                                         <?php
-                                                        if(strlen($claim['tags']) > 0){
+                                                        if(isset($claim['tags']) && strlen($claim['tags']) > 0){
                                                             $tags_arry = explode(",",$claim['tags']);
                                                             foreach ($tags_arry as $tag){ ?>
 
