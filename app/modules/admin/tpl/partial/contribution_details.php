@@ -113,6 +113,17 @@
                     <div class="fw-medium fs-4 mt-1"><?php echo $contribution->wallet_to; ?></div>
                     <div class="fw-semibold mt-12">Reason</div>
                     <div class="fw-medium fs-4 mt-1"><?php echo $contribution->contribution_reason; ?></div>
+                    <div class="fw-semibold mt-12">Tags</div>
+                    <ul class="select2-selection__rendered d-flex gap-3 mt-1">
+                        <?php
+                        if(strlen($contribution->tags) > 0){
+                            $tags_arry = explode(",",$contribution->tags);
+                            foreach ($tags_arry as $tag){ ?>
+                                <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
+                                <?php
+                            }
+                        } ?>
+                    </ul>
                     <?php
                     $data = (array)json_decode($contribution->form_data);
                     foreach ($elements as $element){

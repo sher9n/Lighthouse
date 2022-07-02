@@ -64,7 +64,7 @@ class controller extends Ctrl {
                             $community->blockchain = $blockchain;
                             $community->ticker = $ticker;
                             $community->wallet_adr = $wallet_address;
-                            $community->display_name = $dao_name;
+                            $community->display_name = 'Initial User';
                             $community->ch = Utils::getUniqid();
                             $com_id = $community->insert();
 
@@ -75,7 +75,6 @@ class controller extends Ctrl {
                             $log->c_by = $community->wallet_adr;
                             $log->insert();
 
-                            $post = array('tags' => implode(',',array($dao_domain,'community')));
                             $contribusion = new Contribution();
                             $contribusion->comunity_id = $com_id;
                             $contribusion->wallet_from = $community->wallet_adr;
@@ -83,7 +82,8 @@ class controller extends Ctrl {
                             $contribusion->wallet_to = $community->wallet_adr;
                             $contribusion->form_id = 1;
                             $contribusion->status = 1;
-                            $contribusion->form_data = json_encode($post);
+                            $contribusion->score = 15;
+                            $contribusion->tags = implode(',',array($dao_domain,'Onboarding'));
                             $con_id = $contribusion->insert();
 
                             $log = new Log();

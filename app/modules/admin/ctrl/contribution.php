@@ -31,11 +31,12 @@ class controller extends Ctrl {
             if($this->__lh_request->is_post) {
 
                 try {
-                    $form_id = $wallet_to = $contribution_reason = null;
+                    $form_id = $wallet_to = $contribution_reason = $tags = null;
                     $post = $_POST;
                     unset($post['form_id']);
                     unset($post['contribution_reason']);
                     unset($post['wallet_address']);
+                    unset($post['tags']);
 
                     if ($this->hasParam('form_id') && strlen($this->getParam('form_id')) > 0)
                         $form_id = $this->getParam('form_id');
@@ -51,6 +52,11 @@ class controller extends Ctrl {
                         $contribution_reason = $this->getParam('contribution_reason');
                     else
                         throw new Exception("contribution_reason:This field is required.");
+
+                    if ($this->hasParam('tags') && strlen($this->getParam('tags')) > 0) {
+                        $tags = $this->getParam('tags');
+                        $tags = is_array($tags) ? implode(',', $tags) : '';
+                    }
 
                     $form = Form::get($form_id);
                     $elements = $form->getElements();
@@ -68,6 +74,7 @@ class controller extends Ctrl {
                     $contribusion->wallet_from = $sel_wallet_adr;
                     $contribusion->contribution_reason = $contribution_reason;
                     $contribusion->wallet_to = $wallet_to;
+                    $contribusion->tags = $tags;
                     $contribusion->form_id = $form_id;
                     $contribusion->form_data = json_encode($post);
                     $contribusion->insert();

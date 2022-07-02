@@ -13,10 +13,12 @@ $form_elements = $__page->form->getElements();
                             <div class="text-muted mt-1"><?php echo $__page->form->form_description; ?></div>
                             <input type="hidden" name="form_id" value="<?php echo $__page->form->id; ?>">
                             <div class="col-xl-7">
-                                <label class="form-label mt-20">Which wallet do you want to contribute to?</label>
+                                <label class="form-label mt-10">Which wallet do you want to contribute to?</label>
                                 <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
-                                <label class="form-label fw-medium mt-18 mb-3">What's the reason for this contribution?</label>
+                                <label class="form-label mt-10">What's the reason for this contribution?</label>
                                 <textarea class="form-control form-control-lg fs-3" name="contribution_reason" id="contribution_reason" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
+                                <label class="form-label mt-10">Tag this distribution to query it later.</label>
+                                <select style="width: width: 100px !important;" class="form-control form-control-lg tags" multiple="multiple" name="tags[]" id="tags" placeholder="Marketing, Development, Strategy"></select>
                                 <?php
                                 foreach ($form_elements as $ele){ ?>
                                     <label class="form-label mt-10"><?php echo $ele['e_label']; ?></label>
@@ -30,7 +32,7 @@ $form_elements = $__page->form->getElements();
                                         <?PHP
                                     }
                                     elseif ($ele['e_type'] == 'tag_select') { ?>
-                                        <select style="width: width: 100px !important;" class="form-control form-control-lg" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_placeholder']; ?>"></select>
+                                        <select style="width: width: 100px !important;" class="form-control form-control-lg tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_placeholder']; ?>"></select>
                                         <?php
                                     }
                                  } ?>
@@ -55,19 +57,12 @@ $form_elements = $__page->form->getElements();
             $("#wallet_address").val(selectedAccount);
         }
 
-        <?php
-            foreach ($form_elements as $ele){
-                if($ele['e_type'] == 'tag_select'){ ?>
-                    $("#<?php echo $ele['e_id']; ?>").select2({
-                        tags: true,
-                        tokenSeparators: [','],
-                        selectOnClose: true,
-                        closeOnSelect: false
-                    });
-                    <?php
-                }
-            }
-        ?>
+        $(".tags").select2({
+            tags: true,
+            tokenSeparators: [','],
+            selectOnClose: true,
+            closeOnSelect: false
+        });
 
         $('#sendContributionForm').validate({
             rules: {

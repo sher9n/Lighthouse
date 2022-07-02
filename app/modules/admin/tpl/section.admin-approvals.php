@@ -39,6 +39,17 @@
                                                        <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                                                    </div>
                                                    <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
+                                                   <ul class="select2-selection__rendered d-flex gap-3">
+                                                       <?php
+                                                       if(strlen($claim['tags']) > 0){
+                                                           $tags_arry = explode(",",$claim['tags']);
+                                                           foreach ($tags_arry as $tag){ ?>
+
+                                                               <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
+                                                               <?php
+                                                           }
+                                                       } ?>
+                                                   </ul>
                                                </a>
                                            </li>
                                         <?php
@@ -73,6 +84,17 @@
                                                         <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                                                     </div>
                                                     <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
+                                                    <ul class="select2-selection__rendered d-flex gap-3">
+                                                        <?php
+                                                        if(strlen($claim['tags']) > 0){
+                                                            $tags_arry = explode(",",$claim['tags']);
+                                                            foreach ($tags_arry as $tag){ ?>
+
+                                                                <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
+                                                                <?php
+                                                            }
+                                                        } ?>
+                                                    </ul>
                                                 </a>
                                             </li>
                                             <?php
@@ -103,6 +125,17 @@
                                                 <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                                             </div>
                                             <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
+                                            <ul class="select2-selection__rendered d-flex gap-3">
+                                                <?php
+                                                if(strlen($claim['tags']) > 0){
+                                                    $tags_arry = explode(",",$claim['tags']);
+                                                    foreach ($tags_arry as $tag){ ?>
+
+                                                        <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
+                                                        <?php
+                                                    }
+                                                } ?>
+                                            </ul>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -131,6 +164,17 @@
                                                         <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                                                     </div>
                                                     <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?>/div>
+                                                    <ul class="select2-selection__rendered d-flex gap-3">
+                                                        <?php
+                                                        if(strlen($claim['tags']) > 0){
+                                                            $tags_arry = explode(",",$claim['tags']);
+                                                            foreach ($tags_arry as $tag){ ?>
+
+                                                                <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
+                                                                <?php
+                                                            }
+                                                        } ?>
+                                                    </ul>
                                                 </a>
                                             </li>
                                             <?php

@@ -26,11 +26,7 @@ class controller extends Ctrl {
                 $claim_table = $rank_table = array();
                 $total = 0;
                 $com_id = $community->id;
-                $domain = app_site;
-/*                $claims = Claim::find("SELECT GROUP_CONCAT(IF(c.status='1', c.clm_tags,null)) as tags ,c.wallet_adr,sum(c.ntts) as score FROM claims c LEFT JOIN communities com ON c.comunity_id=com.id WHERE c.status='1' AND com.dao_domain='$domain' group by c.wallet_adr");
-                $ranks  = Claim::find("SELECT wallet_adr,sum(ntts) as ntts FROM lighthouse.claims WHERE comunity_id='$com_id' AND status=1 group by wallet_adr order by ntts DESC");*/
-
-                $claims = Claim::find("SELECT wallet_to,sum(score) as score FROM contributions WHERE status=1 AND comunity_id='$com_id' group by wallet_to");
+                $claims = Claim::find("SELECT GROUP_CONCAT(IF(status='1',tags,null)) as tags,wallet_to,sum(score) as score FROM contributions WHERE status=1 AND comunity_id='$com_id' group by wallet_to");
                 $ranks  = Claim::find("SELECT wallet_to,sum(score) as ntts FROM contributions WHERE comunity_id='$com_id' AND status=1 group by wallet_to order by ntts DESC");
 
                 $rank_index = 0;
@@ -41,7 +37,7 @@ class controller extends Ctrl {
                 }
 
                 foreach ($claims as $claim) {
-/*                    $tags = explode(',', $claim['tags']);
+                    $tags = explode(',', $claim['tags']);
                     $tem_tags = array();
                     foreach ($tags as $tag) {
                         if(strlen($tag) > 0) {
@@ -51,10 +47,10 @@ class controller extends Ctrl {
                             else
                                 $tem_tags[$tag] = 1;
                         }
-                    }*/
+                    }
                     $tag_string = array();
-/*                    foreach ($tem_tags as $key => $c)
-                        array_push($tag_string , $key.':'.$c);*/
+                    foreach ($tem_tags as $key => $c)
+                        array_push($tag_string , $key.':'.$c);
 
                     $wallet_adr = $claim['wallet_to'];
                     $r = $p = '-';
