@@ -78,12 +78,12 @@ class controller extends Ctrl {
                             $contribusion = new Contribution();
                             $contribusion->comunity_id = $com_id;
                             $contribusion->wallet_from = $community->wallet_adr;
-                            $contribusion->contribution_reason = "Community creating contribution";
+                            $contribusion->contribution_reason = "Automated Attestation, Created a new decentralized community.";
                             $contribusion->wallet_to = $community->wallet_adr;
                             $contribusion->form_id = 1;
                             $contribusion->status = 1;
                             $contribusion->score = 15;
-                            $contribusion->tags = implode(',',array($dao_domain,'Onboarding'));
+                            $contribusion->tags = implode(',',array('Onboarding'));
                             $con_id = $contribusion->insert();
 
                             $log = new Log();

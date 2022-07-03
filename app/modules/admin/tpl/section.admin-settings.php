@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-xl-12">
+                                <!--<div class="row mt-xl-12">
                                   <div class="col">
                                     <label for="NTTTicker" class="form-label">Personalize claim form</label>
                                     <div class="d-flex flex-column flex-xl-row align-items-center">
@@ -58,18 +58,18 @@
                                         </div>
                                         <ul id="bg_images" class="upload-image-view">
                                             <?php
-                                            foreach ($__page->community->getClaimImages() as $id => $image){ ?>
-                                              <li class="upload-image-item" id="claim-img-<?php echo $id; ?>">
-                                                  <a class="image-del" href="delete-claim-img?id=<?php echo $id; ?>">
+/*                                            foreach ($__page->community->getClaimImages() as $id => $image){ */?>
+                                              <li class="upload-image-item" id="claim-img-<?php /*echo $id; */?>">
+                                                  <a class="image-del" href="delete-claim-img?id=<?php /*echo $id; */?>">
                                                       <i data-feather="x"></i>
                                                   </a>
-                                                  <img width="220" height="250" src="<?php echo app_cdn_path.$image; ?>" class="rounded-3">
+                                                  <img width="220" height="250" src="<?php /*echo app_cdn_path.$image; */?>" class="rounded-3">
                                               </li>
-                                            <?php } ?>
+                                            <?php /*} */?>
                                         </ul>
                                     </div>
                                   </div>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="card-body border-top d-flex justify-content-end gap-3">
                               <button type="submit" class="btn btn-primary">Save</button>
@@ -113,14 +113,14 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.success == true) {
-                            if(data.tick_change == true) {
+/*                            if(data.tick_change == true) {
                                 $('#ticker_imag_link').attr("src", data.ticket_img_url);
                                 $('#ticker_imag_name').html('');
                             }
                             if(data.bg_change == true) {
                                 $('#bg_images').html(data.bg_img_html);
                                 $('#fileList').html('');
-                            }
+                            }*/
                             feather.replace();
                             showMessage('success',10000,'Success! Your changes have been saved.');
                         } else {

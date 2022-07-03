@@ -53,7 +53,7 @@ class controller extends Ctrl {
                     else
                         throw new Exception("contribution_reason:This field is required.");
 
-                    if ($this->hasParam('tags') && strlen($this->getParam('tags')) > 0) {
+                    if ($this->hasParam('tags') && count($this->getParam('tags')) > 0) {
                         $tags = $this->getParam('tags');
                         $tags = is_array($tags) ? implode(',', $tags) : '';
                     }

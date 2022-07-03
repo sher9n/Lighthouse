@@ -7,7 +7,7 @@
         <li class="nav-item">
             <a class="nav-link <?php echo __ROUTER_PATH=='/admin-dashboard'?'active':'';?>" aria-current="page" href="admin-dashboard">
                 <i data-feather="layers"></i>
-                <div class="ms-12">Dashboard</div>
+                <div class="ms-12">Leaderboard</div>
             </a>
         </li>
         <li class="nav-item">

@@ -112,6 +112,8 @@ $form_elements = $__page->form->getElements();
     });
 
     function formClear() {
+        $("#contribution_reason").val('');
+        $("#tags").val(null).trigger('change');
         <?php
         foreach ($form_elements as $ele){
             if($ele['e_type'] == 'tag_select'){ ?>

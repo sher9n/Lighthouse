@@ -28,6 +28,9 @@ function getSolanaAccount() {
             }
             else
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
+
+            $('#selectChain').modal('hide');
+            $('#setupCommunity').modal('show');
         }
     }).catch(function(error) {
             console.log(error)
@@ -63,6 +66,11 @@ async function updateWalletMenu() {
         success: function (response) {
             if (response.success == true) {
                 window.location = 'admin-dashboard';
+            }
+            else {
+                sessionStorage.removeItem('lh_sel_wallet_add');
+                sessionStorage.removeItem('lh_wallet_adds');
+                $('#whitelist_solana_error').removeClass('d-none');
             }
         }
     });

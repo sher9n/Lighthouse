@@ -59,6 +59,7 @@ class controller extends Ctrl {
                         $approval->insert();
 
                         $contribution->approvals += 1;
+                        $contribution->score += ($c + $i + $q);
                         if($contribution->approvals == $com->approval_count) {
                             $contribution->status = 1;
                             $approve = true;

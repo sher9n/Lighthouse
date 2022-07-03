@@ -10,8 +10,112 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
+            <div class="row ">
+                <div id="table_skeleton_data" class="col-lg-12">
+                    <div class="d-flex flex-column" style="min-height: 86vh;">
+                        <div class="card shadow mb-6">
+                            <div class="card-body">
+                                <table id="" class="table table-striped table-bordered skeleton-table">
+                                    <thead>
+                                    <tr>
+                                        <th><div class="text-content w-60"></div></th>
+                                        <th><div class="text-content w-40"></div></th>
+                                        <th><div class="text-content w-60"></div></th>
+                                        <th><div class="text-content w-60"></div></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="text-content w-30"></div></td>
+                                        <td><div class="text-content w-20"></div></td>
+                                        <td><div class="text-content w-40"></div></td>
+                                        <td><div class="text-content w-50"></div></td>
+                                        <td><div class="text-content w-100"></div></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="table_data" class="col-lg-12 d-none">
                     <div class="d-flex flex-column">
                         <div class="card shadow mb-8" style="min-height: 78vh;">
                             <div class="card-body">
@@ -239,7 +343,11 @@
             "ordering": false,
             "info": false,
             "language": {
-                processing: "<img src='<?php echo app_cdn_path; ?>img/loading-.svg' width='100' height='100'>"
+                processing: "Loading...ssss"
+            },
+            "rowCallback": function( row, data ) {
+                $("#table_skeleton_data").addClass('d-none');
+                $("#table_data").removeClass('d-none');
             },
             "drawCallback": function( settings ) {
                 feather.replace();

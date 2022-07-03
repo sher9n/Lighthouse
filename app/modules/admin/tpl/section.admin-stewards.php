@@ -11,7 +11,7 @@
                             <form id="frm_stewards" class="mt-25 col-xl-6">
                                 <div class="fw-medium mt-26">Percentage to approve</div>
                                 <div class="d-flex align-items-center mt-6">
-                                    <div id="steward_percentage" class="display-4 fw-medium text-gray-700"><?php echo round(($__page->community->approval_count/count($__page->stewards)) * 100); ?> %</div>
+                                    <div id="steward_percentage" class="display-4 fw-medium text-gray-700"><?php echo round(($__page->community->approval_count/count($__page->stewards)) * 100); ?>%</div>
                                     <button type="button" class="btn btn-primary ms-12" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
@@ -50,7 +50,6 @@
                     <input type="text" class="form-control form-control-lg" name="nickname" id="nickname" placeholder="Bob">
                     <label for="WalletAddress" class="form-label mt-16">Wallet address</label>
                     <input type="text" class="form-control form-control-lg" name="wallet_address" id="wallet_address" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
-                    <button type="button" class="btn btn-light mt-6">Change Wallet</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>

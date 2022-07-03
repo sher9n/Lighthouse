@@ -156,7 +156,7 @@ community.</div>
                           </div>
                           <div class="border-top card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Aklaim</div>
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Lighthouse</div>
                               <a href="#" class="fw-medium text-decoration-none text-danger">Not Activated</a>
                             </div>                            
                           </div>

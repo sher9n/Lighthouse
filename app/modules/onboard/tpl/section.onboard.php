@@ -157,7 +157,7 @@
                 dataType:'json',
                 beforeSend: function () {
                     $('#btn_submit').prop('disabled', false);
-                    showMessage('success', 10000, 'Your Community is creating...');
+                    showMessage('success', 10000, 'Creating your community...');
                 },
                 success: function(data){
                     if(data.success == true){

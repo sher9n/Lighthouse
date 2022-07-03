@@ -53,8 +53,8 @@ class Community{
             $stewards = array();
             $stewards[$this->_data['wallet_adr']] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr']);
 
-            $stewds = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0");
-            foreach ($stewds as $steward) {
+            $stewards_data = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0");
+            foreach ($stewards_data as $steward) {
                 $stewards[$steward['wallet_adr']] = array('id' => $steward['id'], 'name' => $steward['display_name'], 'wallet_adr' => $steward['wallet_adr']);
             }
         }

@@ -9,8 +9,6 @@ class controller extends Ctrl {
             exit();
         }
 
-
-
         if($this->__lh_request->is_xmlHttpRequest) {
 
             $com = Community::getByDomain(app_site);

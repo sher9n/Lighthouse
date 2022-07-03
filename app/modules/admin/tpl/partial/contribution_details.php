@@ -176,11 +176,13 @@
                     <?php
                     if(count($approvals) > 0){
                         foreach ($approvals as $stewd_adr) {
-                            $steward = $stewards[$stewd_adr]; ?>
-                            <div class="fw-semibold"><?php echo $steward['name']; ?></div>
-                            <div class="fw-medium fs-4 mt-1"><?php echo $steward['wallet_adr']; ?></div>
-                            <a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>
-                            <?php
+                            if(isset($stewards[$stewd_adr])) {
+                                $steward = $stewards[$stewd_adr]; ?>
+                                <div class="fw-semibold"><?php echo $steward['name']; ?></div>
+                                <div class="fw-medium fs-4 mt-1"><?php echo $steward['wallet_adr']; ?></div>
+                                <a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>
+                                <?php
+                            }
                         }
                     }
                     else {

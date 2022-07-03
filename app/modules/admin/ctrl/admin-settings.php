@@ -76,7 +76,7 @@ class controller extends Ctrl {
                         }
                     }
 
-                    $claim_images = array();
+                    /*$claim_images = array();
                     if ($this->hasParam('background_imag')) {
                         $images = $this->getParam('background_imag');
                         if (is_array($images)) {
@@ -108,7 +108,7 @@ class controller extends Ctrl {
                                 <img width="220" height="250" src="'.app_cdn_path.$url.'" class="rounded-3">
                             </li>';
 
-                    }
+                    }*/
 
                     $community->update();
 
