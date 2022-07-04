@@ -82,7 +82,7 @@
           <div class="modal-body">
             <div class="fs-2 fw-semibold mb-15">Select members to approve</div>
             <div class="range-wrap mb-3">
-                <input type="range" name="range" class="range form-range" min="1" max="<?php echo count($__page->stewards) + 1; ?>" step="1">
+                <input type="range" name="range" id="steward_range" class="range form-range" min="1" max="<?php echo count($__page->stewards) + 1; ?>" step="1">
                 <output class="bubble"></output>
             </div>
           </div>
@@ -97,6 +97,7 @@
 
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
+
     $(document).on('click', '.del_steward', function(event) {
         event.preventDefault();
         var element = $(this);
@@ -114,6 +115,7 @@
                     $('#ModalChange').modal('toggle');
                     if (data.success == true) {
                         $('#steward_percentage').html(data.percentage);
+                        $("#steward_range").attr({"max" : data.max});
                         showMessage('success',10000,'Success! Steward percentage has been updated.');
                     }
                     else
@@ -134,6 +136,7 @@
                     if (data.success == true) {
                         $('.stew-'+data.stew_id).remove();
                         $('#steward_percentage').html(data.percentage);
+                        $("#steward_range").attr({"max" : data.max});
                         showMessage('success',10000,'Success! Steward has been deleted.');
                     }
                     else
@@ -161,6 +164,7 @@
                     if (data.success == true) {
                         $('#frm_stewards').append(data.html);
                         $('#steward_percentage').html(data.percentage);
+                        $("#steward_range").attr({"max" : data.max});
                         feather.replace();
                         showMessage('success', 10000, 'Success! A New steward has been added.');
                     }

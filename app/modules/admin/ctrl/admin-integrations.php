@@ -1,5 +1,6 @@
 <?php
 use lighthouse\Auth;
+use lighthouse\Community;
 class controller extends Ctrl {
     function init() {
         $is_admin = false;

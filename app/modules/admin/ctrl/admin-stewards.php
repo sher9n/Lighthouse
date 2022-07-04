@@ -58,8 +58,9 @@ class controller extends Ctrl {
                                     </a>
                                 </div>';
 
-                    $percentage =  round(($community->approval_count/$community->getStewards(true)) * 100 );
-                    echo json_encode(array('success' => true, 'html' => $html,'percentage' => $percentage.'%'));
+                    $c = $community->getStewards(true);
+                    $percentage =  round(($community->approval_count/$c) * 100 );
+                    echo json_encode(array('success' => true, 'html' => $html,'percentage' => $percentage.'%','max' => $c));
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());
                     $element = 'error-msg';
@@ -76,8 +77,9 @@ class controller extends Ctrl {
                     $id  = $this->getParam('id');
                     $adr = $this->getParam('adr');
                     if(Steward::deleteSteward($id,$adr,$community_id)) {
-                        $percentage =  round(($community->approval_count/$community->getStewards(true)) * 100 );
-                        echo json_encode(array('success' => true, 'stew_id' => $id,'percentage' => $percentage.'%'));
+                        $c = $community->getStewards(true);
+                        $percentage =  round(($community->approval_count/$c) * 100 );
+                        echo json_encode(array('success' => true, 'stew_id' => $id,'percentage' => $percentage.'%','max' => $c));
                     }
                     else
                         echo json_encode(array('success' => false));
@@ -90,8 +92,9 @@ class controller extends Ctrl {
                 if($this->hasParam('range') && $this->getParam('range') > 0) {
                     $community->approval_count = $this->getParam('range');
                     $community->update();
-                    $percentage =  round(($community->approval_count/$community->getStewards(true)) * 100 );
-                    echo json_encode(array('success' => true, 'percentage' => $percentage.'%'));
+                    $c = $community->getStewards(true);
+                    $percentage =  round(($community->approval_count/$c) * 100 );
+                    echo json_encode(array('success' => true, 'percentage' => $percentage.'%','max' => $c));
                 }
                 else
                     echo json_encode(array('success' => false));
