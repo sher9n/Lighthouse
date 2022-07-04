@@ -63,7 +63,7 @@ function connectToWCEth(blockchain='gnosis_chain'){
             }
             $('#wallet').modal('hide');
             $('#setupCommunity').modal('show');
-            //switchNetwork(blockchain);
+            switchNetwork(blockchain);
         }
     });
 }

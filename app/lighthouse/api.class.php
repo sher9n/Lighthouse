@@ -99,7 +99,7 @@ class Api{
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-       // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+      //  curl_setopt($curl, CURLOPT_FAILONERROR,true);
 
         $response = curl_exec($curl);
         curl_close($curl);
