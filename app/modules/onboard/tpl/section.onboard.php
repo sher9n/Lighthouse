@@ -36,52 +36,23 @@
     </div>
   </div>
 </div>
-<!-- Modal Connect Wallet-->
-<div class="modal fade" id="connectWallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-size-01">
-    <div class="modal-content">
-      <div class="modal-body p-10">
-        <!--<div class="d-flex justify-content-between"> -->
-            <div class="fs-2 fw-semibold mb-22 mt-3">Connect your wallet</div>
-            <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>  -->
-        <ui class="list-wallet">
-            <li class="list-wallet-item rounded border">
-                <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" href="#">
-                    <span class="fs-3">MetaMask</span>
-                    <img src="<?php echo app_cdn_path; ?>img/metamast-logo.svg"  width="40" height="40" class="">
-                </a>
-            </li>
-            <li class="list-wallet-item rounded border">
-                <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" href="#">
-                    <span class="fs-3">WalletConnect</span>
-                    <img src="<?php echo app_cdn_path; ?>img/walletconnect-logo.svg"  width="40" height="40" class="">
-                </a>
-            </li>
-        </ui>
-      </div>
+<div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content p-2">
+            <a class="text-center link-modal" id="meta_click" href="#">
+                <img src="<?php echo app_cdn_path; ?>img/metamast-logo.svg" height="42">
+                <div class="modal-provider-name">MetaMask</div>
+                <div type="button" class="modal-provider-description">Connect to your MetaMask Wallet</div>
+            </a>
+            <hr class="dropdown-divider">
+            <a class="text-center link-modal" id="wallet_click" href="#">
+                <img src="<?php echo app_cdn_path; ?>img/walletconnect-logo.svg" height="42">
+                <div class="modal-provider-name">WalletConnect</div>
+                <div type="button" class="modal-provider-description">Scan with WalletConnect to connect</div>
+            </a>
+        </div>
     </div>
-  </div>
 </div>
-<!-- Modal Connect Wallet Phantom -->
-<!--<div class="modal fade" id="connectWalletPhantom" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-size-01">
-    <div class="modal-content">        
-      <div class="modal-body p-10">
-        <div class="fs-2 fw-semibold mb-22 mt-3">Connect your wallet</div>
-        <ui class="list-wallet">
-            <li class="list-wallet-item rounded border">
-                <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" href="#">
-                    <span class="fs-3">Phantom</span>
-                    <img src="<?php /*echo app_cdn_path; */?>img/phantom-logo.svg"  width="40" height="40" class="">
-                </a>
-            </li>
-        </ui>       
-      </div>
-    </div>
-  </div>
-</div>-->
-<!-- Modal Setup community -->
 <div class="modal fade" id="setupCommunity" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-size-02">
         <div class="modal-content">
@@ -141,9 +112,28 @@
         $('#dao_domain').val(dao_name.toLowerCase());
     });
 
-    $(document).on("click", '#gnosis_connect,#optimism_connect', function(event) {
+    $(document).on("click", '#meta_click', function(event) {
+        event.preventDefault();
+        blockchain =  $('#blockchain_hidden').val();
+        connectToEth(blockchain);
+    });
+
+    $(document).on("click", '#wallet_click', function(event) {
+        event.preventDefault();
+        blockchain =  $('#blockchain_hidden').val();
+        connectToWCEth(blockchain);
+    });
+
+    $(document).on("click", '#gnosis_connect', function(event) {
         event.preventDefault();
         $('#blockchain_hidden').val('<?php echo GNOSIS_CHAIN; ?>');
+        $('#selectChain').modal('hide');
+        $('#wallet').modal('show');
+    });
+
+    $(document).on("click", '#optimism_connect', function(event) {
+        event.preventDefault();
+        $('#blockchain_hidden').val('<?php echo OPTIMISM; ?>');
         $('#selectChain').modal('hide');
         $('#wallet').modal('show');
     });
