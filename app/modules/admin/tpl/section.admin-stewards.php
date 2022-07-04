@@ -12,7 +12,7 @@
                                 <div class="fw-medium mt-26">Percentage to approve</div>
                                 <div class="d-flex align-items-center mt-6">
                                     <div id="steward_percentage" class="display-4 fw-medium text-gray-700"><?php echo round(($__page->community->approval_count/count($__page->stewards)) * 100); ?>%</div>
-                                    <button type="button" class="btn btn-primary ms-12" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
+                                    <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'fade':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
                                 <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
@@ -52,8 +52,8 @@
                     <input type="text" class="form-control form-control-lg" name="wallet_address" id="wallet_address" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" id="btn_cancel" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" id="btn_save"  class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -85,14 +85,14 @@
                 <input type="range" name="range" id="steward_range" class="range form-range" min="1" max="<?php echo count($__page->stewards) + 1; ?>" step="1">
                 <div class="d-flex justify-content-between mt-1">
                     <div class="fs-3 fw-semibold">1</div>
-                    <div class="fs-3 fw-semibold">7</div>
+                    <div class="fs-3 fw-semibold" id="max_label"><?php echo count($__page->stewards) + 1; ?></div>
                 </div>
                 <output class="bubble"></output>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" id="btn_cancel" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" id="btn_save" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
           </div>
         </form>
     </div>
@@ -120,6 +120,11 @@
                     if (data.success == true) {
                         $('#steward_percentage').html(data.percentage);
                         $("#steward_range").attr({"max" : data.max});
+                        $("#max_label").html(data.max);
+                        if(data.max > 1)
+                            $('#percentage_change').removeClass('fade');
+                        else
+                            $('#percentage_change').addClass('fade');
                         showMessage('success',10000,'Success! Steward percentage has been updated.');
                     }
                     else
@@ -141,6 +146,11 @@
                         $('.stew-'+data.stew_id).remove();
                         $('#steward_percentage').html(data.percentage);
                         $("#steward_range").attr({"max" : data.max});
+                        $("#max_label").html(data.max);
+                        if(data.max > 1)
+                            $('#percentage_change').removeClass('fade');
+                        else
+                            $('#percentage_change').addClass('fade');
                         showMessage('success',10000,'Success! Steward has been deleted.');
                     }
                     else
@@ -159,6 +169,12 @@
                 required: true
             }
         },
+        beforeSend: function () {
+            $('#btn_cancel').prop('disabled', false);
+            $('#btn_save').prop('disabled', false);
+            $('#nickname').prop('disabled', false);
+            $('#wallet_address').prop('disabled', false);
+        },
         submitHandler: function(form) {
             $(form).ajaxSubmit({
                 type: 'post',
@@ -169,6 +185,11 @@
                         $('#frm_stewards').append(data.html);
                         $('#steward_percentage').html(data.percentage);
                         $("#steward_range").attr({"max" : data.max});
+                        $("#max_label").html(data.max);
+                        if(data.max > 1)
+                            $('#percentage_change').removeClass('fade');
+                        else
+                            $('#percentage_change').addClass('fade');
                         feather.replace();
                         showMessage('success', 10000, 'Success! A New steward has been added.');
                     }
