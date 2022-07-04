@@ -64,7 +64,7 @@ class controller extends Ctrl {
 
 
                     $claim_table[] = array(
-                        '<a data-adr="' . $wallet_adr . '" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" href="#" class="text-center d-block contribution_history">'.Utils::WalletAddressFormat($wallet_adr).'</a>',
+                        '<a data-adr="' . $wallet_adr . '" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" href="#" class="text-decoration-none contribution_history">'.Utils::WalletAddressFormat($wallet_adr).'</a>',
                         $claim['score'],
                         $r,
                         $p,
