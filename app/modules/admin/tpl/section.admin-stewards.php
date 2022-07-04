@@ -83,6 +83,10 @@
             <div class="fs-2 fw-semibold mb-15">Select members to approve</div>
             <div class="range-wrap mb-3">
                 <input type="range" name="range" id="steward_range" class="range form-range" min="1" max="<?php echo count($__page->stewards) + 1; ?>" step="1">
+                <div class="d-flex justify-content-between mt-1">
+                    <div class="fs-3 fw-semibold">1</div>
+                    <div class="fs-3 fw-semibold">7</div>
+                </div>
                 <output class="bubble"></output>
             </div>
           </div>
@@ -188,6 +192,11 @@
     });
 
     function setBubble(range, bubble) {
+        if(range.value == range.min || range.value == range.max)
+            bubble.style.visibility = "hidden";
+        else
+            bubble.style.visibility = "visible";
+
     const val = range.value;
     const min = range.min ? range.min : 0;
     const max = range.max ? range.max : 100;
