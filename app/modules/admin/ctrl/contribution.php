@@ -7,26 +7,27 @@ use Core\Utils;
 use lighthouse\Form;
 class controller extends Ctrl {
     function init() {
-
+        $is_admin = false;
         $sel_wallet_adr = null;
+        $community = Community::getByDomain(app_site);
+        $site = Auth::getSite();
 
-        if(isset($_SESSION['lh_sel_wallet_adr']))
+        if(isset($_SESSION['lh_sel_wallet_adr'])) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+            $is_admin = $community->isAdmin($sel_wallet_adr);
+        }
         else
         {
             header("Location: " . app_url.'admin');
             die();
         }
 
-        $site = Auth::getSite();
         if($site === false) {
             header("Location: " . app_url.'admin');
             die();
         }
 
         if($this->__lh_request->is_xmlHttpRequest) {
-
-            $community = Community::getByDomain($site['sub_domain']);
 
             if($this->__lh_request->is_post) {
 
@@ -138,6 +139,7 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'form' => $form,
                 'site' => $site,
+                'is_admin' => $is_admin,
                 'blockchain' => $site['blockchain'],
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(

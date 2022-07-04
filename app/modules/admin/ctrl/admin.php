@@ -15,15 +15,15 @@ class controller extends Ctrl {
 
             if(__ROUTER_PATH == '/wallet-menu' ) {
                 $selected_adr = $this->getParam('sel_add');
-                if($com->isAdmin($selected_adr)) {
+                //if($com->isAdmin($selected_adr)) {
                     $_SESSION['lh_sel_wallet_adr'] = $selected_adr;
                     echo json_encode(array('success' => true));
-                }
+/*                }
                 else {
                     $_SESSION['lh_sel_wallet_adr'] = null;
                     $_SESSION['lighthouse'] = null;
                     echo json_encode(array('success' => false));
-                }
+                }*/
                 exit();
             }
             else if(__ROUTER_PATH =='/disconnect_wallet') {
@@ -39,36 +39,16 @@ class controller extends Ctrl {
         else {
             $wallet_adr = null;
 
-            if($this->hasParam('ch') && strlen($this->getParam('ch'))) {
-                $ch = $this->getParam('ch');
-                $_SESSION['lighthouse'] = null;
-                $site = Auth::getSite();
-                if($site === false) {
-                    header("Location: https://lighthouse.xyz");
-                    die();
-                }
-
-                if(isset($site['ch']) && $ch == $site['ch']){
-                    $_SESSION['lh_sel_wallet_adr'] = $site['wallet_adr'];
-                    $wallet_adr = $site['wallet_adr'];
-                    $com = Community::getByDomain(app_site);
-                    $com->ch = null;
-                    $com->update();
-                }
+            $site = Auth::getSite();
+            if($site === false) {
+                header("Location: https://lighthouse.xyz");
+                die();
             }
-            else {
 
-                $site = Auth::getSite();
-                if($site === false) {
-                    header("Location: https://lighthouse.xyz");
-                    die();
-                }
-            }
 
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
-                'wallet_adr' => $wallet_adr,
                 'blockchain' => $site['blockchain'],
                 'dao_name' => strtoupper($site['sub_domain']),
                 'sections' => array(

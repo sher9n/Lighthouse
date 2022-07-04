@@ -133,6 +133,7 @@
                     $('#delMember').modal('toggle');
                     if (data.success == true) {
                         $('.stew-'+data.stew_id).remove();
+                        $('#steward_percentage').html(data.percentage);
                         showMessage('success',10000,'Success! Steward has been deleted.');
                     }
                     else
@@ -159,6 +160,7 @@
                     $('#addMember').modal('toggle');
                     if (data.success == true) {
                         $('#frm_stewards').append(data.html);
+                        $('#steward_percentage').html(data.percentage);
                         feather.replace();
                         showMessage('success', 10000, 'Success! A New steward has been added.');
                     }

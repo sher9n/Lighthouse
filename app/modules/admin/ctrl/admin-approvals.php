@@ -7,11 +7,14 @@ use lighthouse\Log;
 use lighthouse\Form;
 class controller extends Ctrl {
     function init() {
-
+        $is_admin = false;
         $sel_wallet_adr = null;
+        $community = Community::getByDomain(app_site);
 
-        if(isset($_SESSION['lh_sel_wallet_adr']))
+        if(isset($_SESSION['lh_sel_wallet_adr'])) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+            $is_admin = $community->isAdmin($sel_wallet_adr);
+        }
         else
         {
             header("Location: " . app_url.'admin');
@@ -19,7 +22,6 @@ class controller extends Ctrl {
         }
 
         if($this->__lh_request->is_xmlHttpRequest) {
-            $com = Community::getByDomain(app_site);
 
             if(__ROUTER_PATH == '/contribution-status' && $this->getParam('con_id')){
                 $con_id = $this->getParam('con_id');
@@ -60,7 +62,7 @@ class controller extends Ctrl {
 
                         $contribution->approvals += 1;
                         $contribution->score += ($c + $i + $q);
-                        if($contribution->approvals == $com->approval_count) {
+                        if($contribution->approvals == $community->approval_count) {
                             $contribution->status = 1;
                             $approve = true;
                         }
@@ -74,7 +76,7 @@ class controller extends Ctrl {
                         $log->insert();
 
                         $contribution_id = $contribution->id;
-                        $stewards = $com->getStewards();
+                        $stewards = $community->getStewards();
                         $html = '';
                         foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
                             $steward = $stewards[$stewd_adr];
@@ -96,7 +98,7 @@ class controller extends Ctrl {
                 $form          = Form::get($contribution->form_id);
                 $elements      = $form->getElements();
                 $wallet_to     = $contribution->wallet_to;
-                $stewards      = $com->getStewards();
+                $stewards      = $community->getStewards();
                 $approvals     = Approval::getApprovals($contribution->id);
                 $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where comunity_id='$con_id' AND wallet_to='$wallet_to' order by c_at");
 
@@ -115,7 +117,7 @@ class controller extends Ctrl {
             }
 
             $domain = $site['sub_domain'];
-            $all_claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id WHERE com.dao_domain='$domain'");
+            $all_claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id WHERE f.id <> 2 AND com.dao_domain='$domain'");
             $claims = $a_claims = $r_claims = $d_claims= array();
 
             if($all_claims != false) {
@@ -137,6 +139,7 @@ class controller extends Ctrl {
                 'site' => $site,
                 'blockchain' => $site['blockchain'],
                 'sel_wallet_adr' => $sel_wallet_adr,
+                'is_admin' => $is_admin,
                 'claims' => $claims,
                 'a_claims' => $a_claims,
                 'all_claims' => $all_claims,

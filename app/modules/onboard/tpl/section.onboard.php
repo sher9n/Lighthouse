@@ -87,7 +87,7 @@
         $('#selectChain').modal('show');
     });
 
-    $(document).on("focusout", '#dao_domain', function(event) {
+    $(document).on("focusout", '#dao_domain, #dao_name', function(event) {
         var dao_name = $(this).val();
 
         $.ajax({
@@ -153,6 +153,9 @@
                 dataType:'json',
                 beforeSend: function () {
                     $('#btn_submit').prop('disabled', true);
+                    $('#dao_name').prop('disabled', true);
+                    $('#dao_domain').prop('disabled', true);
+                    $('#btn_submit').html('Creating...');
                     showMessage('success', 10000, 'Creating your community...');
                 },
                 success: function(data){
@@ -161,6 +164,7 @@
                     }
                     else{
                         $('#btn_submit').prop('disabled', false);
+                        $('#btn_submit').html('Create');
                         if(data.element) {
                             if (data.element == 'dao_domain') {
                                 $('#dao_domain-error').html(data.msg);

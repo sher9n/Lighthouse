@@ -107,9 +107,9 @@ class controller extends Ctrl {
                                 $contribusion = new Contribution();
                                 $contribusion->comunity_id = $com_id;
                                 $contribusion->wallet_from = $community->wallet_adr;
-                                $contribusion->contribution_reason = "Automated Attestation, Created a new decentralized community.";
+                                $contribusion->contribution_reason = "Created a new decentralized community.";
                                 $contribusion->wallet_to = $community->wallet_adr;
-                                $contribusion->form_id = 1;
+                                $contribusion->form_id = 2;
                                 $contribusion->status = 1;
                                 $contribusion->score = 15;
                                 $contribusion->tags = implode(',', array('Onboarding'));
@@ -122,7 +122,7 @@ class controller extends Ctrl {
                                 $log->c_by = $wallet_address;
                                 $log->insert();
 
-                                echo json_encode(array('success' => true, 'url' => 'https://' . $dao_domain . '.' . base_app_url . '?ch=' . $community->ch));
+                                echo json_encode(array('success' => true, 'url' => 'https://' . $dao_domain . '.' . base_app_url . '/admin-dashboard?ch=' . $community->ch));
                             }
                         }
                         else
