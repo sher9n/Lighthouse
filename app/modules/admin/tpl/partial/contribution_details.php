@@ -81,10 +81,10 @@
                 </div>
             </div>
             <div class="row mt-10">
-                <div class="col-8 offset-md-4 text-end">
+                <div id="btn_row" class="col-8 offset-md-4 text-end">
                     <?php if($contribution->status == 1 || in_array($sel_wallet_adr, $approvals)) { ?>
-                        <button id="btn_deny" disabled type="button" class="btn btn-white">Deny</button>
-                        <button id="btn_approve" disabled type="button" class="btn btn-primary">Approve</button>
+<!--                        <button id="btn_deny" disabled type="button" class="btn btn-white">Deny</button>
+                        <button id="btn_approve" disabled type="button" class="btn btn-primary">Approve</button>-->
                     <?php }else{ ?>
                         <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
                         <button id="btn_approve" type="button" class="btn btn-primary">Approve</button>
@@ -255,14 +255,15 @@
             data: data,
             type: 'POST',
             beforeSend: function () {
-                showMessage('success', 10000, 'Your contribution are being sent.');
+                showMessage('success', 10000, 'Submitting your claim...');
                 $('#btn_deny').prop('disabled', false);
                 $('#btn_approve').prop('disabled', false);
             },
             success: function (response) {
                 if (response.success == true) {
-                    showMessage('success',10000,'Success! Your changes have been saved.');
+                    showMessage('success',10000,'Success! Your claim has been submitted.');
                     $('#claim-approvals').html(response.steward_html);
+                    $('#btn_row').remove();
                     if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
 
                         //$('#claim_details').html('');
@@ -298,14 +299,14 @@
             data: data,
             type: 'POST',
             beforeSend: function() {
-                showMessage('success',10000,'Your contribution are being sent.');
+                showMessage('success',10000,'Submitting your claim...');
                 $('#btn_deny').prop('disabled', false);
                 $('#btn_approve').prop('disabled', false);
             },
             success: function (response) {
                 if (response.success == true) {
 
-                    showMessage('success',10000,'Success! Your changes have been saved.');
+                    showMessage('success',10000,'Success! Your claim has been submitted.');
 
                     if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
 
@@ -347,12 +348,12 @@
                     dataType:'json',
                     beforeSend: function() {
                         $('#btn_submit').prop('disabled', true);
-                        showMessage('success',10000,'Your contribution are being sent.');
+                        showMessage('success',10000,'Submitting your attestation...');
                     },
                     success: function(data){
                         $('#btn_submit').prop('disabled', false);
                         if(data.success == true){
-                            showMessage('success', 10000, data.message);
+                            showMessage('Success! Your attestation has been recorded.', 10000, data.message);
 
                             if($('#cq_item_'+data.c_id).parent().parent().find("li").length == 1) {
                                 $('#cq_item_'+data.c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +

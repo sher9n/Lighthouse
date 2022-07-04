@@ -87,12 +87,12 @@ $form_elements = $__page->form->getElements();
                     dataType:'json',
                     beforeSend: function() {
                         $('#btn_submit').prop('disabled', true);
-                        showMessage('success',10000,'Your contribution are being sent.');
+                        showMessage('success',10000,'Submitting your claim...');
                     },
                     success: function(data){
                         $('#btn_submit').prop('disabled', false);
                         if(data.success == true){
-                            showMessage('success', 10000, data.message);
+                            showMessage('Success! Your claim has been submitted.', 10000, data.message);
                             formClear();
                         }
                         else{

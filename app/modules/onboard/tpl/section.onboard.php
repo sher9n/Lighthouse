@@ -20,6 +20,12 @@
                 </a>
             </li>
             <li class="list-wallet-item rounded border">
+                <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" id="optimism_connect" href="#">
+                    <span class="fs-3">Optimism</span>
+                    <img src="<?php echo app_cdn_path; ?>img/optimism-logo.png"  width="40" height="40" class="">
+                </a>
+            </li>
+            <li class="list-wallet-item rounded border">
                 <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" id="gnosis_connect" href="#">
                     <span class="fs-3">Gnosis</span>
                     <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png"  width="40" height="40" class="">
@@ -135,7 +141,7 @@
         $('#dao_domain').val(dao_name.toLowerCase());
     });
 
-    $(document).on("click", '#gnosis_connect', function(event) {
+    $(document).on("click", '#gnosis_connect,#optimism_connect', function(event) {
         event.preventDefault();
         $('#blockchain_hidden').val('<?php echo GNOSIS_CHAIN; ?>');
         $('#selectChain').modal('hide');
@@ -156,7 +162,7 @@
                 type:'post',
                 dataType:'json',
                 beforeSend: function () {
-                    $('#btn_submit').prop('disabled', false);
+                    $('#btn_submit').prop('disabled', true);
                     showMessage('success', 10000, 'Creating your community...');
                 },
                 success: function(data){
@@ -164,14 +170,19 @@
                         window.location.replace(data.url);
                     }
                     else{
-                        if(data.element == 'dao_domain') {
-                            $('#dao_domain-error').html(data.msg);
-                            $('#dao_domain-error').show();
+                        $('#btn_submit').prop('disabled', false);
+                        if(data.element) {
+                            if (data.element == 'dao_domain') {
+                                $('#dao_domain-error').html(data.msg);
+                                $('#dao_domain-error').show();
+                            } else {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            }
                         }
-                        else {
-                            $('#' + data.element).addClass('form-control-lg error');
-                            $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
-                        }
+                        else
+                            showMessage('danger', 10000, data.msg);
+
                     }
                 }
             });

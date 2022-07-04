@@ -3,6 +3,7 @@ use Core\Utils;
 use lighthouse\Community;
 use lighthouse\Log;
 use lighthouse\Claim;
+use lighthouse\Api;
 use lighthouse\Contribution;
 class controller extends Ctrl {
     function init() {
@@ -58,42 +59,71 @@ class controller extends Ctrl {
                             $ticker = strtoupper($dao_domain);
                             $subdomain = $dao_domain;
 
-                            $community = new Community();
-                            $community->dao_name = $dao_name;
-                            $community->dao_domain = $dao_domain;
-                            $community->blockchain = $blockchain;
-                            $community->ticker = $ticker;
-                            $community->wallet_adr = $wallet_address;
-                            $community->display_name = 'Initial User';
-                            $community->ch = Utils::getUniqid();
-                            $com_id = $community->insert();
+                            if ($blockchain != SOLANA)
+                                $api_response = api::addCommunity(constant(strtoupper($blockchain) . "_API"), $dao_domain, $dao_domain, $ticker, 18, 0.0008);
+                            else
+                                $api_response = api::addSolanaCommunity($dao_domain, $dao_domain, $ticker, 18);
 
-                            $log = new Log();
-                            $log->type = 'Community';
-                            $log->type_id = $com_id;
-                            $log->action = 'created';
-                            $log->c_by = $community->wallet_adr;
-                            $log->insert();
+                            if (isset($api_response->error)) {
+                                $log = new Log();
+                                $log->type = 'Community';
+                                $log->log = serialize($api_response->error);
+                                $log->action = 'create-failed';
+                                $log->c_by = $wallet_address;
+                                $log->insert();
 
-                            $contribusion = new Contribution();
-                            $contribusion->comunity_id = $com_id;
-                            $contribusion->wallet_from = $community->wallet_adr;
-                            $contribusion->contribution_reason = "Automated Attestation, Created a new decentralized community.";
-                            $contribusion->wallet_to = $community->wallet_adr;
-                            $contribusion->form_id = 1;
-                            $contribusion->status = 1;
-                            $contribusion->score = 15;
-                            $contribusion->tags = implode(',',array('Onboarding'));
-                            $con_id = $contribusion->insert();
+                                echo json_encode(array('success' => false, 'msg' => 'Your community has not been created, please contact your admin'));
+                                exit();
+                            }
+                            else {
+                                $community = new Community();
+                                $community->dao_name = $dao_name;
+                                $community->dao_domain = $dao_domain;
+                                $community->blockchain = $blockchain;
+                                $community->ticker = $ticker;
+                                $community->wallet_adr = $wallet_address;
+                                $community->display_name = 'Initial User';
 
-                            $log = new Log();
-                            $log->type = 'Contribution';
-                            $log->type_id = $con_id;
-                            $log->action = 'create-pending';
-                            $log->c_by = $wallet_address;
-                            $log->insert();
+                                /*------from api response-------*/
+                                $community->token_address = $api_response->tokenAddress;
+                                $community->gas_address = $api_response->gasTankInfo->gasTankAddress;
+                                $community->gas_private_key = $api_response->gasTankInfo->gasTankPrivateKey;
 
-                            echo json_encode(array('success' => true, 'url' => 'https://'.$dao_domain.'.'.base_app_url.'?ch='.$community->ch));
+                                if($blockchain == SOLANA) {
+                                    $community->txHash = $api_response->txHash;
+                                    $community->community_address = $api_response->communityAddress;
+                                }
+
+                                $community->ch = Utils::getUniqid();
+                                $com_id = $community->insert();
+
+                                $log = new Log();
+                                $log->type = 'Community';
+                                $log->type_id = $com_id;
+                                $log->action = 'created';
+                                $log->c_by = $community->wallet_adr;
+                                $log->insert();
+
+                                $contribusion = new Contribution();
+                                $contribusion->comunity_id = $com_id;
+                                $contribusion->wallet_from = $community->wallet_adr;
+                                $contribusion->contribution_reason = "Automated Attestation, Created a new decentralized community.";
+                                $contribusion->wallet_to = $community->wallet_adr;
+                                $contribusion->form_id = 1;
+                                $contribusion->status = 1;
+                                $contribusion->score = 15;
+                                $contribusion->tags = implode(',', array('Onboarding'));
+                                $con_id = $contribusion->insert();
+
+                                $log = new Log();
+                                $log->type = 'Contribution';
+                                $log->type_id = $con_id;
+                                $log->action = 'create-pending';
+                                $log->c_by = $wallet_address;
+                                $log->insert();
+
+                                echo json_encode(array('success' => true, 'url' => 'https://' . $dao_domain . '.' . base_app_url . '?ch=' . $community->ch));
+                            }
                         }
                         else
                             echo json_encode(array('success' => false, 'msg' => "This name is already taken. Please try a different name.", 'element' => 'dao_domain'));
