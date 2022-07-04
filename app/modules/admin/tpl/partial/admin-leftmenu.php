@@ -10,43 +10,52 @@
                 <div class="ms-12">Leaderboard</div>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-approvals'?'active':'';?>" href="admin-approvals">                
-                <i data-feather="check-circle"></i>
-                <div class="ms-12">Contribution Stream</div>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/contribution'?'active':'';?>" href="contribution">
-                <i data-feather="send"></i>
-                <div class="ms-12">Submit Contribution</div>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-stewards'?'active':'';?>" href="admin-stewards">               
-                <i data-feather="user"></i>
-                <div class="ms-12">Stewards</div>
-            </a>
-        </li>
-        <li class="nav-item tree-toggle">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-integrations'?'active':'';?>"  href="admin-integrations">
-                <!-- <img src="img/icon-integrations.svg">  -->                
-                <i data-feather="terminal"></i>
-                <div class="ms-12">Integrations</div>
-            </a>
-            <ul class="nav-sub tree" style="display: none;">
-                <li class="nav-item"><a class="nav-link" href="#Forms">> Forms</a></li>
-                <li class="nav-item"><a class="nav-link" href="#Interactions">> Interactions</a></li>
-                <li class="nav-item"><a class="nav-link" href="#Identity">> Identity</a></li>
-                <li class="nav-item"><a class="nav-link" href="#Apps">> Apps</a></li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link <?php echo __ROUTER_PATH=='/admin-settings'?'active':'';?>" href="admin-settings">                
-                <i data-feather="settings"></i>
-                <div class="ms-12">Settings</div>
-            </a>
-        </li>
+        <?php if($__page->is_admin){ ?>
+            <li class="nav-item">
+                <a class="nav-link <?php echo __ROUTER_PATH=='/admin-approvals'?'active':'';?>" href="admin-approvals">
+                    <i data-feather="check-circle"></i>
+                    <div class="ms-12">Contribution Stream</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo __ROUTER_PATH=='/contribution'?'active':'';?>" href="contribution">
+                    <i data-feather="send"></i>
+                    <div class="ms-12">Submit Contribution</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo __ROUTER_PATH=='/admin-stewards'?'active':'';?>" href="admin-stewards">
+                    <i data-feather="user"></i>
+                    <div class="ms-12">Stewards</div>
+                </a>
+            </li>
+            <li class="nav-item tree-toggle">
+                <a class="nav-link <?php echo __ROUTER_PATH=='/admin-integrations'?'active':'';?>"  href="admin-integrations">
+                    <!-- <img src="img/icon-integrations.svg">  -->
+                    <i data-feather="terminal"></i>
+                    <div class="ms-12">Integrations</div>
+                </a>
+                <ul class="nav-sub tree" style="display: none;">
+                    <li class="nav-item"><a class="nav-link" href="#Forms">> Forms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#Interactions">> Interactions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#Identity">> Identity</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#Apps">> Apps</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo __ROUTER_PATH=='/admin-settings'?'active':'';?>" href="admin-settings">
+                    <i data-feather="settings"></i>
+                    <div class="ms-12">Settings</div>
+                </a>
+            </li>
+        <?php }else{ ?>
+            <li class="nav-item">
+                <a class="nav-link <?php echo __ROUTER_PATH=='/contribution'?'active':'';?>" href="contribution">
+                    <i data-feather="send"></i>
+                    <div class="ms-12">Submit Contribution</div>
+                </a>
+            </li>
+        <?php } ?>
     </ul>
     </div>
     <div class="user-nav dropup">

@@ -76,17 +76,10 @@
     feather.replace();
 
     $(window).on('load', function() {
-
-        <?php if(strlen($__page->wallet_adr) > 0){ ?>
-            sessionStorage.setItem("lh_sel_wallet_add", '<?php echo $__page->wallet_adr; ?>');
-            sessionStorage.setItem("lh_wallet_adds", JSON.stringify(['<?php echo $__page->wallet_adr; ?>']));
-            window.location = 'admin-dashboard';
-        <?php }else{
-            if($__page->blockchain != SOLANA){ ?>
-                $('#wallet').modal('show');
-            <?php }else{ ?>
-                addSolanaWallet();
-            <?php }
-        } ?>
+        <?php if($__page->blockchain != SOLANA){ ?>
+            $('#wallet').modal('show');
+        <?php }else{ ?>
+            addSolanaWallet();
+        <?php } ?>
     });
 </script>

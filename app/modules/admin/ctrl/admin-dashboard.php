@@ -6,18 +6,36 @@ use lighthouse\Contribution;
 use Core\Utils;
 class controller extends Ctrl {
     function init() {
+        $is_admin = false;
+        $sel_wallet_adr = $wallet_adr = null;
+        $community = Community::getByDomain(app_site);
 
-        $sel_wallet_adr = null;
+        if($this->hasParam('ch') && strlen($this->getParam('ch'))) {
+            $ch = $this->getParam('ch');
+            $_SESSION['lighthouse'] = null;
+            $site = Auth::getSite();
+            if($site === false) {
+                header("Location: https://lighthouse.xyz");
+                die();
+            }
 
-        if(isset($_SESSION['lh_sel_wallet_adr']))
+            if(isset($site['ch']) && $ch == $site['ch']){
+                $_SESSION['lh_sel_wallet_adr'] = $site['wallet_adr'];
+                $wallet_adr = $site['wallet_adr'];
+                $community->ch = null;
+                $community->update();
+            }
+        }
+
+        if(isset($_SESSION['lh_sel_wallet_adr'])) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+            $is_admin = $community->isAdmin($sel_wallet_adr);
+        }
         else
         {
             header("Location: " . app_url.'admin');
             die();
         }
-
-        $community = Community::getByDomain(app_site);
 
         if($this->__lh_request->is_xmlHttpRequest) {
 
@@ -99,6 +117,8 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'is_admin' => $is_admin,
+                'wallet_adr' => $wallet_adr,
                 'blockchain' => $community->blockchain,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(

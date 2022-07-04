@@ -7,10 +7,14 @@ use lighthouse\Log;
 class controller extends Ctrl {
     function init() {
 
+        $is_admin = false;
         $sel_wallet_adr = null;
+        $community = Community::getByDomain(app_site);
 
-        if(isset($_SESSION['lh_sel_wallet_adr']))
+        if(isset($_SESSION['lh_sel_wallet_adr'])) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+            $is_admin = $community->isAdmin($sel_wallet_adr);
+        }
         else
         {
             header("Location: " . app_url.'admin');
@@ -22,7 +26,6 @@ class controller extends Ctrl {
             header("Location: " . app_url.'admin');
             die();
         }
-        $community = Community::getByDomain($site['sub_domain']);
 
         if($this->__lh_request->is_xmlHttpRequest) {
 

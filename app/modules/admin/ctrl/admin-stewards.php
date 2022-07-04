@@ -5,19 +5,20 @@ use lighthouse\Community;
 use lighthouse\Log;
 class controller extends Ctrl {
     function init() {
-
+        $is_admin = false;
         $sel_wallet_adr = null;
+        $community = Community::getByDomain(app_site);
+        $community_id = $community->id;
 
-        if(isset($_SESSION['lh_sel_wallet_adr']))
+        if(isset($_SESSION['lh_sel_wallet_adr'])) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+            $is_admin = $community->isAdmin($sel_wallet_adr);
+        }
         else
         {
             header("Location: " . app_url.'admin');
             die();
         }
-
-        $community = Community::getByDomain(app_site);
-        $community_id = $community->id;
 
         if($this->__lh_request->is_xmlHttpRequest) {
 
@@ -57,7 +58,8 @@ class controller extends Ctrl {
                                     </a>
                                 </div>';
 
-                    echo json_encode(array('success' => true, 'html' => $html));
+                    $percentage =  round(($community->approval_count/$community->getStewards(true)) * 100 );
+                    echo json_encode(array('success' => true, 'html' => $html,'percentage' => $percentage.'%'));
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());
                     $element = 'error-msg';
@@ -74,7 +76,8 @@ class controller extends Ctrl {
                     $id  = $this->getParam('id');
                     $adr = $this->getParam('adr');
                     if(Steward::deleteSteward($id,$adr,$community_id)) {
-                        echo json_encode(array('success' => true, 'stew_id' => $id));
+                        $percentage =  round(($community->approval_count/$community->getStewards(true)) * 100 );
+                        echo json_encode(array('success' => true, 'stew_id' => $id,'percentage' => $percentage.'%'));
                     }
                     else
                         echo json_encode(array('success' => false));
@@ -107,6 +110,7 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'site' => $site,
                 'community' => $community,
+                'is_admin' => $is_admin,
                 'blockchain' => $community->blockchain,
                 'stewards' => $community->getStewards(),
                 'sel_wallet_adr' => $sel_wallet_adr,

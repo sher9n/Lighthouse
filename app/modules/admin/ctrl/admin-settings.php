@@ -7,20 +7,23 @@ use Core\Utils;
 use lighthouse\Api;
 class controller extends Ctrl {
     function init() {
-
+        $is_admin = false;
         $sel_wallet_adr = null;
-
+        $community = Community::getByDomain(app_site);
         $site = Auth::getSite();
-        if($site === false) {
-            header("Location: https://lighthouse.xyz");
-            die();
-        }
 
-        if(isset($_SESSION['lh_sel_wallet_adr']))
+        if(isset($_SESSION['lh_sel_wallet_adr'])) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+            $is_admin = $community->isAdmin($sel_wallet_adr);
+        }
         else
         {
             header("Location: " . app_url.'admin');
+            die();
+        }
+
+        if($site === false) {
+            header("Location: https://lighthouse.xyz");
             die();
         }
 
@@ -37,7 +40,6 @@ class controller extends Ctrl {
                 exit();
             }
             elseif (__ROUTER_PATH == '/gas_tank_balance' ) {
-                $community = Community::getByDomain($site['sub_domain']);
                 $balance = Api::getGasTankBalance(constant(strtoupper($community->blockchain).'_API'),app_site);
                 if(is_null($balance))
                     $balance = 0;
@@ -46,7 +48,6 @@ class controller extends Ctrl {
             }
             else {
                 try {
-                    $community = Community::getByDomain(app_site);
 
                     if ($this->hasParam('dao_name') && strlen($this->getParam('dao_name')) > 0)
                         $community->dao_name = $this->getParam('dao_name');
@@ -149,10 +150,10 @@ class controller extends Ctrl {
         }
         else {
 
-            $community = Community::getByDomain($site['sub_domain']);
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'is_admin' => $is_admin,
                 'community' => $community,
                 'blockchain' => $community->blockchain,
                 'sel_wallet_adr' => $sel_wallet_adr,

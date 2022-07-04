@@ -13,7 +13,7 @@
             <div class="row ">
                 <div id="table_skeleton_data" class="col-lg-12">
                     <div class="d-flex flex-column" style="min-height: 86vh;">
-                        <div class="card shadow mb-8">
+                        <div class="card shadow mb-8 loading">
                             <div class="card-body">
                                 <table id="" class="table table-striped table-bordered skeleton-table">
                                     <thead>
@@ -218,6 +218,11 @@
     });
 
     $(document).ready(function() {
+
+        <?php if(strlen($__page->wallet_adr) > 0){ ?>
+            sessionStorage.setItem("lh_sel_wallet_add", '<?php echo $__page->wallet_adr; ?>');
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify(['<?php echo $__page->wallet_adr; ?>']));
+        <?php } ?>
 
         dataLoad();
 

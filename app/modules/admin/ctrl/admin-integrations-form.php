@@ -2,11 +2,14 @@
 use lighthouse\Auth;
 class controller extends Ctrl {
     function init() {
-
+        $is_admin = false;
         $sel_wallet_adr = null;
+        $community = Community::getByDomain(app_site);
 
-        if(isset($_SESSION['lh_sel_wallet_adr']))
+        if(isset($_SESSION['lh_sel_wallet_adr'])) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+            $is_admin = $community->isAdmin($sel_wallet_adr);
+        }
         else
         {
             header("Location: " . app_url.'admin');
@@ -26,6 +29,7 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'is_admin' => $is_admin,
                 'blockchain' => GNOSIS_CHAIN,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
