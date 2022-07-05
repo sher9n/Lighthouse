@@ -209,7 +209,6 @@
 </main>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
-    feather.replace();
     var dashboard_table ;
 
     $(document).on("click", '.add_wallet', function(event) {
@@ -222,6 +221,7 @@
         <?php if(strlen($__page->wallet_adr) > 0){ ?>
             sessionStorage.setItem("lh_sel_wallet_add", '<?php echo $__page->wallet_adr; ?>');
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify(['<?php echo $__page->wallet_adr; ?>']));
+            showMessage('success',10000,'Success! Your community have been created.');
         <?php } ?>
 
         dataLoad();

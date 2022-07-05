@@ -61,7 +61,10 @@ class controller extends Ctrl {
                         $approval->insert();
 
                         $contribution->approvals += 1;
-                        $contribution->score += ($c + $i + $q);
+                        $points = $contribution->score;
+                        $points += ($c + $i + $q);
+                        $points = ($points/$contribution->approvals);
+                        $contribution->score = $points;
                         if($contribution->approvals == $community->approval_count) {
                             $contribution->status = 1;
                             $approve = true;
@@ -101,6 +104,7 @@ class controller extends Ctrl {
                 $stewards      = $community->getStewards();
                 $approvals     = Approval::getApprovals($contribution->id);
                 $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where comunity_id='$con_id' AND wallet_to='$wallet_to' order by c_at");
+                $user_arrovals = Approval::getUserApprovals($contribution->id);
 
                 include __DIR__ . '/../tpl/partial/contribution_details.php';
                 $html = ob_get_clean();

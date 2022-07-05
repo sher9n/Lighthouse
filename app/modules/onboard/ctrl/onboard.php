@@ -60,9 +60,9 @@ class controller extends Ctrl {
                             $subdomain = $dao_domain;
 
                             if ($blockchain != SOLANA)
-                                $api_response = api::addCommunity(constant(strtoupper($blockchain) . "_API"), $dao_domain, $dao_domain, $ticker, 18, 0.0008);
+                                $api_response = api::addCommunity(constant(strtoupper($blockchain) . "_API"), $dao_domain, $dao_domain, $ticker, 18, 0.0008,$wallet_address);
                             else
-                                $api_response = api::addSolanaCommunity($dao_domain, $dao_domain, $ticker, 18);
+                                $api_response = api::addSolanaCommunity($dao_domain, $dao_domain, $ticker, 9,$wallet_address);
 
                             if (isset($api_response->error)) {
                                 $log = new Log();
@@ -86,12 +86,16 @@ class controller extends Ctrl {
 
                                 /*------from api response-------*/
                                 $community->token_address = $api_response->tokenAddress;
-                                $community->gas_address = $api_response->gasTankInfo->gasTankAddress;
-                                $community->gas_private_key = $api_response->gasTankInfo->gasTankPrivateKey;
 
                                 if($blockchain == SOLANA) {
                                     $community->txHash = $api_response->txHash;
                                     $community->community_address = $api_response->communityAddress;
+                                    $community->gas_address = $api_response->gasTankInfo->address;
+                                    $community->gas_private_key = $api_response->gasTankInfo->privateKey;
+                                }
+                                else {
+                                    $community->gas_address = $api_response->gasTankInfo->gasTankAddress;
+                                    $community->gas_private_key = $api_response->gasTankInfo->gasTankPrivateKey;
                                 }
 
                                 $community->ch = Utils::getUniqid();

@@ -80,7 +80,7 @@ class controller extends Ctrl {
                     $contribusion->form_data = json_encode($post);
                     $contribusion->insert();
 
-                    echo json_encode(array('success' => true, 'message' => 'Success! Your contribution have been sent.'));
+                    echo json_encode(array('success' => true, 'message' => 'Success! Your claim has been submitted.'));
 
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());

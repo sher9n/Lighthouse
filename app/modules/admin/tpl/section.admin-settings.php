@@ -82,7 +82,7 @@
                             <div class="text-muted mt-1">Send SOL on Solana Mainnet to run Lighthouse gas-free for your community</div>
                             <div class="mt-23">
                                 <label class="form-label mb-4">Send to :</label>
-                                <div class="fs-3 fw-semibold"><?php echo $__page->community->community_address; ?></div>
+                                <div class="fs-3 fw-semibold"><?php echo $__page->community->token_address; ?></div>
                              </div>
                             <div class="mt-16">
                                 <label class="form-label mb-4">Current balance :</label>

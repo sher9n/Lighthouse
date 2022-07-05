@@ -73,8 +73,6 @@
 </div>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
-    feather.replace();
-
     $(window).on('load', function() {
         <?php if($__page->blockchain != SOLANA){ ?>
             $('#wallet').modal('show');

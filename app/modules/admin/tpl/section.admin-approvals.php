@@ -213,7 +213,6 @@
 </div>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
-    feather.replace();
     $("#claim_item").removeClass('d-none');
     $("#skeleton_claim").addClass('d-none');
 

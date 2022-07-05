@@ -11,25 +11,26 @@
                     </div>
                 </div>
             </div>
+            <?php if(count($user_arrovals) > 0){ ?>
             <div class="row">
                 <div class="col-4 align-self-center">
                     <div class="fw-medium fs-lg">Complexity</div>
                 </div>
                 <div class="col-8">
                     <div class="list-rating-scale">
-                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="1" id="Complexityoption1" autocomplete="off">
+                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="1" <?php echo ($user_arrovals['complexity']==1)?'checked':'';?> id="Complexityoption1" autocomplete="off">
                         <label class="btn btn-light ms-0" for="Complexityoption1">1</label>
 
-                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="2" id="Complexityoption2" autocomplete="off">
+                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="2" <?php echo ($user_arrovals['complexity']==2)?'checked':'';?> id="Complexityoption2" autocomplete="off">
                         <label class="btn btn-light" for="Complexityoption2">2</label>
 
-                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="3" id="Complexityoption3" autocomplete="off">
+                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="3" <?php echo ($user_arrovals['complexity']==3)?'checked':'';?> id="Complexityoption3" autocomplete="off">
                         <label class="btn btn-light" for="Complexityoption3">3</label>
 
-                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="4" id="Complexityoption4" autocomplete="off">
+                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="4" <?php echo ($user_arrovals['complexity']==4)?'checked':'';?> id="Complexityoption4" autocomplete="off">
                         <label class="btn btn-light" for="Complexityoption4">4</label>
 
-                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="5" id="Complexityoption5" autocomplete="off">
+                        <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="5" <?php echo ($user_arrovals['complexity']==5)?'checked':'';?> id="Complexityoption5" autocomplete="off">
                         <label class="btn btn-light me-0" for="Complexityoption5">5</label>
                     </div>
                 </div>
@@ -40,19 +41,19 @@
                 </div>
                 <div class="col-8">
                     <div class="list-rating-scale">
-                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption1" data-val="1"  autocomplete="off">
+                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption1"  <?php echo ($user_arrovals['importance']==1)?'checked':'';?>  data-val="1"  autocomplete="off">
                         <label class="btn btn-light ms-0" for="Importanceoption1">1</label>
 
-                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption2" data-val="2"  autocomplete="off">
+                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption2" <?php echo ($user_arrovals['importance']==2)?'checked':'';?> data-val="2"  autocomplete="off">
                         <label class="btn btn-light" for="Importanceoption2">2</label>
 
-                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption3" data-val="3"  autocomplete="off">
+                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption3" <?php echo ($user_arrovals['importance']==3)?'checked':'';?> data-val="3"  autocomplete="off">
                         <label class="btn btn-light" for="Importanceoption3">3</label>
 
-                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption4" data-val="4"  autocomplete="off">
+                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption4" <?php echo ($user_arrovals['importance']==4)?'checked':'';?> data-val="4"  autocomplete="off">
                         <label class="btn btn-light" for="Importanceoption4">4</label>
 
-                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption5" data-val="5"  autocomplete="off">
+                        <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption5" <?php echo ($user_arrovals['importance']==5)?'checked':'';?> data-val="5"  autocomplete="off">
                         <label class="btn btn-light me-0" for="Importanceoption5">5</label>
                     </div>
                 </div>
@@ -63,23 +64,94 @@
                 </div>
                 <div class="col-8">
                     <div class="list-rating-scale">
-                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption1" data-val="1" autocomplete="off">
+                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption1" <?php echo ($user_arrovals['quality']==1)?'checked':'';?> data-val="1" autocomplete="off">
                         <label class="btn btn-light ms-0" for="Qualityoption1">1</label>
 
-                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption2" data-val="2"  autocomplete="off">
+                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption2" <?php echo ($user_arrovals['quality']==2)?'checked':'';?> data-val="2"  autocomplete="off">
                         <label class="btn btn-light" for="Qualityoption2">2</label>
 
-                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption3" data-val="3"  autocomplete="off">
+                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption3" <?php echo ($user_arrovals['quality']==3)?'checked':'';?> data-val="3"  autocomplete="off">
                         <label class="btn btn-light" for="Qualityoption3">3</label>
 
-                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption4" data-val="4" autocomplete="off">
+                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption4" <?php echo ($user_arrovals['quality']==4)?'checked':'';?> data-val="4" autocomplete="off">
                         <label class="btn btn-light" for="Qualityoption4">4</label>
 
-                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption5" data-val="5"  autocomplete="off">
+                        <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption5" <?php echo ($user_arrovals['quality']==5)?'checked':'';?> data-val="5"  autocomplete="off">
                         <label class="btn btn-light me-0" for="Qualityoption5">5</label>
                     </div>
                 </div>
             </div>
+            <?php }else{ ?>
+                <div class="row">
+                    <div class="col-4 align-self-center">
+                        <div class="fw-medium fs-lg">Complexity</div>
+                    </div>
+                    <div class="col-8">
+                        <div class="list-rating-scale">
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="1" id="Complexityoption1" autocomplete="off">
+                            <label class="btn btn-light ms-0" for="Complexityoption1">1</label>
+
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="2" id="Complexityoption2" autocomplete="off">
+                            <label class="btn btn-light" for="Complexityoption2">2</label>
+
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="3" id="Complexityoption3" autocomplete="off">
+                            <label class="btn btn-light" for="Complexityoption3">3</label>
+
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="4" id="Complexityoption4" autocomplete="off">
+                            <label class="btn btn-light" for="Complexityoption4">4</label>
+
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="5" id="Complexityoption5" autocomplete="off">
+                            <label class="btn btn-light me-0" for="Complexityoption5">5</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4 align-self-center">
+                        <div class="fw-medium fs-lg">Importance</div>
+                    </div>
+                    <div class="col-8">
+                        <div class="list-rating-scale">
+                            <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption1" data-val="1"  autocomplete="off">
+                            <label class="btn btn-light ms-0" for="Importanceoption1">1</label>
+
+                            <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption2" data-val="2"  autocomplete="off">
+                            <label class="btn btn-light" for="Importanceoption2">2</label>
+
+                            <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption3" data-val="3"  autocomplete="off">
+                            <label class="btn btn-light" for="Importanceoption3">3</label>
+
+                            <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption4" data-val="4"  autocomplete="off">
+                            <label class="btn btn-light" for="Importanceoption4">4</label>
+
+                            <input type="radio" class="btn-check btn_importance" name="ImportanceOptions" id="Importanceoption5" data-val="5"  autocomplete="off">
+                            <label class="btn btn-light me-0" for="Importanceoption5">5</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-4 align-self-center">
+                        <div class="fw-medium fs-lg">Quality</div>
+                    </div>
+                    <div class="col-8">
+                        <div class="list-rating-scale">
+                            <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption1" data-val="1" autocomplete="off">
+                            <label class="btn btn-light ms-0" for="Qualityoption1">1</label>
+
+                            <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption2" data-val="2"  autocomplete="off">
+                            <label class="btn btn-light" for="Qualityoption2">2</label>
+
+                            <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption3" data-val="3"  autocomplete="off">
+                            <label class="btn btn-light" for="Qualityoption3">3</label>
+
+                            <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption4" data-val="4" autocomplete="off">
+                            <label class="btn btn-light" for="Qualityoption4">4</label>
+
+                            <input type="radio" class="btn-check btn_quality" name="QualityOptions" id="Qualityoption5" data-val="5"  autocomplete="off">
+                            <label class="btn btn-light me-0" for="Qualityoption5">5</label>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
             <div class="row mt-10">
                 <div id="btn_row" class="col-8 offset-md-4 text-end">
                     <?php if($contribution->status == 1 || in_array($sel_wallet_adr, $approvals)) { ?>
@@ -101,7 +173,7 @@
                     <button class="tab_link nav-link" id="claim-history-tab" data-bs-toggle="tab" data-bs-target="#claim-history" type="button" role="tab" aria-controls="claim-history" aria-selected="false">History</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
-                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Approvals (<?php echo count($approvals); ?>/<?php echo $com->approval_count; ?>)</button>
+                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Approvals (<?php echo count($approvals); ?>/<?php echo $community->approval_count; ?>)</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
                     <button class="tab_link nav-link" id="claim-similar-tab" data-bs-toggle="tab" data-bs-target="#claim-similar" type="button" role="tab" aria-controls="claim-similar" aria-selected="false">Similar Contributions</button>
@@ -255,16 +327,14 @@
             data: data,
             type: 'POST',
             beforeSend: function () {
-                showMessage('success', 10000, 'Submitting your claim...');
-                $('#btn_deny').prop('disabled', false);
-                $('#btn_approve').prop('disabled', false);
+                //showMessage('success', 10000, 'Submitting your claim...');
+                $('#btn_deny').prop('disabled', true);
+                $('#btn_approve').prop('disabled', true);
             },
             success: function (response) {
                 if (response.success == true) {
-                    showMessage('success',10000,'Success! Your claim has been submitted.');
-                    $('#claim-approvals').html(response.steward_html);
-                    $('#btn_row').remove();
-                    if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
+
+                    if($('#cq_item_'+c_id).parent().parent().find("li").length == 2) {
 
                         //$('#claim_details').html('');
                         $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
@@ -284,7 +354,12 @@
                             '                    </div>');
                     }*/
 
-                    $('#cq_item_'+c_id).remove();
+                    showMessage('success',10000,'Success! Your attestation has been recorded');
+                    $('#claim-approvals').html(response.steward_html);
+                    $('#btn_row').remove();
+
+                    if(response.approve)
+                        $('#cq_item_'+c_id).remove();
                 }
             }
         });
@@ -299,16 +374,16 @@
             data: data,
             type: 'POST',
             beforeSend: function() {
-                showMessage('success',10000,'Submitting your claim...');
-                $('#btn_deny').prop('disabled', false);
-                $('#btn_approve').prop('disabled', false);
+                //showMessage('success',10000,'Submitting your claim...');
+                $('#btn_deny').prop('disabled', true);
+                $('#btn_approve').prop('disabled', true);
             },
             success: function (response) {
                 if (response.success == true) {
 
-                    showMessage('success',10000,'Success! Your claim has been submitted.');
+                    showMessage('success',10000,'Success! Your attestation has been recorded');
 
-                    if($('#cq_item_'+c_id).parent().parent().find("li").length == 1) {
+                    if($('#cq_item_'+c_id).parent().parent().find("li").length == 2) {
 
                       //  $('#claim_details').html('');
                         $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +

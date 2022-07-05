@@ -156,7 +156,10 @@
                     $('#dao_name').prop('disabled', true);
                     $('#dao_domain').prop('disabled', true);
                     $('#btn_submit').html('Creating...');
-                    showMessage('success', 10000, 'Creating your community...');
+                    showMessage('success', 10000, 'Starting the engines..');
+                    setTimeout(function() {showMessage('success', 10000, 'Writing the smart contract...');}, 2000);
+                    setTimeout(function() {showMessage('success', 10000, 'Initiating transactions...');}, 4000);
+                    setTimeout(function() {showMessage('success', 10000, 'Creating your community...');}, 6000);
                 },
                 success: function(data){
                     if(data.success == true){
@@ -164,6 +167,8 @@
                     }
                     else{
                         $('#btn_submit').prop('disabled', false);
+                        $('#dao_name').prop('disabled', false);
+                        $('#dao_domain').prop('disabled', false);
                         $('#btn_submit').html('Create');
                         if(data.element) {
                             if (data.element == 'dao_domain') {
@@ -174,9 +179,11 @@
                                 $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
                             }
                         }
-                        else
-                            showMessage('danger', 10000, data.msg);
-
+                        else {
+                            setTimeout(function () {
+                                showMessage('danger', 10000, data.msg);
+                            }, 6000);
+                        }
                     }
                 }
             });

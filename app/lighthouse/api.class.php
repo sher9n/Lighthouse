@@ -2,7 +2,7 @@
 namespace lighthouse;
 class Api{
     public static function getGasTankBalance($url,$slug) {
-        $url = "https://lighthouse-poc-seven.vercel.app/api/contractsAPI/".$slug."/getTankBalance?key=".API_KEY;
+        $url = SOLANA_API."api/".$slug."/getTankBalance";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -77,7 +77,7 @@ class Api{
         return json_decode($response);
     }
 
-    public static function addCommunity($url,$contractName,$tokenName,$tokenSymbol,$tokenDecimals,$tankTopUpAmount) {
+    public static function addCommunity($url,$contractName,$tokenName,$tokenSymbol,$tokenDecimals,$tankTopUpAmount,$initialSteward) {
         $url = $url."api/contractsAPI?key=".API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -93,22 +93,23 @@ class Api{
           "tokenName": "'.$tokenName.'",
           "tokenSymbol": "'.$tokenSymbol.'",
           "tokenDecimals": "'.$tokenDecimals.'",
-          "tankTopUpAmount": "'.$tankTopUpAmount.'"
+          "tankTopUpAmount": "'.$tankTopUpAmount.'",
+          "initialSteward": "'.$initialSteward.'"
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-      //  curl_setopt($curl, CURLOPT_FAILONERROR,true);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
 
         $response = curl_exec($curl);
         curl_close($curl);
-/*        $error_msg = curl_error($curl);
+        /*$error_msg = curl_error($curl);
         var_dump($error_msg);exit();*/
         return json_decode($response);
     }
 
-    public static function addSolanaCommunity($contractName,$tokenName,$tokenSymbol,$tokenDecimals) {
+    public static function addSolanaCommunity($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward) {
         $url = SOLANA_API."api/create";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -123,14 +124,18 @@ class Api{
           "name": "'.$contractName.'",
           "tokenName": "'.$tokenName.'",
           "tokenSymbol": "'.$tokenSymbol.'",
-          "tokenDecimals": "'.$tokenDecimals.'"
+          "tokenDecimals": "'.$tokenDecimals.'",
+          "initialAdmin": "'.$initialSteward.'"
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+       // curl_setopt($curl, CURLOPT_FAILONERROR,true);
 
         $response = curl_exec($curl);
+/*        $error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
         curl_close($curl);
         return json_decode($response);
     }

@@ -39,6 +39,28 @@ class Approval{
         return null;
     }
 
+    public static function getUserApprovals($contribution_id){
+        $connect = Ds::connect();
+        $items   = $connect->query("select * from approvals where contribution_id='$contribution_id' ");
+        $results = array('complexity' => 0,'importance'=>0,'quality'=>0);
+        $x = 0;
+        if($items != false){
+            while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
+                $x++;
+                $results['complexity'] += $row['complexity'];
+                $results['complexity'] = round($results['complexity']/$x);
+
+                $results['importance'] += $row['importance'];
+                $results['importance'] = round($results['importance']/$x);
+
+                $results['quality'] += $row['quality'];
+                $results['quality'] = round($results['quality']/$x);
+            }
+        }
+        $connect->close();
+        return $results;
+    }
+
     public function load(array $item)
     {
         foreach($item as $k => $v)
