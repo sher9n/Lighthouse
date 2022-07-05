@@ -27,4 +27,9 @@
     <link rel="shortcut icon" href="<?php echo app_cdn_path; ?>img/logo-favicon.png"/>
     <title><?php echo app_name; ?> - <?php echo $__page->title; ?></title>
     <script type="text/javascript" src="https://unpkg.com/feather-icons"></script>
+    <script>
+        $(document).ready(function() {
+            feather.replace();
+        });
+    </script>
 </head>

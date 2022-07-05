@@ -80,14 +80,13 @@
     <div class="modal-content">
         <form id="stewardForm" method="post" action="steward-percentage" autocomplete="off">
           <div class="modal-body">
-            <div class="fs-2 fw-semibold mb-15">Select members to approve</div>
-            <div class="range-wrap mb-3">
-                <input type="range" name="range" class="range form-range" min="1" max="<?php echo count($__page->stewards) + 1; ?>" step="1">
-                <div class="d-flex justify-content-between mt-1">
-                    <div class="fs-3 fw-semibold">1</div>
-                    <div class="fs-3 fw-semibold">7</div>
+            <div class="fs-2 fw-semibold mb-15">Select quorum</div>            
+            <label for="basic-url" class="form-label">Quorum</label>
+            <div class="col-5">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-lg" placeholder="" aria-describedby="basic-addon2">
+                    <span class="input-group-text" id="basic-addon2">of 5</span>
                 </div>
-                <output class="bubble"></output>
             </div>
           </div>
           <div class="modal-footer">
@@ -174,32 +173,4 @@
             });
         }
     });
-
-    // Range 
-    const allRanges = document.querySelectorAll(".range-wrap");
-    allRanges.forEach(wrap => {
-    const range = wrap.querySelector(".range");
-    const bubble = wrap.querySelector(".bubble");
-
-    range.addEventListener("input", () => {
-        setBubble(range, bubble);
-    });
-    setBubble(range, bubble);
-    });
-
-    function setBubble(range, bubble) {
-        if(range.value == range.min || range.value == range.max)
-            bubble.style.visibility = "hidden";
-        else
-            bubble.style.visibility = "visible";
-
-    const val = range.value;
-    const min = range.min ? range.min : 0;
-    const max = range.max ? range.max : 100;
-    const newVal = Number(((val - min) * 100) / (max - min));
-    bubble.innerHTML = val;
-
-    // Sorta magic numbers based on size of the native UI thumb
-    bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
-    }
 </script>

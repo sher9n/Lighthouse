@@ -68,9 +68,6 @@ foreach ($__page->js as $page_js) { ?>
     }
 
     $(document).ready(function() {
-
-        feather.replace();
-
         $(document).on("click", '#disconnect_wallet', function(event) {
             event.preventDefault();
             $.ajax({
