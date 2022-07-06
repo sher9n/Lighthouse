@@ -27,6 +27,3 @@
     <title><?php echo app_name; ?> - <?php echo $__page->title; ?></title>
     <script type="text/javascript" src="https://unpkg.com/feather-icons"></script>
 </head>
-<script>
-    feather.replace()
-</script>

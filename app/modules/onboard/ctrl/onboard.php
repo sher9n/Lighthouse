@@ -72,7 +72,7 @@ class controller extends Ctrl {
                                 $log->c_by = $wallet_address;
                                 $log->insert();
 
-                                echo json_encode(array('success' => false, 'msg' => 'Your community has not been created, please contact your admin'));
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to create community, please retry again.'));
                                 exit();
                             }
                             else {

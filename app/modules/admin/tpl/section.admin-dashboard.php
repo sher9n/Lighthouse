@@ -158,7 +158,7 @@
         <div class="offcanvas-body p-0">
             <div class="px-12 py-13">
                 <div class="display-6 fw-medium">History</div>
-                <div class="text-break fw-medium text-muted mt-3">Pra5LM5ygrEXKzPJiA1FCFgr8r29kaV2J5AmvzR9gfqE</div>
+                <div id="history_wallet" class="text-break fw-medium text-muted mt-3"></div>
             </div>
             <ul id="list_history" class="list-history">
             </ul>
@@ -221,7 +221,7 @@
         <?php if(strlen($__page->wallet_adr) > 0){ ?>
             sessionStorage.setItem("lh_sel_wallet_add", '<?php echo $__page->wallet_adr; ?>');
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify(['<?php echo $__page->wallet_adr; ?>']));
-            showMessage('success',10000,'Success! Your community have been created.');
+            showMessage('success',10000,'Success! Your community have been created. '+'<a class="text-white ms-1" target="_blank" href="<?php echo $__page->view_contract; ?>"> VIEW CONTRACT</a>');
         <?php } ?>
 
         dataLoad();
@@ -245,11 +245,6 @@
         $(document).on("click", '#sendNewNtt, #startSendNewNtt, #retryNewNtt', function(event) {
             event.preventDefault();
             window.location.replace("contribution");
-            /*$('#wallet_address').val('');
-            $('#ntts').val('');
-            $('#claim_reason').val('');
-            $("#claim_tags").val(null).trigger('change');
-            $('#sendNewNttPop').modal('show');*/
         });
 
         $(document).on("click", '.send_ntt', function(event) {

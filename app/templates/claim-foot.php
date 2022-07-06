@@ -19,11 +19,6 @@ foreach ($__page->js as $page_js) { ?>
 }
 ?>
 <script>
-
-    $(document).ready(function() {
-        feather.replace();
-    });
-
     function showMessage(status,time,message) {
         SnackBar({
             status: status,

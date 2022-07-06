@@ -12,7 +12,7 @@
                                 <div class="fw-medium mt-26">Percentage to approve</div>
                                 <div class="d-flex align-items-center mt-6">
                                     <div id="steward_percentage" class="display-4 fw-medium text-gray-700"><?php echo round(($__page->community->approval_count/count($__page->stewards)) * 100); ?>%</div>
-                                    <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'fade':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
+                                    <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
                                 <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
@@ -80,14 +80,13 @@
     <div class="modal-content">
         <form id="stewardForm" method="post" action="steward-percentage" autocomplete="off">
           <div class="modal-body">
-            <div class="fs-2 fw-semibold mb-15">Select members to approve</div>
-            <div class="range-wrap mb-3">
-                <input type="range" name="range" id="steward_range" class="range form-range" min="1" max="<?php echo count($__page->stewards) + 1; ?>" step="1">
-                <div class="d-flex justify-content-between mt-1">
-                    <div class="fs-3 fw-semibold">1</div>
-                    <div class="fs-3 fw-semibold" id="max_label"><?php echo count($__page->stewards) + 1; ?></div>
+            <div class="fs-2 fw-semibold mb-15">Select quorum</div>            
+            <label for="basic-url" class="form-label">Quorum</label>
+            <div class="col-5">
+                <div class="input-group">
+                    <input type="text" id="steward_range" name="range" class="form-control form-control-lg" value="<?php echo $__page->community->approval_count; ?>" aria-describedby="max_label" max="<?php echo count($__page->stewards) + 1; ?>">
+                    <span class="input-group-text" id="max_label">of <?php echo count($__page->stewards) + 1; ?></span>
                 </div>
-                <output class="bubble"></output>
             </div>
           </div>
           <div class="modal-footer">
@@ -122,9 +121,9 @@
                         $("#steward_range").attr({"max" : data.max});
                         $("#max_label").html(data.max);
                         if(data.max > 1)
-                            $('#percentage_change').removeClass('fade');
+                            $('#percentage_change').removeClass('d-none');
                         else
-                            $('#percentage_change').addClass('fade');
+                            $('#percentage_change').addClass('d-none');
                         showMessage('success',10000,'Success! Steward percentage has been updated.');
                     }
                     else
@@ -148,9 +147,9 @@
                         $("#steward_range").attr({"max" : data.max});
                         $("#max_label").html(data.max);
                         if(data.max > 1)
-                            $('#percentage_change').removeClass('fade');
+                            $('#percentage_change').removeClass('d-none');
                         else
-                            $('#percentage_change').addClass('fade');
+                            $('#percentage_change').addClass('d-none');
                         showMessage('success',10000,'Success! Steward has been deleted.');
                     }
                     else
@@ -187,9 +186,9 @@
                         $("#steward_range").attr({"max" : data.max});
                         $("#max_label").html(data.max);
                         if(data.max > 1)
-                            $('#percentage_change').removeClass('fade');
+                            $('#percentage_change').removeClass('d-none');
                         else
-                            $('#percentage_change').addClass('fade');
+                            $('#percentage_change').addClass('d-none');
                         feather.replace();
                         showMessage('success', 10000, 'Success! A New steward has been added.');
                     }
@@ -199,32 +198,4 @@
             });
         }
     });
-
-    // Range 
-    const allRanges = document.querySelectorAll(".range-wrap");
-    allRanges.forEach(wrap => {
-    const range = wrap.querySelector(".range");
-    const bubble = wrap.querySelector(".bubble");
-
-    range.addEventListener("input", () => {
-        setBubble(range, bubble);
-    });
-    setBubble(range, bubble);
-    });
-
-    function setBubble(range, bubble) {
-        if(range.value == range.min || range.value == range.max)
-            bubble.style.visibility = "hidden";
-        else
-            bubble.style.visibility = "visible";
-
-    const val = range.value;
-    const min = range.min ? range.min : 0;
-    const max = range.max ? range.max : 100;
-    const newVal = Number(((val - min) * 100) / (max - min));
-    bubble.innerHTML = val;
-
-    // Sorta magic numbers based on size of the native UI thumb
-    bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
-    }
 </script>
