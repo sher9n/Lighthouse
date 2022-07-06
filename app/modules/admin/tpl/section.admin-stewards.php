@@ -11,7 +11,8 @@
                             <form id="frm_stewards" class="mt-25 col-xl-6">
                                 <div class="fw-medium mt-26">Quorum</div>
                                 <div class="d-flex align-items-center mt-6">
-                                    <div id="steward_percentage" class="display-4 fw-medium text-gray-700"><?php echo $__page->community->approval_count.'/'.count($__page->stewards); ?></div>
+                                    <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
+                                        <div class="fs-1"><?php echo $__page->community->approval_count.'</div><div class="fs-2">/'.count($__page->stewards); ?></div></div>
                                     <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
