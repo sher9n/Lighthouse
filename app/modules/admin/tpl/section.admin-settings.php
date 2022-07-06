@@ -36,7 +36,7 @@
                                     <div class="col">
                                         <label for="NTTTicker" class="form-label">Contact address:</label>
                                         <div class="d-flex align-items-center mb-6">
-                                            <div class="fw-semibold fs-3">FCFgr8r2V2J5AmvzRXKzPJiA19gfqE9kaPra5LM5ygrE</div>
+                                            <div class="fw-semibold fs-3"><?php echo $__page->community->token_address; ?></div>
                                             <i data-feather="copy" class="ms-3 text-primary"></i>
                                         </div>
                                     </div>
@@ -88,7 +88,7 @@
                             <?php } ?>
                             <div class="mt-23">
                                 <label class="form-label mb-4">Send to :</label>
-                                <div class="fs-3 fw-semibold"><?php echo $__page->community->token_address; ?></div>
+                                <div class="fs-3 fw-semibold"><?php echo $__page->community->gas_address; ?></div>
                              </div>
                             <div class="mt-16">
                                 <label class="form-label mb-4">Current balance :</label>

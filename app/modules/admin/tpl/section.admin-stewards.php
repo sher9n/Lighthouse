@@ -87,6 +87,7 @@
                     <input type="text" id="steward_range" name="range" class="form-control form-control-lg" value="<?php echo $__page->community->approval_count; ?>" aria-describedby="max_label" max="<?php echo count($__page->stewards) + 1; ?>">
                     <span class="input-group-text" id="max_label">of <?php echo count($__page->stewards) + 1; ?></span>
                 </div>
+                <label id="steward_range-error" class="error" style="display: none;" for="steward_range"></label>
             </div>
           </div>
           <div class="modal-footer">
@@ -169,10 +170,10 @@
             }
         },
         beforeSend: function () {
-            $('#btn_cancel').prop('disabled', false);
-            $('#btn_save').prop('disabled', false);
-            $('#nickname').prop('disabled', false);
-            $('#wallet_address').prop('disabled', false);
+            $('#btn_cancel').prop('disabled', true);
+            $('#btn_save').prop('disabled', true);
+            $('#nickname').prop('disabled', true);
+            $('#wallet_address').prop('disabled', true);
         },
         submitHandler: function(form) {
             $(form).ajaxSubmit({
@@ -180,6 +181,10 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#addMember').modal('toggle');
+                    $('#btn_cancel').prop('disabled', false);
+                    $('#btn_save').prop('disabled', false);
+                    $('#nickname').prop('disabled', false);
+                    $('#wallet_address').prop('disabled', false);
                     if (data.success == true) {
                         $('#frm_stewards').append(data.html);
                         $('#steward_percentage').html(data.percentage);
