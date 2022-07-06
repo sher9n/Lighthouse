@@ -43,7 +43,11 @@ class controller extends Ctrl {
                 $balance = Api::getGasTankBalance(constant(strtoupper($community->blockchain).'_API'),app_site);
                 if(is_null($balance))
                     $balance = 0;
-                echo json_encode(array('success' => true, 'balance' => 'Ξ'.$balance.' (ERC-20)'));
+
+                if($community->blockchain == SOLANA)
+                    echo json_encode(array('success' => true, 'balance' => 'Ξ'.$balance.' SOL'));
+                else
+                    echo json_encode(array('success' => true, 'balance' => 'Ξ'.$balance.' (ERC-20)'));
                 exit();
             }
             else {

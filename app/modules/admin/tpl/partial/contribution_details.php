@@ -154,13 +154,15 @@
             <?php } ?>
             <div class="row mt-10">
                 <div id="btn_row" class="col-8 offset-md-4 text-end">
-                    <?php if($contribution->status == 1 || in_array($sel_wallet_adr, $approvals)) { ?>
-<!--                        <button id="btn_deny" disabled type="button" class="btn btn-white">Deny</button>
-                        <button id="btn_approve" disabled type="button" class="btn btn-primary">Approve</button>-->
-                    <?php }else{ ?>
-                        <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
-                        <button id="btn_approve" type="button" class="btn btn-primary">Approve</button>
-                    <?php } ?>
+                    <?php if($contribution->status == 1 ) { ?>
+                        <a target="_blank" href="<?php echo $view_transaction_link ; ?>" type="button" class="btn btn-white">View Transaction</a>
+                    <?php }else{
+                        if($contribution->status != 2 && !in_array($sel_wallet_adr, $approvals)){ ?>
+                            <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
+                            <button id="btn_approve" type="button" class="btn btn-primary">Approve</button>
+                            <?php
+                        }
+                    }?>
                 </div>
             </div>
         </div>
@@ -327,7 +329,9 @@
             data: data,
             type: 'POST',
             beforeSend: function () {
-                //showMessage('success', 10000, 'Submitting your claim...');
+                <?php if($send_api == true){ ?>
+                    showMessage('success', 10000, 'Submitting the attestation on-chain...');
+                <?php } ?>
                 $('#btn_deny').prop('disabled', true);
                 $('#btn_approve').prop('disabled', true);
             },
@@ -354,7 +358,7 @@
                             '                    </div>');
                     }*/
 
-                    showMessage('success',10000,'Success! Your attestation has been recorded');
+                    showMessage('success',10000,response.message);
                     $('#claim-approvals').html(response.steward_html);
                     $('#btn_row').remove();
 

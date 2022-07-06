@@ -157,9 +157,9 @@
                     $('#dao_domain').prop('disabled', true);
                     $('#btn_submit').html('Creating...');
                     showMessage('success', 10000, 'Starting the engines..');
-                    setTimeout(function() {showMessage('success', 10000, 'Writing the smart contract...');}, 2000);
-                    setTimeout(function() {showMessage('success', 10000, 'Initiating transactions...');}, 4000);
-                    setTimeout(function() {showMessage('success', 10000, 'Creating your community...');}, 6000);
+                    setTimeout(function() {showMessage('success', 10000, 'Initiating smart contracts...');}, 5000);
+                    setTimeout(function() {showMessage('success', 10000, 'Writing transactions...');}, 5000);
+                    setTimeout(function() {showMessage('success', 10000, 'Finalizing your community...');}, 5000);
                 },
                 success: function(data){
                     if(data.success == true){

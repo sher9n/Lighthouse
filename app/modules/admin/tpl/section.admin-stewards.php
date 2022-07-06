@@ -9,7 +9,7 @@
                             <div class="display-5 fw-medium">Manage stewards</div>
                             <div class="text-muted mt-1">Add or remove community elected stewards and set multisig parameters</div>
                             <form id="frm_stewards" class="mt-25 col-xl-6">
-                                <div class="fw-medium mt-26">Percentage to approve</div>
+                                <div class="fw-medium mt-26">Quorum</div>
                                 <div class="d-flex align-items-center mt-6">
                                     <div id="steward_percentage" class="display-4 fw-medium text-gray-700"><?php echo $__page->community->approval_count.'/'.count($__page->stewards); ?></div>
                                     <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
@@ -124,10 +124,10 @@
                             $('#percentage_change').removeClass('d-none');
                         else
                             $('#percentage_change').addClass('d-none');
-                        showMessage('success',10000,'Success! Steward percentage has been updated.');
+                        showMessage('success',10000,'Success! The quorum has been updated.');
                     }
                     else
-                        showMessage('danger',10000,'Error! Steward percentage have not been updated.');
+                        showMessage('danger',10000,'Error! Could not update the quorum, please try again later.');
                 }
             });
         }
@@ -150,10 +150,10 @@
                             $('#percentage_change').removeClass('d-none');
                         else
                             $('#percentage_change').addClass('d-none');
-                        showMessage('success',10000,'Success! Steward has been deleted.');
+                        showMessage('success',10000,'Success! A steward has been deleted from your community.');
                     }
                     else
-                        showMessage('danger',10000,'Error! Steward have not been deleted.');
+                        showMessage('danger',10000,'Error! Could not update the steward list, please try again later.');
                 }
             });
         }
@@ -190,10 +190,10 @@
                         else
                             $('#percentage_change').addClass('d-none');
                         feather.replace();
-                        showMessage('success', 10000, 'Success! A New steward has been added.');
+                        showMessage('success', 10000, 'Success! A steward has been added to your community.');
                     }
                     else
-                        showMessage('danger',10000,'Error! A New steward have not been added.');
+                        showMessage('danger',10000,'Error! Could not update the steward list, please try again later.');
                 }
             });
         }

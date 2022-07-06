@@ -91,11 +91,44 @@ class controller extends Ctrl {
                                 $contribution->status = 1;
                                 $approve = true;
                                 $contribution->txHash = $api_response->txHash;
+
+                                $contribution->update();
+                                $approval->insert();
+
+                                $log = new Log();
+                                $log->type = 'Contribution';
+                                $log->type_id = $contribution->id;
+                                $log->action = 'created';
+                                $log->c_by = $sel_wallet_adr;
+                                $log->insert();
+
+                                $contribution_id = $contribution->id;
+                                $stewards = $community->getStewards();
+                                $html = '';
+                                foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
+                                    $steward = $stewards[$stewd_adr];
+                                    $html .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
+                                }
+
+                                $view_transaction_link = '';
+                                if($community->blockchain == SOLANA)
+                                    $view_transaction_link = SOLANA_VIEW_LINK.'tx/'.$contribution->txHash;
+                                elseif ($community->blockchain == OPTIMISM)
+                                    $view_transaction_link = OPTIMISM_VIEW_LINK.'tx/'.$contribution->txHash;
+                                else
+                                    $view_transaction_link = GNOSIS_CHAIN_VIEW_LINK.'tx/'.$contribution->txHash;
+
+                                echo json_encode(array('success' => true,
+                                    'approve' => $approve ,
+                                    'steward_html' => $html,
+                                    'c_id' => $contribution->id,
+                                    'message' => 'Success! Your attestation has been recorded. <a target="_blank" class="fw-medium mt-2 text-primary text-decoration-none" href="'.$view_transaction_link.'">View Transaction</a>')
+                                );
+                                exit();
                             }
                         }
 
                         $contribution->update();
-
                         $approval->insert();
 
                         $log = new Log();
@@ -110,10 +143,10 @@ class controller extends Ctrl {
                         $html = '';
                         foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
                             $steward = $stewards[$stewd_adr];
-                            $html .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div><a class="fw-medium mt-2 text-primary text-decoration-none" href="#">View Transaction</a>';
+                            $html .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
                         }
 
-                        echo json_encode(array('success' => true, 'approve' => $approve ,'steward_html' => $html,'c_id' => $contribution->id,'message' => 'Success! Your contribution have been updated.'));
+                        echo json_encode(array('success' => true, 'approve' => $approve ,'steward_html' => $html,'c_id' => $contribution->id,'message' => 'Success! Your attestation has been recorded.'));
                         exit();
                     }
 
@@ -132,6 +165,15 @@ class controller extends Ctrl {
                 $approvals     = Approval::getApprovals($contribution->id);
                 $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where comunity_id='$con_id' AND wallet_to='$wallet_to' order by c_at");
                 $user_arrovals = Approval::getUserApprovals($contribution->id);
+                $send_api      = ($community->approval_count - $contribution->approvals) == 1 ?true:false;
+
+                    $view_transaction_link = '';
+                if($community->blockchain == SOLANA)
+                    $view_transaction_link = SOLANA_VIEW_LINK.'tx/'.$contribution->txHash;
+                elseif ($community->blockchain == OPTIMISM)
+                    $view_transaction_link = OPTIMISM_VIEW_LINK.'tx/'.$contribution->txHash;
+                else
+                    $view_transaction_link = GNOSIS_CHAIN_VIEW_LINK.'tx/'.$contribution->txHash;
 
                 include __DIR__ . '/../tpl/partial/contribution_details.php';
                 $html = ob_get_clean();

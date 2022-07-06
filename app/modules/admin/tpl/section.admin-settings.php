@@ -79,7 +79,13 @@
                     <div class="card shadow mt-12 mb-6">
                         <div class="card-body p-xl-20">
                             <div class="display-5 fw-medium">Gas tank</div>
+                            <?php if($__page->community->blockchain == SOLANA){ ?>
                             <div class="text-muted mt-1">Send SOL on Solana Mainnet to run Lighthouse gas-free for your community</div>
+                            <?php }else if($__page->community->blockchain == GNOSIS_CHAIN){ ?>
+                                <div class="text-muted mt-1">Send Eth on Gnosis Mainnet to run Lighthouse gas-free for your community</div>
+                            <?php }else{ ?>
+                                <div class="text-muted mt-1">Send Eth on Optimism Mainnet to run Lighthouse gas-free for your community</div>
+                            <?php } ?>
                             <div class="mt-23">
                                 <label class="form-label mb-4">Send to :</label>
                                 <div class="fs-3 fw-semibold"><?php echo $__page->community->token_address; ?></div>

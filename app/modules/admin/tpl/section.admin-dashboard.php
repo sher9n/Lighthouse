@@ -221,7 +221,7 @@
         <?php if(strlen($__page->wallet_adr) > 0){ ?>
             sessionStorage.setItem("lh_sel_wallet_add", '<?php echo $__page->wallet_adr; ?>');
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify(['<?php echo $__page->wallet_adr; ?>']));
-            showMessage('success',10000,'Success! Your community have been created. '+'<a class="text-white ms-1" target="_blank" href="<?php echo $__page->view_contract; ?>"> VIEW CONTRACT</a>');
+            showMessage('success',10000,'Success! Your community has been created. '+'<a class="text-white ms-1" target="_blank" href="<?php echo $__page->view_contract; ?>"> VIEW TRANSACTION</a>');
         <?php } ?>
 
         dataLoad();
