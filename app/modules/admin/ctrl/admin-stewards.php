@@ -78,8 +78,8 @@ class controller extends Ctrl {
                     $adr = $this->getParam('adr');
                     if(Steward::deleteSteward($id,$adr,$community_id)) {
                         $c = $community->getStewards(true);
-                        $percentage =  round(($community->approval_count/$c) * 100 );
-                        echo json_encode(array('success' => true, 'stew_id' => $id,'percentage' => $percentage.'%','max' => $c));
+                        $percentage = $community->approval_count.'/'.$c;
+                        echo json_encode(array('success' => true, 'stew_id' => $id,'percentage' => $percentage,'max' => $c));
                     }
                     else
                         echo json_encode(array('success' => false));

@@ -4,6 +4,7 @@ use lighthouse\Contribution;
 use lighthouse\Community;
 use lighthouse\Approval;
 use lighthouse\Log;
+use lighthouse\Api;
 use lighthouse\Form;
 class controller extends Ctrl {
     function init() {
@@ -58,18 +59,44 @@ class controller extends Ctrl {
                         $approval->complexity = $c;
                         $approval->importance = $i;
                         $approval->quality = $q;
-                        $approval->insert();
 
                         $contribution->approvals += 1;
                         $points = $contribution->score;
                         $points += ($c + $i + $q);
                         $points = ($points/$contribution->approvals);
                         $contribution->score = $points;
+
                         if($contribution->approvals == $community->approval_count) {
-                            $contribution->status = 1;
-                            $approve = true;
+                            $blockchain = $community->blockchain;
+                            $dao_domain = $community->dao_domain;
+                            $tags       = $contribution->tags;
+                            if($blockchain != SOLANA)
+                                $api_response = Api::AddAttestation(constant(strtoupper($blockchain) . "_API"), $dao_domain,$contribution->wallet_to,$points,$contribution->contribution_reason,$tags);
+                            else
+                                $api_response = Api::AddSolanaAttestation(constant(strtoupper($blockchain) . "_API"), $dao_domain,$contribution->wallet_to,$points,$contribution->contribution_reason,$tags,'');
+
+                            if (isset($api_response->error)) {
+                                $log = new Log();
+                                $log->type = 'Attestation';
+                                $log->log = serialize($api_response->error);
+                                $log->action = 'create-failed';
+                                $log->type_id = $contribution->id;
+                                $log->c_by = $sel_wallet_adr;
+                                $log->insert();
+
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to create attestation, please retry again.'));
+                                exit();
+                            }
+                            else {
+                                $contribution->status = 1;
+                                $approve = true;
+                                $contribution->txHash = $api_response->txHash;
+                            }
                         }
+
                         $contribution->update();
+
+                        $approval->insert();
 
                         $log = new Log();
                         $log->type = 'Contribution';

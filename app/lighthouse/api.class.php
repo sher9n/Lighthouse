@@ -139,5 +139,66 @@ class Api{
         curl_close($curl);
         return json_decode($response);
     }
+
+    public static function AddSolanaAttestation($url,$domain,$receiver,$amount,$reason,$tags,$pointsBreakdown) {
+        $url = $url."api/".$domain."/addLog";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "receiver": "'.$receiver.'",
+          "amount": "'.$amount.'",
+          "reason": "'.$reason.'",
+          "tags": "'.$tags.'"
+          "pointsBreakdown": "'.$pointsBreakdown.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        /*        $error_msg = curl_error($curl);
+                var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function AddAttestation($url,$domain,$receiver,$amount,$reason,$tags) {
+        $url = $url."api/contractsAPI/".$domain."/attest?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "receiver": "'.$receiver.'",
+          "amount": "'.$amount.'",
+          "reason": "'.$reason.'",
+          "tags": "'.$tags.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        /*        $error_msg = curl_error($curl);
+                var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
 }
 ?>
