@@ -93,8 +93,8 @@ class controller extends Ctrl {
                     $community->approval_count = $this->getParam('range');
                     $community->update();
                     $c = $community->getStewards(true);
-                    $percentage =  round(($community->approval_count/$c) * 100 );
-                    echo json_encode(array('success' => true, 'percentage' => $percentage.'%','max' => $c));
+                    $percentage =  $community->approval_count.'/'.$c;
+                    echo json_encode(array('success' => true, 'percentage' => $percentage,'max' => $c));
                 }
                 else
                     echo json_encode(array('success' => false));
