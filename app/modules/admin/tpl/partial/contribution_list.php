@@ -27,6 +27,60 @@ if($claims != false && $claims->num_rows > 0 ){
                     </ul>
             </a>
         </li>
+        <!-- Skeleton -->
+        <div class="d-flex flex-column loading"> <!-- d-flex repace to d-none -->
+            <div class="list-approvals-item-two">
+                <div class="text-decoration-none">
+                    <div class="d-flex align-items-center my-1">
+                        <div class="fs-4-text-content w-40"></div>
+                        <div class="ms-auto text-content w-10"></div>
+                    </div>
+                    <div class="text-content my-3"></div>
+                    <div class="skeleton-btn-gray rounded"></div>
+                </div>
+            </div>
+            <div class="list-approvals-item-two">
+                <div class="text-decoration-none">
+                    <div class="d-flex align-items-center my-1">
+                        <div class="fs-4-text-content w-40"></div>
+                        <div class="ms-auto text-content w-10"></div>
+                    </div>
+                    <div class="text-content my-3"></div>
+                    <div class="skeleton-btn-gray rounded"></div>
+                </div>
+            </div>
+            <div class="list-approvals-item-two">
+                <div class="text-decoration-none">
+                    <div class="d-flex align-items-center my-1">
+                        <div class="fs-4-text-content w-40"></div>
+                        <div class="ms-auto text-content w-10"></div>
+                    </div>
+                    <div class="text-content my-3"></div>
+                    <div class="skeleton-btn-gray rounded"></div>
+                </div>
+            </div>
+            <div class="list-approvals-item-two">
+                <div class="text-decoration-none">
+                    <div class="d-flex align-items-center my-1">
+                        <div class="fs-4-text-content w-40"></div>
+                        <div class="ms-auto text-content w-10"></div>
+                    </div>
+                    <div class="text-content my-3"></div>
+                    <div class="skeleton-btn-gray rounded"></div>
+                </div>
+            </div>
+            <div class="list-approvals-item-two border-bottom-0">
+                <div class="text-decoration-none">
+                    <div class="d-flex align-items-center my-1">
+                        <div class="fs-4-text-content w-40"></div>
+                        <div class="ms-auto text-content w-10"></div>
+                    </div>
+                    <div class="text-content my-3"></div>
+                    <div class="skeleton-btn-gray rounded"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Skeleton END -->
         <?php
     }
     ?>
