@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-            <?php if(count($user_arrovals) > 0){ ?>
+            <?php if(count($user_arrovals) > 0 && $contribution->status == 1){ ?>
             <div class="row">
                 <div class="col-4 align-self-center">
                     <div class="fw-medium fs-lg">Complexity</div>
@@ -339,8 +339,6 @@
                 if (response.success == true) {
 
                     if($('#cq_item_'+c_id).parent().parent().find("li").length == 2) {
-
-                        //$('#claim_details').html('');
                         $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
                             '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
                             '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
@@ -360,6 +358,7 @@
 
                     showMessage('success',10000,response.message);
                     $('#claim-approvals').html(response.steward_html);
+                    $('#claim_details').html('');
                     $('#btn_row').remove();
 
                     if(response.approve)
@@ -388,8 +387,6 @@
                     showMessage('success',10000,'Success! Your attestation has been recorded');
 
                     if($('#cq_item_'+c_id).parent().parent().find("li").length == 2) {
-
-                      //  $('#claim_details').html('');
                         $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
                             '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
                             '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
@@ -406,7 +403,7 @@
                             '                        </div>\n' +
                             '                    </div>');
                     }*/
-
+                    $('#claim_details').html('');
                     $('#cq_item_'+c_id).remove();
                 }
             }

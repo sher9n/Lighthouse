@@ -64,7 +64,7 @@ foreach ($__page->js as $page_js) { ?>
     function showMessage(status,time,message) {
         SnackBar({
             status: status,
-            position: "bl",
+            position: "br",
             icon: "	 ",
             timeout: time,
             message: message

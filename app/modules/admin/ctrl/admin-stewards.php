@@ -59,8 +59,8 @@ class controller extends Ctrl {
                                 </div>';
 
                     $c = $community->getStewards(true);
-                    $percentage =  round(($community->approval_count/$c) * 100 );
-                    echo json_encode(array('success' => true, 'html' => $html,'percentage' => $percentage.'%','max' => $c));
+                    $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
+                    echo json_encode(array('success' => true, 'html' => $html,'percentage' => $percentage,'max' => $c));
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());
                     $element = 'error-msg';
@@ -78,7 +78,7 @@ class controller extends Ctrl {
                     $adr = $this->getParam('adr');
                     if(Steward::deleteSteward($id,$adr,$community_id)) {
                         $c = $community->getStewards(true);
-                        $percentage = $community->approval_count.'/'.$c;
+                        $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
                         echo json_encode(array('success' => true, 'stew_id' => $id,'percentage' => $percentage,'max' => $c));
                     }
                     else
@@ -93,7 +93,7 @@ class controller extends Ctrl {
                     $community->approval_count = $this->getParam('range');
                     $community->update();
                     $c = $community->getStewards(true);
-                    $percentage =  $community->approval_count.'/'.$c;
+                    $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
                     echo json_encode(array('success' => true, 'percentage' => $percentage,'max' => $c));
                 }
                 else

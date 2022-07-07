@@ -154,9 +154,18 @@ class controller extends Ctrl {
         }
         else {
 
+            $view_transaction = '';
+            if($community->blockchain == SOLANA)
+                $view_transaction = SOLANA_VIEW_LINK.'account/'.$community->gas_address;
+            elseif ($community->blockchain == OPTIMISM)
+                $view_transaction = OPTIMISM_VIEW_LINK.'address/'.$community->gas_address;
+            else
+                $view_transaction = GNOSIS_CHAIN_VIEW_LINK.'address/'.$community->gas_address;
+
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'view_transaction' => $view_transaction,
                 'is_admin' => $is_admin,
                 'community' => $community,
                 'blockchain' => $community->blockchain,

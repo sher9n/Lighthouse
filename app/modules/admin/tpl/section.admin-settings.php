@@ -94,7 +94,7 @@
                                 <label class="form-label mb-4">Current balance :</label>
                                 <div class="fs-3 fw-semibold" id="balance"></div>
                             </div>
-                            <a role="button" class="btn btn-primary mt-16" href="#">View Transactions</a>
+                            <a role="button" target="_blank" class="btn btn-primary mt-16" href="<?php echo $__page->view_transaction; ?>">View Transactions</a>
                         </div>
                     </div>
                 </div>

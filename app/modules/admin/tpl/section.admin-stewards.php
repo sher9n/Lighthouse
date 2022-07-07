@@ -12,7 +12,8 @@
                                 <div class="fw-medium mt-26">Quorum</div>
                                 <div class="d-flex align-items-center mt-6">
                                     <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
-                                        <div class="fs-1"><?php echo $__page->community->approval_count.'</div><div class="fs-2">/'.count($__page->stewards); ?></div></div>
+                                        <div class="fs-1"><?php echo $__page->community->approval_count.'</div><div class="fs-2">/'.count($__page->stewards); ?></div>
+                                    </div>
                                     <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
@@ -83,7 +84,7 @@
           <div class="modal-body">
             <div class="fs-2 fw-semibold mb-15">Select quorum</div>            
             <label for="basic-url" class="form-label">Quorum</label>
-            <div class="col-5">
+            <div class="col-6">
                 <div class="input-group">
                     <input type="text" id="steward_range" name="range" class="form-control form-control-lg" value="<?php echo $__page->community->approval_count; ?>" aria-describedby="max_label" max="<?php echo count($__page->stewards) + 1; ?>">
                     <span class="input-group-text" id="max_label">of <?php echo count($__page->stewards) + 1; ?></span>

@@ -24,58 +24,13 @@
                         </div>
                         <div class="tab-content h-100" id="pills-tabContent">
                             <div class="tab-pane fade h-100 show active" id="pills-queue" role="tabpanel" aria-labelledby="pills-queue-tab">
-                                   <?php
-                                   if(count($__page->claims) > 0) {
-                                       ?>
-                                        <ul class="list-approvals">
-                                       <?php
-                                       foreach ($__page->claims as $claim) { ?>
-                                           <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="cq_item_<?php echo $claim['c_id']; ?>">
-                                               <a class="text-decoration-none" href="#">
-                                                   <div class="d-flex align-items-center">
-                                                       <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
-                                                           <div><?php echo $claim['form_title']; ?></div>
-                                                       </div>
-                                                       <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
-                                                   </div>
-                                                   <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
-                                                   <ul class="select2-selection__rendered d-flex gap-3">
-                                                       <?php
-                                                       if(isset($claim['tags']) && strlen($claim['tags']) > 0){
-                                                           $tags_arry = explode(",",$claim['tags']);
-                                                           foreach ($tags_arry as $tag){ ?>
-
-                                                               <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
-                                                               <?php
-                                                           }
-                                                       } ?>
-                                                   </ul>
-                                               </a>
-                                           </li>
+                                <?php
+                                if(count($__page->claims) > 0) {
+                                    ?>
+                                    <ul class="list-approvals">
                                         <?php
-                                       }
-                                       ?>
-                                        </ul>
-                                     <?php
-                                   }
-                                   else{
-                                       ?>
-                                       <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                                           <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                           <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your queue!</div>
-                                           <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
-                                       </div>
-                                        <?php
-                                   } ?>
-                            </div>
-                            <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
-                                    <?php
-                                    if(count($__page->a_claims) > 0) {
-                                        ?>
-                                        <ul class="list-approvals">
-                                        <?php
-                                        foreach ($__page->a_claims as $claim) { ?>
-                                            <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="ca_item_<?php echo $claim['c_id']; ?>">
+                                        foreach ($__page->claims as $claim) { ?>
+                                            <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="cq_item_<?php echo $claim['c_id']; ?>">
                                                 <a class="text-decoration-none" href="#">
                                                     <div class="d-flex align-items-center">
                                                         <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
@@ -100,98 +55,24 @@
                                             <?php
                                         }
                                         ?>
-                                        </ul>
-                                      <?php
-                                    }
-                                    else{
-                                        ?>
-                                        <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                                            <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                            <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>it will show up here</div>
-                                        </div>
-                                        <?php
-                                    } ?>
+                                    </ul>
+                                    <?php
+                                }
+                                else{
+                                    ?>
+                                    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                                        <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
+                                        <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your queue!</div>
+                                        <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
+                                    </div>
+                                    <?php
+                                } ?>
+                            </div>
+                            <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
                             </div>
                             <div class="tab-pane fade h-100" id="pills-reviewed" role="tabpanel" aria-labelledby="pills-reviewed-tab">
-                            <?php if(count($__page->r_claims) > 0) { ?>
-                                <ul class="list-approvals">
-                                <?php foreach ($__page->r_claims as $claim) { ?>
-                                    <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="ca_item_<?php echo $claim['c_id']; ?>">
-                                        <a class="text-decoration-none" href="#">
-                                            <div class="d-flex align-items-center">
-                                                <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
-                                                    <div><?php echo $claim['form_title']; ?></div>
-                                                </div>
-                                                <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
-                                            </div>
-                                            <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
-                                            <ul class="select2-selection__rendered d-flex gap-3">
-                                                <?php
-                                                if(isset($claim['tags']) && strlen($claim['tags']) > 0 ){
-                                                    $tags_arry = explode(",",$claim['tags']);
-                                                    foreach ($tags_arry as $tag){ ?>
-
-                                                        <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
-                                                        <?php
-                                                    }
-                                                } ?>
-                                            </ul>
-                                        </a>
-                                    </li>
-                                <?php } ?>
-                                </ul>
-                            <?php }else{ ?>
-                                <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                                    <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                    <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>
-                                        it will show up here</div>
-                                </div>
-                            <?php } ?>
                             </div>
                             <div class="tab-pane fade h-100" id="pills-denied" role="tabpanel" aria-labelledby="pills-denied-tab">
-                                    <?php
-                                    if(count($__page->d_claims) > 0) {
-                                        ?>
-                                        <ul class="list-approvals">
-                                        <?php
-                                        foreach ($__page->d_claims as $claim) { ?>
-                                            <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="ca_item_<?php echo $claim['c_id']; ?>">
-                                                <a class="text-decoration-none" href="#">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
-                                                            <div><?php echo $claim['form_title']; ?></div>
-                                                        </div>
-                                                        <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
-                                                    </div>
-                                                    <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?>/div>
-                                                    <ul class="select2-selection__rendered d-flex gap-3">
-                                                        <?php
-                                                        if(isset($claim['tags']) && strlen($claim['tags']) > 0){
-                                                            $tags_arry = explode(",",$claim['tags']);
-                                                            foreach ($tags_arry as $tag){ ?>
-
-                                                                <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
-                                                                <?php
-                                                            }
-                                                        } ?>
-                                                    </ul>
-                                                </a>
-                                            </li>
-                                            <?php
-                                        }
-                                        ?>
-                                        </ul>
-                                    <?php
-                                    }
-                                    else{
-                                        ?>
-                                        <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                                            <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                            <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>
-                                                it will show up here</div>
-                                        </div>
-                                        <?php
-                                    } ?>
                             </div>
                         </div>
                     </div>
@@ -218,8 +99,27 @@
 
     $(document).on('shown.bs.tab', function (e) {
         var t = $(e.target).text();
-        if(t=='Approved' || t=='Reviewed' || t=='Denied' || t=='Queue')
+        if(t=='Approved' || t=='Reviewed' || t=='Denied' || t=='Queue') {
             $('#claim_details').html('');
+
+            $.ajax({
+                url: 'contribution-list?t='+t,
+                dataType: 'json',
+                type: 'GET',
+                success: function (response) {
+                    if (response.success == true) {
+                        if (t == 'Approved')
+                            $('#pills-approved').html(response.html);
+                        else if(t == 'Reviewed')
+                            $('#pills-reviewed').html(response.html);
+                        else if(t == 'Denied')
+                            $('#pills-denied').html(response.html);
+                        else
+                            $('#pills-queue').html(response.html);
+                    }
+                }
+            });
+        }
     });
 
     $(document).ready(function() {

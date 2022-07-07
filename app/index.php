@@ -39,6 +39,7 @@ try {
         '/admin-approvals' => 'modules/admin/ctrl/admin-approvals.php',
         '/contribution-status' =>  'modules/admin/ctrl/admin-approvals.php',
         '/contribution' => 'modules/admin/ctrl/contribution.php',
+        '/contribution-list' => 'modules/admin/ctrl/contribution.php',
         '/similar-contributions' => 'modules/admin/ctrl/contribution.php',
         '/contribution-details' => 'modules/admin/ctrl/admin-approvals.php',
         '/steward-percentage' => 'modules/admin/ctrl/admin-stewards.php',

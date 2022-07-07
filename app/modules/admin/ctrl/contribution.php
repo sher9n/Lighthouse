@@ -94,34 +94,56 @@ class controller extends Ctrl {
                 exit();
             }
             else {
-                $html = $sql = '';
-                $com_id = $community->id;
+                if(__ROUTER_PATH == '/contribution-list' ) {
+                    $html = '';
+                    if($this->hasParam('t')) {
+                        $t = $this->getParam('t');
+                        $domain = $community->dao_domain;
+                        $status = 'c.status = 0';
+                        if($t == 'Denied')
+                            $status = 'c.status = 2';
+                        elseif ($t == 'Approved')
+                            $status = 'c.status = 1';
+                        elseif ($t = 'Reviewed')
+                            $status = 'c.status = 1 AND c.status = 2';
 
-                if($this->hasParam('c') && intval($this->getParam('c')) > 0)
-                    $sql .= ' AND complexity='.$this->getParam('c');
-
-                if($this->hasParam('i') && intval($this->getParam('i')) > 0)
-                    $sql .= ' AND importance='.$this->getParam('i');
-
-                if($this->hasParam('q') && intval($this->getParam('q')) > 0)
-                    $sql .= ' AND quality='.$this->getParam('q');
-
-                $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at FROM contributions c LEFT JOIN approvals a ON c.id=a.contribution_id where comunity_id='$com_id' ".$sql);
-                if($contributions != false && $contributions->num_rows > 0) {
-                    while ($row = $contributions->fetch_array(MYSQLI_ASSOC)) {
-                        $html .= '<div class="p-8 bg-lighter rounded-1 mb-6">
-                        <div class="text-muted fs-sm">'.Utils::time_elapsed_string($row['c_at'],false,true).'</div>
-                        <div class="fw-medium mt-1">'.$row['contribution_reason'].'</div></div>';
+                        $claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id WHERE $status AND f.id <> 2 AND com.dao_domain='$domain'");
+                        include __DIR__ . '/../tpl/partial/contribution_list.php';
+                        $html = ob_get_clean();
                     }
+
+                    echo json_encode(array('success' => true,'html'=>$html));
+                    exit();
                 }
                 else {
-                    $html = '<div class="d-flex flex-column align-items-center justify-content-center py-25">
-                        <img src="'.app_cdn_path.'img/img-empty.svg" width="208">
-                        <div class="fw-medium mt-4">No data found.</div></div>';
-                }
+                    $html = $sql = '';
+                    $com_id = $community->id;
 
-                echo json_encode(array('success' => true, 'html' => $html));
-                exit();
+                    if ($this->hasParam('c') && intval($this->getParam('c')) > 0)
+                        $sql .= ' AND complexity=' . $this->getParam('c');
+
+                    if ($this->hasParam('i') && intval($this->getParam('i')) > 0)
+                        $sql .= ' AND importance=' . $this->getParam('i');
+
+                    if ($this->hasParam('q') && intval($this->getParam('q')) > 0)
+                        $sql .= ' AND quality=' . $this->getParam('q');
+
+                    $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at FROM contributions c LEFT JOIN approvals a ON c.id=a.contribution_id where comunity_id='$com_id' " . $sql);
+                    if ($contributions != false && $contributions->num_rows > 0) {
+                        while ($row = $contributions->fetch_array(MYSQLI_ASSOC)) {
+                            $html .= '<div class="p-8 bg-lighter rounded-1 mb-6">
+                        <div class="text-muted fs-sm">' . Utils::time_elapsed_string($row['c_at'], false, true) . '</div>
+                        <div class="fw-medium mt-1">' . $row['contribution_reason'] . '</div></div>';
+                        }
+                    } else {
+                        $html = '<div class="d-flex flex-column align-items-center justify-content-center py-25">
+                        <img src="' . app_cdn_path . 'img/img-empty.svg" width="208">
+                        <div class="fw-medium mt-4">No data found.</div></div>';
+                    }
+
+                    echo json_encode(array('success' => true, 'html' => $html));
+                    exit();
+                }
             }
         }
         else {

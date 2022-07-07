@@ -122,7 +122,7 @@ class controller extends Ctrl {
                                     'approve' => $approve ,
                                     'steward_html' => $html,
                                     'c_id' => $contribution->id,
-                                    'message' => 'Success! Your attestation has been recorded. <a target="_blank" class="fw-medium mt-2 text-primary text-decoration-none" href="'.$view_transaction_link.'">View Transaction</a>')
+                                    'message' => 'Success! Your attestation has been recorded. <a target="_blank" class="text-white ms-1" href="'.$view_transaction_link.'">View Transaction</a>')
                                 );
                                 exit();
                             }
@@ -190,20 +190,13 @@ class controller extends Ctrl {
             }
 
             $domain = $site['sub_domain'];
-            $all_claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id WHERE f.id <> 2 AND com.dao_domain='$domain'");
-            $claims = $a_claims = $r_claims = $d_claims= array();
+
+            $all_claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id LEFT JOIN approvals a ON c.id=a.complexity WHERE c.status= 0 AND f.id <> 2 AND a.approval_by <> '$sel_wallet_adr' AND com.dao_domain='$domain'");
+            $claims = array();
 
             if($all_claims != false) {
                 foreach ($all_claims as $claim) {
-                    if ($claim['status'] == 0)
-                        array_push($claims, $claim);
-                    elseif ($claim['status'] == 1) {
-                        array_push($a_claims, $claim);
-                        array_push($r_claims, $claim);
-                    } else {
-                        array_push($d_claims, $claim);
-                        array_push($r_claims, $claim);
-                    }
+                    array_push($claims, $claim);
                 }
             }
 
@@ -214,10 +207,7 @@ class controller extends Ctrl {
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'is_admin' => $is_admin,
                 'claims' => $claims,
-                'a_claims' => $a_claims,
                 'all_claims' => $all_claims,
-                'r_claims' => $r_claims,
-                'd_claims' => $d_claims,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-approvals.php'
                 ),
