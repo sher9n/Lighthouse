@@ -93,6 +93,9 @@
                             <div class="mt-16">
                                 <label class="form-label mb-4">Current balance :</label>
                                 <div class="fs-3 fw-semibold" id="balance"></div>
+                                <!-- Skeleton text -->
+                                <div class="fs-2-text-content w-30 loading"></div>
+                                 <!-- Skeleton text END -->
                             </div>
                             <a role="button" target="_blank" class="btn btn-primary mt-16" href="<?php echo $__page->view_transaction; ?>">View Transactions</a>
                         </div>
