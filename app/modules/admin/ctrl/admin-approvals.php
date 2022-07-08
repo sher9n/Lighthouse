@@ -163,7 +163,8 @@ class controller extends Ctrl {
                 $wallet_to     = $contribution->wallet_to;
                 $stewards      = $community->getStewards();
                 $approvals     = Approval::getApprovals($contribution->id);
-                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where comunity_id='$con_id' AND wallet_to='$wallet_to' order by c_at");
+                $com_id        = $community->id;
+                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where comunity_id='$com_id' AND wallet_to='$wallet_to' order by c_at");
                 $user_arrovals = Approval::getUserApprovals($contribution->id);
                 $send_api      = ($community->approval_count - $contribution->approvals) == 1 ?true:false;
 
@@ -189,13 +190,23 @@ class controller extends Ctrl {
                 die();
             }
 
-            $domain = $site['sub_domain'];
+            $community_id  = $community->id;
+            $reviewed_ids  = array();
+            $reviewed_data = Contribution::find("SELECT a.contribution_id FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.comunity_id='$community_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
+            if($reviewed_data->num_rows > 0) {
+                foreach ($reviewed_data as $review) {
+                    array_push($reviewed_ids,$review['contribution_id']);
+                }
 
-            $all_claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id LEFT JOIN approvals a ON c.id=a.complexity WHERE c.status= 0 AND f.id <> 2 AND a.approval_by <> '$sel_wallet_adr' AND com.dao_domain='$domain'");
+                $id_sql = '('.implode(",",$reviewed_ids).')';
+                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id' AND c.id NOT IN ".$id_sql);
+            }
+            else
+                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id'");
+
             $claims = array();
-
-            if($all_claims != false) {
-                foreach ($all_claims as $claim) {
+            if($claim_all != false) {
+                foreach ($claim_all as $claim) {
                     array_push($claims, $claim);
                 }
             }
@@ -207,7 +218,6 @@ class controller extends Ctrl {
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'is_admin' => $is_admin,
                 'claims' => $claims,
-                'all_claims' => $all_claims,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-approvals.php'
                 ),

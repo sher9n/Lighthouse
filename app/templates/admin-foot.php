@@ -34,6 +34,11 @@
     </div>
 </div>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        feather.replace();
+    });
+</script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/jquery.form.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/popper.min.js"></script>

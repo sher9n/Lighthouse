@@ -106,6 +106,60 @@
                 url: 'contribution-list?t='+t,
                 dataType: 'json',
                 type: 'GET',
+                beforeSend: function (){
+                    $('#pills-approved, #pills-reviewed, #pills-denied, #pills-queue').html('<ul class="list-approvals"><div class="d-flex flex-column loading">\n' +
+                        '            <div class="list-approvals-item-two">\n' +
+                        '                <div class="text-decoration-none">\n' +
+                        '                    <div class="d-flex align-items-center my-1">\n' +
+                        '                        <div class="fs-4-text-content w-40"></div>\n' +
+                        '                        <div class="ms-auto text-content w-10"></div>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="text-content my-3"></div>\n' +
+                        '                    <div class="skeleton-btn-gray rounded"></div>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="list-approvals-item-two">\n' +
+                        '                <div class="text-decoration-none">\n' +
+                        '                    <div class="d-flex align-items-center my-1">\n' +
+                        '                        <div class="fs-4-text-content w-40"></div>\n' +
+                        '                        <div class="ms-auto text-content w-10"></div>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="text-content my-3"></div>\n' +
+                        '                    <div class="skeleton-btn-gray rounded"></div>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="list-approvals-item-two">\n' +
+                        '                <div class="text-decoration-none">\n' +
+                        '                    <div class="d-flex align-items-center my-1">\n' +
+                        '                        <div class="fs-4-text-content w-40"></div>\n' +
+                        '                        <div class="ms-auto text-content w-10"></div>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="text-content my-3"></div>\n' +
+                        '                    <div class="skeleton-btn-gray rounded"></div>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="list-approvals-item-two">\n' +
+                        '                <div class="text-decoration-none">\n' +
+                        '                    <div class="d-flex align-items-center my-1">\n' +
+                        '                        <div class="fs-4-text-content w-40"></div>\n' +
+                        '                        <div class="ms-auto text-content w-10"></div>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="text-content my-3"></div>\n' +
+                        '                    <div class="skeleton-btn-gray rounded"></div>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="list-approvals-item-two border-bottom-0">\n' +
+                        '                <div class="text-decoration-none">\n' +
+                        '                    <div class="d-flex align-items-center my-1">\n' +
+                        '                        <div class="fs-4-text-content w-40"></div>\n' +
+                        '                        <div class="ms-auto text-content w-10"></div>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="text-content my-3"></div>\n' +
+                        '                    <div class="skeleton-btn-gray rounded"></div>\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '        </div></ul>');
+                },
                 success: function (response) {
                     if (response.success == true) {
                         if (t == 'Approved')

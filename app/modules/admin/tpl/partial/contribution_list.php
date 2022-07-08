@@ -1,12 +1,12 @@
 <?php
 use Core\Utils;
-if($claims != false && $claims->num_rows > 0 ){
+if($claims != false && count($claims) > 0 ){
     ?>
     <ul class="list-approvals">
     <?php
     foreach ($claims as $claim) {
         ?>
-        <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="ca_item_<?php echo $claim['c_id']; ?>">
+        <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="cq_item_<?php echo $claim['c_id']; ?>">
             <a class="text-decoration-none" href="#">
                 <div class="d-flex align-items-center">
                     <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
@@ -27,60 +27,6 @@ if($claims != false && $claims->num_rows > 0 ){
                     </ul>
             </a>
         </li>
-        <!-- Skeleton -->
-        <div class="d-flex flex-column loading"> <!-- d-flex repace to d-none -->
-            <div class="list-approvals-item-two">
-                <div class="text-decoration-none">
-                    <div class="d-flex align-items-center my-1">
-                        <div class="fs-4-text-content w-40"></div>
-                        <div class="ms-auto text-content w-10"></div>
-                    </div>
-                    <div class="text-content my-3"></div>
-                    <div class="skeleton-btn-gray rounded"></div>
-                </div>
-            </div>
-            <div class="list-approvals-item-two">
-                <div class="text-decoration-none">
-                    <div class="d-flex align-items-center my-1">
-                        <div class="fs-4-text-content w-40"></div>
-                        <div class="ms-auto text-content w-10"></div>
-                    </div>
-                    <div class="text-content my-3"></div>
-                    <div class="skeleton-btn-gray rounded"></div>
-                </div>
-            </div>
-            <div class="list-approvals-item-two">
-                <div class="text-decoration-none">
-                    <div class="d-flex align-items-center my-1">
-                        <div class="fs-4-text-content w-40"></div>
-                        <div class="ms-auto text-content w-10"></div>
-                    </div>
-                    <div class="text-content my-3"></div>
-                    <div class="skeleton-btn-gray rounded"></div>
-                </div>
-            </div>
-            <div class="list-approvals-item-two">
-                <div class="text-decoration-none">
-                    <div class="d-flex align-items-center my-1">
-                        <div class="fs-4-text-content w-40"></div>
-                        <div class="ms-auto text-content w-10"></div>
-                    </div>
-                    <div class="text-content my-3"></div>
-                    <div class="skeleton-btn-gray rounded"></div>
-                </div>
-            </div>
-            <div class="list-approvals-item-two border-bottom-0">
-                <div class="text-decoration-none">
-                    <div class="d-flex align-items-center my-1">
-                        <div class="fs-4-text-content w-40"></div>
-                        <div class="ms-auto text-content w-10"></div>
-                    </div>
-                    <div class="text-content my-3"></div>
-                    <div class="skeleton-btn-gray rounded"></div>
-                </div>
-            </div>
-        </div>
-        <!-- Skeleton END -->
         <?php
     }
     ?>

@@ -1,7 +1,28 @@
 <?php
 namespace lighthouse;
 class Api{
-    public static function getGasTankBalance($url,$slug) {
+    public static function getGasTankBalance($url,$dao_domain) {
+        $url = $url."api/contractsAPI/".$dao_domain."/getTankInfo?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Length: 0",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $obj = json_decode($response);
+        if(!isset($obj->error))
+            return $obj->balance;
+        else
+            return null;
+    }
+
+    public static function getSolanaGasTankBalance($url,$slug) {
         $url = SOLANA_API."api/".$slug."/getTankBalance";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);

@@ -266,7 +266,71 @@
                 dataType: 'json',
                 type: 'GET',
                 beforeSend: function() {
-                    $('#list_history').html('');
+                    $('#list_history').html('<div class="d-flex flex-column loading">\n' +
+                        '        <div class="list-history-item">\n' +
+                        '            <div class="text-decoration-none">\n' +
+                        '                <div class="d-flex align-items-center my-1">\n' +
+                        '                    <div class="fs-4-text-content w-40"></div>\n' +
+                        '                    <div class="ms-auto text-content w-10"></div>\n' +
+                        '                </div>\n' +
+                        '                <div class="text-content my-3"></div>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="list-history-item">\n' +
+                        '            <div class="text-decoration-none">\n' +
+                        '                <div class="d-flex align-items-center my-1">\n' +
+                        '                    <div class="fs-4-text-content w-40"></div>\n' +
+                        '                    <div class="ms-auto text-content w-10"></div>\n' +
+                        '                </div>\n' +
+                        '                <div class="text-content my-3"></div>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="list-history-item">\n' +
+                        '            <div class="text-decoration-none">\n' +
+                        '                <div class="d-flex align-items-center my-1">\n' +
+                        '                    <div class="fs-4-text-content w-40"></div>\n' +
+                        '                    <div class="ms-auto text-content w-10"></div>\n' +
+                        '                </div>\n' +
+                        '                <div class="text-content my-3"></div>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="list-history-item">\n' +
+                        '            <div class="text-decoration-none">\n' +
+                        '                <div class="d-flex align-items-center my-1">\n' +
+                        '                    <div class="fs-4-text-content w-40"></div>\n' +
+                        '                    <div class="ms-auto text-content w-10"></div>\n' +
+                        '                </div>\n' +
+                        '                <div class="text-content my-3"></div>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="list-history-item">\n' +
+                        '            <div class="text-decoration-none">\n' +
+                        '                <div class="d-flex align-items-center my-1">\n' +
+                        '                    <div class="fs-4-text-content w-40"></div>\n' +
+                        '                    <div class="ms-auto text-content w-10"></div>\n' +
+                        '                </div>\n' +
+                        '                <div class="text-content my-3"></div>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="list-history-item">\n' +
+                        '            <div class="text-decoration-none">\n' +
+                        '                <div class="d-flex align-items-center my-1">\n' +
+                        '                    <div class="fs-4-text-content w-40"></div>\n' +
+                        '                    <div class="ms-auto text-content w-10"></div>\n' +
+                        '                </div>\n' +
+                        '                <div class="text-content my-3"></div>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="list-history-item border-bottom-0">\n' +
+                        '            <div class="text-decoration-none">\n' +
+                        '                <div class="d-flex align-items-center my-1">\n' +
+                        '                    <div class="fs-4-text-content w-40"></div>\n' +
+                        '                    <div class="ms-auto text-content w-10"></div>\n' +
+                        '                </div>\n' +
+                        '                <div class="text-content my-3"></div>\n' +
+                        '            </div>\n' +
+                        '        </div>\n' +
+                        '    </div>');
                 },
                 success: function (response) {
                     $('#list_history').html(response.html);

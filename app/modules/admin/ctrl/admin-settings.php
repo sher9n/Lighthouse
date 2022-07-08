@@ -40,14 +40,18 @@ class controller extends Ctrl {
                 exit();
             }
             elseif (__ROUTER_PATH == '/gas_tank_balance' ) {
-                $balance = Api::getGasTankBalance(constant(strtoupper($community->blockchain).'_API'),app_site);
-                if(is_null($balance))
-                    $balance = 0;
-
-                if($community->blockchain == SOLANA)
+                if($community->blockchain == SOLANA) {
+                    $balance = Api::getSolanaGasTankBalance(constant(strtoupper($community->blockchain) . '_API'), app_site);
+                    if(is_null($balance))
+                        $balance = 0;
                     echo json_encode(array('success' => true, 'balance' => 'Ξ'.$balance.' SOL'));
-                else
+                }
+                else {
+                    $balance = Api::getGasTankBalance(constant(strtoupper($community->blockchain) . '_API'), app_site);
+                    if(is_null($balance))
+                        $balance = 0;
                     echo json_encode(array('success' => true, 'balance' => 'Ξ'.$balance.' (ERC-20)'));
+                }
                 exit();
             }
             else {

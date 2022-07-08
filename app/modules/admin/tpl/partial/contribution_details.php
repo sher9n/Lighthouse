@@ -345,24 +345,11 @@
                             '</div>');
 
                     }
-                    /*else {
-
-                        $('#claim_details').html('<div class="card shadow h-100">\n' +
-                            '                        <div class="card-body">\n' +
-                            '                            <div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                            '                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                            '                            </div>\n' +
-                            '                        </div>\n' +
-                            '                    </div>');
-                    }*/
-
                     showMessage('success',10000,response.message);
                     $('#claim-approvals').html(response.steward_html);
                     $('#claim_details').html('');
                     $('#btn_row').remove();
-
-                    if(response.approve)
-                        $('#cq_item_'+c_id).remove();
+                    $('#cq_item_'+c_id).remove();
                 }
             }
         });
@@ -393,16 +380,6 @@
                             '</div>');
 
                     }
-/*                    else {
-
-                        $('#claim_details').html('<div class="card shadow h-100">\n' +
-                            '                        <div class="card-body">\n' +
-                            '                            <div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                            '                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                            '                            </div>\n' +
-                            '                        </div>\n' +
-                            '                    </div>');
-                    }*/
                     $('#claim_details').html('');
                     $('#cq_item_'+c_id).remove();
                 }
@@ -410,57 +387,4 @@
         });
     });
 
-    $(document).ready(function() {
-
-        $('#nttsForm').validate({
-            rules: {
-                ntts:{
-                    required: true
-                }
-            },
-            submitHandler: function(form){
-                $(form).ajaxSubmit({
-                    type:'post',
-                    dataType:'json',
-                    beforeSend: function() {
-                        $('#btn_submit').prop('disabled', true);
-                        showMessage('success',10000,'Submitting your attestation...');
-                    },
-                    success: function(data){
-                        $('#btn_submit').prop('disabled', false);
-                        if(data.success == true){
-                            showMessage('Success! Your attestation has been recorded.', 10000, data.message);
-
-                            if($('#cq_item_'+data.c_id).parent().parent().find("li").length == 1) {
-                                $('#cq_item_'+data.c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                                    '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                                    '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a claim,<br>it will show up here</div>' +
-                                    '</div>');
-                                $('#claim_details').html('');
-                            }
-                            else {
-                                $('#claim_details').html('<div class="card shadow h-100">\n' +
-                                    '                        <div class="card-body">\n' +
-                                    '                            <div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                                    '                                <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                                    '                            </div>\n' +
-                                    '                        </div>\n' +
-                                    '                    </div>');
-                            }
-                            $('#cq_item_'+data.c_id).remove();
-                        }
-                        else{
-                            if(data.message) {
-                                showMessage('danger', 10000, data.message);
-                            }
-                            else {
-                                $('#' + data.element).addClass('form-control-lg error');
-                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
-                            }
-                        }
-                    }
-                });
-            }
-        });
-    });
 </script>
