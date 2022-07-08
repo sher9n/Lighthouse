@@ -4,6 +4,28 @@ async function addWallet() {
     $("#AdminCenter").modal('show');
 }
 
+window.ethereum.on("accountsChanged", accounts => {
+    if (accounts.length > 0) {
+        selectedAccount = accounts[0];
+        if (selectedAccount) {
+            sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
+
+            if (sessionStorage.getItem('lh_wallet_adds')) {
+                var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+                if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
+                    lh_wallet_adds.push(selectedAccount);
+                    sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
+                }
+            }
+            else
+                sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
+            updateAdminSession();
+        }
+    }
+    else
+        onDisconnect();
+});
+
 async function changeWallet(pop=false) {
 
     if(pop == true)
