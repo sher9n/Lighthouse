@@ -15,13 +15,29 @@ async function changeWallet(pop=false) {
         $('#sendNewNttPop').modal('show');
 }
 
+async function onConnect() {
+    // Subscribe to accounts change
+    provider.on("accountsChanged", (accounts) => {
+        console.log("dddd--accountsChanged");
+    });
+
+    // Subscribe to chainId change
+    provider.on("chainChanged", (chainId) => {
+        console.log("dddd--chainChanged");
+    });
+
+    // Subscribe to networkId change
+    provider.on("networkChanged", (networkId) => {
+        console.log("dddd--networkChanged");
+    });
+}
+
 async function connectToEth(blockchain='gnosis_chain'){
     console.log('connecting metamask.........');
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const network = await provider.getNetwork();
-
     selectedAccount = await signer.getAddress();
 
     if (selectedAccount) {

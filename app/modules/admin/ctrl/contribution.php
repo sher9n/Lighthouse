@@ -98,16 +98,60 @@ class controller extends Ctrl {
                     $html = '';
                     if($this->hasParam('t')) {
                         $t = $this->getParam('t');
-                        $domain = $community->dao_domain;
-                        $status = 'c.status = 0';
-                        if($t == 'Denied')
-                            $status = 'c.status = 2';
-                        elseif ($t == 'Approved')
-                            $status = 'c.status = 1';
-                        elseif ($t = 'Reviewed')
-                            $status = 'c.status = 1 AND c.status = 2';
+                        $com_id = $community->id;
+                        $claims = array();
 
-                        $claims = Contribution::find("SELECT c.id as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN communities com ON c.comunity_id=com.id LEFT JOIN forms f ON c.form_id=f.id WHERE $status AND f.id <> 2 AND com.dao_domain='$domain'");
+                        if($t =='Reviewed') {
+
+                            $reviewed_data = Contribution::find("SELECT a.contribution_id FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.comunity_id='$com_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
+                            if($reviewed_data->num_rows > 0) {
+                                foreach ($reviewed_data as $review) {
+                                    array_push($reviewed_ids, $review['contribution_id']);
+                                }
+
+                                $id_sql = '(' . implode(",", $reviewed_ids) . ')';
+                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE ( c.status = 1 AND f.id <> 2 AND c.comunity_id='$com_id') OR c.id IN ".$id_sql);
+                            }
+                            else
+                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 1 AND f.id <> 2 AND c.comunity_id='$com_id'");
+
+                            foreach ($claim_all as $claim) {
+                                array_push($claims, $claim);
+                            }
+                        }
+                        else if ($t == 'Queue') {
+
+                            $reviewed_ids  = array();
+                            $reviewed_data = Contribution::find("SELECT a.contribution_id FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.comunity_id='$com_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
+                            if($reviewed_data->num_rows > 0) {
+                                foreach ($reviewed_data as $review) {
+                                    array_push($reviewed_ids,$review['contribution_id']);
+                                }
+
+                                $id_sql = '('.implode(",",$reviewed_ids).')';
+                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$com_id' AND c.id NOT IN ".$id_sql);
+                            }
+                            else
+                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$com_id'");
+
+                            foreach ($claim_all as $claim) {
+                                array_push($claims, $claim);
+                            }
+                        }
+                        else {
+
+                            if($t == 'Denied')
+                                $status = 'c.status = 2';
+                            else
+                                $status = 'c.status = 1';
+
+                            $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE $status AND f.id <> 2 AND  c.comunity_id='$com_id'");
+
+                            foreach ($claim_all as $claim) {
+                                array_push($claims, $claim);
+                            }
+
+                        }
                         include __DIR__ . '/../tpl/partial/contribution_list.php';
                         $html = ob_get_clean();
                     }

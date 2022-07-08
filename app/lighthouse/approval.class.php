@@ -118,9 +118,9 @@ class Approval{
         foreach ($updates as $key=>$val) {
             $c++;
             if(count($updates) != $c)
-                $update_sql .= $key . "='" . $val . "',";
+                $update_sql .= $key . "='" . $connect->real_escape_string($val) . "',";
             else
-                $update_sql .= $key . "='" . $val . "'";
+                $update_sql .= $key . "='" . $connect->real_escape_string($val) . "'";
         }
 
         $update = "UPDATE approvals SET ".$update_sql." WHERE id=".$id;
@@ -131,8 +131,12 @@ class Approval{
     public function insert()
     {
         $connect = Ds::connect();
-        $fields = implode(",",array_keys($this->_data));
-        $values = implode("','",array_values($this->_data));
+        $data = array();
+        foreach ($this->_data as $key => $val) {
+            $data[$key] = $connect->real_escape_string($val);
+        }
+        $fields = implode(",",array_keys($data));
+        $values = implode("','",array_values($data));
         $insert_sql = "INSERT INTO approvals (".$fields.") VALUES ('".$values."')";
         $connect->query($insert_sql);
         return $connect->insert_id;
