@@ -115,7 +115,7 @@ class controller extends Ctrl {
                                 $contribusion->wallet_to = $community->wallet_adr;
                                 $contribusion->form_id = 2;
                                 $contribusion->status = 1;
-                                $contribusion->score = 15;
+                                $contribusion->score = 0;
                                 $contribusion->tags = implode(',', array('Onboarding'));
                                 $con_id = $contribusion->insert();
 

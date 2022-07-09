@@ -23,7 +23,7 @@ class Api{
     }
 
     public static function getSolanaGasTankBalance($url,$slug) {
-        $url = SOLANA_API."api/".$slug."/getTankBalance";
+        $url = SOLANA_API."api/".$slug."/getTankBalance?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -47,7 +47,7 @@ class Api{
 
     public static function addSolanaPoints($dao_domain,$to_address,$amount) {
 
-        $url = SOLANA_API."api/".$dao_domain."/addPoints";
+        $url = SOLANA_API."api/".$dao_domain."/addPoints?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -131,7 +131,7 @@ class Api{
     }
 
     public static function addSolanaCommunity($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward) {
-        $url = SOLANA_API."api/create";
+        $url = SOLANA_API."api/create?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -162,7 +162,7 @@ class Api{
     }
 
     public static function AddSolanaAttestation($url,$domain,$receiver,$amount,$reason,$tags,$pointsBreakdown) {
-        $url = $url."api/".$domain."/addLog";
+        $url = $url."api/".$domain."/addLog?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);

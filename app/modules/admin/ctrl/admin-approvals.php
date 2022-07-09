@@ -12,7 +12,7 @@ class controller extends Ctrl {
         $sel_wallet_adr = null;
         $community = Community::getByDomain(app_site);
 
-        if(isset($_SESSION['lh_sel_wallet_adr'])) {
+        if(isset($_SESSION['lh_sel_wallet_adr']) && strlen($_SESSION['lh_sel_wallet_adr']) > 0) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
             $is_admin = $community->isAdmin($sel_wallet_adr);
         }
@@ -61,10 +61,7 @@ class controller extends Ctrl {
                         $approval->quality = $q;
 
                         $contribution->approvals += 1;
-                        $points = $contribution->score;
-                        $points += ($c + $i + $q);
-                        $points = ($points/$contribution->approvals);
-                        $contribution->score = $points;
+                        $contribution->score = 0;
 
                         if($contribution->approvals == $community->approval_count) {
                             $blockchain = $community->blockchain;

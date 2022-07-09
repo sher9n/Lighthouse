@@ -80,16 +80,13 @@ class controller extends Ctrl {
                             $p = 0;
                     }
 
-
                     $claim_table[] = array(
                         '<a data-adr="' . $wallet_adr . '" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" href="#" class="text-decoration-none contribution_history">'.Utils::WalletAddressFormat($wallet_adr).'</a>',
-                        $claim['score'],
-                        $r,
-                        $p,
+                        'N/A',
+                        'N/A',
+                        'N/A',
                         '<div class="text-truncate text-max-width">' . implode(', ', $tag_string) . '</div>'
                     );
-
-
                 }
 
                 $recordsTotal = count($claim_table);

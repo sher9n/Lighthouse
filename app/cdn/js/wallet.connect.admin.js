@@ -19,8 +19,8 @@ window.ethereum.on("accountsChanged", accounts => {
             }
             else
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
-            updateAdminSession();
         }
+        updateAdminSession();
     }
     else
         onDisconnect();
@@ -221,4 +221,5 @@ async function onDisconnect() {
     sessionStorage.removeItem('lh_wallet_adds');
     localStorage.clear();
     selectedAccount = null;
+    updateAdminSession();
 }

@@ -3,7 +3,7 @@
         <a class="text-decoration-none" href="#">
             <div class="d-flex align-items-center">
                 <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
-                    <div><?php echo $contribution['score']; ?> points</div>
+                    <div>N/A points</div>
                     <div class="text-muted mx-3">•</div>
                     <div><?php echo $contribution['form_title']; ?></div>
                 </div>
