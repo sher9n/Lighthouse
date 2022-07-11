@@ -9,8 +9,18 @@ import "./NTT.sol";
     @notice The Lighthouse contract is used to manage logic for all Lighthouse communities.
 */
 contract LighthouseV2 {
+    ///////////////////////////////////////////////////////////////
+    //  STORAGE
+    ///////////////////////////////////////////////////////////////
+
     mapping(string => mapping(address => bool)) public isSteward;
     mapping(string => address) public nameToCommunityToken;
+
+    ///////////////////////////////////////////////////////////////
+    //  EVENTS
+    ///////////////////////////////////////////////////////////////
+
+    // Events are subject to change according to actual usage.
 
     event CommunityCreated(string name);
 
@@ -44,10 +54,18 @@ contract LighthouseV2 {
 
     event Attested(string indexed name, bytes32 attestation);
 
+    ///////////////////////////////////////////////////////////////
+    //  MODIFIERS
+    ///////////////////////////////////////////////////////////////
+
     modifier onlySteward(string calldata name) {
         require(isSteward[name][msg.sender], "UNAUTHORIZED");
         _;
     }
+
+    ///////////////////////////////////////////////////////////////
+    //  LOGIC
+    ///////////////////////////////////////////////////////////////
 
     function create(
         string calldata name,
