@@ -32,10 +32,5 @@ contract Events {
 
     event Whitelisted(string indexed name, address whitelisted);
 
-    event Attested(
-        string indexed name,
-        address receiver,
-        uint256 amount,
-        string reason
-    );
+    event Attested(string indexed name, bytes32 rootHash);
 }

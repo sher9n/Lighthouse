@@ -117,7 +117,7 @@ contract LighthouseV2Test is Test, Events {
     function testAttest() public {
         hoax(steward);
         vm.expectEmit(true, true, false, true);
-        emit Attested("Uniswap", normie, 69, "Nice");
-        lighthouse.attest("Uniswap", normie, 69, "Nice");
+        emit Attested("Uniswap", bytes32("rootHash"));
+        lighthouse.attest("Uniswap", bytes32("rootHash"));
     }
 }
