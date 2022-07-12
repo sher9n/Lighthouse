@@ -4,9 +4,17 @@ pragma solidity ^0.8.13;
 import "solmate/tokens/ERC20.sol";
 
 contract NTT is ERC20 {
+    ////////////////////////////////////////////////////////////////
+    //  LIGHTHOUSE STORAGE
+    ////////////////////////////////////////////////////////////////
+
     address public lighthouse;
 
     mapping(address => bool) public isWhitelisted;
+
+    ////////////////////////////////////////////////////////////////
+    //  LIGHTHOUSE MODIFIERS
+    ////////////////////////////////////////////////////////////////
 
     modifier onlyWhitelisted(address _to) {
         require(isWhitelisted[_to], "NOT_WHITELISTED");
@@ -18,6 +26,10 @@ contract NTT is ERC20 {
         _;
     }
 
+    ////////////////////////////////////////////////////////////////
+    //  CONSTRUCTOR
+    ////////////////////////////////////////////////////////////////
+
     constructor(
         string memory _name,
         string memory _symbol,
@@ -25,6 +37,10 @@ contract NTT is ERC20 {
     ) ERC20(_name, _symbol, _decimals) {
         lighthouse = msg.sender;
     }
+
+    ////////////////////////////////////////////////////////////////
+    //  OVERRIDEN ERC20 LOGIC
+    ////////////////////////////////////////////////////////////////
 
     function transfer(address _to, uint256 _amount)
         public
@@ -127,6 +143,10 @@ contract NTT is ERC20 {
 
         emit Approval(owner, spender, value);
     }
+
+    ////////////////////////////////////////////////////////////////
+    //  EXTENDED LOGIC
+    ////////////////////////////////////////////////////////////////
 
     function mint(address to, uint256 amount) external onlyLighthouse {
         _mint(to, amount);

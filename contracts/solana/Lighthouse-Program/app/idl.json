@@ -1,0 +1,479 @@
+{
+  "version": "0.1.0",
+  "name": "lighthouse_program",
+  "instructions": [
+    {
+      "name": "createCommunity",
+      "accounts": [
+        {
+          "name": "community",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "tokenName",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "addPoints",
+      "accounts": [
+        {
+          "name": "community",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "adminState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "pdaAccount",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "addToWhitelist",
+      "accounts": [
+        {
+          "name": "whitelistState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "whitelistedAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "adminState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "community",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "transferToWhitelist",
+      "accounts": [
+        {
+          "name": "fromAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "toAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "whitelistState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "community",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "pdaAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "addAdmin",
+      "accounts": [
+        {
+          "name": "adminState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "adminAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "community",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "newAdmin",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "logAttestation",
+      "accounts": [
+        {
+          "name": "community",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "admin",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "adminState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "rootHash",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "delegate",
+      "accounts": [
+        {
+          "name": "community",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "pdaAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "pdaTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "slashPoints",
+      "accounts": [
+        {
+          "name": "community",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "pdaAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "removeAdmin",
+      "accounts": [
+        {
+          "name": "adminState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "adminAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "community",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "admin",
+          "type": "publicKey"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Admin",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Community",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "tokenName",
+            "type": "string"
+          },
+          {
+            "name": "adminAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "tokenMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WhitelistState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "isWhitelisted",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "LogRootHash",
+      "fields": [
+        {
+          "name": "rootHash",
+          "type": "string",
+          "index": false
+        },
+        {
+          "name": "timestamp",
+          "type": "i64",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotAdmin",
+      "msg": "Only the admin is allowed to call this function!"
+    },
+    {
+      "code": 6001,
+      "name": "NotAdminAuthority",
+      "msg": "Only the admin authoriy is allowed add admins"
+    },
+    {
+      "code": 6002,
+      "name": "WrongReceiverAccount",
+      "msg": "Given account is not owned by receiver"
+    },
+    {
+      "code": 6003,
+      "name": "InitError",
+      "msg": "Init error"
+    },
+    {
+      "code": 6004,
+      "name": "WrongTokenMint",
+      "msg": "Wrong token mint for this community"
+    },
+    {
+      "code": 6005,
+      "name": "InsufficientFunds",
+      "msg": "Insufficient funds"
+    },
+    {
+      "code": 6006,
+      "name": "NotWhitelisted",
+      "msg": "Receipient account isn't whitelisted"
+    },
+    {
+      "code": 6007,
+      "name": "WrongPDA",
+      "msg": "Given PDA does not match the program PDA"
+    },
+    {
+      "code": 6008,
+      "name": "NotDelegated",
+      "msg": "Given token account must be delegated to the program PDA"
+    }
+  ],
+  "metadata": {
+    "address":"BRm9A4ztatp9RXLNULZqmg7WUtKL2GvWpz7tC579RzUr"
+  }
+}

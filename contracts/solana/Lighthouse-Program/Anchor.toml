@@ -1,0 +1,20 @@
+[features]
+seeds = false
+[programs.localnet]
+# lighthouse_program = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+lighthouse_program = "BRm9A4ztatp9RXLNULZqmg7WUtKL2GvWpz7tC579RzUr"
+
+
+[programs.devnet]
+lighthouse_program = "BRm9A4ztatp9RXLNULZqmg7WUtKL2GvWpz7tC579RzUr"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "/Users/sushi/.config/solana/id.json"
+
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

@@ -9,8 +9,18 @@ import "./NTT.sol";
     @notice The Lighthouse contract is used to manage logic for all Lighthouse communities.
 */
 contract LighthouseV2 {
+    ///////////////////////////////////////////////////////////////
+    //  STORAGE
+    ///////////////////////////////////////////////////////////////
+
     mapping(string => mapping(address => bool)) public isSteward;
     mapping(string => address) public nameToCommunityToken;
+
+    ///////////////////////////////////////////////////////////////
+    //  EVENTS
+    ///////////////////////////////////////////////////////////////
+
+    // Events are subject to change according to actual usage.
 
     event CommunityCreated(string name);
 
@@ -42,17 +52,20 @@ contract LighthouseV2 {
 
     event Whitelisted(string indexed name, address whitelisted);
 
-    event Attested(
-        string indexed name,
-        address receiver,
-        uint256 amount,
-        string reason
-    );
+    event Attested(string indexed name, bytes32 attestation);
+
+    ///////////////////////////////////////////////////////////////
+    //  MODIFIERS
+    ///////////////////////////////////////////////////////////////
 
     modifier onlySteward(string calldata name) {
         require(isSteward[name][msg.sender], "UNAUTHORIZED");
         _;
     }
+
+    ///////////////////////////////////////////////////////////////
+    //  LOGIC
+    ///////////////////////////////////////////////////////////////
 
     function create(
         string calldata name,
@@ -118,12 +131,10 @@ contract LighthouseV2 {
         emit Whitelisted(communityName, whitelisted);
     }
 
-    function attest(
-        string calldata communityName,
-        address receiver,
-        uint256 amount,
-        string calldata reason
-    ) external onlySteward(communityName) {
-        emit Attested(communityName, receiver, amount, reason);
+    function attest(string calldata communityName, bytes32 rootHash)
+        external
+        onlySteward(communityName)
+    {
+        emit Attested(communityName, rootHash);
     }
 }
