@@ -48,6 +48,7 @@ try {
         '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-integrations' => 'modules/admin/ctrl/admin-integrations.php',
         '/admin-integrations-form' => 'modules/admin/ctrl/admin-integrations-form.php',
+        '/admin-integrations-form-01' => 'modules/admin/ctrl/admin-integrations-form-01.php',
         '/delete-claim-img' => 'modules/admin/ctrl/admin-settings.php',
         '/gas_tank_balance' => 'modules/admin/ctrl/admin-settings.php',
         '/admin-settings' => 'modules/admin/ctrl/admin-settings.php',

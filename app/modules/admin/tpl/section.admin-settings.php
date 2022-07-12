@@ -37,7 +37,7 @@
                                         <label for="NTTTicker" class="form-label">Contact address:</label>
                                         <div class="d-flex align-items-center mb-6">
                                             <div class="fw-semibold fs-3"><?php echo $__page->community->token_address; ?></div>
-                                            <i data-feather="copy" class="ms-3 text-primary"></i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy ms-3 text-primary"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@
         for (var i = 0; i < input.files.length; ++i) {
             output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
             //appBanners[i].style.display = 'none';
-            $('#bg_images').append('<li class="upload-image-item" id="claim-img-'+i+'"><a class="image-del" href="delete-claim-img?id='+i+'"><i data-feather="x"></i></a><img width="220" height="250" src="'+URL.createObjectURL(input.files.item(i))+'" class="rounded-3"></li>');
+            $('#bg_images').append('<li class="upload-image-item" id="claim-img-'+i+'"><a class="image-del" href="delete-claim-img?id='+i+'"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></a><img width="220" height="250" src="'+URL.createObjectURL(input.files.item(i))+'" class="rounded-3"></li>');
         }
         feather.replace();
         output.innerHTML += '</ul>';

@@ -14,10 +14,10 @@
                                     <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
                                         <div class="fs-1"><?php echo $__page->community->approval_count.'</div><div class="fs-2">/'.count($__page->stewards); ?></div>
                                     </div>
-                                    <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
+                                    <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change Quorum</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
-                                <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
+                                <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add member</a>
                                 <div class="fw-medium mt-22"><?php echo $__page->community->display_name; ?> </div>
                                 <div class="d-flex align-items-center">
                                     <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
@@ -29,7 +29,7 @@
                                 <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                     <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                     <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
-                                        <i data-feather="trash" class="text-danger"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                     </a>
                                 </div>
                                 <?php } ?>
