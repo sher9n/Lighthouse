@@ -183,7 +183,7 @@ particular goal or milestone.</div>
                           </div>
                           <div class="border-top card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Cardinal</div>
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn><?php echo ($__page->blockchain == 'SOLANA')?'Cardinal':'POAP'; ?></div>
                               <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
                             </div>                            
                           </div>
@@ -210,7 +210,7 @@ community.</div>
                           </div>
                           <div class="border-top card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Cardinal</div>
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn><?php echo ($__page->blockchain == 'SOLANA')?'Cardinal':'OpenSea'; ?></div>
                               <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
                             </div>                            
                           </div>
@@ -237,7 +237,7 @@ participation.</div>
                           </div>
                           <div class="border-top card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Streamflow</div>
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn><?php echo ($__page->blockchain == 'SOLANA')?'Streamflow':'SuperFluid'; ?></div>
                               <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
                             </div>                            
                           </div>
@@ -264,7 +264,7 @@ active participation.</div>
                           </div>
                           <div class="border-top card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn>Streamflow</div>
+                              <div class="fw-medium"><sapn class="text-gray-700">Developed by: </sapn><?php echo ($__page->blockchain == 'SOLANA')?'Streamflow':'SuperFluid'; ?></div>
                               <a href="#" class="fw-medium text-decoration-none text-primary">Coming Soon!</a>
                             </div>                            
                           </div>

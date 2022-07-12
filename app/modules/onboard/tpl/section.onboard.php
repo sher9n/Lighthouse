@@ -62,7 +62,7 @@
                 <div class="modal-body p-10">
                     <div class="fs-2 fw-semibold mb-22 mt-3">Setup your community</div>
                     <div class="mb-16">
-                        <label for="" class="form-label">Community name?</label>
+                        <label for="" class="form-label">Community name</label>
                         <input type="text" class="form-control form-control-lg" name="dao_name" id="dao_name" placeholder="MyDAO">
                     </div>
                     <div class="mb-16">
@@ -87,7 +87,7 @@
         $('#selectChain').modal('show');
     });
 
-    $(document).on("focusout", '#dao_domain, #dao_name', function(event) {
+    $(document).on("keyup", '#dao_domain', function(event) {
         var dao_name = $(this).val();
 
         $.ajax({
@@ -101,16 +101,33 @@
                 }
                 else {
                     $('#dao_domain').val(data.sub_domain);
+                    $('#dao_domain-error').hide();
                 }
             }
         });
     });
 
-    $(document).on("keyup", '#dao_name', function(event) {
+    $(document).on("keyup", '#dao_name', delay(function(event) {
         var dao_name = $(this).val();
-        dao_name = dao_name.replace(/\s+/g, '-');
-        $('#dao_domain').val(dao_name.toLowerCase());
-    });
+        dao_domain = dao_name.replace(/\s+/g, '-');
+        dao_domain = dao_domain.toLowerCase();
+        $('#dao_domain').val(dao_domain);
+
+            $.ajax({
+                url: 'check-dao-domain',
+                data: {'dao_name': dao_domain},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success == false) {
+                        $('#dao_domain-error').html(data.msg);
+                        $('#dao_domain-error').show();
+                    } else {
+                        $('#dao_domain').val(data.sub_domain);
+                        $('#dao_domain-error').hide();
+                    }
+                }
+            });
+    },500));
 
     $(document).on("click", '#meta_click', function(event) {
         event.preventDefault();
@@ -189,4 +206,16 @@
             });
         }
     });
+
+    function delay(callback, ms) {
+        var timer = 0;
+        return function() {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                callback.apply(context, args);
+            }, ms || 0);
+        };
+    }
+
 </script>

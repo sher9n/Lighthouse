@@ -30,7 +30,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/wallet.connect.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solana.js"></script>
-
 <?php
 foreach ($__page->js as $page_js) { ?>
     <script type="text/javascript" src="<?php echo $page_js; ?>"></script>

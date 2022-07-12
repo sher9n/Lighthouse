@@ -31,7 +31,7 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'site' => $site,
                 'is_admin' => $is_admin,
-                'blockchain' => GNOSIS_CHAIN,
+                'blockchain' => $community->blockchain,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-integrations.php'
