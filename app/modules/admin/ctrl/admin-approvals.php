@@ -56,9 +56,13 @@ class controller extends Ctrl {
                         $approval->approval_by = $sel_wallet_adr;
                         $approval->contribution_id = $contribution->id;
                         $approval->subdomain = app_site;
-                        $approval->complexity = $c;
-                        $approval->importance = $i;
-                        $approval->quality = $q;
+                        $approval->approval = json_encode(
+                            array(
+                                'complexity' => $c,
+                                'importance' => $i,
+                                'quality' => $q
+                            )
+                        );
 
                         $contribution->approvals += 1;
                         $contribution->score = 0;

@@ -159,7 +159,7 @@
                     <?php }else{
                         if($contribution->status != 2 && !in_array($sel_wallet_adr, $approvals)){ ?>
                             <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
-                            <button id="btn_approve" type="button" class="btn btn-primary">Approve</button>
+                            <button id="btn_approve" type="button" class="btn btn-primary">Attest</button>
                             <?php
                         }
                     }?>

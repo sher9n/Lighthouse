@@ -6,7 +6,7 @@
                 <div class="col-lg-12">
                     <div class="d-flex flex-column flex-xl-row mb-13">
                         <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto" id="dashboard_table_search"  placeholder="Search...">                        
-                        <button id="sendNewNtt" type="button" class="btn btn-primary">Submit Contribution</button>
+                        <button id="sendNewNtt" type="button" class="btn btn-primary">Submit a Claim</button>
                     </div>
                 </div>
             </div>

@@ -58,9 +58,7 @@ $form_elements = $__page->form->getElements();
 
         $(".tags").select2({
             tags: true,
-            tokenSeparators: [','],
-            selectOnClose: true,
-            closeOnSelect: false
+            tokenSeparators: [',']
         });
 
         $('#sendContributionForm').validate({

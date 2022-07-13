@@ -23,7 +23,7 @@
                                 <div class="fs-4 fw-semibold">Simple claim form</div>
                                 <div class="ms-auto">
                                     <label class="switch">
-                                        <input type="checkbox" class="form-switch-input">
+                                        <input type="checkbox" class="form-switch-input" checked>
                                         <span class="slider"></span>
                                     </label>
                                 </div>

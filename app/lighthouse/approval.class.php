@@ -2,6 +2,8 @@
 namespace lighthouse;
 use Core\Ds;
 class Approval{
+    const APPROVAL_TYPE_YES_NO=1;
+    const APPROVAL_TYPE_RATING=2;
 
     private $_data = array();
 
@@ -41,20 +43,21 @@ class Approval{
 
     public static function getUserApprovals($contribution_id){
         $connect = Ds::connect();
-        $items   = $connect->query("select * from approvals where contribution_id='$contribution_id' ");
+        $items   = $connect->query("select approval from approvals where contribution_id='$contribution_id' ");
         $results = array('complexity' => 0,'importance'=>0,'quality'=>0);
         $x = 0;
         if($items != false){
             while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
                 $x++;
-                $results['complexity'] += $row['complexity'];
-                $results['complexity'] = round($results['complexity']/$x);
+                $obj = json_decode($row['approval']);
+                $results['complexity'] += $obj->complexity;
+                $results['complexity'] = round($obj->complexity/$x);
 
-                $results['importance'] += $row['importance'];
-                $results['importance'] = round($results['importance']/$x);
+                $results['importance'] += $obj->importance;
+                $results['importance'] = round($obj->importance/$x);
 
-                $results['quality'] += $row['quality'];
-                $results['quality'] = round($results['quality']/$x);
+                $results['quality'] += $obj->quality;
+                $results['quality'] = round($obj->quality/$x);
             }
         }
         $connect->close();
@@ -113,7 +116,7 @@ class Approval{
             $updates = $this->_data;
 
         unset($updates['id']);
-        $updates['m_at'] = date("Y-m-d H:i:s");
+        //$updates['m_at'] = date("Y-m-d H:i:s");
         $c=0;
         foreach ($updates as $key=>$val) {
             $c++;
@@ -122,7 +125,6 @@ class Approval{
             else
                 $update_sql .= $key . "='" . $connect->real_escape_string($val) . "'";
         }
-
         $update = "UPDATE approvals SET ".$update_sql." WHERE id=".$id;
         $connect->query($update);
         $connect->close();

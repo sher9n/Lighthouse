@@ -5,7 +5,7 @@
             <div class="col h-100">
                 <div class="card shadow h-100">                    
                     <div class="card-body p-xl-20">
-                        <div class="display-5 fw-medium">Submit a contribution</div>
+                        <div class="display-5 fw-medium">Submit a claim</div>
                         <div class="text-muted mt-1">Request attestations for completed activity</div>
                         <div class="row mt-12">
                             <div class="col-xl-5">
@@ -15,27 +15,27 @@
                                         <div class="card-logo me-8">
                                             <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
                                         </div>
-                                        <div class="fs-4 fw-semibold">Simple claim form</div>                                        
+                                        <div class="fs-4 fw-semibold">Simple claim</div>
                                     </div>
                                     <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Use this form to request an attestation for completed activity. </div>
                                     <a href="contribution?form=1" class="btn btn-primary mt-8">View Form</a>
                                 </div>                                
                                 </div>
                             </div>
-                            <div class="col-xl-5">
+                            <!--<div class="col-xl-5">
                                 <div class="card border rounded-3 mb-12 mb-lg-0">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center mb-7">
                                         <div class="card-logo me-8">
-                                            <img src="<?php echo app_cdn_path; ?>img/company-logo/icob-grants.png">
+                                            <img src="<?php /*echo app_cdn_path; */?>img/company-logo/icob-grants.png">
                                         </div>
-                                        <div class="fs-4 fw-semibold">Grants request form</div>                                        
+                                        <div class="fs-4 fw-semibold">Grants request</div>
                                     </div>
                                     <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Use this form to request attestations for  contributions related to grants. </div>
                                     <a href="#" class="btn btn-primary mt-8">View Form</a>
                                 </div>                                
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>                    
                 </div>

@@ -14,10 +14,10 @@
                                     <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
                                         <div class="fs-1"><?php echo $__page->community->approval_count.'</div><div class="fs-2">/'.count($__page->stewards); ?></div>
                                     </div>
-                                    <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change</button>
+                                    <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change Quorum</button>
                                 </div>
                                 <div class="fw-medium mt-22">Whitelist members</div>
-                                <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add</a>
+                                <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add Member</a>
                                 <div class="fw-medium mt-22"><?php echo $__page->community->display_name; ?> </div>
                                 <div class="d-flex align-items-center">
                                     <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
