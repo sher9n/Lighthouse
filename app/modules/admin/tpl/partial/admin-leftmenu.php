@@ -73,15 +73,47 @@
             </button>
             <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton1">
                 <li>
+                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ModalConsent">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                        <div class="ms-11">Consent to NTTs</div>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item border-top border-bottom" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-ccw"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+                        <div class="ms-11">Change Wallet</div>
+                    </a>
+                </li>
+                <li>
                     <a class="dropdown-item" id="disconnect_wallet" href="#">
-                        <i data-feather="log-out"></i>
-                        <div class="ms-12">Disconnect</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                        <div class="ms-11">Disconnect</div>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </aside>
+
+<!-- Modal Consent -->
+<div class="modal fade" id="ModalConsent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-size-02">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="fs-2 fw-semibold mb-9">Your community has activated Governance NTTs</div>
+        <div class="fs-4 fw-medium">I consent to receiving non-transferrable governance tokens,
+govTOKEN and delegating them to the govTOKEN program on the
+Solana blockchain. <br><br>
+
+These tokens are based on a 1,000,000 token supply and rebalance in real-time to reflect the proportional contribution of each community member relative to all contributions.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">I do not consent</button>
+        <button type="button" class="btn btn-primary">I consent</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- skeleton loader -->
 <aside class="admin-left-aside d-none">

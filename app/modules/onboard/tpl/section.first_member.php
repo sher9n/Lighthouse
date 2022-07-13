@@ -64,7 +64,9 @@
                 <div class="fs-2 fw-semibold text-center">Contracts created</div>
                 <div class="d-flex align-items-center justify-content-center mt-3">
                     <div id="com_address_div" class="text-break"></div>
-                    <div id="copied_div" trigger="manual" data-placement="top" title="Copied!"><i data-feather="copy" id="copy_address" class="ms-3 text-primary cursor-pointer"></i></div>
+                    <div id="copied_div" trigger="manual" data-placement="top" title="Copied!">
+                        <svg id="copy_address" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy ms-3 text-primary cursor-pointer"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </div>
                 </div>
                 <div class="mt-16 d-flex justify-content-center gap-3">
                     <button type="button" id="btn_next" class="btn btn-dark px-10">NEXT</button>

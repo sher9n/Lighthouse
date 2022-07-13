@@ -16,7 +16,9 @@
                     </div>
                     <div class="mt-16">
                         <label for="claimCategorize" class="form-label">Or add ntMyDAO manually:</label>
-                        <div class="d-flex align-items-center"><span class="fw-medium fs-3 text-break" id="com_address_div"><?php echo $__page->com->token_address; ?></span><div id="copied_div" trigger="manual" data-placement="top" title="copied!"><i data-feather="copy" id="copy_address" class="ms-3 text-primary"></i></div></div>
+                        <div class="d-flex align-items-center"><span class="fw-medium fs-3 text-break" id="com_address_div"><?php echo $__page->com->token_address; ?></span><div id="copied_div" trigger="manual" data-placement="top" title="copied!">
+                            <svg id="copy_address" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy ms-3 text-primary cursor-pointer"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </div></div>
                     </div>
                     <?php } ?>
                 </div>

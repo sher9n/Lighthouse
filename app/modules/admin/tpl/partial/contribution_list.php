@@ -14,6 +14,10 @@ if($claims != false && count($claims) > 0 ){
                     </div>
                     <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                 </div>
+                <div class="d-flex align-items-center text-blue-stone my-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <div class="fw-medium ms-2">Approval period ends in 45m</div>
+                </div>
                 <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
                     <ul class="select2-selection__rendered d-flex gap-3">
                         <?php

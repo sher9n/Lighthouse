@@ -34,7 +34,7 @@ class controller extends Ctrl {
                 'blockchain' => GNOSIS_CHAIN,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
-                    __DIR__ . '/../tpl/section.admin-integrations-form.php'
+                    __DIR__ . '/../tpl/section.admin-integrations-form-01.php'
                 ),
                 'js' => array()
             );
