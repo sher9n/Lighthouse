@@ -14,13 +14,16 @@
                   <form class="mt-10 col-xxl-10">
                     <div class="row">
                       <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12 mb-lg-0">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
                                     <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
                                 </div>
-                                <div class="fs-4 fw-semibold">Simple claim form</div>
+                                <div>
+                                  <div class="fs-4 fw-semibold">Simple claim form</div>
+                                  <div class="fs-6 fw-medium">Fixed score, upto 1,000</div>
+                                </div>
                                 <div class="ms-auto">
                                     <label class="switch">
                                         <input type="checkbox" class="form-switch-input" checked>
@@ -36,8 +39,34 @@
                         </div>
                       </div>
                       <div class="col-xl-6">
-                        <a class="card border-dashed rounded-3 mb-12 mb-lg-0 h-100 text-decoration-none" role="button" data-bs-toggle="modal" data-bs-target="#modalForm"> 
-                          <div class="d-flex align-items-center justify-content-center flex-column h-100">                         
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
+                                </div>
+                                <div>
+                                  <div class="fs-4 fw-semibold">Grants application</div>
+                                  <div class="fs-6 fw-medium">No score</div>
+                                </div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">This form can be used by community members to
+request attestations for any purpose.</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-primary">Edit Form</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-6">
+                        <a class="card add-card border-dashed rounded-3 mb-12 text-decoration-none justify-content-center" role="button" data-bs-toggle="modal" data-bs-target="#modalForm"> 
+                          <div class="d-flex align-items-center flex-column">                         
                             <img src="<?php echo app_cdn_path; ?>img/icon-add.png">
                             <div class="fw-medium mt-4">New form</div>   
                           </div>                       
@@ -49,7 +78,7 @@
                     <div class="fw-medium">Capture interactions from community members across apps, dapps and blockchains</div>
                     <div class="row mt-10">
                       <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12 mb-lg-0">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
@@ -71,8 +100,53 @@
                         </div>
                       </div>
                       <div class="col-xl-6">
-                        <a class="card border-dashed rounded-3 mb-12 mb-lg-0 h-100 text-decoration-none" role="button" data-bs-toggle="modal" data-bs-target="#modalInteraction"> 
-                          <div class="d-flex align-items-center justify-content-center flex-column h-100">                         
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-stargaze.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Stargaze - GitHub protocol</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Measure contributor impact of your favourite open-source 
+GitHub repository.</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-blue-stone">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-realms.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Realms - SPL Governance</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Create a DAO, manage members, vote on proposals, and allocate funds to your treasury on Solana.</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-blue-stone">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-6">
+                        <a class="card add-card border-dashed rounded-3 mb-12 text-decoration-none justify-content-center" role="button" data-bs-toggle="modal" data-bs-target="#modalInteraction"> 
+                          <div class="d-flex align-items-center flex-column">                         
                             <img src="<?php echo app_cdn_path; ?>img/icon-add.png">
                             <div class="fw-medium mt-4">New Interaction</div>   
                           </div>                       
@@ -84,7 +158,7 @@
                     <div class="fw-medium">Enable identity verification to increase security, trust and transparency in your community</div>
                     <div class="row mt-10">
                       <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12 mb-lg-0">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
@@ -106,7 +180,7 @@
                         </div>
                       </div>
                       <div class="col-xl-6">
-                        <div class="card border rounded-3 mb-12 mb-lg-0">
+                        <div class="card border rounded-3 mb-12">
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
@@ -126,7 +200,29 @@
                             <a href="#" class="fw-medium text-decoration-none text-blue-stone">Coming Soon!</a>
                           </div>
                         </div>
-                      </div>                      
+                      </div>
+                      <div class="col-xl-6">
+                        <div class="card border rounded-3 mb-12">
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-7">
+                                <div class="card-logo me-8">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-iden.png">
+                                </div>
+                                <div class="fs-4 fw-semibold">Iden3</div>
+                                <div class="ms-auto">
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Next-generation private access control based on self-sovereign identity, designed using zkSNARKs.</div>
+                          </div>
+                          <div class="border-top card-body text-end">
+                            <a href="#" class="fw-medium text-decoration-none text-blue-stone">Coming Soon!</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="fs-2 fw-medium mt-14" id="Apps">Apps</div>
@@ -137,7 +233,7 @@
                           <div class="card-body">
                             <div class="d-flex align-items-center mb-7">
                                 <div class="card-logo me-8">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-ntts.png">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-governance.png">
                                 </div>
                                 <div class="fs-4 fw-semibold">Governance NTTs </div>
                                 <div class="ms-auto">

@@ -31,45 +31,88 @@
           </div>
 
           <div class="col-9">
-            <div class="card shadow">
+            <div class="card shadow mb-12">
               <div class="card-body">
                     <label for="" class="form-label">Approval type</label>
-                    <div class="form-check">
-                      <input class="form-check-input form-check-input-lg" type="radio" name="ApprovalType" id="YesNo">
+                    <div class="form-check form-check-lg">
+                      <input class="form-check-input" type="radio" name="ApprovalType" id="YesNo">
                       <label class="form-check-label" for="YesNo">
                         Yes/No
                       </label>
-                      <div class="text-lg fst-italic">Eg: Attended a meeting</div>
+                      <div class="text-lg fst-italic mt-2">Eg: Attended a meeting</div>
                     </div>
-                    <div class="form-check">
-                      <input class="form-check-input form-check-input-lg" type="radio" name="ApprovalType" id="Rating">
+                    <div class="form-check form-check-lg">
+                      <input class="form-check-input" type="radio" name="ApprovalType" id="Rating">
                       <label class="form-check-label" for="Rating">
                         Rating
                       </label>
+                      <div class="text-lg fst-italic mt-2">Eg: 4 out of 5 stars for a Github merge</div>
                     </div>
-                <label for="" class="form-label">Description</label>
-                <textarea class="form-control form-control-lg" id="" rows="4" placeholder="Explain your contribution here"></textarea>
+                    <div class="ps-18">
+                      <label for="" class="form-label">Category</label>
+                      <div class="row mb-6">
+                        <div class="col-7">
+                          <input type="text" class="form-control form-control-lg" id="" aria-describedby="">
+                        </div>
+                        <div class="col-auto px-0">
+                          <div class="list-rating-scale list-rating-scale-lg">
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="1" id="Complexityoption1" autocomplete="off">
+                            <label class="btn btn-light ms-0" for="Complexityoption1">1</label>
+
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="2" id="Complexityoption2" autocomplete="off">
+                            <label class="btn btn-light" for="Complexityoption2">2</label>
+
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="3" id="Complexityoption3" autocomplete="off">
+                            <label class="btn btn-light" for="Complexityoption3">3</label>
+
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="4" id="Complexityoption4" autocomplete="off">
+                            <label class="btn btn-light" for="Complexityoption4">4</label>
+
+                            <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="5" id="Complexityoption5" autocomplete="off">
+                            <label class="btn btn-light me-0" for="Complexityoption5">5</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-6">
+                        <div class="col-7">
+                          <input type="text" class="form-control form-control-lg" id="" aria-describedby="">
+                        </div>
+                        <div class="col-auto px-0">
+                          <div class="d-flex">
+                            <div class="list-rating-scale list-rating-scale-lg">
+                              <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="1" id="Complexityoption1" autocomplete="off">
+                              <label class="btn btn-light ms-0" for="Complexityoption1">1</label>
+
+                              <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="2" id="Complexityoption2" autocomplete="off">
+                              <label class="btn btn-light" for="Complexityoption2">2</label>
+
+                              <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="3" id="Complexityoption3" autocomplete="off">
+                              <label class="btn btn-light" for="Complexityoption3">3</label>
+
+                              <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="4" id="Complexityoption4" autocomplete="off">
+                              <label class="btn btn-light" for="Complexityoption4">4</label>
+
+                              <input type="radio" class="btn-check btn_complexity" name="ComplexityOptions" data-val="5" id="Complexityoption5" autocomplete="off">
+                              <label class="btn btn-light me-0" for="Complexityoption5">5</label>
+                            </div>
+                            <button class="btn btn-delete">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-primary">Add Category</button>
+                    </div>                
               </div>
-              <hr class="my-2">
+            </div>
+          </div>
+
+          <div class="col-9">  
+            <div class="card shadow">
               <div class="card-body">
-                <div class="d-flex align-items-center justify-content-end">
-                  <a class="px-8 btn-copy" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy text-dark"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  </a>
-                  <a class="px-8 btn-trash" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-dark"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                  </a>
-                  <div class="vr"></div>
-                  <div class="ms-8 me-6 fw-medium text-lg">Required</div>
-                  <label class="switch">
-                    <input type="checkbox" class="form-switch-input">
-                    <span class="slider"></span>
-                  </label>
-                </div>
+                <label for="" class="form-label">Tags</label>
+                <input type="text" class="form-control form-control-lg" id="" aria-describedby="" placeholder="Marketing, Sales, Development">
               </div>
-              <a role="button" class="position-absolute top-0 start-100 p-6 bg-white rounded ms-6 shadow" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-              </a>
             </div>
           </div>
 
