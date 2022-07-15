@@ -33,11 +33,39 @@
                                     </div>
                                 </div>
                                 <div class="row mt-xl-12">
-                                    <div class="col">
+                                    <div class="col-xl-6">
                                         <label for="NTTTicker" class="form-label">Contact address:</label>
                                         <div class="d-flex align-items-center mb-6">
-                                            <div class="fw-semibold fs-3"><?php echo $__page->community->token_address; ?></div>
+                                            <div class="fw-semibold fs-3 text-truncate" title="<?php echo $__page->community->token_address; ?>"><?php echo $__page->community->token_address; ?></div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy ms-3 text-primary"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <label for="NTTTicker" class="form-label">Contract name:</label>
+                                        <div class="d-flex align-items-center mb-6">
+                                            <div class="fw-semibold fs-3 text-truncate" title="DegenCommunity-1657775613">DegenCommunity-1657775613</div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy ms-3 text-primary"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-xl-12">
+                                    <div class="col-xl-4">
+                                        <label for="" class="form-label">Claim approval period</label>
+                                        <div class="input-group">
+                                            <input type="text" id="" name="" class="form-control form-control-lg" value="" placeholder="7">
+                                            <span class="input-group-text fw-medium" id="">Days</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-xl-12">
+                                    <div class="col-xl-4">
+                                        <label for="" class="form-label">Personalize Lighthouse logo</label>
+                                        <div class="card bg-lighter card-image-uploads p-6">
+                                            <div class="card-body text-center">
+                                                <img src="<?php echo app_cdn_path; ?>img/logo.png" class="img-upload-logo my-7">
+                                                <div class="fw-medium my-3">Drag and drop logo, or <span class="text-primary">Browse</span></div>
+                                                <div class="text-muted mb-7">250px x 80px recommended. Max 1MB (png)</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
