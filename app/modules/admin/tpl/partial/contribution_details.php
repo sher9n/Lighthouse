@@ -1,7 +1,7 @@
 <?php use Core\Utils; ?>
 <div class="card shadow">
     <form id="" method="post" action="" autocomplete="off" class="d-flex flex-column h-100">
-        <div class="card-body p-xl-20">
+        <div class="card-body p-xxl-20">
             <div class="display-5 fw-medium mb-25">Review this contribution</div>
             <div class="row">
                 <div class="col-8 offset-md-4">
@@ -166,7 +166,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body p-xl-20 border-top">
+        <div class="card-body p-xxl-20 border-top">
             <ul class="nav nav-pills" id="claim-tab" role="tablist">
                 <li class="nav-item ps-0 pt-0" role="presentation">
                     <button class="tab_link nav-link active" id="claim-details-tab" data-bs-toggle="tab" data-bs-target="#claim-details" type="button" role="tab" aria-controls="claim-details" aria-selected="true">Details</button>
@@ -178,7 +178,7 @@
                     <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Approvals (<?php echo count($approvals); ?>/<?php echo $community->approval_count; ?>)</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
-                    <button class="tab_link nav-link" id="claim-similar-tab" data-bs-toggle="tab" data-bs-target="#claim-similar" type="button" role="tab" aria-controls="claim-similar" aria-selected="false">Similar Contributions</button>
+                    <button class="tab_link nav-link" id="claim-similar-tab" data-bs-toggle="tab" data-bs-target="#claim-similar" type="button" role="tab" aria-controls="claim-similar" aria-selected="false">Similar Claims</button>
                 </li>
             </ul>
             <div class="tab-content mt-6" id="claim-tabContent">
