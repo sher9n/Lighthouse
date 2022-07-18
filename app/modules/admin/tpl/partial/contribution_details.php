@@ -166,7 +166,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body p-xl-20 border-top">
+        <div class="card-body p-xxl-20 border-top">
             <ul class="nav nav-pills" id="claim-tab" role="tablist">
                 <li class="nav-item ps-0 pt-0" role="presentation">
                     <button class="tab_link nav-link active" id="claim-details-tab" data-bs-toggle="tab" data-bs-target="#claim-details" type="button" role="tab" aria-controls="claim-details" aria-selected="true">Details</button>

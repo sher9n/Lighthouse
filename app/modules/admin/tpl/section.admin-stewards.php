@@ -46,7 +46,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <form id="addStewardsForm" method="post" action="add-stewards" autocomplete="off">
-                <div class="modal-body pb-3">
+                <div class="modal-body">
                     <div class="fs-2 fw-semibold mb-15">Add new member to whitelist </div>
                     <label for="Nickname" class="form-label">Nickname</label>
                     <input type="text" class="form-control form-control-lg" name="nickname" id="nickname" placeholder="Bob">

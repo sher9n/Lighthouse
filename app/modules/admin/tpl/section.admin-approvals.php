@@ -197,7 +197,7 @@
                 beforeSend: function () {
                     $("#claim_details").html('<div class="card shadow loading">\n' +
                         '                        <div class="d-flex flex-column h-100">\n' +
-                        '                            <div class="card-body p-xl-20">\n' +
+                        '                            <div class="card-body p-xxl-20">\n' +
                         '                                <div class="display-5-text-content mb-25 w-70"></div>\n' +
                         '                                <div class="row">\n' +
                         '                                    <div class="col-8 offset-md-4">\n' +
@@ -256,7 +256,7 @@
                         '                                    </div>\n' +
                         '                                </div>\n' +
                         '                            </div>\n' +
-                        '                            <div class="card-body p-xl-20 border-top">\n' +
+                        '                            <div class="card-body p-xxl-20 border-top">\n' +
                         '                                <ul class="nav nav-pills" role="tablist">\n' +
                         '                                    <li class="nav-item ps-0 pt-0" role="presentation">\n' +
                         '                                        <div class="skeleton-tab-nav"></div>\n' +

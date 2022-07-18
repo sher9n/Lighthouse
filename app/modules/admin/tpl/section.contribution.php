@@ -8,7 +8,7 @@
                         <div class="display-5 fw-medium">Submit a claim</div>
                         <div class="text-muted mt-1">Request attestations for completed activity</div>
                         <div class="row mt-12">
-                            <div class="col-xl-5">
+                            <div class="col-lg-6 col-xl-5">
                                 <div class="card border rounded-3 mb-12 mb-lg-0">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center mb-7">
@@ -22,7 +22,7 @@
                                 </div>                                
                                 </div>
                             </div>
-                            <!--<div class="col-xl-5">
+                            <!--<div class="col-lg-6 col-xl-5">
                                 <div class="card border rounded-3 mb-12 mb-lg-0">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center mb-7">

@@ -3,7 +3,7 @@
     <section class="admin-body-section">
       <div class="container-fluid h-100">
         <div class="row">
-          <div class="col-9">
+          <div class="col-lg-11 col-xxl-9">
             <div class="d-flex mb-6">
               <a role="button" class="btn btn-white text-capitalize me-auto" href="admin-integrations">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back</a>
@@ -11,7 +11,7 @@
             </div>
           </div>
 
-          <div class="col-9">
+          <div class="col-lg-11 col-xxl-9">
             <div class="card shadow mb-12">
               <div class="card-body">
                 <div class="d-flex align-items-center mb-12">
@@ -30,7 +30,7 @@
             </div>
           </div>
 
-          <div class="col-9">
+          <div class="col-lg-11 col-xxl-9">
             <div class="card shadow mb-12">
               <div class="card-body">
                     <label for="" class="form-label">Approval type</label>
@@ -51,7 +51,7 @@
                     <div class="ps-18">
                       <label for="" class="form-label">Category</label>
                       <div class="row mb-6">
-                        <div class="col-7">
+                        <div class="col-lg-6 col-xxl-7">
                           <input type="text" class="form-control form-control-lg" id="" aria-describedby="">
                         </div>
                         <div class="col-auto px-0">
@@ -74,7 +74,7 @@
                         </div>
                       </div>
                       <div class="row mb-6">
-                        <div class="col-7">
+                        <div class="col-lg-6 col-xxl-7">
                           <input type="text" class="form-control form-control-lg" id="" aria-describedby="">
                         </div>
                         <div class="col-auto px-0">
@@ -107,7 +107,7 @@
             </div>
           </div>
 
-          <div class="col-9">  
+          <div class="col-lg-11 col-xxl-9">  
             <div class="card shadow">
               <div class="card-body">
                 <label for="" class="form-label">Tags</label>
