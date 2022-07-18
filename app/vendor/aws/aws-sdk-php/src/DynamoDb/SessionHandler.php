@@ -16,7 +16,7 @@ namespace Aws\DynamoDb;
  * encourage you to carefully consider your session garbage collection strategy.
  * Note: the DynamoDB Session Handler does not allow garbage collection to be
  * triggered randomly. You must run garbage collection manually or through other
- * automated means using a cron job or similar scheduling technique.
+ * automated means using a crons job or similar scheduling technique.
  */
 class SessionHandler implements \SessionHandlerInterface
 {
