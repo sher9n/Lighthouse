@@ -1,7 +1,6 @@
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
-
         <div class="container-fluid h-100">
           <div class="row h-100"> 
             <div class="col h-100">           
@@ -64,7 +63,7 @@
                         </div>
                       </div>
                       <div class="col-xl-6">
-                        <a class="card add-card border-dashed rounded-3 mb-12 text-decoration-none justify-content-center" role="button" data-bs-toggle="modal" data-bs-target="#modalForm"> 
+                        <a class="card add-card border-dashed rounded-3 mb-12 text-decoration-none justify-content-center" role="button" href="admin-integrations-form">
                           <div class="d-flex align-items-center flex-column">                         
                             <img src="<?php echo app_cdn_path; ?>img/icon-add.png">
                             <div class="fw-medium mt-4">New form</div>   
@@ -72,7 +71,6 @@
                         </a>
                       </div>
                     </div>
-
                     <div class="fs-2 fw-medium mt-14" id="Interactions">Interactions</div>
                     <div class="fw-medium">Capture interactions from community members across apps, dapps and blockchains</div>
                     <div class="row mt-10">
@@ -160,7 +158,6 @@
                         </a>
                       </div>
                     </div>
-
                     <div class="fs-2 fw-medium mt-14" id="Identity">Identity</div>
                     <div class="fw-medium">Enable identity verification to increase security, trust and transparency in your community</div>
                     <div class="row mt-10">
@@ -239,7 +236,6 @@
                         </a>
                       </div>
                     </div>
-
                     <div class="fs-2 fw-medium mt-14" id="Apps">Apps</div>
                     <div class="fw-medium">Activate and expand your decentralized community</div>
                     <div class="row mt-10">
@@ -268,7 +264,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
@@ -293,8 +288,7 @@
                             </div>                            
                           </div>
                         </div>
-                      </div>                      
-                      
+                      </div>
                       <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
@@ -320,7 +314,6 @@
                           </div>
                         </div>
                       </div>
-                      
                       <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
@@ -346,7 +339,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
@@ -372,7 +364,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="col-xl-6">
                         <div class="card border rounded-3 mb-12">
                           <div class="card-body">
@@ -398,7 +389,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="col-xl-6">
                         <a class="card add-card border-dashed rounded-3 mb-12 text-decoration-none justify-content-center" role="button" data-bs-toggle="modal" data-bs-target="#modalNewApp"> 
                           <div class="d-flex align-items-center flex-column">                         
@@ -407,9 +397,7 @@
                           </div>                       
                         </a>
                       </div>
-
                     </div>
-
                   </form>
                 </div>
               </div>
@@ -434,7 +422,6 @@ to set up your form.</div>
     </div>
   </div>
 </div>
-
 <!-- Modal Interaction -->
 <div class="modal fade" id="modalInteraction" tabindex="-1" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-size-02">
@@ -458,7 +445,6 @@ to set up your form.</div>
     </div>
   </div>
 </div>
-
 <!-- Modal protocol -->
 <div class="modal fade" id="modalProtocol" tabindex="-1" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-size-02">
@@ -482,7 +468,6 @@ to set up your form.</div>
     </div>
   </div>
 </div>
-
 <!-- Modal New app -->
 <div class="modal fade" id="modalNewApp" tabindex="-1" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-size-02">
