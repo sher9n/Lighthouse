@@ -219,6 +219,7 @@ class controller extends Ctrl {
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'is_admin' => $is_admin,
                 'claims' => $claims,
+                'approval_days' => $community->approval_days,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-approvals.php'
                 ),

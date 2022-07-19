@@ -43,7 +43,7 @@
                                     <div class="col-xl-6">
                                         <label for="NTTTicker" class="form-label">Contract name:</label>
                                         <div class="d-flex align-items-center mb-6">
-                                            <div class="fw-semibold fs-3 text-truncate" title="DegenCommunity-1657775613">DegenCommunity-1657775613</div>
+                                            <div class="fw-semibold fs-3 text-truncate" title="DegenCommunity-1657775613"><?php echo $__page->community->contract_name; ?></div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy ms-3 text-primary"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@
                                     <div class="col-xl-4">
                                         <label for="" class="form-label">Claim approval period</label>
                                         <div class="input-group">
-                                            <input type="text" id="" name="" class="form-control form-control-lg" value="" placeholder="7">
+                                            <input type="number" id="approval_days" name="approval_days" class="form-control form-control-lg" value="<?php echo $__page->community->approval_days; ?>" placeholder="7">
                                             <span class="input-group-text fw-medium" id="">Days</span>
                                         </div>
                                     </div>
@@ -140,6 +140,9 @@
         $('#settingsForm').validate({
             rules: {
                 dao_name: {
+                    required: true
+                },
+                approval_days: {
                     required: true
                 }
             },

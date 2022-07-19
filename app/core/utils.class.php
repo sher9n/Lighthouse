@@ -286,20 +286,36 @@ class Utils {
         return date('d/m/Y',$resolve_time);
     }
 
-    public static function expireDateCounts($date) {
-        $date_dif = date_diff(new \DateTime('now'),new \DateTime($date));
-        if($date_dif->y > 0)
-            return ($date_dif->y == 1)?$date_dif->y.' year left':$date_dif->y.' years left';
-        elseif ($date_dif->m > 1)
-            return ($date_dif->y == 1)?$date_dif->m.' month left':$date_dif->m.' months left';
-        elseif ($date_dif->d > 1)
-            return ($date_dif->d == 1)?$date_dif->d.' day left':$date_dif->d.' days left';
-        elseif ($date_dif->h > 1)
-            return ($date_dif->h == 1)?$date_dif->h.' hour left':$date_dif->y.' hour left';
-        elseif ($date_dif->i > 1)
-            return ($date_dif->i == 1)?$date_dif->i.' ninute '.$date_dif->s.' seconds left':$date_dif->i.' ninutes '.$date_dif->s.' seconds left';
+    public static function isExpired($start_date,$end_date) {
+
+        $date_dif = date_diff(new \DateTime($start_date),new \DateTime($end_date));
+
+        if($date_dif->invert == 0)
+            return false;
         else
-            return $date_dif->s.' seconds left';
+            return true;
+    }
+
+    public static function expire_date_count($start_date,$end_date) {
+
+        $date_dif = date_diff(new \DateTime($start_date),new \DateTime($end_date));
+
+        if($date_dif->invert == 0) {
+            if ($date_dif->y > 0)
+                return ($date_dif->y == 1) ? $date_dif->y . ' year' : $date_dif->y . ' years';
+            elseif ($date_dif->m > 1)
+                return ($date_dif->y == 1) ? $date_dif->m . ' month' : $date_dif->m . ' months';
+            elseif ($date_dif->d > 1)
+                return ($date_dif->d == 1) ? $date_dif->d . ' day' : $date_dif->d . ' days';
+            elseif ($date_dif->h > 1)
+                return ($date_dif->h == 1) ? $date_dif->h . ' hour' : $date_dif->y . ' hours';
+            elseif ($date_dif->i > 1)
+                return ($date_dif->i == 1) ? $date_dif->i . 'm' . $date_dif->s . 's' : $date_dif->i . 's' . $date_dif->s . 's';
+            else
+                return $date_dif->s . 's';
+        }
+        else
+            return '';
     }
 
     public static function ordering_data($data,$col,$dir='asc'){

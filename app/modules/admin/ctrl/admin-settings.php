@@ -62,6 +62,11 @@ class controller extends Ctrl {
                     else
                         throw new Exception("dao_name:Not a valid name");
 
+                    if ($this->hasParam('approval_days') && $this->getParam('approval_days') > 0)
+                        $community->approval_days = $this->getParam('approval_days');
+                    else
+                        throw new Exception("approval_days:Not a valid day");
+
                     $tick_change = $bg_change = false;
                     $html = '';
 

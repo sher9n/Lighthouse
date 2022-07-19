@@ -97,9 +97,10 @@ class controller extends Ctrl {
                 if(__ROUTER_PATH == '/contribution-list' ) {
                     $html = '';
                     if($this->hasParam('t')) {
-                        $t = $this->getParam('t');
-                        $com_id = $community->id;
-                        $claims = array();
+                        $t              = $this->getParam('t');
+                        $com_id         = $community->id;
+                        $claims         = array();
+                        $approval_days  = $community->approval_days;
 
                         if($t =='Reviewed') {
 
