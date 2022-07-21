@@ -44,7 +44,7 @@ class controller extends Ctrl {
 
                         if($this->hasParam('max_point') && $this->getParam('max_point') > 0) {
                             $max_point = $this->getParam('max_point');
-                            $form->$max_point = $max_point;
+                            $form->max_point = $max_point;
                         }
                         else
                             throw new Exception("max_point:This field is required.");
@@ -78,7 +78,8 @@ class controller extends Ctrl {
                         }
                     }
 
-                    $form->insert();
+                    $form->update();
+                    echo json_encode(array('success' => true,'message' => 'Success! Your form has been updated.'));
 
                 }
                 catch (Exception $e) {

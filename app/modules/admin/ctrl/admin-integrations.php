@@ -1,6 +1,7 @@
 <?php
 use lighthouse\Auth;
 use lighthouse\Community;
+use lighthouse\Form;
 class controller extends Ctrl {
     function init() {
         $is_admin = false;
@@ -27,9 +28,12 @@ class controller extends Ctrl {
                 header("Location: https://lighthouse.xyz");
                 die();
             }
+
+            $forms = Form::find("SELECT * FROM forms WHERE id <> 2",true);
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'forms' => $forms,
                 'is_admin' => $is_admin,
                 'blockchain' => $community->blockchain,
                 'sel_wallet_adr' => $sel_wallet_adr,
