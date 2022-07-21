@@ -45,14 +45,14 @@
                             <div class="card-body">
                                 <label for="" class="form-label">Approval type</label>
                                 <div class="form-check form-check-lg">
-                                    <input class="form-check-input radio_rating" value="yes_no" checked type="radio" name="ApprovalType">
+                                    <input class="form-check-input radio_rating" value="1" checked type="radio" name="approval_type">
                                     <label class="form-check-label" for="YesNo">
                                         Yes/No
                                     </label>
                                     <div class="text-lg fst-italic mt-2">Eg: Attended a meeting</div>
                                 </div>
                                 <div class="form-check form-check-lg">
-                                    <input class="form-check-input radio_rating" value="rating" type="radio" name="ApprovalType">
+                                    <input class="form-check-input radio_rating" value="2" type="radio" name="approval_type">
                                     <label class="form-check-label" for="Rating">
                                         Rating
                                     </label>
@@ -63,7 +63,7 @@
                                     <div id="rating_data_row">
                                         <div class="row mb-6">
                                             <div class="col-lg-12 col-xl-5 col-xxl-6">
-                                                <input type="text" class="form-control form-control-lg" id="category" name="category[]"
+                                                <input type="text" class="form-control form-control-lg" id="category1" name="category[]"
                                                        aria-describedby="">
                                             </div>
                                             <div class="col-auto px-xxl-0">
@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="row mb-6">
                                             <div class="col-lg-12 col-xl-5 col-xxl-6">
-                                                <input type="text" class="form-control form-control-lg" id="category" name="category[]"
+                                                <input type="text" class="form-control form-control-lg" id="category2" name="category[]"
                                                        aria-describedby="">
                                             </div>
                                             <div class="col-auto px-xxl-0">
@@ -150,7 +150,7 @@
                         <div class="card shadow">
                             <div class="card-body">
                                 <label for="" class="form-label">Tags</label>
-                                <select style="width: width: 100px !important;" class="form-control form-control-lg" multiple="multiple" name="tags" id="tags" placeholder="Marketing, Sales, Development"></select>
+                                <select style="width: width: 100px !important;" class="form-control form-control-lg" multiple="multiple" name="tags[]" id="tags" placeholder="Marketing, Sales, Development"></select>
                             </div>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
 </main>
 <div id="rating_block" class="row mb-6 d-none">
     <div class="col-lg-12 col-xl-5 col-xxl-6">
-        <input type="text" class="form-control form-control-lg" id="category" name="category[]"
+        <input type="text" class="form-control form-control-lg" id="category3" name="category[]"
                aria-describedby="">
     </div>
     <div class="col-auto px-xxl-0">
@@ -206,6 +206,7 @@
 </div>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
+    var row_id = 3;
     $(document).on('change', '#scoring', function(event) {
         event.preventDefault();
         if(this.checked)
@@ -216,7 +217,18 @@
 
     $(document).on('click', '#add_category', function(event) {
         event.preventDefault();
-        $('#rating_block').clone().appendTo(('#rating_data_row')).removeClass('d-none');
+        var regex = /^(.+?)(\d+)$/i;
+        $('#rating_block').clone().appendTo(('#rating_data_row')).removeClass('d-none')
+            .attr("id", "category" +  row_id)
+            .find("*")
+            .each(function() {
+                var id = this.id || "";
+                var match = id.match(regex) || [];
+                if (match.length == 3) {
+                    this.id = match[1] + (row_id);
+                }
+            });
+        row_id++;
     });
 
     $(document).on('click', '.btn-delete', function(event) {
@@ -232,7 +244,7 @@
         });
 
         $('.radio_rating').change(function () {
-            if (this.value == 'yes_no')
+            if (this.value == '1')
                 $('#rating_data').addClass('d-none');
             else
                 $('#rating_data').removeClass('d-none');
@@ -250,7 +262,14 @@
                     success: function (data) {
                         if (data.success == true) {
                             window.location.replace('integrations-form');
+                        } else {
+                            if (data.element) {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            } else
+                                showMessage('danger', 10000, data.msg);
                         }
+
                         $('#finish').prop('disabled', false);
                     }
                 });

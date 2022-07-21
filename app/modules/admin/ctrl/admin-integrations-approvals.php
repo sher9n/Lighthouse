@@ -30,23 +30,56 @@ class controller extends Ctrl {
 
             if($this->__lh_request->is_post) {
 
-                var_dump($_POST);exit();
-                $scoring   = false;
+                $scoring   = 0;
                 $max_point = 0;
+                $rating    = 1;
+                $approval_type = 1;
 
                 try {
 
-                    if($this->hasParam('scoring') && $this->getParam('scoring') == 'on') {
-                        $scoring = true;
+                    $form = Form::get($form_id);
 
-                        if($this->hasParam('max_point') && $this->getParam('max_point') > 0)
+                    if($this->hasParam('scoring') && $this->getParam('scoring') == 'on') {
+                        $scoring = 1;
+
+                        if($this->hasParam('max_point') && $this->getParam('max_point') > 0) {
                             $max_point = $this->getParam('max_point');
+                            $form->$max_point = $max_point;
+                        }
                         else
                             throw new Exception("max_point:This field is required.");
 
                     }
 
-                    $form = Form::get($form_id);
+                    if($this->hasParam('approval_type'))
+                        $approval_type = $this->getParam('approval_type');
+
+
+                    $form->scoring = $scoring;
+                    $form->approval_type = $approval_type;
+
+                    if($this->hasParam('tags') && count($this->getParam('tags')) > 0)
+                        $form->tags = json_encode($this->getParam('tags'));
+
+                    if($form->approval_type == 2) {
+                        $rating_cats = array();
+                        if($this->hasParam('category') && count($this->getParam('category'))) {
+                            $categories = $this->getParam('category');
+                            $row_id = 1;
+                            foreach ($categories as $category) {
+                                if(strlen($category) > 0)
+                                    array_push($rating_cats,$category);
+                                else
+                                    throw new Exception("category".$row_id.":This fields are required.");
+                                $row_id++;
+                            }
+
+                            $form->rating_categories = json_encode($rating_cats);
+                        }
+                    }
+
+                    $form->insert();
+
                 }
                 catch (Exception $e) {
 
