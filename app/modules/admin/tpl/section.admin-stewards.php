@@ -171,16 +171,16 @@
                 required: true
             }
         },
-        beforeSend: function () {
-            $('#btn_cancel').prop('disabled', true);
-            $('#btn_save').prop('disabled', true);
-            $('#nickname').prop('disabled', true);
-            $('#wallet_address').prop('disabled', true);
-        },
         submitHandler: function(form) {
             $(form).ajaxSubmit({
                 type: 'post',
                 dataType: 'json',
+                beforeSend: function () {
+                    $('#btn_cancel').prop('disabled', true);
+                    $('#btn_save').prop('disabled', true);
+                    $('#nickname').prop('disabled', true);
+                    $('#wallet_address').prop('disabled', true);
+                },
                 success: function(data) {
                     $('#addMember').modal('toggle');
                     $('#btn_cancel').prop('disabled', false);

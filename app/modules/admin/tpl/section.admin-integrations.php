@@ -63,7 +63,7 @@
                         </div>
                       </div>
                       <div class="col-xl-6">
-                        <a class="card add-card border-dashed rounded-3 mb-12 text-decoration-none justify-content-center" role="button" href="admin-integrations-form">
+                        <a class="card add-card border-dashed rounded-3 mb-12 text-decoration-none justify-content-center" role="button" href="integrations-form">
                           <div class="d-flex align-items-center flex-column">                         
                             <img src="<?php echo app_cdn_path; ?>img/icon-add.png">
                             <div class="fw-medium mt-4">New form</div>   
@@ -417,7 +417,7 @@ to set up your form.</div>
       </div> 
       <div class="modal-footer pe-10">
         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <a role="button" class="btn btn-primary" href="admin-integrations-form">SAVE</a>
+        <a role="button" class="btn btn-primary" href="integrations-form">SAVE</a>
       </div>   
     </div>
   </div>
@@ -440,7 +440,7 @@ to set up your form.</div>
       </div> 
       <div class="modal-footer pe-10">
         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <a role="button" class="btn btn-primary" href="admin-integrations-form">Get in touch</a>
+        <a role="button" class="btn btn-primary" href="integrations-form">Get in touch</a>
       </div>   
     </div>
   </div>
@@ -463,7 +463,7 @@ to set up your form.</div>
       </div> 
       <div class="modal-footer pe-10">
         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <a role="button" class="btn btn-primary" href="admin-integrations-form">Get in touch</a>
+        <a role="button" class="btn btn-primary" href="integrations-form">Get in touch</a>
       </div>   
     </div>
   </div>
@@ -486,7 +486,7 @@ to set up your form.</div>
       </div> 
       <div class="modal-footer pe-10">
         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <a role="button" class="btn btn-primary" href="admin-integrations-form">Get in touch</a>
+        <a role="button" class="btn btn-primary" href="integrations-form">Get in touch</a>
       </div>   
     </div>
   </div>
@@ -503,7 +503,7 @@ to set up your integration.</div>
       </div> 
       <div class="modal-footer pe-10">
         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-        <a role="button" class="btn btn-primary" href="admin-integrations-form">SAVE</a>
+        <a role="button" class="btn btn-primary" href="integrations-form">SAVE</a>
       </div>   
     </div>
   </div>

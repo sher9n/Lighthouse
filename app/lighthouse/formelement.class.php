@@ -1,14 +1,7 @@
 <?php
 namespace lighthouse;
 use Core\Ds;
-class Form{
-
-    const QT_SHORT_ANSWER = 1;
-    const QT_PARAGRAPH = 2;
-    const QT_MULTIPLE_CHOICE = 3;
-    const QT_CHECKBOXES = 4;
-    const QT_DROPDOWN = 5;
-    const QT_TAGS = 6;
+class FormElement{
 
     private $_data = array();
 
@@ -30,14 +23,14 @@ class Form{
 
     public static function get($id){
         $connect = Ds::connect();
-        $items   = $connect->query("select * from forms where id='$id' limit 1");
+        $items   = $connect->query("select * from form_elements where id='$id' limit 1");
 
         if($items->num_rows > 0){
-            $form_data = $items->fetch_array(MYSQLI_ASSOC);
-            $form = new Form();
+            $form_element_data = $items->fetch_array(MYSQLI_ASSOC);
+            $form_element = new FormElement();
 
             $connect->close();
-            return $form->load($form_data);
+            return $form_element->load($form_element_data);
             exit();
 
         }
@@ -71,18 +64,18 @@ class Form{
 
     public static function find($query,$objects=false)
     {
-        $form_data = array();
+        $form_element_data = array();
         $connect = Ds::connect();
         $results = $connect->query($query);
 
         if($objects != false){
             while ($row = $results->fetch_array(MYSQLI_ASSOC)) {
-                $form = new Form();
-                $form = $form->load($row);
-                $form_data[$form->id] = $form;
+                $form_element = new FormElement();
+                $form_element = $form_element->load($row);
+                $form_element_data[$form_element->id] = $form_element;
             }
             $connect->close();
-            return $form_data;
+            return $form_element_data;
         }
         $connect->close();
         return $results;
@@ -108,7 +101,7 @@ class Form{
                 $update_sql .= $key . "='" . $connect->real_escape_string($val) . "'";
         }
 
-        $update = "UPDATE forms SET ".$update_sql." WHERE id=".$id;
+        $update = "UPDATE form_elements SET ".$update_sql." WHERE id=".$id;
         $connect->query($update);
         $connect->close();
     }
@@ -122,7 +115,7 @@ class Form{
         }
         $fields = implode(",",array_keys($data));
         $values = implode("','",array_values($data));
-        $insert_sql = "INSERT INTO forms (".$fields.") VALUES ('".$values."')";
+        $insert_sql = "INSERT INTO form_elements (".$fields.") VALUES ('".$values."')";
         $connect->query($insert_sql);
         $id = $connect->insert_id;
         $connect->close();
