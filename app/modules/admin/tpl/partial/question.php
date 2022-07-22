@@ -110,7 +110,7 @@
         <div class="description_row">
             <div class="q_description" id="q_type_<?php echo Form::QT_SHORT_ANSWER; ?>">
                 <label for="" class="form-label">Description</label>
-                <input type="text" class="form-control form-control-lg" id="description_1" name="description[<?php echo $row_id; ?>]"
+                <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>1" name="description[<?php echo $row_id; ?>]"
                        placeholder="Please enter the reason for this contribution">
             </div>
         </div>
@@ -152,4 +152,7 @@
             <line x1="8" y1="12" x2="16" y2="12"></line>
         </svg>
     </a>
+    <script>
+        var row_id = '<?php echo $row_id; ?>'
+    </script>
 </div>

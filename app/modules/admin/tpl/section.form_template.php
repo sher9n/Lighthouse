@@ -52,14 +52,14 @@ $form_elements = $__page->form->getElements();
                                         case Form::QT_DROPDOWN:
                                             $list = json_decode($ele['e_description']);
                                             ?>
-                                            <selectname="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>">
+                                            <select class="form-control form-control-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>">
                                                 <?php foreach ($choices as $index => $choice){ ?>
                                                 <option value="<?php echo $choice; ?>"><?php echo ucfirst(strtolower($choice)); ?></option>
                                                 <?php } ?>
                                             </select>
                                             <?php
                                             break;
-                                        case 6:
+                                        case Form::QT_TAGS:
                                             ?>
                                             <select style="width: width: 100px !important;" class="form-control form-control-lg tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_description']; ?>"></select>
                                             <?php

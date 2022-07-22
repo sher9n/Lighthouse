@@ -6,7 +6,7 @@ class controller extends Ctrl {
     function init() {
         $is_admin = false;
         $sel_wallet_adr = null;
-        $form_id = null;
+        $form = null;
         $community = Community::getByDomain(app_site);
 
         if(isset($_SESSION['lh_sel_wallet_adr']) && strlen($_SESSION['lh_sel_wallet_adr']) > 0) {
@@ -19,8 +19,10 @@ class controller extends Ctrl {
             die();
         }
 
-        if($this->getParam('form_id') && strlen($this->getParam('form_id')) > 0)
+        if($this->getParam('form_id') && strlen($this->getParam('form_id')) > 0) {
             $form_id = $this->getParam('form_id');
+            $form = Form::get($form_id);
+        }
         else {
             header("Location: " . app_url.'integrations-form');
             die();
@@ -36,8 +38,6 @@ class controller extends Ctrl {
                 $approval_type = 1;
 
                 try {
-
-                    $form = Form::get($form_id);
 
                     if($this->hasParam('scoring') && $this->getParam('scoring') == 'on') {
                         $scoring = 1;
@@ -59,7 +59,7 @@ class controller extends Ctrl {
                     $form->approval_type = $approval_type;
 
                     if($this->hasParam('tags') && count($this->getParam('tags')) > 0)
-                        $form->tags = json_encode($this->getParam('tags'));
+                        $form->tags = implode(",",$this->getParam('tags'));
 
                     if($form->approval_type == 2) {
                         $rating_cats = array();
@@ -105,7 +105,7 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
-                'form_id' => $form_id,
+                'form' => Form::get($form_id),
                 'is_admin' => $is_admin,
                 'blockchain' => GNOSIS_CHAIN,
                 'sel_wallet_adr' => $sel_wallet_adr,

@@ -7,6 +7,7 @@ class controller extends Ctrl {
     function init() {
         $is_admin = false;
         $sel_wallet_adr = null;
+        $form = null;
         $community = Community::getByDomain(app_site);
 
         if(isset($_SESSION['lh_sel_wallet_adr']) && strlen($_SESSION['lh_sel_wallet_adr']) > 0) {
@@ -24,10 +25,9 @@ class controller extends Ctrl {
             if($this->__lh_request->is_post) {
 
                 try {
-
                     $form_title = $form_description = null;
                     $questions = array();
-                    $selected_type = $question = $description = $required = array();
+                    $selected_type = $question = $description = $required = $element_ids =  array();
 
                     if ($this->hasParam('form_title') && strlen($this->getParam('form_title')) > 0)
                         $form_title = $this->getParam('form_title');
@@ -55,9 +55,17 @@ class controller extends Ctrl {
                     if ($this->hasParam('required') && count($this->getParam('required')) > 0)
                         $required = $this->getParam('required');
 
+                    if ($this->hasParam('element_ids') && count($this->getParam('element_ids')) > 0)
+                        $element_ids = $this->getParam('element_ids');
+
                     $q_count = count($selected_type);
 
                     for($i=1;$i <= $q_count; $i++) {
+
+                        if(isset($element_ids[$i]))
+                            $questions[$i]['e_id'] = is_array($element_ids[$i])?array_key_first($element_ids[$i]):null;
+                        else
+                            $questions[$i]['e_id'] = null;
 
                         $questions[$i]['e_type'] = $selected_type[$i];
 
@@ -80,24 +88,49 @@ class controller extends Ctrl {
                             $questions[$i]['e_required'] = $required[$i];
                     }
 
-                    $form = new Form();
-                    $form->form_title = $form_title;
-                    $form->form_description = $form_description;
-                    $new_form_id = $form->insert();
+                    if($this->hasParam('form_id') && strlen($this->getParam('form_id')) > 0) {
+                        $new_form_id = $this->getParam('form_id');
+                        $form = Form::get($new_form_id);
+                        $form->form_title = $form_title;
+                        $form->form_description = $form_description;
+                        $form->update();
+                    }
+                    else {
+                        $form = new Form();
+                        $form->form_title = $form_title;
+                        $form->form_description = $form_description;
+                        $new_form_id = $form->insert();
+                    }
 
                     $order = 1;
-                    foreach ($questions as $type => $question){
-                        $formElement = new FormElement();
-                        $formElement->form_id = $new_form_id;
-                        $formElement->e_type  = $question['e_type'];
-                        $formElement->e_label = $question['e_label'];
-                        $formElement->e_order = $order;
-                        $label_name = strtolower(preg_replace("/\s+/", "_", $formElement->e_label));
-                        $formElement->e_name  = $label_name;
-                        $formElement->e_id    = $label_name;
-                        $formElement->e_required = isset($question['e_required'])?1:0;
-                        $formElement->e_description = $question['e_description'];
-                        $formElement->insert();
+
+                    foreach ($questions as $index => $question){
+                        if(!is_null($question['e_id'])) {
+                            $id = $question['e_id'];
+                            $formElement = FormElement::get($id);
+                            $formElement->e_type  = $question['e_type'];
+                            $formElement->e_label = $question['e_label'];
+                            $formElement->e_order = $order;
+                            $label_name = strtolower(preg_replace("/\s+/", "_", $formElement->e_label));
+                            $formElement->e_name  = $label_name;
+                            $formElement->e_id    = $label_name;
+                            $formElement->e_required = isset($question['e_required'])?1:0;
+                            $formElement->e_description = $question['e_description'];
+                            $formElement->update();
+                        }
+                        else {
+                            $formElement = new FormElement();
+                            $formElement->form_id = $new_form_id;
+                            $formElement->e_type  = $question['e_type'];
+                            $formElement->e_label = $question['e_label'];
+                            $formElement->e_order = $order;
+                            $label_name = strtolower(preg_replace("/\s+/", "_", $formElement->e_label));
+                            $formElement->e_name  = $label_name;
+                            $formElement->e_id    = $label_name;
+                            $formElement->e_required = isset($question['e_required'])?1:0;
+                            $formElement->e_description = $question['e_description'];
+                            $formElement->insert();
+                        }
                         $order++;
                     }
 
@@ -135,10 +168,15 @@ class controller extends Ctrl {
                 header("Location: https://lighthouse.xyz");
                 die();
             }
+
+            if($this->hasParam('form_id'))
+                $form = Form::get($this->getParam('form_id'));
+
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
                 'row_id' => 1,
+                'form' => $form,
                 'is_admin' => $is_admin,
                 'blockchain' => GNOSIS_CHAIN,
                 'sel_wallet_adr' => $sel_wallet_adr,

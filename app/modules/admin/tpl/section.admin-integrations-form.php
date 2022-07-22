@@ -5,35 +5,71 @@
         <div class="container-fluid h-100">
             <div class="row">
                 <form id="createForm" method="post" action="integrations-form" autocomplete="off">
-                    <div class="col-lg-10">
-                        <div class="d-flex mb-6">
-                            <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-arrow-left me-2">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                                Back</a>
-                            <button type="button" id="btn_cancel" class="btn btn-blue-stone me-2">Preview</button>
-                            <button type="submit" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
-                        </div>
-                    </div>
-                    <div class="col-lg-10">
-                        <div class="card shadow p-6 mb-12">
-                            <div class="card-body border rounded-1">
-                                <input class="form-control form-control-xxl" type="text" placeholder="Untitled form" id="form_title" name="form_title">
-                                <input class="form-control form-control-lg border-0 min-h-0 py-0" type="text" id="form_description" name="form_description"
-                                       placeholder="Enter form description">
+                    <?php if(!is_null($__page->form)){ ?>
+                        <input type="hidden" name="form_id" value="<?php echo $__page->form->id; ?>">
+                        <div class="col-lg-10">
+                            <div class="d-flex mb-6">
+                                <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-arrow-left me-2">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                    Back</a>
+                                <button type="button" id="btn_cancel" class="btn btn-blue-stone me-2">Preview</button>
+                                <button type="submit" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
                             </div>
                         </div>
-                    </div>
-                    <div id="elements" class="col-lg-10">
-                        <?php
+                        <div class="col-lg-10">
+                            <div class="card shadow p-6 mb-12">
+                                <div class="card-body border rounded-1">
+                                    <input class="form-control form-control-xxl" type="text" placeholder="Untitled form" id="form_title" name="form_title" value="<?php echo $__page->form->form_title; ?>">
+                                    <input class="form-control form-control-lg border-0 min-h-0 py-0" type="text" id="form_description" name="form_description"
+                                           placeholder="Enter form description" value="<?php echo $__page->form->form_description; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="elements" class="col-lg-10">
+                            <?php
+                            $elements = $__page->form->getElements();
+                            foreach ($elements as $index => $element) {
+                                $row_id = ($index + 1);
+                                require 'partial/question-edit.php';
+                            }
+                            ?>
+                        </div>
+                    <?php }else{ ?>
+                        <div class="col-lg-10">
+                            <div class="d-flex mb-6">
+                                <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-arrow-left me-2">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                    Back</a>
+                                <button type="button" id="btn_cancel" class="btn btn-blue-stone me-2">Preview</button>
+                                <button type="submit" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="card shadow p-6 mb-12">
+                                <div class="card-body border rounded-1">
+                                    <input class="form-control form-control-xxl" type="text" placeholder="Untitled form" id="form_title" name="form_title">
+                                    <input class="form-control form-control-lg border-0 min-h-0 py-0" type="text" id="form_description" name="form_description"
+                                           placeholder="Enter form description">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="elements" class="col-lg-10">
+                            <?php
                             $row_id = $__page->row_id;
                             require_once 'partial/question.php';
-                        ?>
-                    </div>
+                            ?>
+                        </div>
+                    <?php } ?>
                 </form>
             </div>
         </div>
@@ -184,7 +220,6 @@
 <!-- Pragraph END -->
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script type="text/javascript">
-    var row_id = '<?php echo $__page->row_id; ?>'
 
     $(document).ready(function() {
 
