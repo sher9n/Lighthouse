@@ -41,23 +41,24 @@ class Approval{
         return null;
     }
 
-    public static function getUserApprovals($contribution_id){
+    public static function getUserApprovals($contribution_id,$user){
         $connect = Ds::connect();
-        $items   = $connect->query("select approval from approvals where contribution_id='$contribution_id' ");
-        $results = array('complexity' => 0,'importance'=>0,'quality'=>0);
+        $items   = $connect->query("select approval from approvals where contribution_id='$contribution_id' AND approval_by='$user'");
+        $results = array();
+        $type    = null;
         $x = 0;
         if($items != false){
             while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
                 $x++;
-                $obj = json_decode($row['approval']);
-                $results['complexity'] += $obj->complexity;
-                $results['complexity'] = round($obj->complexity/$x);
+                $categories = json_decode($row['approval']);
+                foreach ($categories as $cat => $val){
+                    if(isset($results[$cat]))
+                        $results[$cat] += $val;
+                    else
+                        $results[$cat] = $val;
 
-                $results['importance'] += $obj->importance;
-                $results['importance'] = round($obj->importance/$x);
-
-                $results['quality'] += $obj->quality;
-                $results['quality'] = round($obj->quality/$x);
+                    $results[$cat] = round($val/$x);
+                }
             }
         }
         $connect->close();

@@ -14,6 +14,34 @@
                             <div class="fw-medium">Design forms to collect contributions from your community</div>
                             <form class="mt-10 col-xxl-10">
                                 <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="card border rounded-3 mb-12">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-7">
+                                                    <div class="card-logo me-8">
+                                                        <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
+                                                    </div>
+                                                    <div>
+                                                        <div class="fs-4 fw-semibold pe-2">Simple claim</div>
+                                                        <div class="fs-6 fw-medium">Fixed score, upto 500</div>
+                                                    </div>
+                                                    <div class="ms-auto">
+                                                        <label class="switch">
+                                                            <input type="checkbox" class="form-switch-input" checked>
+                                                            <span class="slider"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="fw-medium lh-lg two-lines-wrap text-gray-700">
+                                                    Send NTTs to anyone in your community
+                                                </div>
+                                            </div>
+                                            <div class="border-top card-body text-end">
+                                                <a href="integrations-form?form_id=1" class="fw-medium text-decoration-none text-primary">Edit
+                                                    Form</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php foreach ($__page->forms as $form){ ?>
                                     <div class="col-xl-6">
                                         <div class="card border rounded-3 mb-12">

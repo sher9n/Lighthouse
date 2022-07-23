@@ -25,6 +25,7 @@ class controller extends Ctrl {
             if($this->__lh_request->is_post) {
 
                 try {
+                    var_dump($_POST);exit();
                     $form_title = $form_description = null;
                     $questions = array();
                     $selected_type = $question = $description = $required = $element_ids =  array();
@@ -99,6 +100,7 @@ class controller extends Ctrl {
                         $form = new Form();
                         $form->form_title = $form_title;
                         $form->form_description = $form_description;
+                        $form->comunity_id = $community->id;
                         $new_form_id = $form->insert();
                     }
 

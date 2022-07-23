@@ -22,20 +22,31 @@
                                 </div>                                
                                 </div>
                             </div>
-                            <!--<div class="col-lg-6 col-xl-5">
-                                <div class="card border rounded-3 mb-12 mb-lg-0">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-7">
-                                        <div class="card-logo me-8">
-                                            <img src="<?php /*echo app_cdn_path; */?>img/company-logo/icob-grants.png">
+                            <?php foreach ($__page->forms as $form){ ?>
+                                <div class="col-lg-6 col-xl-5">
+                                    <div class="card border rounded-3 mb-12">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <div class="card-logo me-8">
+                                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
+                                                </div>
+                                                <div>
+                                                    <div class="fs-4 fw-semibold pe-2"><?php echo $form->form_title; ?></div>
+                                                    <?php if($form->scoring ==1){ ?>
+                                                        <div class="fs-6 fw-medium">Fixed score, upto <?php echo number_format($form->max_point); ?></div>
+                                                    <?php }else{ ?>
+                                                        <div class="fs-6 fw-medium">No score</div>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">
+                                                <?php echo $form->form_description; ?>
+                                            </div>
+                                            <a href="contribution?form=<?php echo $form->id; ?>" class="btn btn-primary mt-8">View Form</a>
                                         </div>
-                                        <div class="fs-4 fw-semibold">Grants request</div>
                                     </div>
-                                    <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Use this form to request attestations for  contributions related to grants. </div>
-                                    <a href="#" class="btn btn-primary mt-8">View Form</a>
-                                </div>                                
                                 </div>
-                            </div>-->
+                            <?php } ?>
                         </div>
                     </div>                    
                 </div>

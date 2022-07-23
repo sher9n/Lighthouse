@@ -18,36 +18,47 @@ if($claims != false && count($claims) > 0 ){
                 if ($t == 'Queue'){
                     $is_expired = Utils::isExpired(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')));
                     if($is_expired == false) {
-                        ?>
-                        <div class="d-flex align-items-center text-blue-stone my-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>"></div>
-                        </div>
-                        <script>
-
-                            var countDownDate = new Date("<?php echo date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')); ?>").getTime();
-
-                            var x = setInterval(function() {
-
-                                var now = new Date().getTime();
-
-                                var distance = countDownDate - now;
-
-                                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                                $(".end_time_<?php echo $claim['c_id']; ?>").html("Approval period ends in "+days + "d " + hours + "h "
-                                    + minutes + "m " + seconds + "s ");
-
-                                if (distance < 0) {
-                                    clearInterval(x);
-                                    $(".end_time_<?php echo $claim['c_id']; ?>").html("EXPIRED");
-                                }
-                            }, 1000);
-                        </script>
+                        $date_count = Utils::expire_date_count(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')));
+                        if(!is_null($date_count)) {
+                            ?>
+                            <div class="d-flex align-items-center text-blue-stone my-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Approval period ends in <?php echo $date_count; ?></div>
+                            </div>
                         <?php
+                        }
+                        else {
+                        ?>
+                            <div class="d-flex align-items-center text-blue-stone my-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>"></div>
+                            </div>
+                            <script>
+
+                                var countDownDate = new Date("<?php echo date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')); ?>").getTime();
+
+                                var x = setInterval(function() {
+
+                                    var now = new Date().getTime();
+
+                                    var distance = countDownDate - now;
+
+                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                    $(".end_time_<?php echo $claim['c_id']; ?>").html("Approval period ends in " + hours + "h "
+                                        + minutes + "m " + seconds + "s ");
+
+                                    if (distance < 0) {
+                                        clearInterval(x);
+                                        $(".end_time_<?php echo $claim['c_id']; ?>").html("EXPIRED");
+                                    }
+                                }, 1000);
+                            </script>
+                            <?php
+                        }
                     }
                 }
                 ?>

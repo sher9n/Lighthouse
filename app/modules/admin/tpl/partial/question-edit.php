@@ -187,96 +187,104 @@
                 ?>
                 <div class="q_description" id="q_type_<?php echo Form::QT_MULTIPLE_CHOICE; ?>">
                     <label for="" class="form-label">Description</label>
-                    <?php
-                    $descriptions = $element['e_description'];
-                    $descriptions = json_decode($descriptions);
-                    foreach ($descriptions as $des){
-                    ?>
-                    <div class="row mb-6">
-                        <div class="col-10 col-xxl-11">
-                            <div class="d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                     stroke-linecap="round" stroke-linejoin="round"
-                                     class="feather feather-circle me-6">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                </svg>
-                                <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                       aria-describedby=""
-                                       placeholder="Please enter multiple choice option" value="<?php echo $des; ?>">
+                        <div class="description_elements">
+                        <?php
+                        $descriptions = $element['e_description'];
+                        $descriptions = json_decode($descriptions);
+                        foreach ($descriptions as $index =>  $des){
+                        ?>
+                        <div class="row mb-6">
+                            <div class="col-10 col-xxl-11">
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-circle me-6">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                    <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
+                                           aria-describedby=""
+                                           placeholder="Please enter multiple choice option" value="<?php echo $des; ?>">
+                                </div>
                             </div>
+                            <?php if($index != 0){ ?>
+                            <div class="col px-0">
+                                <button class="btn btn-delete ms-0 h-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-trash">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <?php } ?>
                         </div>
+                        <?php } ?>
                     </div>
-                    <?php } ?>
-                        <!--<div class="col px-0">
-                            <button class="btn btn-delete ms-0 h-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                     stroke-linecap="round" stroke-linejoin="round"
-                                     class="feather feather-trash">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
-                            </button>
-                        </div>-->
-                    <button type="button" class="btn btn-primary">add option</button>
+                    <button type="button" class="add_option btn btn-primary">add option</button>
                 </div>
                 <?php
             }else if($element['e_type'] == Form::QT_CHECKBOXES) {
                 ?>
                 <div class="q_description" id="q_type_<?php echo Form::QT_CHECKBOXES; ?>">
                     <label for="" class="form-label">Description</label>
-                    <?php
-                    $descriptions = $element['e_description'];
-                    $descriptions = json_decode($descriptions);
-                    foreach ($descriptions as $des){
-                    ?>
-                    <div class="row mb-6">
-                        <div class="col-10 col-xxl-11">
-                            <div class="d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                     stroke-linecap="round" stroke-linejoin="round"
-                                     class="feather feather-square me-6">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                </svg>
-                                <input type="text" class="form-control form-control-lg"  id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                       aria-describedby="" placeholder="Please enter checkbox option">
+                    <div class="description_elements">
+                        <?php
+                        $descriptions = $element['e_description'];
+                        $descriptions = json_decode($descriptions);
+                        foreach ($descriptions as $index => $des){
+                        ?>
+                        <div class="row mb-6">
+                            <div class="col-10 col-xxl-11">
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-square me-6">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    </svg>
+                                    <input type="text" class="form-control form-control-lg"  id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
+                                           aria-describedby="" placeholder="Please enter checkbox option">
+                                </div>
                             </div>
+                            <?php if($index != 0){ ?>
+                            <div class="col px-0">
+                                <button class="btn btn-delete ms-0 h-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-trash">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <?php } ?>
                         </div>
+                        <?php } ?>
                     </div>
-                    <?php } ?>
-                        <!--<div class="col px-0">
-                            <button class="btn btn-delete ms-0 h-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                     stroke-linecap="round" stroke-linejoin="round"
-                                     class="feather feather-trash">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
-                            </button>
-                        </div>-->
-                    <button type="button" class="btn btn-primary">add option</button>
+                    <button type="button" class="add_option btn btn-primary">add option</button>
                 </div>
                 <?php
             }else if($element['e_type'] == Form::QT_DROPDOWN) {
                 ?>
                 <div class="q_description " id="q_type_<?php echo Form::QT_DROPDOWN; ?>">
                     <label for="" class="form-label">Description</label>
+                    <div class="description_elements">
                     <?php
                     $descriptions = $element['e_description'];
                     $descriptions = json_decode($descriptions);
-                    foreach ($descriptions as $des){
+                    foreach ($descriptions as $index => $des){
                     ?>
                     <div class="row mb-6">
                         <div class="col-10 col-xxl-11">
                             <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
                                    aria-describedby="" placeholder="Please enter dropdown option">
                         </div>
-                    </div>
-                    <?php } ?>
-                        <!--<div class="col px-0">
+                        <?php if($index != 0){ ?>
+                        <div class="col px-0">
                             <button class="btn btn-delete ms-0 h-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -286,8 +294,12 @@
                                     <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                 </svg>
                             </button>
-                        </div>-->
-                    <button type="button" class="btn btn-primary">add option</button>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
+                    </div>
+                    <button type="button" class="add_option btn btn-primary">add option</button>
                 </div>
                 <?php
             }else if($element['e_type'] == Form::QT_TAGS) {
@@ -308,7 +320,7 @@
     <hr class="my-2">
     <div class="card-body">
         <div class="d-flex align-items-center justify-content-end">
-            <a class="px-8 btn-copy" href="#">
+            <a class="btn_copy px-8 btn-copy" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                      stroke-linejoin="round" class="feather feather-copy text-dark">

@@ -48,26 +48,23 @@ class controller extends Ctrl {
                     }
                     else {
                         $approve = false;
-                        $c = $this->hasParam('c') ? $this->getParam('c') : 0;
-                        $i = $this->hasParam('i') ? $this->getParam('i') : 0;
-                        $q = $this->hasParam('q') ? $this->getParam('q') : 0;
+                        $post = $_POST;
+                        unset($post['con_id']);
+                        unset($post['status']);
 
                         $approval = new Approval();
-                        $approval->approval_by = $sel_wallet_adr;
-                        $approval->contribution_id = $contribution->id;
-                        $approval->subdomain = app_site;
-                        $approval->approval = json_encode(
-                            array(
-                                'complexity' => $c,
-                                'importance' => $i,
-                                'quality' => $q
-                            )
-                        );
+                        $form     = Form::get($contribution->form_id);
+
+                        $approval->approval_by      = $sel_wallet_adr;
+                        $approval->contribution_id  = $contribution->id;
+                        $approval->subdomain        = app_site;
+                        $approval->approval         = json_encode($post);
+                        $approval->approval_type    = $form->approval_type;
 
                         $contribution->approvals += 1;
                         $contribution->score = 0;
 
-                        if($contribution->approvals == $community->approval_count) {
+                       /* if($contribution->approvals == $community->approval_count) {
                             $blockchain = $community->blockchain;
                             $dao_domain = $community->dao_domain;
                             $tags       = $contribution->tags;
@@ -127,7 +124,7 @@ class controller extends Ctrl {
                                 );
                                 exit();
                             }
-                        }
+                        }*/
 
                         $contribution->update();
                         $approval->insert();
@@ -166,7 +163,7 @@ class controller extends Ctrl {
                 $approvals     = Approval::getApprovals($contribution->id);
                 $com_id        = $community->id;
                 $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where comunity_id='$com_id' AND wallet_to='$wallet_to' order by c_at");
-                $user_arrovals = Approval::getUserApprovals($contribution->id);
+                $user_arrovals = Approval::getUserApprovals($contribution->id,$sel_wallet_adr);
                 $send_api      = ($community->approval_count - $contribution->approvals) == 1 ?true:false;
 
                     $view_transaction_link = '';
@@ -200,10 +197,10 @@ class controller extends Ctrl {
                 }
 
                 $id_sql = '('.implode(",",$reviewed_ids).')';
-                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id' AND c.id NOT IN ".$id_sql);
+                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id' AND c.id NOT IN ".$id_sql);
             }
             else
-                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,c.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id'");
+                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id'");
 
             $claims = array();
             if($claim_all != false) {

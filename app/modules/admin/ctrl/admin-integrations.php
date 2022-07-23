@@ -7,6 +7,7 @@ class controller extends Ctrl {
         $is_admin = false;
         $sel_wallet_adr = null;
         $community = Community::getByDomain(app_site);
+        $com_id    = $community->id;
 
         if(isset($_SESSION['lh_sel_wallet_adr']) && strlen($_SESSION['lh_sel_wallet_adr']) > 0) {
             $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
@@ -29,7 +30,8 @@ class controller extends Ctrl {
                 die();
             }
 
-            $forms = Form::find("SELECT * FROM forms WHERE id <> 2",true);
+            $forms = Form::find("SELECT * FROM forms WHERE id <> 2 AND comunity_id='$com_id'",true);
+
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,

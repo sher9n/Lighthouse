@@ -85,120 +85,128 @@
 <!-- Multiple choice -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_MULTIPLE_CHOICE; ?>">
     <label for="" class="form-label">Description</label>
-    <div class="row mb-6">
-        <div class="col-10 col-xxl-11">
-            <div class="d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round"
-                     class="feather feather-circle me-6">
-                    <circle cx="12" cy="12" r="10"></circle>
-                </svg>
-                <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
-                       aria-describedby=""
-                       placeholder="Please enter multiple choice option">
+    <div class="description_elements">
+        <div class="row mb-6">
+            <div class="col-10 col-xxl-11">
+                <div class="d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-circle me-6">
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                    <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
+                           aria-describedby=""
+                           placeholder="Please enter multiple choice option">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-10 col-xxl-11">
+                <div class="d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-circle me-6">
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                    <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
+                           aria-describedby=""
+                           placeholder="Please enter multiple choice option">
+                </div>
+            </div>
+            <div class="col px-0">
+                <button class="btn btn-delete ms-0 h-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-trash">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
-    <div class="row mb-6">
-        <div class="col-10 col-xxl-11">
-            <div class="d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round"
-                     class="feather feather-circle me-6">
-                    <circle cx="12" cy="12" r="10"></circle>
-                </svg>
-                <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
-                       aria-describedby=""
-                       placeholder="Please enter multiple choice option">
-            </div>
-        </div>
-        <!--<div class="col px-0">
-            <button class="btn btn-delete ms-0 h-100">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round"
-                     class="feather feather-trash">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                </svg>
-            </button>
-        </div>-->
-    </div>
+    <button type="button" class="add_option btn btn-primary">add option</button>
 </div>
 <!-- Multiple choice END -->
 <!-- Checkboxes -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_CHECKBOXES; ?>">
     <label for="" class="form-label">Description</label>
-    <div class="row mb-6">
-        <div class="col-10 col-xxl-11">
-            <div class="d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round"
-                     class="feather feather-square me-6">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                </svg>
-                <input type="text" class="form-control form-control-lg"  id="description_1" name="description[][]"
-                       aria-describedby="" placeholder="Please enter checkbox option">
+    <div class="description_elements">
+        <div class="row mb-6">
+            <div class="col-10 col-xxl-11">
+                <div class="d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-square me-6">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    </svg>
+                    <input type="text" class="form-control form-control-lg"  id="description_1" name="description[][]"
+                           aria-describedby="" placeholder="Please enter checkbox option">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-10 col-xxl-11">
+                <div class="d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-square me-6">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    </svg>
+                    <input type="text" class="form-control form-control-lg"  id="description_1" name="description[][]"
+                           aria-describedby="" placeholder="Please enter checkbox option">
+                </div>
+            </div>
+            <div class="col px-0">
+                <button class="btn btn-delete ms-0 h-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-trash">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
-    <div class="row mb-6">
-        <div class="col-10 col-xxl-11">
-            <div class="d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round"
-                     class="feather feather-square me-6">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                </svg>
-                <input type="text" class="form-control form-control-lg"  id="description_1" name="description[][]"
-                       aria-describedby="" placeholder="Please enter checkbox option">
-            </div>
-        </div>
-        <!--<div class="col px-0">
-            <button class="btn btn-delete ms-0 h-100">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round"
-                     class="feather feather-trash">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                </svg>
-            </button>
-        </div>-->
-    </div>
+    <button type="button" class="add_option btn btn-primary">add option</button>
 </div>
 <!-- Checkboxes END -->
 <!-- Dropdown -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_DROPDOWN; ?>">
     <label for="" class="form-label">Description</label>
-    <div class="row mb-6">
-        <div class="col-10 col-xxl-11">
-            <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
-                   aria-describedby="" placeholder="Please enter dropdown option">
+    <div class="description_elements">
+        <div class="row mb-6">
+            <div class="col-10 col-xxl-11">
+                <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
+                       aria-describedby="" placeholder="Please enter dropdown option">
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-10 col-xxl-11">
+                <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
+                       aria-describedby="" placeholder="Please enter dropdown option">
+            </div>
+            <div class="col px-0">
+                <button class="btn btn-delete ms-0 h-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-trash">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
-    <div class="row mb-6">
-        <div class="col-10 col-xxl-11">
-            <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
-                   aria-describedby="" placeholder="Please enter dropdown option">
-        </div>
-        <!--<div class="col px-0">
-            <button class="btn btn-delete ms-0 h-100">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                     stroke-linecap="round" stroke-linejoin="round"
-                     class="feather feather-trash">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                </svg>
-            </button>
-        </div>-->
-    </div>
-    <button type="button" class="btn btn-primary">add option</button>
+    <button type="button" class="add_option btn btn-primary">add option</button>
 </div>
 <!-- Dropdown END -->
 <!-- Tags -->
@@ -274,6 +282,25 @@
         });
     });
 
+    $(document).on('click','.add_option',function (e){
+        e.preventDefault();
+        $(this).prev().children().last().clone().appendTo($(this).prev());
+    });
+
+    $(document).on('click','.btn-delete',function (e){
+        e.preventDefault();
+       $(this).closest('.row').remove();
+    });
+
+    $(document).on('click','.btn_copy',function (e){
+        e.preventDefault();
+        $(this).closest('.card').after($(this).closest('.card').clone());
+        $('#add_item').remove();
+        $('#elements').children().last().append('<a role="button" id="add_item" class="position-absolute top-0 start-100 p-6 bg-white rounded ms-6 shadow" href="#">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"> ' +
+            '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></a>');
+    });
+
     $(document).on("click", '.question_type', function(event) {
         sel_html = $(this).html();
         var type = $(this).data('val');
@@ -294,7 +321,6 @@
             .each(function() {
                 var id = this.name || "";
                 var match = id.match(regex) || [];
-                console.log(match);
                 if (match.length == 3) {
                     this.name = match[1] + (row_id);
                 }
@@ -304,7 +330,6 @@
             .each(function() {
                 var id = this.name || "";
                 var match = id.match(regex) || [];
-                console.log(match);
                 if (match.length == 3) {
                     this.name = match[1] + (row_id);
                 }

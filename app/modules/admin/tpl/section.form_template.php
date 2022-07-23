@@ -16,10 +16,6 @@ $form_elements = $__page->form->getElements();
                             <div class="col-xl-7">
                                 <label class="form-label mt-10">Which wallet do you want to contribute to?</label>
                                 <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
-                                <label class="form-label mt-10">What's the reason for this contribution?</label>
-                                <textarea class="form-control form-control-lg fs-3" name="contribution_reason" id="contribution_reason" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
-                                <label class="form-label mt-10">Tag this distribution to query it later.</label>
-                                <select style="width: width: 100px !important;" class="form-control form-control-lg tags" multiple="multiple" name="tags[]" id="tags" placeholder="Marketing, Development, Strategy"></select>
                                 <?php
                                 foreach ($form_elements as $ele){ ?>
                                     <label class="form-label mt-10"><?php echo $ele['e_label']; ?></label>

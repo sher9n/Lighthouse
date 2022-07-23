@@ -308,11 +308,11 @@ class Utils {
             elseif ($date_dif->d > 1)
                 return ($date_dif->d == 1) ? $date_dif->d . ' day' : $date_dif->d . ' days';
             elseif ($date_dif->h > 1)
-                return ($date_dif->h == 1) ? $date_dif->h . ' hour' : $date_dif->y . ' hours';
+                return null;//($date_dif->h == 1) ? $date_dif->h . ' hour' : $date_dif->y . ' hours';
             elseif ($date_dif->i > 1)
-                return ($date_dif->i == 1) ? $date_dif->i . 'm' . $date_dif->s . 's' : $date_dif->i . 's' . $date_dif->s . 's';
+                return null;//($date_dif->i == 1) ? $date_dif->i . 'm' . $date_dif->s . 's' : $date_dif->i . 's' . $date_dif->s . 's';
             else
-                return $date_dif->s . 's';
+                return null;//$date_dif->s . 's';
         }
         else
             return '';

@@ -40,13 +40,13 @@
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/select2.full.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/js-snackbar.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/dataTables.bootstrap5.min.js"></script>
 <!--Wallet connect JS-->
-<script type="text/javascript" src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
-<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
-<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
+<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.iife.js"></script>
+<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.min.js"></script>
+<script type="application/javascript" src="<?php echo local_cdn_path; ?>js/web3/ethers-5.2.umd.min.js" ></script>
+<script src="<?php echo local_cdn_path; ?>js/web3/web3.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/wallet.connect.admin.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solana.admin.js"></script>
 <script>
