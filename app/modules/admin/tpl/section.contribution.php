@@ -1,9 +1,9 @@
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
-        <div class="container-fluid h-100">
-            <div class="col h-100">
-                <div class="card shadow h-100">                    
+        <div class="container-fluid">
+            <div class="col">
+                <div class="card shadow" style="min-height: calc(100vh - 60px);">                    
                     <div class="card-body p-xl-20">
                         <div class="display-5 fw-medium">Submit a claim</div>
                         <div class="text-muted mt-1">Request attestations for completed activity</div>

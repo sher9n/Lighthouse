@@ -5,10 +5,10 @@ $form_elements = $__page->form->getElements();
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
-        <div class="container-fluid h-100">
-            <div class="col h-100">
-                <div class="card shadow h-100">
-                    <form id="sendContributionForm" method="post" action="contribution" autocomplete="off" class="d-flex flex-column h-100">
+        <div class="container-fluid">
+            <div class="col">
+                <div class="card shadow mb-12">
+                    <form id="sendContributionForm" method="post" action="contribution" autocomplete="off" class="d-flex flex-column" style="min-height: calc(100vh - 60px);">
                         <div class="card-body p-xl-20 mb-auto">
                             <div class="display-5 fw-medium"><?php echo $__page->form->form_title; ?></div>
                             <div class="text-muted mt-1"><?php echo $__page->form->form_description; ?></div>
@@ -34,21 +34,27 @@ $form_elements = $__page->form->getElements();
                                         case Form::QT_MULTIPLE_CHOICE:
                                             $choices = json_decode($ele['e_description']);
                                             foreach ($choices as $index => $choice){ ?>
-                                                <br><input type="radio" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" value="<?php echo $choice; ?>"> <label for="<?php echo $choice; ?>"><?php echo ucfirst(strtolower($choice)); ?></label><br>
+                                            <div class="form-check form-check-lg">
+                                                <input class="form-check-input" type="radio" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" value="<?php echo $choice; ?>">
+                                                <label class="form-check-label" for="<?php echo $ele['e_id']; ?>"><?php echo ucfirst(strtolower($choice)); ?></label>
+                                            </div>
                                                 <?php
                                             }
                                             break;
                                         case Form::QT_CHECKBOXES:
                                             $choices = json_decode($ele['e_description']);
                                             foreach ($choices as $index => $choice){ ?>
-                                                <br><input type="checkbox" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" value="<?php echo $choice; ?>"> <label for="<?php echo $choice; ?>"><?php echo ucfirst(strtolower($choice)); ?></label><br>
+                                            <div class="form-check form-check-lg">
+                                                <input class="form-check-input" type="checkbox" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" value="<?php echo $choice; ?>">
+                                                <label class="form-check-label" for="<?php echo $ele['e_id']; ?>"><?php echo ucfirst(strtolower($choice)); ?></label>
+                                            </div>
                                                 <?php
                                             }
                                             break;
                                         case Form::QT_DROPDOWN:
                                             $list = json_decode($ele['e_description']);
                                             ?>
-                                            <select class="form-control form-control-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>">
+                                            <select class="form-select form-select-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>">
                                                 <?php foreach ($choices as $index => $choice){ ?>
                                                 <option value="<?php echo $choice; ?>"><?php echo ucfirst(strtolower($choice)); ?></option>
                                                 <?php } ?>
@@ -57,7 +63,7 @@ $form_elements = $__page->form->getElements();
                                             break;
                                         case Form::QT_TAGS:
                                             ?>
-                                            <select style="width: width: 100px !important;" class="form-control form-control-lg tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_description']; ?>"></select>
+                                            <select style="width: width: 100px !important;" class="form-select form-select-lg tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_description']; ?>"></select>
                                             <?php
                                             break;
                                     }

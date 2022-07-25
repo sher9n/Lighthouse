@@ -22,14 +22,14 @@
                     <div class="col-lg-11">
                         <div class="card shadow mb-12">
                             <div class="card-body">
-                                <div class="d-flex align-items-center mb-12">
+                                <div class="d-flex align-items-center">
                                     <div class="fw-medium text-lg me-12">Setup Scoring</div>
                                     <label class="switch">
                                         <input type="checkbox" class="form-switch-input" <?php echo ($__page->form->scoring ==1)?'checked':''; ?> id="scoring" name="scoring">
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <div id="max_point_section" class="<?php echo ($__page->form->scoring ==0)?'d-none':''; ?>">
+                                <div id="max_point_section" class="mt-12 <?php echo ($__page->form->scoring ==0)?'d-none':''; ?>">
                                     <label for="" class="form-label">Max Points *</label>
                                     <input type="number" class="form-control form-control-lg" id="max_point" name="max_point" value="<?php echo $__page->form->max_point; ?>"
                                            aria-describedby="Help">
