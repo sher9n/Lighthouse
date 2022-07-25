@@ -2,7 +2,7 @@
 use Core\Utils;
 use lighthouse\Community;
 use lighthouse\Log;
-use lighthouse\Claim;
+use lighthouse\Form;
 use lighthouse\Api;
 use lighthouse\Contribution;
 class controller extends Ctrl {
@@ -109,12 +109,17 @@ class controller extends Ctrl {
                                 $log->c_by = $community->wallet_adr;
                                 $log->insert();
 
+                                $form = Form::get(2);
                                 $contribusion = new Contribution();
                                 $contribusion->comunity_id = $com_id;
                                 $contribusion->wallet_from = $community->wallet_adr;
                                 $contribusion->contribution_reason = "Created a new decentralized community.";
                                 $contribusion->wallet_to = $community->wallet_adr;
                                 $contribusion->form_id = 2;
+                                $contribusion->max_point = $form->max_point;
+                                $contribusion->scoring   = $form->scoring;
+                                $contribusion->approval_type = $form->approval_type;
+                                $contribusion->rating_categories = $form->rating_categories;
                                 $contribusion->status = 1;
                                 $contribusion->score = 0;
                                 $contribusion->tags = implode(',', array('Onboarding'));

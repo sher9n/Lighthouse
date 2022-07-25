@@ -88,6 +88,7 @@ class Contribution{
         }
 
         $update = "UPDATE contributions SET ".$update_sql." WHERE id=".$id;
+
         $connect->query($update);
         $connect->close();
     }

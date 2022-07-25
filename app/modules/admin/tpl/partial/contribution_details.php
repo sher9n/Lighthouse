@@ -7,13 +7,8 @@
             <?php
             if(count($user_arrovals) > 0 && $contribution->status == 1){
 
-                if($form->approval_type == 1){
-                    ?>
-                    <?php
-                }
-                else {
-
-                    $ratings = $form->rating_categories;
+                if($contribution->approval_type == 2){
+                    $ratings = $contribution->rating_categories;
                     $ratings = json_decode($ratings);
                     foreach ($ratings as $rating){
                     $category = strtolower(preg_replace("/\s+/", "-", $rating));
@@ -54,12 +49,7 @@
                 }
             }
             else{
-                if($form->approval_type == 1){
-                    ?>
-
-                    <?php
-                }
-                else {
+                if($contribution->approval_type == 2){
                     ?>
                     <div class="row">
                         <div class="col-8 offset-md-4">
@@ -70,7 +60,7 @@
                         </div>
                     </div>
                     <?php
-                    $ratings = $form->rating_categories;
+                    $ratings = $contribution->rating_categories;
                     $ratings = json_decode($ratings);
                     foreach ($ratings as $rating){
                         $category = strtolower(preg_replace("/\s+/", "-", $rating));

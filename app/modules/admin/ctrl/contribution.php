@@ -76,7 +76,12 @@ class controller extends Ctrl {
                     $contribusion->contribution_reason = $contribution_reason;
                     $contribusion->wallet_to = $wallet_to;
                     $contribusion->tags = $tags;
+                    //update contribution approval data
                     $contribusion->form_id = $form_id;
+                    $contribusion->max_point = $form->max_point;
+                    $contribusion->scoring   = $form->scoring;
+                    $contribusion->approval_type = $form->approval_type;
+                    $contribusion->rating_categories = $form->rating_categories;
                     $contribusion->form_data = json_encode($post);
                     $contribusion->insert();
 
