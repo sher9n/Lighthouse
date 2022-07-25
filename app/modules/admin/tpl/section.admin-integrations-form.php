@@ -220,13 +220,13 @@
            placeholder="Marketing, Sales, Development">
 </div>
 <!-- Tags END -->
-<!-- Pragraph -->
+<!-- Paragraph -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_PARAGRAPH; ?>">
     <label for="" class="form-label">Description</label>
     <textarea class="form-control form-control-lg" id="description_1" name="description[]" rows="4"
               placeholder="Please enter the reason for this contribution"></textarea>
 </div>
-<!-- Pragraph END -->
+<!-- Paragraph END -->
 
 <div class="modal fade" id="preview" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-size-02">

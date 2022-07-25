@@ -60,13 +60,14 @@
                                 <div class="row mt-xl-12">
                                     <div class="col-xl-4">
                                         <label for="" class="form-label">Personalize Lighthouse logo</label>
-                                        <div class="card bg-lighter card-image-uploads p-6">
+                                        <input type="file" name="" id="background_imag" multiple hidden />
+                                        <label class="card bg-lighter card-image-uploads p-6" for="background_imag">
                                             <div class="card-body text-center">
                                                 <img src="<?php echo app_cdn_path; ?>img/logo.png" class="img-upload-logo my-7">
                                                 <div class="fw-medium my-3">Drag and drop logo, or <span class="text-primary">Browse</span></div>
                                                 <div class="text-muted mb-7">250px x 80px recommended. Max 1MB (png)</div>
                                             </div>
-                                        </div>
+                                        </label>
                                     </div>
                                 </div>
                                 <!--<div class="row mt-xl-12">
