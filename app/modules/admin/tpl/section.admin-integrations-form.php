@@ -50,8 +50,8 @@
                                         <polyline points="12 19 5 12 12 5"></polyline>
                                     </svg>
                                     Back</a>
-                                <button type="button" id="btn_cancel" class="btn btn-blue-stone me-2">Preview</button>
-                                <button type="submit" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
+                                <button type="submit" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
+                                <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
                             </div>
                         </div>
                         <div class="col-lg-10">
