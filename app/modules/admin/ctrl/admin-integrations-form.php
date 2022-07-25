@@ -25,7 +25,7 @@ class controller extends Ctrl {
             if($this->__lh_request->is_post) {
 
                 try {
-                    var_dump($_POST);exit();
+
                     $form_title = $form_description = null;
                     $questions = array();
                     $selected_type = $question = $description = $required = $element_ids =  array();
@@ -89,6 +89,13 @@ class controller extends Ctrl {
                             $questions[$i]['e_required'] = $required[$i];
                     }
 
+                    if($this->hasParam('btn_preview')){
+                        include __DIR__ . '/../tpl/partial/form-preview.php';
+                        $html = ob_get_clean();
+                        echo json_encode(array('success' => true, 'preview' => 1,'html' => $html));
+                        exit();
+                    }
+
                     if($this->hasParam('form_id') && strlen($this->getParam('form_id')) > 0) {
                         $new_form_id = $this->getParam('form_id');
                         $form = Form::get($new_form_id);
@@ -136,7 +143,7 @@ class controller extends Ctrl {
                         $order++;
                     }
 
-                    echo json_encode(array('success' => true,'form_id' => $new_form_id,'message' => 'Success! Your form has been submitted.'));
+                    echo json_encode(array('success' => true,'preview' => 0,'form_id' => $new_form_id,'message' => 'Success! Your form has been submitted.'));
                 }
                 catch (Exception $e) {
 
@@ -154,6 +161,7 @@ class controller extends Ctrl {
 
                 if (__ROUTER_PATH == '/get-form-question') {
                     $row_id = $this->hasParam('rid') ? $this->getParam('rid') : 1;
+                    $type   = $this->hasParam('type') ? $this->getParam('type') : 1;
                     $row_id++;
                     include __DIR__ . '/../tpl/partial/question.php';
                     $html = ob_get_clean();

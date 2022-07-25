@@ -20,7 +20,15 @@ class controller extends Ctrl {
         }
 
         if($this->__lh_request->is_xmlHttpRequest) {
-
+            if (__ROUTER_PATH == '/form-activation' && $this->hasParam('fid')) {
+                $fid = $this->getParam('fid');
+                $status = $this->hasParam('status')?$this->getParam('status'):1;
+                $form = Form::get($fid);
+                $form->active = $status;
+                $form->update();
+                echo json_encode(array('success' => true));
+                exit();
+            }
         }
         else {
 

@@ -246,7 +246,7 @@
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     </svg>
                                     <input type="text" class="form-control form-control-lg"  id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                           aria-describedby="" placeholder="Please enter checkbox option">
+                                           aria-describedby="" placeholder="Please enter checkbox option" value="<?php echo $des; ?>">
                                 </div>
                             </div>
                             <?php if($index != 0){ ?>
@@ -281,7 +281,7 @@
                     <div class="row mb-6">
                         <div class="col-10 col-xxl-11">
                             <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                   aria-describedby="" placeholder="Please enter dropdown option">
+                                   aria-describedby="" placeholder="Please enter dropdown option" value="<?php echo $des; ?>">
                         </div>
                         <?php if($index != 0){ ?>
                         <div class="col px-0">

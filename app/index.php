@@ -48,6 +48,7 @@ try {
         '/add-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/integrations' => 'modules/admin/ctrl/admin-integrations.php',
+        '/form-activation' =>  'modules/admin/ctrl/admin-integrations.php',
         '/integrations-form' => 'modules/admin/ctrl/admin-integrations-form.php',
         '/integrations-approvals' => 'modules/admin/ctrl/admin-integrations-approvals.php',
         '/get-form-question' => 'modules/admin/ctrl/admin-integrations-form.php',

@@ -17,8 +17,8 @@
                                         <polyline points="12 19 5 12 12 5"></polyline>
                                     </svg>
                                     Back</a>
-                                <button type="button" id="btn_cancel" class="btn btn-blue-stone me-2">Preview</button>
-                                <button type="submit" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
+                                <button type="submit" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
+                                <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
                             </div>
                         </div>
                         <div class="col-lg-10">
@@ -65,6 +65,7 @@
                         </div>
                         <div id="elements" class="col-lg-10">
                             <?php
+                            $type = Form::QT_SHORT_ANSWER;
                             $row_id = $__page->row_id;
                             require_once 'partial/question.php';
                             ?>
@@ -226,6 +227,14 @@
               placeholder="Please enter the reason for this contribution"></textarea>
 </div>
 <!-- Pragraph END -->
+
+<div class="modal fade" id="preview" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-size-02">
+        <div id="preview_data" class="modal-content">
+        </div>
+    </div>
+</div>
+
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script type="text/javascript">
 
@@ -245,12 +254,17 @@
                     type: 'post',
                     dataType: 'json',
                     beforeSend: function () {
-                        $('#btn_cancel').prop('disabled', true);
+                        $('#btn_preview').prop('disabled', true);
                         $('#btn_save').prop('disabled', true);
                     },
                     success: function (data) {
                         if (data.success == true) {
-                            window.location.replace('integrations-approvals?form_id='+data.form_id);
+                            if(data.preview == 1) {
+                                $('#preview_data').html(data.html);
+                                $('#preview').modal('show');
+                            }
+                            else
+                                window.location.replace('integrations-approvals?form_id='+data.form_id);
                         } else {
                             if (data.element) {
                                 $('#' + data.element).addClass('form-control-lg error');
@@ -258,7 +272,7 @@
                             } else
                                 showMessage('danger', 10000, data.msg);
                         }
-                        $('#btn_cancel').prop('disabled', false);
+                        $('#btn_preview').prop('disabled', false);
                         $('#btn_save').prop('disabled', false);
                     }
                 });
@@ -294,7 +308,20 @@
 
     $(document).on('click','.btn_copy',function (e){
         e.preventDefault();
-        $(this).closest('.card').after($(this).closest('.card').clone());
+        var ele = $(this);
+        var type = ele.closest('.card').find('.selected_type').val();
+        $.ajax({
+            url: 'get-form-question?rid='+row_id+'&type='+type,
+            dataType: 'json',
+            success: function(data) {
+                if (data.success == true){
+                    row_id = data.row_id;
+                    $('#add_item').remove();
+                    ele.closest('.card').after(data.html);
+                }
+            }
+        });
+
         $('#add_item').remove();
         $('#elements').children().last().append('<a role="button" id="add_item" class="position-absolute top-0 start-100 p-6 bg-white rounded ms-6 shadow" href="#">' +
             '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"> ' +

@@ -9,11 +9,12 @@
             </div>
             <div class="col_q_type col-lg-6 col-xl-4 mb-12">
                 <label for="" class="form-label">Select type</label>
-                <input type="hidden" class="selected_type" name="selected_type[<?php echo $row_id; ?>]" value="<?php echo Form::QT_SHORT_ANSWER; ?>">
+                <input type="hidden" class="selected_type" name="selected_type[<?php echo $row_id; ?>]" value="<?php echo $type; ?>">
                 <div class="dropdown">
                     <button class="btn btn-lg dropdown-toggle d-flex justify-content-between align-items-center text-transform-inherit fw-medium w-100 border rounded-1"
                             type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div  class="d-flex align-items-center text-dark">
+                            <?php if($type == Form::QT_SHORT_ANSWER) { ?>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -24,6 +25,54 @@
                                 <line x1="17" y1="18" x2="3" y2="18"></line>
                             </svg>
                             <div class="fs-4">Short answer</div>
+                            <?php } elseif ($type == Form::QT_TAGS) { ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-tag me-6">
+                                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                                </svg>
+                                <div class="fs-4">Tags</div>
+                            <?php } elseif ($type == Form::QT_MULTIPLE_CHOICE) { ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-circle me-6">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                                <div class="fs-4">Multiple choice</div>
+                            <?php } elseif ($type == Form::QT_CHECKBOXES) { ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-check-square me-6">
+                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                </svg>
+                                <div class="fs-4">Checkboxes</div>
+                            <?php } elseif ($type == Form::QT_DROPDOWN) { ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-arrow-down-circle me-6">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="8 12 12 16 16 12"></polyline>
+                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                </svg>
+                                <div class="fs-4">Dropdown</div>
+                            <?php } else { ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-align-justify me-6">
+                                    <line x1="21" y1="10" x2="3" y2="10"></line>
+                                    <line x1="21" y1="6" x2="3" y2="6"></line>
+                                    <line x1="21" y1="14" x2="3" y2="14"></line>
+                                    <line x1="21" y1="18" x2="3" y2="18"></line>
+                                </svg>
+                                <div class="fs-4">Pragraph</div>
+                            <?php } ?>
                         </div>
                     </button>
                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
@@ -108,11 +157,152 @@
             </div>
         </div>
         <div class="description_row">
-            <div class="q_description" id="q_type_<?php echo Form::QT_SHORT_ANSWER; ?>">
-                <label for="" class="form-label">Description</label>
-                <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>1" name="description[<?php echo $row_id; ?>]"
-                       placeholder="Please enter the reason for this contribution">
-            </div>
+            <?php if($type == Form::QT_SHORT_ANSWER) { ?>
+                <div class="q_description" id="q_type_<?php echo Form::QT_SHORT_ANSWER; ?>">
+                    <label for="" class="form-label">Description</label>
+                    <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>1" name="description[<?php echo $row_id; ?>]"
+                           placeholder="Please enter the reason for this contribution">
+                </div>
+            <?php } elseif ($type == Form::QT_MULTIPLE_CHOICE) { ?>
+                <<div class="q_description" id="q_type_<?php echo Form::QT_MULTIPLE_CHOICE; ?>">
+                    <label for="" class="form-label">Description</label>
+                    <div class="description_elements">
+                        <div class="row mb-6">
+                            <div class="col-10 col-xxl-11">
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-circle me-6">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                    <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
+                                           aria-describedby=""
+                                           placeholder="Please enter multiple choice option">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-6">
+                            <div class="col-10 col-xxl-11">
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-circle me-6">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                    <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
+                                           aria-describedby=""
+                                           placeholder="Please enter multiple choice option">
+                                </div>
+                            </div>
+                            <div class="col px-0">
+                                <button class="btn btn-delete ms-0 h-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-trash">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add_option btn btn-primary">add option</button>
+                </div>
+            <?php } elseif ($type == Form::QT_CHECKBOXES) { ?>
+                <div class="q_description" id="q_type_<?php echo Form::QT_CHECKBOXES; ?>">
+                    <label for="" class="form-label">Description</label>
+                    <div class="description_elements">
+                        <div class="row mb-6">
+                            <div class="col-10 col-xxl-11">
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-square me-6">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    </svg>
+                                    <input type="text" class="form-control form-control-lg"  id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
+                                           aria-describedby="" placeholder="Please enter checkbox option">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-6">
+                            <div class="col-10 col-xxl-11">
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-square me-6">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    </svg>
+                                    <input type="text" class="form-control form-control-lg"  id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
+                                           aria-describedby="" placeholder="Please enter checkbox option">
+                                </div>
+                            </div>
+                            <div class="col px-0">
+                                <button class="btn btn-delete ms-0 h-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-trash">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add_option btn btn-primary">add option</button>
+                </div>
+            <?php } elseif ($type == Form::QT_DROPDOWN) { ?>
+                <div class="q_description" id="q_type_<?php echo Form::QT_DROPDOWN; ?>">
+                    <label for="" class="form-label">Description</label>
+                    <div class="description_elements">
+                        <div class="row mb-6">
+                            <div class="col-10 col-xxl-11">
+                                <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
+                                       aria-describedby="" placeholder="Please enter dropdown option">
+                            </div>
+                        </div>
+                        <div class="row mb-6">
+                            <div class="col-10 col-xxl-11">
+                                <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
+                                       aria-describedby="" placeholder="Please enter dropdown option">
+                            </div>
+                            <div class="col px-0">
+                                <button class="btn btn-delete ms-0 h-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-trash">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add_option btn btn-primary">add option</button>
+                </div>
+            <?php } elseif ($type == Form::QT_TAGS) { ?>
+                <div class="q_description d-none" id="q_type_<?php echo Form::QT_TAGS; ?>">
+                    <div class="d-flex justify-content-between">
+                        <label for="" class="form-label">Description</label>
+                        <div class="fw-medium text-muted">Enter comma separated values</div>
+                    </div>
+                    <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>]"
+                           placeholder="Marketing, Sales, Development">
+                </div>
+            <?php } else { ?>
+                <div class="q_description d-none" id="q_type_<?php echo Form::QT_PARAGRAPH; ?>">
+                    <label for="" class="form-label">Description</label>
+                    <textarea class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>]" rows="4"
+                              placeholder="Please enter the reason for this contribution"></textarea>
+                </div>
+            <?php } ?>
         </div>
     </div>
     <hr class="my-2">

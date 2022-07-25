@@ -27,7 +27,7 @@
                                                     </div>
                                                     <div class="ms-auto">
                                                         <label class="switch">
-                                                            <input type="checkbox" class="form-switch-input" checked>
+                                                            <input type="checkbox" class="form-switch-input" checked disabled>
                                                             <span class="slider"></span>
                                                         </label>
                                                     </div>
@@ -37,7 +37,7 @@
                                                 </div>
                                             </div>
                                             <div class="border-top card-body text-end">
-                                                <a href="integrations-form?form_id=1" class="fw-medium text-decoration-none text-primary">Edit
+                                                <a href="#" class="fw-medium text-decoration-none text-primary">Edit
                                                     Form</a>
                                             </div>
                                         </div>
@@ -60,7 +60,7 @@
                                                     </div>
                                                     <div class="ms-auto">
                                                         <label class="switch">
-                                                            <input type="checkbox" class="form-switch-input" <?php echo ($form->active==1)?'checked':''; ?>>
+                                                            <input type="checkbox" data-fid="<?php echo $form->id; ?>" class="form_activation form-switch-input" <?php echo ($form->active==1)?'checked':''; ?>>
                                                             <span class="slider"></span>
                                                         </label>
                                                     </div>
@@ -632,3 +632,14 @@
     </div>
 </div>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
+<script>
+    $(document).on('change', '.form_activation', function(event) {
+        //event.preventDefault();
+        var status = (this.checked)?1:0;
+        var form_id = $(this).data('fid');
+        $.ajax({
+            url: 'form-activation?fid='+form_id+'&status='+status,
+            dataType: 'json'
+        });
+    });
+</script>
