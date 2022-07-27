@@ -179,8 +179,7 @@
                                                         <sapn class="text-gray-700">Developed by:</sapn>
                                                         Realms
                                                     </div>
-                                                    <a href="#" class="fw-medium text-decoration-none text-blue-stone">Coming
-                                                        Soon!</a>
+                                                    <a href="realms-settings" class="fw-medium text-decoration-none text-blue-stone">Settings</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -28,7 +28,7 @@ $form_elements = $__page->form->getElements();
                                             break;
                                         case Form::QT_PARAGRAPH:
                                             ?>
-                                            <textarea class="form-control form-control-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" rows="2" placeholder="<?php echo $ele['e_placeholder']; ?>"></textarea>
+                                            <textarea class="form-control form-control-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" rows="2" placeholder="<?php echo $ele['e_description']; ?>"></textarea>
                                             <?php
                                             break;
                                         case Form::QT_MULTIPLE_CHOICE:
@@ -52,7 +52,7 @@ $form_elements = $__page->form->getElements();
                                             }
                                             break;
                                         case Form::QT_DROPDOWN:
-                                            $list = json_decode($ele['e_description']);
+                                            $choices = json_decode($ele['e_description']);
                                             ?>
                                             <select class="form-select form-select-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>">
                                                 <?php foreach ($choices as $index => $choice){ ?>

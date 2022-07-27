@@ -77,7 +77,7 @@
                     </button>
                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                         <li class="border-bottom">
-                            <a class="dropdown-item d-flex align-items-center py-6 px-12 question_type" href="#" data-val="<?php echo Form::QT_SHORT_ANSWER; ?>">
+                            <a class="dropdown-item d-flex align-items-center py-6 px-12 question_type" data-val="<?php echo Form::QT_SHORT_ANSWER; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -91,7 +91,7 @@
                             </a>
                         </li>
                         <li class="border-bottom">
-                            <a class="dropdown-item d-flex align-items-center py-6 px-12 question_type" href="#" data-val="<?php echo Form::QT_PARAGRAPH; ?>">
+                            <a class="dropdown-item d-flex align-items-center py-6 px-12 question_type" data-val="<?php echo Form::QT_PARAGRAPH; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -105,7 +105,7 @@
                             </a>
                         </li>
                         <li class="border-bottom">
-                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type" href="#" data-val="<?php echo Form::QT_MULTIPLE_CHOICE; ?>">
+                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type" data-val="<?php echo Form::QT_MULTIPLE_CHOICE; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -116,7 +116,7 @@
                             </a>
                         </li>
                         <li class="border-bottom">
-                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type" href="#" data-val="<?php echo Form::QT_CHECKBOXES; ?>">
+                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type" data-val="<?php echo Form::QT_CHECKBOXES; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -128,7 +128,7 @@
                             </a>
                         </li>
                         <li class="border-bottom">
-                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type" href="#" data-val="<?php echo Form::QT_DROPDOWN; ?>">
+                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type"  data-val="<?php echo Form::QT_DROPDOWN; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -141,7 +141,7 @@
                             </a>
                         </li>
                         <li class="">
-                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type" href="#" data-val="<?php echo Form::QT_TAGS; ?>">
+                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type"  data-val="<?php echo Form::QT_TAGS; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

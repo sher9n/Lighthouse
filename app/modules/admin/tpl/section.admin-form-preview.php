@@ -16,11 +16,12 @@ use lighthouse\Form;
                                 <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
                                 <?php
                                 foreach ($questions as $index => $ele){
-                                    $label_name = strtolower(preg_replace("/\s+/", "_", $ele['e_label']));
+                                    $label_name = isset($ele['e_label'])?$ele['e_label']:'';
+                                    $label_name = strtolower(preg_replace("/\s+/", "_", $label_name));
                                     $ele['e_name'] = $label_name;
-                                    $ele['e_id']   = $label_name;
+                                    $ele['e_id'] = $label_name;
                                     ?>
-                                    <label class="form-label mt-10"><?php echo $ele['e_label']; ?></label>
+                                    <label class="form-label mt-10"><?php echo isset($ele['e_label'])?$ele['e_label']:''; ?></label>
                                     <?php
                                     switch ($ele['e_type']) {
                                         case Form::QT_SHORT_ANSWER:
@@ -30,36 +31,42 @@ use lighthouse\Form;
                                             break;
                                         case Form::QT_PARAGRAPH:
                                             ?>
-                                            <textarea class="form-control form-control-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" rows="2" placeholder="<?php echo $ele['e_placeholder']; ?>"></textarea>
+                                            <textarea class="form-control form-control-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" rows="2" placeholder="<?php echo $ele['e_description']; ?>"></textarea>
                                             <?php
                                             break;
                                         case Form::QT_MULTIPLE_CHOICE:
                                             $choices = json_decode($ele['e_description']);
                                             foreach ($choices as $index => $choice){ ?>
-                                                <br><input type="radio" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" value="<?php echo $choice; ?>"> <label for="<?php echo $choice; ?>"><?php echo ucfirst(strtolower($choice)); ?></label><br>
+                                            <div class="form-check form-check-lg">
+                                                <input class="form-check-input" type="radio" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" value="<?php echo $choice; ?>">
+                                                <label class="form-check-label" for="<?php echo $ele['e_id']; ?>"><?php echo ucfirst(strtolower($choice)); ?></label>
+                                            </div>
                                                 <?php
                                             }
                                             break;
                                         case Form::QT_CHECKBOXES:
                                             $choices = json_decode($ele['e_description']);
                                             foreach ($choices as $index => $choice){ ?>
-                                                <br><input type="checkbox" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" value="<?php echo $choice; ?>"> <label for="<?php echo $choice; ?>"><?php echo ucfirst(strtolower($choice)); ?></label><br>
+                                            <div class="form-check form-check-lg">
+                                                <input class="form-check-input" type="checkbox" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" value="<?php echo $choice; ?>">
+                                                <label class="form-check-label" for="<?php echo $ele['e_id']; ?>"><?php echo ucfirst(strtolower($choice)); ?></label>
+                                            </div>
                                                 <?php
                                             }
                                             break;
                                         case Form::QT_DROPDOWN:
                                             $choices = json_decode($ele['e_description']);
                                             ?>
-                                            <select class="form-control form-control-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>">
+                                            <select class="form-select form-select-lg fs-3" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>">
                                                 <?php foreach ($choices as $index => $choice){ ?>
-                                                    <option value="<?php echo $choice; ?>"><?php echo ucfirst(strtolower($choice)); ?></option>
+                                                <option value="<?php echo $choice; ?>"><?php echo ucfirst(strtolower($choice)); ?></option>
                                                 <?php } ?>
                                             </select>
                                             <?php
                                             break;
                                         case Form::QT_TAGS:
                                             ?>
-                                            <select style="width: width: 100px !important;" class="form-control form-control-lg tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_description']; ?>"></select>
+                                            <select style="width: width: 100px !important;" class="form-select form-select-lg tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_description']; ?>"></select>
                                             <?php
                                             break;
                                     }

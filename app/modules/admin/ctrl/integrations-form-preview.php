@@ -20,6 +20,7 @@ class controller extends Ctrl {
             die();
         }
 
+
         $form_title = $form_description = null;
         $questions = array();
         $selected_type = $question = $description = $required = $element_ids =  array();
@@ -58,8 +59,6 @@ class controller extends Ctrl {
 
             if(isset($question[$i]) && strlen($question[$i]) > 0)
                 $questions[$i]['e_label'] = $question[$i];
-            else
-                throw new Exception("question_" . $i . ":This field is required.");
 
             if(isset($description[$i])) {
                 if(is_array($description[$i]))
