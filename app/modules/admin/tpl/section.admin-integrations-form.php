@@ -17,7 +17,7 @@
                                         <polyline points="12 19 5 12 12 5"></polyline>
                                     </svg>
                                     Back</a>
-                                <button type="submit" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
+                                <button type="button" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
                                 <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                         <polyline points="12 19 5 12 12 5"></polyline>
                                     </svg>
                                     Back</a>
-                                <button type="submit" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
+                                <button type="button" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
                                 <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
                             </div>
                         </div>
@@ -259,13 +259,9 @@
                     },
                     success: function (data) {
                         if (data.success == true) {
-                            if(data.preview == 1) {
-                                $('#preview_data').html(data.html);
-                                $('#preview').modal('show');
-                            }
-                            else
-                                window.location.replace('integrations-approvals?form_id='+data.form_id);
-                        } else {
+                            window.location.replace('integrations-approvals?form_id='+data.form_id);
+                        }
+                        else {
                             if (data.element) {
                                 $('#' + data.element).addClass('form-control-lg error');
                                 $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
@@ -279,6 +275,13 @@
             }
         });
 
+    });
+
+    $(document).on('click', '#btn_preview', function(event) {
+        event.preventDefault();
+        var $form = $(this).closest('form');
+        $form.attr('action',"integrations-form-preview");
+        $form.unbind().attr('target', '_blank').submit();
     });
 
     $(document).on('click', '#add_item', function(event) {

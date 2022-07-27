@@ -89,13 +89,6 @@ class controller extends Ctrl {
                             $questions[$i]['e_required'] = $required[$i];
                     }
 
-                    if($this->hasParam('btn_preview')){
-                        include __DIR__ . '/../tpl/partial/form-preview.php';
-                        $html = ob_get_clean();
-                        echo json_encode(array('success' => true, 'preview' => 1,'html' => $html));
-                        exit();
-                    }
-
                     if($this->hasParam('form_id') && strlen($this->getParam('form_id')) > 0) {
                         $new_form_id = $this->getParam('form_id');
                         $form = Form::get($new_form_id);
@@ -143,7 +136,7 @@ class controller extends Ctrl {
                         $order++;
                     }
 
-                    echo json_encode(array('success' => true,'preview' => 0,'form_id' => $new_form_id,'message' => 'Success! Your form has been submitted.'));
+                    echo json_encode(array('success' => true,'form_id' => $new_form_id,'message' => 'Success! Your form has been submitted.'));
                 }
                 catch (Exception $e) {
 

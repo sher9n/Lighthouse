@@ -5,7 +5,8 @@
             <div class="display-5 fw-medium mb-25">Review this contribution</div>
 
             <?php
-            if(count($user_arrovals) > 0 && $contribution->status == 1){
+
+            if(count($user_arrovals) > 0 ){
 
                 if($contribution->approval_type == 2){
                     $ratings = $contribution->rating_categories;
