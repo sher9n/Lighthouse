@@ -16,6 +16,9 @@ contract LighthouseV2 {
     mapping(string => mapping(address => bool)) public isSteward;
     mapping(string => address) public nameToCommunityToken;
 
+    address constant uninitializedToken =
+        address(bytes20(keccak256(bytes("Community Without a Token"))));
+
     ///////////////////////////////////////////////////////////////
     //  EVENTS
     ///////////////////////////////////////////////////////////////
@@ -82,6 +85,32 @@ contract LighthouseV2 {
         isSteward[name][firstSteward] = true;
 
         emit CommunityCreated(name);
+    }
+
+    function createWithoutToken(string calldata name, address firstSteward)
+        external
+    {
+        require(nameToCommunityToken[name] == address(0), "ALREADY_EXISTS");
+
+        nameToCommunityToken[name] = uninitializedToken;
+
+        isSteward[name][firstSteward] = true;
+
+        emit CommunityCreated(name);
+    }
+
+    function createToken(
+        string calldata name,
+        string calldata tokenName,
+        string calldata tokenSymbol,
+        uint8 tokenDecimals
+    ) external {
+        require(
+            nameToCommunityToken[name] == uninitializedToken,
+            "WRONG_COMMUNITY"
+        );
+        NTT token = new NTT(tokenName, tokenSymbol, tokenDecimals);
+        nameToCommunityToken[name] = address(token);
     }
 
     function reward(
