@@ -10,28 +10,28 @@
                             <div class="text-muted mt-1">Configure your SPL governance integration</div>
                             <div class="col-xl-7">
                                 <label class="form-label mt-10">Realms ID</label>
-                                <input type="text" name="realm_id" id="realm_id" class="form-control form-control-lg">
+                                <input type="text" name="realm_id" id="realm_id" class="form-control form-control-lg" value="<?php echo $__page->community->realm_id; ?>">
                             </div>
-                            <div class="col-xl-7">
-                                <label class="form-label mt-10">Setup Scoring</label>
-                                <div class="ms-auto">
+                            <div class="col-xl-7 mt-10 d-flex">
+                                <label class="form-label">Setup Scoring</label>
+                                <div class="ms-5">
                                     <label class="switch">
-                                        <input type="checkbox" class="setup_scoring form-switch-input" <?php echo (1==1)?'checked':''; ?>>
+                                        <input type="checkbox" name="scoring" class="setup_scoring form-switch-input" <?php echo ($__page->community->scoring==1)?'checked':''; ?>>
                                         <span class="slider"></span>
                                     </label>
                                 </div>
                             </div>
-                            <div class="scoring col-xl-7">
+                            <div class="scoring col-xl-7 <?php echo ($__page->community->scoring==0)?'fade':''; ?>">
                                 <label class="form-label mt-10">For a vote</label>
-                                <input type="number" name="for_vote" id="for_vote" class="form-control form-control-lg">
+                                <input type="number" name="for_vote" id="for_vote" class="form-control form-control-lg" value="<?php echo $__page->community->for_vote; ?>">
                             </div>
-                            <div class="scoring col-xl-7">
+                            <div class="scoring col-xl-7 <?php echo ($__page->community->scoring==0)?'fade':''; ?>">
                                 <label class="form-label mt-10">For a passed proposal</label>
-                                <input type="number" name="for_proposal" id="for_proposal" class="form-control form-control-lg">
+                                <input type="number" name="for_proposal" id="for_proposal" class="form-control form-control-lg" value="<?php echo $__page->community->for_proposal; ?>">
                             </div>
-                            <div class="scoring col-xl-7">
+                            <div class="scoring col-xl-7 <?php echo ($__page->community->scoring==0)?'fade':''; ?>">
                                 <label class="form-label mt-10">For any other proposal</label>
-                                <input type="number" name="for_other_proposal" id="for_other_proposal" class="form-control form-control-lg">
+                                <input type="number" name="for_other_proposal" id="for_other_proposal" class="form-control form-control-lg" value="<?php echo $__page->community->for_other_proposal; ?>">
                             </div>
                         </div>
                         <div class="border-top d-flex justify-content-end gap-3 py-6 px-18">

@@ -206,13 +206,14 @@ class controller extends Ctrl {
             }
 
             $com_id = $community->id;
-            $forms = Form::find("SELECT * FROM forms WHERE id <> 2 AND active=1 AND comunity_id='$com_id'",true);
+            $forms = Form::find("SELECT * FROM forms WHERE active=1 AND id <> 2 AND comunity_id='$com_id'",true);
 
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'form' => $form,
                 'forms' => $forms,
                 'site' => $site,
+                'simple_claim_form' => $community->simple_claim_form,
                 'is_admin' => $is_admin,
                 'blockchain' => $site['blockchain'],
                 'sel_wallet_adr' => $sel_wallet_adr,

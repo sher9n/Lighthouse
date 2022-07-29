@@ -27,7 +27,7 @@
                                                     </div>
                                                     <div class="ms-auto">
                                                         <label class="switch">
-                                                            <input type="checkbox" class="form-switch-input" checked disabled>
+                                                            <input type="checkbox" data-fid="1" class="form_activation form-switch-input" <?php echo ($__page->simple_claim_form==1)?'checked':'';?>>
                                                             <span class="slider"></span>
                                                         </label>
                                                     </div>
@@ -37,7 +37,7 @@
                                                 </div>
                                             </div>
                                             <div class="border-top card-body text-end">
-                                                <a href="#" class="fw-medium text-decoration-none text-primary">Edit
+                                                <a href="#" class="fw-medium text-decoration-none text-primary invisible">Edit
                                                     Form</a>
                                             </div>
                                         </div>

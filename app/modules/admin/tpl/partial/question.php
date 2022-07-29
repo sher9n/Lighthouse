@@ -288,7 +288,7 @@
                     <button type="button" class="add_option btn btn-primary">add option</button>
                 </div>
             <?php } elseif ($type == Form::QT_TAGS) { ?>
-                <div class="q_description d-none" id="q_type_<?php echo Form::QT_TAGS; ?>">
+                <div class="q_description" id="q_type_<?php echo Form::QT_TAGS; ?>">
                     <div class="d-flex justify-content-between">
                         <label for="" class="form-label">Description</label>
                         <div class="fw-medium text-muted">Enter comma separated values</div>
@@ -297,7 +297,7 @@
                            placeholder="Marketing, Sales, Development">
                 </div>
             <?php } else { ?>
-                <div class="q_description d-none" id="q_type_<?php echo Form::QT_PARAGRAPH; ?>">
+                <div class="q_description" id="q_type_<?php echo Form::QT_PARAGRAPH; ?>">
                     <label for="" class="form-label">Description</label>
                     <textarea class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>]" rows="4"
                               placeholder="Please enter the reason for this contribution"></textarea>

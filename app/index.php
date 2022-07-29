@@ -22,13 +22,14 @@ try {
         $site = \lighthouse\Auth::getSite();
 
         if($site === false) {
-            header("Location: https://lighthouse.xyz");
+            header("Location: https://getlighthouse.xyz");
             die();
         }
     }
 
     $localRoutes = array(
         '/cron-claim-approvals' => 'modules/crons/claim_approvals.php',
+        '/cron-realms-api' => 'modules/crons/realms_api.php',
         '/disconnect_wallet' => 'modules/admin/ctrl/admin.php',
         '/check-dao-domain' => 'modules/onboard/ctrl/onboard.php',
         '/update-contract-address' => 'modules/onboard/ctrl/first_member.php',

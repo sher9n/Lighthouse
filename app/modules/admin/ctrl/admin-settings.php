@@ -23,7 +23,7 @@ class controller extends Ctrl {
         }
 
         if($site === false) {
-            header("Location: https://lighthouse.xyz");
+            header("Location: https://getlighthouse.xyz");
             die();
         }
 

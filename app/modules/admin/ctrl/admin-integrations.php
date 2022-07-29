@@ -23,9 +23,15 @@ class controller extends Ctrl {
             if (__ROUTER_PATH == '/form-activation' && $this->hasParam('fid')) {
                 $fid = $this->getParam('fid');
                 $status = $this->hasParam('status')?$this->getParam('status'):1;
-                $form = Form::get($fid);
-                $form->active = $status;
-                $form->update();
+                if($fid==1){
+                    $community->simple_claim_form = $status;
+                    $community->update();
+                }
+                else {
+                    $form = Form::get($fid);
+                    $form->active = $status;
+                    $form->update();
+                }
                 echo json_encode(array('success' => true));
                 exit();
             }
@@ -34,7 +40,7 @@ class controller extends Ctrl {
 
             $site = Auth::getSite();
             if($site === false) {
-                header("Location: https://lighthouse.xyz");
+                header("Location: https://getlighthouse.xyz");
                 die();
             }
 
@@ -46,6 +52,7 @@ class controller extends Ctrl {
                 'forms' => $forms,
                 'is_admin' => $is_admin,
                 'blockchain' => $community->blockchain,
+                'simple_claim_form' => $community->simple_claim_form,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-integrations.php'

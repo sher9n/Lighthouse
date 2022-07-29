@@ -6,6 +6,13 @@ use lighthouse\Contribution;
 
 class controller extends Ctrl {
     public function init() {
+
+        $coms = Community::find("SELECT * FROM communities WHERE is_delete=0");
+
+        foreach ($coms as $com){
+
+        }
+        exit();
         $__page = (object)array(
             'title' => 'Lighthouse',
             'session_user' => null,

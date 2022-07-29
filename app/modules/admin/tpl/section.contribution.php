@@ -8,6 +8,7 @@
                         <div class="display-5 fw-medium">Submit a claim</div>
                         <div class="text-muted mt-1">Request attestations for completed activity</div>
                         <div class="row mt-12">
+                            <?php if($__page->simple_claim_form==1){ ?>
                             <div class="col-lg-6 col-xl-5">
                                 <div class="card border rounded-3 mb-12 mb-lg-0">
                                 <div class="card-body">
@@ -22,6 +23,7 @@
                                 </div>                                
                                 </div>
                             </div>
+                            <?php } ?>
                             <?php foreach ($__page->forms as $form){ ?>
                                 <div class="col-lg-6 col-xl-5">
                                     <div class="card border rounded-3 mb-12">

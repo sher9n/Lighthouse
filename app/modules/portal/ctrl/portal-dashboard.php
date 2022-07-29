@@ -20,7 +20,7 @@ class controller extends Ctrl {
 
             $site = Auth::getSite();
             if($site === false) {
-                header("Location: https://lighthouse.xyz");
+                header("Location: https://getlighthouse.xyz");
                 die();
             }
             $__page = (object)array(

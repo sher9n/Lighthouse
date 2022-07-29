@@ -69,7 +69,7 @@
                         <label for="DAOName" class="form-label">Subdomain</label>
                         <div class="input-group input-group-lg">
                             <input type="text" class="form-control form-control-lg" name="dao_domain" id="dao_domain" placeholder="MyDAO">
-                            <span class="input-group-text fw-medium" id="">.lighthouse.xyz</span>
+                            <span class="input-group-text fw-medium" id="">.getlighthouse.xyz</span>
                          </div>
                         <label id="dao_domain-error" class="error" style="display: none;" for="dao_domain"></label>
                     </div>

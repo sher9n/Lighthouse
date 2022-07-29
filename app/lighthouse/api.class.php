@@ -22,6 +22,58 @@ class Api{
             return null;
     }
 
+    public static function realms_get_info($realmKey,$start=null,$end=null) {
+        $url  = 'https://realms-api.vercel.app/api/getInfo';
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        if(is_null($start))
+            $data = '{"realmPubKey":"'.$realmKey.'"}';
+        else
+            $data = '{"realmPubKey":"'.$realmKey.'","start":'.$start.',"end":'.$end.'}';
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+       // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($curl);
+       /*$error_msg = curl_error($curl);
+           var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function realms_update($realmKey) {
+        $url  = 'https://realms-api.vercel.app/api/addOrUpdate';
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{"realmKeys":["'.$realmKey.'"]}';
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($curl);
+        /* $error_msg = curl_error($curl);
+           var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
+
     public static function getSolanaGasTankBalance($url,$slug) {
         $url = SOLANA_API."api/".$slug."/getTankBalance?key=".SOLANA_API_KEY;
         $curl = curl_init($url);

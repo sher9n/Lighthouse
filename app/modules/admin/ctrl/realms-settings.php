@@ -26,9 +26,28 @@ class controller extends Ctrl {
 
                 try {
 
+                    if ($this->hasParam('realm_id') && strlen($this->getParam('realm_id')) > 0)
+                        $community->realm_id = $this->getParam('realm_id');
+                    else
+                        throw new Exception("realm_id:Not a valid key");
 
+                    if ($this->hasParam('scoring'))
+                        $community->scoring = 1;
+                    else
+                        $community->scoring = 0;
 
-                    echo json_encode(array('success' => true));
+                    if ($this->hasParam('for_vote'))
+                        $community->for_vote = $this->getParam('for_vote');
+
+                    if ($this->hasParam('for_proposal'))
+                        $community->for_proposal  = $this->getParam('for_proposal');
+
+                    if ($this->hasParam('for_other_proposal'))
+                        $community->for_other_proposal = $this->getParam('for_other_proposal');
+
+                    $community->update();
+
+                    echo json_encode(array('success' => true,'message'=>'Success! Your changes have been saved.'));
                 }
                 catch (Exception $e) {
 
@@ -48,7 +67,7 @@ class controller extends Ctrl {
  
             $site = Auth::getSite();
             if($site === false) {
-                header("Location: https://lighthouse.xyz");
+                header("Location: https://getlighthouse.xyz");
                 die();
             }
 
@@ -56,6 +75,7 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'site' => $site,
                 'is_admin' => $is_admin,
+                'community' => $community,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.realms-settings.php'

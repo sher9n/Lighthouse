@@ -277,6 +277,33 @@
 
     });
 
+    $(document).on('click', '#btn_save', function(event) {
+        event.preventDefault();
+        var $form = $(this).closest('form');
+        $form.attr('action',"integrations-form").ajaxSubmit({
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                $('#btn_preview').prop('disabled', true);
+                $('#btn_save').prop('disabled', true);
+            },
+            success: function (data) {
+                if (data.success == true) {
+                    window.location.replace('integrations-approvals?form_id='+data.form_id);
+                }
+                else {
+                    if (data.element) {
+                        $('#' + data.element).addClass('form-control-lg error');
+                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                    } else
+                        showMessage('danger', 10000, data.msg);
+                }
+                $('#btn_preview').prop('disabled', false);
+                $('#btn_save').prop('disabled', false);
+            }
+        });
+    });
+
     $(document).on('click', '#btn_preview', function(event) {
         event.preventDefault();
         var $form = $(this).closest('form');
