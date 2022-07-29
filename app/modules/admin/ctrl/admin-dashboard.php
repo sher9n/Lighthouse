@@ -15,14 +15,14 @@ class controller extends Ctrl {
             $_SESSION['lighthouse'] = null;
             $site = Auth::getSite();
             if($site === false) {
-                header("Location: https://getlighthouse.xyz");
+                header("Location: https://lighthouse.xyz");
                 die();
             }
 
             if(isset($site['ch']) && $ch == $site['ch']){
                 $_SESSION['lh_sel_wallet_adr'] = $site['wallet_adr'];
                 $wallet_adr = $site['wallet_adr'];
-                $community->ch = null;
+                $community->ch = '';
                 $community->update();
             }
         }
@@ -107,7 +107,7 @@ class controller extends Ctrl {
 
             $site = Auth::getSite();
             if($site === false) {
-                header("Location: https://getlighthouse.xyz");
+                header("Location: https://lighthouse.xyz");
                 die();
             }
 

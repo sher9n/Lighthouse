@@ -23,7 +23,7 @@ class controller extends Ctrl {
         }
 
         if($site === false) {
-            header("Location: https://getlighthouse.xyz");
+            header("Location: https://lighthouse.xyz");
             die();
         }
 
@@ -41,13 +41,13 @@ class controller extends Ctrl {
             }
             elseif (__ROUTER_PATH == '/gas_tank_balance' ) {
                 if($community->blockchain == SOLANA) {
-                    $balance = Api::getSolanaGasTankBalance(constant(strtoupper($community->blockchain) . '_API'), app_site);
+                    $balance = Api::getSolanaGasTankBalance(constant(strtoupper($community->blockchain) . '_API'), $community->contract_name);
                     if(is_null($balance))
                         $balance = 0;
                     echo json_encode(array('success' => true, 'balance' => 'Ξ'.$balance.' SOL'));
                 }
                 else {
-                    $balance = Api::getGasTankBalance(constant(strtoupper($community->blockchain) . '_API'), app_site);
+                    $balance = Api::getGasTankBalance(constant(strtoupper($community->blockchain) . '_API'), $community->contract_name);
                     if(is_null($balance))
                         $balance = 0;
                     echo json_encode(array('success' => true, 'balance' => 'Ξ'.$balance.' (ERC-20)'));
@@ -67,25 +67,25 @@ class controller extends Ctrl {
                     else
                         throw new Exception("approval_days:Not a valid day");
 
-                    $tick_change = $bg_change = false;
+                    $tick_change = false;
                     $html = '';
 
-                    if ($this->hasParam('ticker_imag')) {
-                        $ticker_imag = $this->getParam('ticker_imag');
+                    if ($this->hasParam('background_imag')) {
+                        $logo_imag = $this->getParam('background_imag');
 
-                        if (!empty($ticker_imag) ) {
-                            if (!Utils::isValidImageSize($ticker_imag->size))
+                        if (!empty($logo_imag) ) {
+                            if (!Utils::isValidImageSize($logo_imag->size))
                                 throw new Exception("ticker_imag:Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE );
 
-                            if(pathinfo($ticker_imag->name, PATHINFO_EXTENSION) == 'jpeg' || pathinfo($ticker_imag->name, PATHINFO_EXTENSION) == 'jpg'){
+                            if(pathinfo($logo_imag->name, PATHINFO_EXTENSION) == 'png' || pathinfo($logo_imag->name, PATHINFO_EXTENSION) == 'png'){
                                 $tick_change = true;
                                 $img_name = time();
                                 $amazons3 = new AmazonS3(app_site);
-                                $t_url = $amazons3->uploadFile($ticker_imag->tmp_name, "ticker/token_image.jpeg");
-                                $community->ticker_img_url = 'token_image.jpeg';
+                                $t_url = $amazons3->uploadFile($logo_imag->tmp_name, "logo/logo_image.png");
+                                $community->logo_img_url = 'logo_image.png';
                             }
                             else
-                                throw new Exception("ticker_imag:Invalid file extension. File extension should be jpeg");
+                                throw new Exception("background_imag:Invalid file extension. File extension should be png");
 
                         }
                     }
@@ -136,10 +136,8 @@ class controller extends Ctrl {
                     echo json_encode(array(
                         'success' => true,
                         'url' => 'admin-settings',
-                        'tick_change' => $tick_change,
-                        'ticket_img_url' => 'https://lighthouse-cdn.s3.amazonaws.com/instances/'.$community->dao_domain.'/ticker/token_image.jpeg',
-                        'bg_change' => $bg_change,
-                        'bg_img_html' => $html
+                        'logo_change' => $tick_change,
+                        'logo_img_url' => 'https://lighthouse-cdn.s3.amazonaws.com/instances/'.$community->dao_domain.'/logo/logo_image.png'
                     ));
 
                 } catch (Exception $e) {

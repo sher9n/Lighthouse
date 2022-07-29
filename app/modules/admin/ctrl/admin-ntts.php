@@ -44,7 +44,7 @@ class controller extends Ctrl {
                     throw new Exception("ntts:Not a valid NTTs");
 
                 if($community->blockchain == SOLANA)
-                    $api_response = api::addSolanaPoints(app_site,$wallet_address,$ntts);
+                    $api_response = api::addSolanaPoints($community->contract_name,$wallet_address,$ntts);
                 else
                     $api_response = api::addPoints(constant(strtoupper($community->blockchain).'_API'),app_site,$wallet_address,$ntts);
 

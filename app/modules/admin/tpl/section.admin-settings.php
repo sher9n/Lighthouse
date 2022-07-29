@@ -60,10 +60,10 @@
                                 <div class="row mt-xl-12">
                                     <div class="col-xl-4">
                                         <label for="" class="form-label">Personalize Lighthouse logo</label>
-                                        <input type="file" name="" id="background_imag" multiple hidden />
+                                        <input type="file" name="background_imag" id="background_imag" hidden onchange="javascript:updateLogoImage()"  />
                                         <label class="card bg-lighter card-image-uploads p-6" for="background_imag">
                                             <div class="card-body text-center">
-                                                <img src="<?php echo app_cdn_path; ?>img/logo.png" class="img-upload-logo my-7">
+                                                <img id="logo_image" src="<?php echo app_cdn_path; ?>img/logo.png" class="img-upload-logo my-7">
                                                 <div class="fw-medium my-3">Drag and drop logo, or <span class="text-primary">Browse</span></div>
                                                 <div class="text-muted mb-7">250px x 80px recommended. Max 1MB (png)</div>
                                             </div>
@@ -101,7 +101,7 @@
                                 </div>-->
                             </div>
                             <div class="card-body border-top d-flex justify-content-end gap-3">
-                              <button type="submit" class="btn btn-primary">Save</button>
+                              <button id="btn_submit" type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
@@ -151,17 +151,17 @@
                 $(form).ajaxSubmit({
                     type: 'post',
                     dataType: 'json',
+                    beforeSend: function () {
+                        $('#btn_submit').prop('disabled', true);
+                    },
                     success: function (data) {
+                        $('#btn_submit').prop('disabled', false);
                         if (data.success == true) {
-/*                            if(data.tick_change == true) {
+/*                            if(data.logo_change == true) {
                                 $('#ticker_imag_link').attr("src", data.ticket_img_url);
                                 $('#ticker_imag_name').html('');
-                            }
-                            if(data.bg_change == true) {
-                                $('#bg_images').html(data.bg_img_html);
-                                $('#fileList').html('');
                             }*/
-                            feather.replace();
+
                             showMessage('success',10000,'Success! Your changes have been saved.');
                         } else {
                             if(data.element) {
@@ -192,29 +192,11 @@
     });
     getBalance();
     // File upload
-    updateTickerImage = function () {
-        var input = document.getElementById('ticker_imag');
-        if(input.files.item(0)) {
-            $('#ticker_imag_name').html('( ' + input.files.item(0).name + ' )');
-            $('#ticker_imag_link').attr("src",URL.createObjectURL(input.files.item(0)));
-            $('#ticker_imag_link').removeClass('d-none');
-            $('#ticker_d_imag_link').addClass('d-none');
-        }
-    }
-
-    updateList = function() {
+    updateLogoImage = function () {
         var input = document.getElementById('background_imag');
-        var output = document.getElementById('fileList');
-        var appBanners = document.getElementsByClassName('text-hide');
-
-        output.innerHTML = '<ul>';
-        for (var i = 0; i < input.files.length; ++i) {
-            output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
-            //appBanners[i].style.display = 'none';
-            $('#bg_images').append('<li class="upload-image-item" id="claim-img-'+i+'"><a class="image-del" href="delete-claim-img?id='+i+'"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></a><img width="220" height="250" src="'+URL.createObjectURL(input.files.item(i))+'" class="rounded-3"></li>');
+        if(input.files.item(0)) {
+            $('#logo_image').attr("src",URL.createObjectURL(input.files.item(0)));
         }
-        feather.replace();
-        output.innerHTML += '</ul>';
     }
 
     function getBalance() {

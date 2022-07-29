@@ -33,8 +33,8 @@ else
 {
     define('app_live', true);
     define('local_server_name', '');
-    define('app_url', 'https://'.app_site.'.getlighthouse.xyz/');
-    define('referer_app_url', 'https://'.app_site.'.getlighthouse.xyz');
+    define('app_url', 'https://'.app_site.'.lighthouse.xyz/');
+    define('referer_app_url', 'https://'.app_site.'.lighthouse.xyz');
     define('app_api_url', 'http://lighthouseapi.us-east-1.elasticbeanstalk.com/api');
 }
 

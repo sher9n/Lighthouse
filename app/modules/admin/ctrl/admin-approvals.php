@@ -184,7 +184,7 @@ class controller extends Ctrl {
 
             $site = Auth::getSite();
             if($site === false) {
-                header("Location: https://getlighthouse.xyz");
+                header("Location: https://lighthouse.xyz");
                 die();
             }
 

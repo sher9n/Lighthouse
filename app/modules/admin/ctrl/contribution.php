@@ -63,6 +63,7 @@ class controller extends Ctrl {
                     $elements = $form->getElements();
 
                     foreach ($elements as $element) {
+
                         if ($element['e_required'] == 1) {
                             $ele_name = $element['e_name'];
                             if (!isset($post[$ele_name]) || strlen($post[$ele_name]) < 1)
@@ -73,7 +74,7 @@ class controller extends Ctrl {
                     $contribusion = new Contribution();
                     $contribusion->comunity_id = $community->id;
                     $contribusion->wallet_from = $sel_wallet_adr;
-                    $contribusion->contribution_reason = $contribution_reason;
+                    $contribusion->contribution_reason = current($post);
                     $contribusion->wallet_to = $wallet_to;
                     $contribusion->tags = $tags;
                     //update contribution approval data

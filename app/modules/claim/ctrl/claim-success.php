@@ -20,7 +20,7 @@ class controller extends Ctrl {
             $solana = true;
 
         if($site === false) {
-            header("Location: https://getlighthouse.xyz");
+            header("Location: https://lighthouse.xyz");
             die();
         }
 

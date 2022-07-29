@@ -182,32 +182,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-6">
-                            <div class="col-10 col-xxl-11">
-                                <div class="d-flex align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                         stroke-linecap="round" stroke-linejoin="round"
-                                         class="feather feather-circle me-6">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                    </svg>
-                                    <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                           aria-describedby=""
-                                           placeholder="Please enter multiple choice option">
-                                </div>
-                            </div>
-                            <div class="col px-0">
-                                <button class="btn btn-delete ms-0 h-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                         stroke-linecap="round" stroke-linejoin="round"
-                                         class="feather feather-trash">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                     <button type="button" class="add_option btn btn-primary">add option</button>
                 </div>
@@ -229,31 +203,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-6">
-                            <div class="col-10 col-xxl-11">
-                                <div class="d-flex align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                         stroke-linecap="round" stroke-linejoin="round"
-                                         class="feather feather-square me-6">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                    </svg>
-                                    <input type="text" class="form-control form-control-lg"  id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                           aria-describedby="" placeholder="Please enter checkbox option">
-                                </div>
-                            </div>
-                            <div class="col px-0">
-                                <button class="btn btn-delete ms-0 h-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                         stroke-linecap="round" stroke-linejoin="round"
-                                         class="feather feather-trash">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                     <button type="button" class="add_option btn btn-primary">add option</button>
                 </div>
@@ -265,23 +214,6 @@
                             <div class="col-10 col-xxl-11">
                                 <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
                                        aria-describedby="" placeholder="Please enter dropdown option">
-                            </div>
-                        </div>
-                        <div class="row mb-6">
-                            <div class="col-10 col-xxl-11">
-                                <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                       aria-describedby="" placeholder="Please enter dropdown option">
-                            </div>
-                            <div class="col px-0">
-                                <button class="btn btn-delete ms-0 h-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                         stroke-linecap="round" stroke-linejoin="round"
-                                         class="feather feather-trash">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -316,6 +248,7 @@
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
             </a>
+            <?php if($row_id != 1){ ?>
             <a class="px-8 btn-trash delete_question" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -324,6 +257,7 @@
                     <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                 </svg>
             </a>
+            <?php } ?>
             <div class="vr"></div>
             <div class="ms-8 me-6 fw-medium text-lg">Required</div>
             <label class="switch">

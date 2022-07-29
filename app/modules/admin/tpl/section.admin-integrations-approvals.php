@@ -191,51 +191,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mb-6">
-                                                <div class="col-lg-12 col-xl-5 col-xxl-6">
-                                                    <input type="text" class="form-control form-control-lg" id="category2" name="category[]"
-                                                           aria-describedby="">
-                                                </div>
-                                                <div class="col-auto px-xxl-0">
-                                                    <div class="d-flex mt-3 mt-xl-0">
-                                                        <div class="list-rating-scale list-rating-scale-lg">
-                                                            <input type="radio" class="btn-check btn_complexity"
-                                                                   name="ComplexityOptions" data-val="1" id="Complexityoption1"
-                                                                   autocomplete="off">
-                                                            <label class="btn btn-light ms-0" for="Complexityoption1">1</label>
-
-                                                            <input type="radio" class="btn-check btn_complexity"
-                                                                   name="ComplexityOptions" data-val="2" id="Complexityoption2"
-                                                                   autocomplete="off">
-                                                            <label class="btn btn-light" for="Complexityoption2">2</label>
-
-                                                            <input type="radio" class="btn-check btn_complexity"
-                                                                   name="ComplexityOptions" data-val="3" id="Complexityoption3"
-                                                                   autocomplete="off">
-                                                            <label class="btn btn-light" for="Complexityoption3">3</label>
-
-                                                            <input type="radio" class="btn-check btn_complexity"
-                                                                   name="ComplexityOptions" data-val="4" id="Complexityoption4"
-                                                                   autocomplete="off">
-                                                            <label class="btn btn-light" for="Complexityoption4">4</label>
-
-                                                            <input type="radio" class="btn-check btn_complexity"
-                                                                   name="ComplexityOptions" data-val="5" id="Complexityoption5"
-                                                                   autocomplete="off">
-                                                            <label class="btn btn-light me-0" for="Complexityoption5">5</label>
-                                                        </div>
-                                                        <button class="btn btn-delete">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                                 class="feather feather-trash">
-                                                                <polyline points="3 6 5 6 21 6"></polyline>
-                                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <?php
                                         } ?>
                                     </div>
