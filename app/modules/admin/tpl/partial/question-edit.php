@@ -341,7 +341,11 @@
             <div class="vr"></div>
             <div class="ms-8 me-6 fw-medium text-lg">Required</div>
             <label class="switch">
-                <input type="checkbox" class="form-switch-input" <?php echo ($element['e_required'] == 1)?'checked':''; ?> name="required[<?php echo $row_id; ?>]">
+                <?php if($row_id == 1){ ?>
+                    <input type="checkbox" checked disabled class="form-switch-input" <?php echo ($element['e_required'] == 1)?'checked':''; ?> name="required[<?php echo $row_id; ?>]">
+                <?php }else{ ?>
+                    <input type="checkbox" class="form-switch-input" <?php echo ($element['e_required'] == 1)?'checked':''; ?> name="required[<?php echo $row_id; ?>]">
+                <?php } ?>
                 <span class="slider"></span>
             </label>
         </div>

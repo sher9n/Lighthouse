@@ -82,7 +82,8 @@ class controller extends Ctrl {
                     $contribusion->max_point = $form->max_point;
                     $contribusion->scoring   = $form->scoring;
                     $contribusion->approval_type = $form->approval_type;
-                    $contribusion->rating_categories = $form->rating_categories;
+                    if($form->approval_type == 2)
+                        $contribusion->rating_categories = $form->rating_categories;
                     $contribusion->form_data = json_encode($post);
                     $contribusion->insert();
 
@@ -215,6 +216,7 @@ class controller extends Ctrl {
                 'forms' => $forms,
                 'site' => $site,
                 'simple_claim_form' => $community->simple_claim_form,
+                'logo_url' => $community->getLogoImage(),
                 'is_admin' => $is_admin,
                 'blockchain' => $site['blockchain'],
                 'sel_wallet_adr' => $sel_wallet_adr,

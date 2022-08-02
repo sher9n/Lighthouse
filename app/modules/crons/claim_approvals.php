@@ -2,79 +2,84 @@
 use lighthouse\Contribution;
 use lighthouse\Approval;
 use lighthouse\Community;
+use lighthouse\Api;
+use lighthouse\Log;
 
 if(app_site == 'app') {
 
     $communities = array();
-    $comms = Community::find("SELECT id,approval_count FROM communities WHERE is_delete=0");
-    foreach ($comms as $com)
-        $communities[$com['id']] = $com['approval_count'];
+    $comms = Community::find("SELECT id,approval_count,blockchain,contract_name FROM communities WHERE is_delete=0");
+    foreach ($comms as $row)
+        $communities[$row['id']] = $row;
 
-    /*$contributions = Contribution::find("SELECT * FROM contributions where status = 0 order by comunity_id",true);
-    foreach ($contributions as $contribution){
+    $contributions = Contribution::find("SELECT  con.* FROM contributions con LEFT JOIN communities com ON con.comunity_id = com.id WHERE con.status = 0 AND DATE_ADD(con.c_at, INTERVAL com.approval_days DAY) <= now()",true);
 
-        if($contribution->approvals == $communities[$contribution->comunity_id]) {
-            $blockchain = $community->blockchain;
-            $dao_domain = $community->dao_domain;
-            $tags       = $contribution->tags;
-            if($blockchain != SOLANA)
-                $api_response = Api::AddAttestation(constant(strtoupper($blockchain) . "_API"), $dao_domain,$contribution->wallet_to,$points,$contribution->contribution_reason,$tags);
+    foreach ($contributions as $contribution) {
+
+        $com = $communities[$contribution->comunity_id];
+
+        if ($contribution->approvals >= $com['approval_count']) {
+            $blockchain = $com['blockchain'];
+            $dao_name = $com['contract_name'];
+            $tags = $contribution->tags;
+            $approval = Approval::getUserApprovals($contribution->id);
+            $points = 0;
+
+            if ($contribution->scoring == 1 && $contribution->max_point > 0) {
+                $maxPoint = $contribution->max_point;
+
+                if ($contribution->approval_type == 2) {
+                    $tem = 0;
+                    $tem_tot = 0;
+                    foreach ($approval as $key => $val) {
+                        $tem += $val;
+                        $tem_tot += 5;
+                    }
+
+                    $points = ($tem_tot > 0)? ($tem/$tem_tot) * $maxPoint :0;
+                }
+                else
+                    $points = $maxPoint;
+            }
+
+            if ($blockchain != SOLANA)
+                $api_response = Api::AddAttestation(constant(strtoupper($blockchain) . "_API"), $dao_name, $contribution->wallet_to, $points, $contribution->contribution_reason, $tags);
             else
-                $api_response = Api::AddSolanaAttestation(constant(strtoupper($blockchain) . "_API"), $dao_domain,$contribution->wallet_to,$points,$contribution->contribution_reason,$tags,'');
+                $api_response = Api::AddSolanaAttestation(constant(strtoupper($blockchain) . "_API"), $dao_name, $contribution->wallet_to, $points, $contribution->contribution_reason, $tags, '');
 
-            if (isset($api_response->error)) {
+            if(isset($api_response->error)) {
                 $log = new Log();
                 $log->type = 'Attestation';
                 $log->log = serialize($api_response->error);
                 $log->action = 'create-failed';
                 $log->type_id = $contribution->id;
-                $log->c_by = $sel_wallet_adr;
+                //$log->c_by = $sel_wallet_adr;
                 $log->insert();
-
-                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to create attestation, please retry again.'));
-                exit();
-            }
-            else {
+            } else {
                 $contribution->status = 1;
-                $approve = true;
                 $contribution->txHash = $api_response->txHash;
-
+                $contribution->score  = $points;
                 $contribution->update();
-                $approval->insert();
-
                 $log = new Log();
-                $log->type = 'Contribution';
+                $log->type = 'Attestation';
                 $log->type_id = $contribution->id;
                 $log->action = 'created';
-                $log->c_by = $sel_wallet_adr;
+                // $log->c_by = $sel_wallet_adr;
                 $log->insert();
-
-                $contribution_id = $contribution->id;
-                $stewards = $community->getStewards();
-                $html = '';
-                foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
-                    $steward = $stewards[$stewd_adr];
-                    $html .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
-                }
-
-                $view_transaction_link = '';
-                if($community->blockchain == SOLANA)
-                    $view_transaction_link = SOLANA_VIEW_LINK.'tx/'.$contribution->txHash;
-                elseif ($community->blockchain == OPTIMISM)
-                    $view_transaction_link = OPTIMISM_VIEW_LINK.'tx/'.$contribution->txHash;
-                else
-                    $view_transaction_link = GNOSIS_CHAIN_VIEW_LINK.'tx/'.$contribution->txHash;
-
-                echo json_encode(array('success' => true,
-                        'approve' => $approve ,
-                        'steward_html' => $html,
-                        'c_id' => $contribution->id,
-                        'message' => 'Success! Your attestation has been recorded. <a target="_blank" class="text-white ms-1" href="'.$view_transaction_link.'">View Transaction</a>')
-                );
-                exit();
             }
         }
-    }*/
+        else {
+            $contribution->status = 2;
+            $contribution->update();
+
+            $log = new Log();
+            $log->type = 'Contribution';
+            $log->type_id = $contribution->id;
+            $log->action = 'denied';
+           // $log->c_by = $sel_wallet_adr;
+            $log->insert();
+        }
+    }
 }
 
 ?>

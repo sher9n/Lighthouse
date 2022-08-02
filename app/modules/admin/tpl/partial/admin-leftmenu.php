@@ -1,6 +1,6 @@
 <aside class="admin-left-aside">
     <div class="ms-3">
-        <img src="<?php echo app_cdn_path; ?>img/logo.png" >
+        <img src="<?php echo $__page->logo_url; ?>" >
     </div>
     <div class="main-nav">
         <ul class="nav flex-column">

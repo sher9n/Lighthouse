@@ -1,4 +1,7 @@
-<?php use Core\Utils; ?>
+<?php
+    use Core\Utils;
+    use lighthouse\Form;
+?>
 <div class="card shadow">
     <form id="" method="post" action="" autocomplete="off" class="d-flex flex-column h-100">
         <div class="card-body p-xxl-20">
@@ -141,32 +144,35 @@
                     </ul>
                     <?php
                     $data = (array)json_decode($contribution->form_data);
-                    foreach ($elements as $element){
-                        $ele_name =  trim($element['e_name'], "[]");
-                        if($element['e_type'] == 'text' || $element['e_type'] == 'textarea') {
-                            ?>
-                            <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
-                            <?php if(isset($data[$ele_name])){ ?>
-                                <div class="fw-medium fs-4 mt-1"><?php echo $data[$ele_name]; ?></div>
-                            <?php
+                    foreach ($elements as $index => $element){
+                        if($index != 0){
+                            //$ele_name =  trim($element['e_name'], "[]");
+                            $ele_name = strtolower(preg_replace("/\s+/", "_", $element['e_name']));
+                            if($element['e_type'] == Form::QT_SHORT_ANSWER || $element['e_type'] == Form::QT_PARAGRAPH || $element['e_type'] == Form::QT_DROPDOWN || $element['e_type'] == Form::QT_CHECKBOXES || $element['e_type'] == Form::QT_MULTIPLE_CHOICE) {
+                                ?>
+                                <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
+                                <?php if(isset($data[$ele_name])){ ?>
+                                    <div class="fw-medium fs-4 mt-1"><?php echo $data[$ele_name]; ?></div>
+                                <?php
+                                }
                             }
-                        }
-                        elseif ($element['e_type'] == 'tag_select') {
+                            elseif ($element['e_type'] == Form::QT_TAGS) {
 
-                            ?>
-                            <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
-                            <?php if(isset($data[$ele_name])){ ?>
-                                <ul class="select2-selection__rendered d-flex gap-3 mt-1">
-                                    <?php
-                                    if(count($data[$ele_name]) > 0){
-                                        $tags_arry = $data[$ele_name];
-                                        foreach ($tags_arry as $tag){ ?>
-                                            <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
-                                            <?php
-                                        }
-                                    } ?>
-                                </ul>
-                            <?php
+                                ?>
+                                <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
+                                <?php if(isset($data[$ele_name])){ ?>
+                                    <ul class="select2-selection__rendered d-flex gap-3 mt-1">
+                                        <?php
+                                        if(count($data[$ele_name]) > 0){
+                                            $tags_arry = $data[$ele_name];
+                                            foreach ($tags_arry as $tag){ ?>
+                                                <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
+                                                <?php
+                                            }
+                                        } ?>
+                                    </ul>
+                                <?php
+                                }
                             }
                         }
                     } ?>

@@ -62,8 +62,8 @@
                                         <label for="" class="form-label">Personalize Lighthouse logo</label>
                                         <input type="file" name="background_imag" id="background_imag" hidden onchange="javascript:updateLogoImage()"  />
                                         <label class="card bg-lighter card-image-uploads p-6" for="background_imag">
-                                            <div class="card-body text-center">
-                                                <img id="logo_image" src="<?php echo app_cdn_path; ?>img/logo.png" class="img-upload-logo my-7">
+                                            <div id="drag_drop_area" class="card-body text-center">
+                                                <img id="logo_image" src="<?php echo $__page->community->getLogoImage(); ?>" class="img-upload-logo my-7">
                                                 <div class="fw-medium my-3">Drag and drop logo, or <span class="text-primary">Browse</span></div>
                                                 <div class="text-muted mb-7">250px x 80px recommended. Max 1MB (png)</div>
                                             </div>
@@ -135,6 +135,8 @@
 </main>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
+    let bg_file;
+
     $(document).ready(function() {
 
 
@@ -156,6 +158,7 @@
                     },
                     success: function (data) {
                         $('#btn_submit').prop('disabled', false);
+
                         if (data.success == true) {
 /*                            if(data.logo_change == true) {
                                 $('#ticker_imag_link').attr("src", data.ticket_img_url);
@@ -210,6 +213,61 @@
                 }
             }
         });
+    }
+
+    let dropArea = document.getElementById("drag_drop_area")
+
+// Prevent default drag behaviors
+    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+        document.body.addEventListener(eventName, preventDefaults, false)
+    })
+
+// Highlight drop area when item is dragged over it
+    ;['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false)
+    })
+
+    ;['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false)
+    })
+
+    // Handle dropped files
+    dropArea.addEventListener('drop', handleDrop, false)
+
+    function preventDefaults (e) {
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    function highlight(e) {
+        dropArea.classList.add('highlight')
+    }
+
+    function unhighlight(e) {
+        dropArea.classList.remove('active')
+    }
+
+    function handleDrop(e) {
+        var dt = e.dataTransfer
+        var files = dt.files
+        $("input[type='file']").prop("files", files);
+        handleFiles(files)
+    }
+
+    function handleFiles(files) {
+        files = [...files]
+        files.forEach(previewFile)
+    }
+
+    function previewFile(file) {
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = function() {
+            let img = document.createElement('img')
+            img.src = reader.result
+            $('#logo_image').attr("src",img.src);
+        }
     }
 
 </script>

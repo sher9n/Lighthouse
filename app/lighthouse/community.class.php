@@ -168,9 +168,13 @@ class Community{
         return $results;
     }
 
-    public function getTickerImage() {
-        $dao_domain = $this->_data["dao_domain"];
-        return  'https://lighthouse-cdn.s3.amazonaws.com/instances/'.$dao_domain.'/ticker/token_image.jpeg';
+    public function getLogoImage() {
+        $log_image = $this->_data["logo_img_url"];
+        if(strlen($log_image) > 0)
+            return app_cdn_path.'img/logo.png';
+            //return app_cdn_path.'instances/'.$this->_data['dao_domain'].'/logo/'.$log_image;
+        else
+            return app_cdn_path.'img/logo.png';
     }
 
     public function update(array $updates = array())

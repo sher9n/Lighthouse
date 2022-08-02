@@ -89,6 +89,7 @@ class controller extends Ctrl {
             'is_admin' => $is_admin,
             'blockchain' => GNOSIS_CHAIN,
             'sel_wallet_adr' => $sel_wallet_adr,
+            'logo_url' => $community->getLogoImage(),
             'sections' => array(
                 __DIR__ . '/../tpl/section.admin-form-preview.php'
             ),

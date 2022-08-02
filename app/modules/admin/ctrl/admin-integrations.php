@@ -53,6 +53,7 @@ class controller extends Ctrl {
                 'is_admin' => $is_admin,
                 'blockchain' => $community->blockchain,
                 'simple_claim_form' => $community->simple_claim_form,
+                'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-integrations.php'

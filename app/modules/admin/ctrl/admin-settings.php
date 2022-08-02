@@ -57,6 +57,7 @@ class controller extends Ctrl {
             else {
                 try {
 
+
                     if ($this->hasParam('dao_name') && strlen($this->getParam('dao_name')) > 0)
                         $community->dao_name = $this->getParam('dao_name');
                     else
@@ -176,6 +177,7 @@ class controller extends Ctrl {
                 'is_admin' => $is_admin,
                 'community' => $community,
                 'blockchain' => $community->blockchain,
+                'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-settings.php'

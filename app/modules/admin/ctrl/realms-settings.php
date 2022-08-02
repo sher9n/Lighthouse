@@ -76,6 +76,7 @@ class controller extends Ctrl {
                 'site' => $site,
                 'is_admin' => $is_admin,
                 'community' => $community,
+                'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.realms-settings.php'

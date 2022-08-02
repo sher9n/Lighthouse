@@ -41,25 +41,38 @@ class Approval{
         return null;
     }
 
-    public static function getUserApprovals($contribution_id,$user){
+    public static function getUserApprovals($contribution_id,$user=null){
         $connect = Ds::connect();
-        $items   = $connect->query("select approval from approvals where contribution_id='$contribution_id' AND approval_by='$user'");
+        if(is_null($user))
+            $items   = $connect->query("select approval,approval_type from approvals where contribution_id='$contribution_id'");
+        else
+            $items   = $connect->query("select approval,approval_type from approvals where contribution_id='$contribution_id' AND approval_by='$user'");
+
         $results = array();
+        $tem     = array();
         $type    = null;
-        $x = 0;
+        $x       = 0;
+
         if($items != false){
             while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
-                $x++;
-                $categories = json_decode($row['approval']);
-                foreach ($categories as $cat => $val){
-                    if(isset($results[$cat]))
-                        $results[$cat] += $val;
-                    else
-                        $results[$cat] = $val;
-
-                    $results[$cat] = round($val/$x);
+                if($row['approval_type'] == 2) {
+                    $x++;
+                    $categories = json_decode($row['approval']);
+                    foreach ($categories as $cat => $val) {
+                        if (isset($tem[$cat]))
+                            $tem[$cat] += $val;
+                        else
+                            $tem[$cat] = $val;
+                    }
                 }
+                else
+                    $results = array(1);
             }
+
+            foreach ($tem as $c => $v){
+                $results[$c] = round($v/$x);
+            }
+
         }
         $connect->close();
         return $results;

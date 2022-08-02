@@ -108,6 +108,7 @@ class controller extends Ctrl {
                 'form' => Form::get($form_id),
                 'is_admin' => $is_admin,
                 'blockchain' => GNOSIS_CHAIN,
+                'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-integrations-approvals.php'

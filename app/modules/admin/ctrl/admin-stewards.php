@@ -116,6 +116,7 @@ class controller extends Ctrl {
                 'is_admin' => $is_admin,
                 'blockchain' => $community->blockchain,
                 'stewards' => $community->getStewards(),
+                'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-stewards.php'

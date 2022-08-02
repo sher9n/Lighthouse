@@ -39,6 +39,7 @@ if(app_site == 'app') {
                         $rp->governance_key = $proposal->governancePubKey;
                         $rp->realm_key = $proposal->realmPubKey;
                         $rp->c_at = date('Y-m-d H:i:s', $proposal->createdAt);
+                        $rp->comunity_id = $com->id;
                         $rp->insert();
                     }
                 }
@@ -55,6 +56,7 @@ if(app_site == 'app') {
                         $rv->vote = $vote->vote;
                         $rv->vote_weight = $vote->voteWeight;
                         $rv->version = $vote->version;
+                        $rv->comunity_id = $com->id;
                         $rv->insert();
                     }
                 }

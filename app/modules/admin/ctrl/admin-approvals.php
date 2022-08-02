@@ -33,7 +33,7 @@ class controller extends Ctrl {
                     if($this->getParam('status') == 2){
 
                         $contribution->refusal += 1;
-                        $contribution->status = 2;
+                        //$contribution->status = 2;
                         $contribution->update();
 
                         $log = new Log();
@@ -59,7 +59,7 @@ class controller extends Ctrl {
                         $approval->contribution_id  = $contribution->id;
                         $approval->subdomain        = app_site;
                         $approval->approval         = json_encode($post);
-                        $approval->approval_type    = $form->approval_type;
+                        $approval->approval_type    = $contribution->approval_type;
 
                         $contribution->approvals += 1;
                         $contribution->score = 0;
@@ -217,6 +217,7 @@ class controller extends Ctrl {
                 'is_admin' => $is_admin,
                 'claims' => $claims,
                 'approval_days' => $community->approval_days,
+                'logo_url' => $community->getLogoImage(),
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-approvals.php'
                 ),

@@ -61,9 +61,9 @@ class controller extends Ctrl {
                             $contract_name = $dao_domain.'-'.time();
 
                             if ($blockchain != SOLANA)
-                                $api_response = api::addCommunity(constant(strtoupper($blockchain) . "_API"), $contract_name, $contract_name, $ticker, 18, 0.0008,$wallet_address);
+                                $api_response = api::addCommunityWithoutToken(constant(strtoupper($blockchain) . "_API"), $contract_name, 0.0008,$wallet_address);
                             else
-                                $api_response = api::addSolanaCommunity($contract_name, $contract_name, $ticker, 9,$wallet_address);
+                                $api_response = api::addSolanaCommunityWithoutMint($contract_name,$wallet_address);
 
                             if (isset($api_response->error)) {
                                 $log = new Log();
@@ -87,7 +87,7 @@ class controller extends Ctrl {
                                 $community->display_name = 'Initial User';
 
                                 /*------from api response-------*/
-                                $community->token_address = $api_response->tokenAddress;
+                                //$community->token_address = $api_response->tokenAddress;
 
                                 if($blockchain == SOLANA) {
                                     $community->txHash = $api_response->txHash;

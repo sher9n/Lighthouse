@@ -112,12 +112,12 @@ class controller extends Ctrl {
             }
 
             $view_contract = '';
-            if($community->blockchain == SOLANA)
+           /* if($community->blockchain == SOLANA)
                 $view_contract = SOLANA_VIEW_LINK.'account/'.$community->token_address;
             elseif ($community->blockchain == OPTIMISM)
                 $view_contract = OPTIMISM_VIEW_LINK.'address/'.$community->token_address;
             else
-                $view_contract = GNOSIS_CHAIN_VIEW_LINK.'address/'.$community->token_address;
+                $view_contract = GNOSIS_CHAIN_VIEW_LINK.'address/'.$community->token_address;*/
 
             $__page = (object)array(
                 'title' => $site['site_name'],
@@ -126,6 +126,7 @@ class controller extends Ctrl {
                 'view_contract' => $view_contract,
                 'wallet_adr' => $wallet_adr,
                 'blockchain' => $community->blockchain,
+                'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-dashboard.php'
