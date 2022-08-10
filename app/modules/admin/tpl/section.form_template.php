@@ -90,8 +90,7 @@ $form_elements = $__page->form->getElements();
         }
 
         $(".tags").select2({
-            tags: true,
-            tokenSeparators: [',']
+            tags: true
         });
 
         $('#sendContributionForm').validate({

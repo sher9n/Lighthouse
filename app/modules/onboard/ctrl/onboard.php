@@ -53,6 +53,12 @@ class controller extends Ctrl {
                     if($this->hasParam('dao_domain') && strlen($this->getParam('dao_domain')) > 0) {
                         $dao_domain = $this->getParam('dao_domain');
                         $dao_domain = strtolower(preg_replace("/\s+/", "-", $dao_domain));
+
+                        if(filter_var('https://' . $dao_domain . '.lighthouse.xyz', FILTER_VALIDATE_URL) == false){
+                            throw new Exception("dao_domain:Not a valid dao domain");
+                            exit();
+                        }
+
                         $domain_check = Community::isExistsCommunity($dao_domain);
 
                         if ($domain_check === FALSE) {
@@ -114,7 +120,7 @@ class controller extends Ctrl {
                                 $contribusion = new Contribution();
                                 $contribusion->comunity_id = $com_id;
                                 $contribusion->wallet_from = $community->wallet_adr;
-                                $contribusion->contribution_reason = "Created a new decentralized community.";
+                                $contribusion->contribution_reason = ucfirst(strtolower($community->dao_name));
                                 $contribusion->wallet_to = $community->wallet_adr;
                                 $contribusion->form_id = 2;
                                 $contribusion->max_point = $form->max_point;

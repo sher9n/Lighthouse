@@ -93,8 +93,7 @@ use lighthouse\Form;
         }
 
         $(".tags").select2({
-            tags: true,
-            tokenSeparators: [',']
+            tags: true
         });
     });
 </script>

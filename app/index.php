@@ -1,7 +1,7 @@
 <?php
 
 try {
-    session_start();
+    session_start(['cookie_lifetime'=> 604800]);
     ob_start();
     
     date_default_timezone_set('UTC');
@@ -30,6 +30,7 @@ try {
     $localRoutes = array(
         '/cron-claim-approvals' => 'modules/crons/claim_approvals.php',
         '/cron-realms-api' => 'modules/crons/realms_api.php',
+        '/cron-realms-proposals' => 'modules/crons/realms_proposals.php',
         '/disconnect_wallet' => 'modules/admin/ctrl/admin.php',
         '/check-dao-domain' => 'modules/onboard/ctrl/onboard.php',
         '/update-contract-address' => 'modules/onboard/ctrl/first_member.php',

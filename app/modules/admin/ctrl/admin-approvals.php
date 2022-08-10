@@ -57,10 +57,9 @@ class controller extends Ctrl {
 
                         $approval->approval_by      = $sel_wallet_adr;
                         $approval->contribution_id  = $contribution->id;
-                        $approval->subdomain        = app_site;
                         $approval->approval         = json_encode($post);
                         $approval->approval_type    = $contribution->approval_type;
-
+                        $approval->comunity_id      = $contribution->comunity_id;
                         $contribution->approvals += 1;
                         $contribution->score = 0;
 
@@ -162,7 +161,7 @@ class controller extends Ctrl {
                 $stewards      = $community->getStewards();
                 $approvals     = Approval::getApprovals($contribution->id);
                 $com_id        = $community->id;
-                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where comunity_id='$com_id' AND wallet_to='$wallet_to' order by c_at");
+                $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where is_realms=0 AND comunity_id='$com_id' AND wallet_to='$wallet_to' order by c_at");
                 $user_arrovals = Approval::getUserApprovals($contribution->id,$sel_wallet_adr);
                 $send_api      = ($community->approval_count - $contribution->approvals) == 1 ?true:false;
 
@@ -197,10 +196,10 @@ class controller extends Ctrl {
                 }
 
                 $id_sql = '('.implode(",",$reviewed_ids).')';
-                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id' AND c.id NOT IN ".$id_sql);
+                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE  c.is_realms=0 AND c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id' AND c.id NOT IN ".$id_sql);
             }
             else
-                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id'");
+                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.is_realms=0 AND c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id'");
 
             $claims = array();
             if($claim_all != false) {

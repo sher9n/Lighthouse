@@ -83,6 +83,8 @@
 </div>
 <?php include_once app_root . '/templates/foot.php'; ?>
 <script>
+    var m1,m2,m3,m4;
+
     $(window).on('load', function() {
         $('#selectChain').modal('show');
     });
@@ -174,15 +176,18 @@
                     $('#dao_domain').prop('disabled', true);
                     $('#btn_submit').html('Creating...');
                     showMessage('success', 10000, 'Starting the engines..');
-                    setTimeout(function() {showMessage('success', 10000, 'Initiating smart contracts...');}, 3000);
-                    setTimeout(function() {showMessage('success', 10000, 'Writing transactions...');}, 8000);
-                    setTimeout(function() {showMessage('success', 10000, 'Finalizing your community...');}, 12000);
+                   m1 = setTimeout(function() {showMessage('success', 10000, 'Initiating smart contracts...');}, 3000);
+                   m2 = setTimeout(function() {showMessage('success', 10000, 'Writing transactions...');}, 8000);
+                   m3 = setTimeout(function() {showMessage('success', 10000, 'Finalizing your community...');}, 12000);
                 },
                 success: function(data){
                     if(data.success == true){
                         window.location.replace(data.url);
                     }
                     else{
+                        clearTimeout(m1);
+                        clearTimeout(m2);
+                        clearTimeout(m3);
                         $('#btn_submit').prop('disabled', false);
                         $('#dao_name').prop('disabled', false);
                         $('#dao_domain').prop('disabled', false);

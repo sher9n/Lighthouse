@@ -303,14 +303,10 @@ class Utils {
         if($date_dif->invert == 0) {
             if ($date_dif->y > 0)
                 return ($date_dif->y == 1) ? $date_dif->y . ' year' : $date_dif->y . ' years';
-            elseif ($date_dif->m > 1)
-                return ($date_dif->y == 1) ? $date_dif->m . ' month' : $date_dif->m . ' months';
-            elseif ($date_dif->d > 1)
+            elseif ($date_dif->m > 0)
+                return ($date_dif->m == 1) ? $date_dif->m . ' month' : $date_dif->m . ' months';
+            elseif ($date_dif->d > 0)
                 return ($date_dif->d == 1) ? $date_dif->d . ' day' : $date_dif->d . ' days';
-            elseif ($date_dif->h > 1)
-                return null;//($date_dif->h == 1) ? $date_dif->h . ' hour' : $date_dif->y . ' hours';
-            elseif ($date_dif->i > 1)
-                return null;//($date_dif->i == 1) ? $date_dif->i . 'm' . $date_dif->s . 's' : $date_dif->i . 's' . $date_dif->s . 's';
             else
                 return null;//$date_dif->s . 's';
         }

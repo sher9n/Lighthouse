@@ -196,7 +196,9 @@
                             $('#percentage_change').removeClass('d-none');
                         else
                             $('#percentage_change').addClass('d-none');
-                        feather.replace();
+
+                        $('#nickname').val('');
+                        $('#wallet_address').val('');
                         showMessage('success', 10000, 'Success! A steward has been added to your community.');
                     }
                     else

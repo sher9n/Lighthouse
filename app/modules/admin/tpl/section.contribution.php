@@ -77,56 +77,5 @@
         if (selectedAccount) {
             $("#wallet_address").val(selectedAccount);
         }
-
-        $("#claim_tags").select2({
-            tags: true,
-            tokenSeparators: [','],
-            selectOnClose: true,
-            closeOnSelect: false
-        });
-
-        $('#simpleForm').validate({
-            rules: {
-                ntts:{
-                    required: true
-                },
-                wallet_address:{
-                    required: true
-                }
-            },
-            submitHandler: function(form){
-                $(form).ajaxSubmit({
-                    type:'post',
-                    dataType:'json',
-                    beforeSend: function() {
-                        $('#btn_submit').prop('disabled', true);
-                        showMessage('success',10000,'Your NTTs are being sent.');
-                    },
-                    success: function(data){
-                        $('#btn_submit').prop('disabled', false);
-                        if(data.success == true){
-                            showMessage('success', 10000, data.message);
-                            $('#wallet_address').val('');
-                            $('#ntts').val('');
-                            $('#claim_reason').val('');
-                            $("#claim_tags").val(null).trigger('change');
-                        }
-                        else{
-                            if(data.message) {
-                                showMessage('danger', 10000, data.message);
-                                $('#wallet_address').val('');
-                                $('#ntts').val('');
-                                $('#claim_reason').val('');
-                                $("#claim_tags").val(null).trigger('change');
-                            }
-                            else {
-                                $('#' + data.element).addClass('form-control-lg error');
-                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
-                            }
-                        }
-                    }
-                });
-            }
-        });
     });
 </script>

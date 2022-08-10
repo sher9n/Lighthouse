@@ -9,11 +9,12 @@ if(app_site == 'app') {
     $communities = Community::find("SELECT id,realm_id,realm_enddate FROM communities where is_delete = 0 AND realm_id <>''",true);
 
     foreach ($communities as $com) {
+
         if(strlen($com->realm_id) > 0) {
             $realmId = $com->realm_id;
             $response = Api::realms_update($realmId);
 
-            if($response->success == true){
+            //if($response->success == true){
 
                 $time = time();
 
@@ -35,10 +36,11 @@ if(app_site == 'app') {
                         $rp->r_pub_key = $proposal->pubKey;
                         $rp->r_name = $proposal->name;
                         $rp->description = $proposal->descriptionLink;
+                        $rp->c_by = $proposal->createdBy;
+                        $rp->c_at = date('Y-m-d H:i:s', $proposal->createdAt);
                         $rp->state = $proposal->state;
                         $rp->governance_key = $proposal->governancePubKey;
                         $rp->realm_key = $proposal->realmPubKey;
-                        $rp->c_at = date('Y-m-d H:i:s', $proposal->createdAt);
                         $rp->comunity_id = $com->id;
                         $rp->insert();
                     }
@@ -60,7 +62,7 @@ if(app_site == 'app') {
                         $rv->insert();
                     }
                 }
-            }
+           // }
        }
     }
 

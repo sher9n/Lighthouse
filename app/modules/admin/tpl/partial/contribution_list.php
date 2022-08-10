@@ -10,7 +10,11 @@ if($claims != false && count($claims) > 0 ){
             <a class="text-decoration-none" href="#">
                 <div class="d-flex align-items-center">
                     <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">
-                        <div><?php echo $claim['form_title']; ?></div>
+                        <?php if($claim['form_id'] == 2){ ?>
+                            <div><?php echo $claim['form_title']; ?></div>
+                        <?php }else{ ?>
+                            <div>Lighthouse - Claimed <?php echo $claim['form_title']; ?></div>
+                        <?php } ?>
                     </div>
                     <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                 </div>
@@ -35,25 +39,23 @@ if($claims != false && count($claims) > 0 ){
                             </div>
                             <script>
 
-                                var countDownDate = new Date("<?php echo date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')); ?>").getTime();
+                                var countDownDate_<?php echo $claim['c_id']; ?> = new Date("<?php echo date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')); ?>").getTime();
 
-                                var x = setInterval(function() {
+                                var x_<?php echo $claim['c_id']; ?> = setInterval(function() {
 
                                     var now = new Date().getTime();
+                                    var distance_<?php echo $claim['c_id']; ?> = countDownDate_<?php echo $claim['c_id']; ?> - now;
+                                    var hours_<?php echo $claim['c_id']; ?> = Math.floor((distance_<?php echo $claim['c_id']; ?> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    var minutes_<?php echo $claim['c_id']; ?> = Math.floor((distance_<?php echo $claim['c_id']; ?> % (1000 * 60 * 60)) / (1000 * 60));
+                                    var seconds_<?php echo $claim['c_id']; ?> = Math.floor((distance_<?php echo $claim['c_id']; ?> % (1000 * 60)) / 1000);
 
-                                    var distance = countDownDate - now;
-
-                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                                    $(".end_time_<?php echo $claim['c_id']; ?>").html("Approval period ends in " + hours + "h "
-                                        + minutes + "m " + seconds + "s ");
-
-                                    if (distance < 0) {
-                                        clearInterval(x);
+                                    if (countDownDate_<?php echo $claim['c_id']; ?> < now) {
+                                        clearInterval(x_<?php echo $claim['c_id']; ?>);
                                         $(".end_time_<?php echo $claim['c_id']; ?>").html("EXPIRED");
+                                    }
+                                    else {
+                                        $(".end_time_<?php echo $claim['c_id']; ?>").html("Approval period ends in " + hours_<?php echo $claim['c_id']; ?> + "h "
+                                            + minutes_<?php echo $claim['c_id']; ?> + "m " + seconds_<?php echo $claim['c_id']; ?> + "s ");
                                     }
                                 }, 1000);
                             </script>

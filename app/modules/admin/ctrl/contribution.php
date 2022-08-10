@@ -111,34 +111,35 @@ class controller extends Ctrl {
                         $reviewed_ids   = array();
 
                         if($t =='Reviewed') {
-                            $reviewed_data = Contribution::find("SELECT a.contribution_id FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.comunity_id='$com_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
+                            $reviewed_data = Contribution::find("SELECT a.contribution_id FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.is_realms=0 AND c.comunity_id='$com_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
                             if($reviewed_data->num_rows > 0) {
                                 foreach ($reviewed_data as $review) {
                                     array_push($reviewed_ids, $review['contribution_id']);
                                 }
 
                                 $id_sql = '(' . implode(",", $reviewed_ids) . ')';
-                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE ( c.status = 1 AND f.id <> 2 AND c.comunity_id='$com_id') OR c.id IN ".$id_sql);
+                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id  FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.is_realms=0 AND ( c.status = 1 AND f.id <> 2 AND c.comunity_id='$com_id') OR c.id IN ".$id_sql);
                             }
                             else
-                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 1 AND f.id <> 2 AND c.comunity_id='$com_id'");
+                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id  FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.is_realms=0 AND c.status = 1 AND f.id <> 2 AND c.comunity_id='$com_id'");
 
                             foreach ($claim_all as $claim) {
                                 array_push($claims, $claim);
                             }
                         }
                         else if ($t == 'Queue') {
-                            $reviewed_data = Contribution::find("SELECT a.contribution_id FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.comunity_id='$com_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
+
+                            $reviewed_data = Contribution::find("SELECT a.contribution_id,c.form_id  FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.is_realms=0 AND c.comunity_id='$com_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
                             if($reviewed_data->num_rows > 0) {
                                 foreach ($reviewed_data as $review) {
                                     array_push($reviewed_ids,$review['contribution_id']);
                                 }
 
                                 $id_sql = '('.implode(",",$reviewed_ids).')';
-                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$com_id' AND c.id NOT IN ".$id_sql);
+                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id  FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.is_realms=0 AND c.status = 0 AND f.id <> 2 AND c.comunity_id='$com_id' AND c.id NOT IN ".$id_sql);
                             }
                             else
-                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.status = 0 AND f.id <> 2 AND c.comunity_id='$com_id'");
+                                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id  FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.is_realms=0 AND c.status = 0 AND f.id <> 2 AND c.comunity_id='$com_id'");
 
                             foreach ($claim_all as $claim) {
                                 array_push($claims, $claim);
@@ -151,7 +152,7 @@ class controller extends Ctrl {
                             else
                                 $status = 'c.status = 1';
 
-                            $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE $status AND f.id <> 2 AND  c.comunity_id='$com_id'");
+                            $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id  FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.is_realms=0 AND $status AND f.id <> 2 AND  c.comunity_id='$com_id'");
 
                             foreach ($claim_all as $claim) {
                                 array_push($claims, $claim);
@@ -178,7 +179,7 @@ class controller extends Ctrl {
                     if ($this->hasParam('q') && intval($this->getParam('q')) > 0)
                         $sql .= ' AND quality=' . $this->getParam('q');
 
-                    $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at FROM contributions c LEFT JOIN approvals a ON c.id=a.contribution_id where comunity_id='$com_id' " . $sql);
+                    $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at FROM contributions c LEFT JOIN approvals a ON c.id=a.contribution_id where c.is_realms=0 AND comunity_id='$com_id' " . $sql);
                     if ($contributions != false && $contributions->num_rows > 0) {
                         while ($row = $contributions->fetch_array(MYSQLI_ASSOC)) {
                             $html .= '<div class="p-8 bg-lighter rounded-1 mb-6">
