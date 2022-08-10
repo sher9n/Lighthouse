@@ -66,7 +66,7 @@ use lighthouse\Form;
                                             break;
                                         case Form::QT_TAGS:
                                             ?>
-                                            <select class="w-100 tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_description']; ?>"></select>
+                                            <select class="w-100 form-select form-select-lg tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_description']; ?>"></select>
                                             <?php
                                             break;
                                     }
