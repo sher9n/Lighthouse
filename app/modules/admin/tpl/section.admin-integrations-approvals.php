@@ -199,20 +199,30 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-11">
                         <div class="card shadow">
                             <div class="card-body">
-                                <label for="" class="form-label">Tags</label>
-                                <select style="width: width: 100px !important;" class="form-control form-control-lg" multiple="multiple" name="tags[]" id="tags" placeholder="Marketing, Sales, Development">
-                                    <?php
-                                    if(strlen($__page->form->tags) > 0){
-                                        $tags_arry = explode(",",$__page->form->tags);
-                                        foreach ($tags_arry as $tag){ ?>
-                                            <option selected="selected"><?php echo $tag; ?></option>
-                                            <?php
-                                        }
-                                    } ?>
-                                </select>
+                                <div class="form-check form-check-lg">
+                                    <label for="" class="form-label">Claim approval period</label>
+                                    <div class="input-group">
+                                        <input type="number" id="approval_days" name="approval_days" class="form-control form-control-lg" value="<?php echo $__page->form->approval_days; ?>" placeholder="7">
+                                        <span class="input-group-text fw-medium" id="">Days</span>
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-lg">
+                                    <label for="" class="form-label">Tags</label>
+                                    <select style="width: width: 100px !important;" class="form-control form-control-lg" multiple="multiple" name="tags[]" id="tags" placeholder="Marketing, Sales, Development">
+                                        <?php
+                                        if(strlen($__page->form->tags) > 0){
+                                            $tags_arry = explode(",",$__page->form->tags);
+                                            foreach ($tags_arry as $tag){ ?>
+                                                <option selected="selected"><?php echo $tag; ?></option>
+                                                <?php
+                                            }
+                                        } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -8,11 +8,11 @@ use lighthouse\Log;
 if(app_site == 'app') {
 
     $communities = array();
-    $comms = Community::find("SELECT id,approval_count,blockchain,contract_name FROM communities WHERE is_delete=0");
+    $comms = Community::find("SELECT id,blockchain,contract_name FROM communities WHERE is_delete=0");
     foreach ($comms as $row)
         $communities[$row['id']] = $row;
 
-    $contributions = Contribution::find("SELECT  con.* FROM contributions con LEFT JOIN communities com ON con.comunity_id = com.id WHERE con.status = 0 AND DATE_ADD(con.c_at, INTERVAL com.approval_days DAY) <= now()",true);
+    $contributions = Contribution::find("SELECT  con.* FROM contributions con LEFT JOIN forms frm ON con.form_id = frm.id WHERE con.status = 0 AND DATE_ADD(con.c_at, INTERVAL frm.approval_days DAY) <= now()",true);
 
     foreach ($contributions as $contribution) {
 

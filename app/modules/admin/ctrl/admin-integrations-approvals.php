@@ -51,6 +51,11 @@ class controller extends Ctrl {
 
                     }
 
+                    if ($this->hasParam('approval_days') && $this->getParam('approval_days') > 0)
+                        $form->approval_days = $this->getParam('approval_days');
+                    else
+                        throw new Exception("approval_days:Not a valid day");
+
                     if($this->hasParam('approval_type'))
                         $approval_type = $this->getParam('approval_type');
 

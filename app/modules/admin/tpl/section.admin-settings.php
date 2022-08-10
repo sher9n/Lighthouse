@@ -50,15 +50,6 @@
                                 </div>
                                 <div class="row mt-xl-12">
                                     <div class="col-xl-4">
-                                        <label for="" class="form-label">Claim approval period</label>
-                                        <div class="input-group">
-                                            <input type="number" id="approval_days" name="approval_days" class="form-control form-control-lg" value="<?php echo $__page->community->approval_days; ?>" placeholder="7">
-                                            <span class="input-group-text fw-medium" id="">Days</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-xl-12">
-                                    <div class="col-xl-4">
                                         <label for="" class="form-label">Personalize Lighthouse logo</label>
                                         <input type="file" name="background_imag" id="background_imag" hidden onchange="javascript:updateLogoImage()"  />
                                         <label class="card bg-lighter card-image-uploads p-6" for="background_imag">
@@ -143,9 +134,6 @@
         $('#settingsForm').validate({
             rules: {
                 dao_name: {
-                    required: true
-                },
-                approval_days: {
                     required: true
                 }
             },
