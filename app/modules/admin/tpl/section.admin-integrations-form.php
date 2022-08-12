@@ -7,18 +7,22 @@
                 <form id="createForm" method="post" action="integrations-form" autocomplete="off">
                     <?php if(!is_null($__page->form)){ ?>
                         <input type="hidden" name="form_id" value="<?php echo $__page->form->id; ?>">
-                        <div class="col-lg-10">
-                            <div class="d-flex mb-6">
-                                <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-arrow-left me-2">
-                                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                                        <polyline points="12 19 5 12 12 5"></polyline>
-                                    </svg>
-                                    Back</a>
-                                <button type="button" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
-                                <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">NEXT</button>
+                        <div class="nav-right-fixed">
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <div class="d-flex">
+                                        <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-arrow-left me-2">
+                                                <line x1="19" y1="12" x2="5" y2="12"></line>
+                                                <polyline points="12 19 5 12 12 5"></polyline>
+                                            </svg>
+                                            Back</a>
+                                        <button type="button" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
+                                        <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">NEXT</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-10">
@@ -40,22 +44,26 @@
                             ?>
                         </div>
                     <?php }else{ ?>
-                        <div class="col-lg-10">
-                            <div class="d-flex mb-6">
-                                <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-arrow-left me-2">
-                                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                                        <polyline points="12 19 5 12 12 5"></polyline>
-                                    </svg>
-                                    Back</a>
-                                <button type="button" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
-                                <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
+                        <div class="nav-right-fixed">
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <div class="d-flex">
+                                        <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-arrow-left me-2">
+                                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                            </svg>
+                                        Back</a>
+                                        <button type="button" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
+                                        <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">SAVE</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-10">
-                            <div class="card shadow p-6 mb-12">
+                            <div class="card shadow p-6 mb-12 mt-28">
                                 <div class="card-body border rounded-1">
                                     <input class="form-control form-control-xxl" type="text" placeholder="Untitled form" id="form_title" name="form_title">
                                     <input class="form-control form-control-lg border-0 min-h-0 py-0" type="text" id="form_description" name="form_description"
