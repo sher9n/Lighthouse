@@ -10,8 +10,9 @@ class controller extends Ctrl {
         $form = null;
         $community = Community::getByDomain(app_site);
 
-        if(isset($_SESSION['lh_sel_wallet_adr']) && strlen($_SESSION['lh_sel_wallet_adr']) > 0) {
-            $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+        $login = Auth::attemptLogin();
+        if($login != false) {
+            $sel_wallet_adr = $login;
             $is_admin = $community->isAdmin($sel_wallet_adr);
         }
         else
@@ -19,7 +20,6 @@ class controller extends Ctrl {
             header("Location: " . app_url.'admin');
             die();
         }
-
 
         $form_title = $form_description = null;
         $questions = array();

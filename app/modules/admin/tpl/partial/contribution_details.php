@@ -119,7 +119,7 @@
                     <button class="tab_link nav-link" id="claim-history-tab" data-bs-toggle="tab" data-bs-target="#claim-history" type="button" role="tab" aria-controls="claim-history" aria-selected="false">History</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
-                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Approvals (<?php echo count($approvals); ?>/<?php echo $community->approval_count; ?>)</button>
+                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Attestors (<?php echo count($approvals); ?>/<?php echo $community->approval_count; ?>)</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
                     <button class="tab_link nav-link" id="claim-similar-tab" data-bs-toggle="tab" data-bs-target="#claim-similar" type="button" role="tab" aria-controls="claim-similar" aria-selected="false">Similar Claims</button>

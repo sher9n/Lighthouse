@@ -12,17 +12,13 @@ class controller extends Ctrl {
         $community = Community::getByDomain(app_site);
         $site = Auth::getSite();
 
-        if(isset($_SESSION['lh_sel_wallet_adr']) && strlen($_SESSION['lh_sel_wallet_adr']) > 0) {
-            $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+        $login = Auth::attemptLogin();
+        if($login != false) {
+            $sel_wallet_adr = $login;
             $is_admin = $community->isAdmin($sel_wallet_adr);
         }
         else
         {
-            header("Location: " . app_url.'admin');
-            die();
-        }
-
-        if($site === false) {
             header("Location: " . app_url.'admin');
             die();
         }
@@ -110,7 +106,7 @@ class controller extends Ctrl {
                         $approval_days  = $community->approval_days;
                         $reviewed_ids   = array();
 
-                        if($t =='Reviewed') {
+                        if($t =='Queued') {
                             $reviewed_data = Contribution::find("SELECT a.contribution_id FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.is_realms=0 AND c.comunity_id='$com_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
                             if($reviewed_data->num_rows > 0) {
                                 foreach ($reviewed_data as $review) {
@@ -127,7 +123,7 @@ class controller extends Ctrl {
                                 array_push($claims, $claim);
                             }
                         }
-                        else if ($t == 'Queue') {
+                        else if ($t == 'Claims') {
 
                             $reviewed_data = Contribution::find("SELECT a.contribution_id,c.form_id  FROM approvals a LEFT JOIN contributions c ON a.contribution_id = c.id WHERE c.is_realms=0 AND c.comunity_id='$com_id' AND c.status=0 AND a.approval_by='$sel_wallet_adr'");
                             if($reviewed_data->num_rows > 0) {

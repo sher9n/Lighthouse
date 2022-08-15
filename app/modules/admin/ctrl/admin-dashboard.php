@@ -27,8 +27,9 @@ class controller extends Ctrl {
             }
         }
 
-        if(isset($_SESSION['lh_sel_wallet_adr'])) {
-            $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+        $login = Auth::attemptLogin();
+        if($login != false) {
+            $sel_wallet_adr = $login;
             $is_admin = $community->isAdmin($sel_wallet_adr);
         }
         else
@@ -43,8 +44,10 @@ class controller extends Ctrl {
 
                 $claim_table = $rank_table = array();
                 $total = 0;
+                $length = $this->hasParam('length')?$this->getParam('length'):10;
+                $start  = $this->hasParam('start')?$this->getParam('start'):0;
                 $com_id = $community->id;
-                $claims = Claim::find("SELECT GROUP_CONCAT(IF(status='1',tags,null)) as tags,wallet_to,sum(score) as score FROM contributions WHERE status=1 AND comunity_id='$com_id' group by wallet_to");
+                $claims = Claim::find("SELECT wallet_to,sum(score) as score FROM contributions WHERE status=1 AND comunity_id='$com_id' group by wallet_to LIMIT $start, $length");
                 $ranks  = Claim::find("SELECT wallet_to,sum(score) as ntts FROM contributions WHERE comunity_id='$com_id' AND status=1 group by wallet_to order by ntts DESC");
 
                 $rank_index = 0;
@@ -55,9 +58,12 @@ class controller extends Ctrl {
                 }
 
                 foreach ($claims as $claim) {
-                    $tags = explode(',', $claim['tags']);
+                    $wallet_adr = $claim['wallet_to'];
+                    $tags = Claim::find("SELECT tags FROM contributions WHERE status=1 AND comunity_id='1' AND wallet_to='$wallet_adr'");
+                    /*$tags = explode(',', $claim['tags']);*/
                     $tem_tags = array();
-                    foreach ($tags as $tag) {
+                    foreach ($tags as $ele) {
+                        $tag = $ele['tags'];
                         if(strlen($tag) > 0) {
                             $tag = ucfirst($tag);
                             if (isset($tem_tags[$tag]))
@@ -70,7 +76,7 @@ class controller extends Ctrl {
                     foreach ($tem_tags as $key => $c)
                         array_push($tag_string , $key.':'.$c);
 
-                    $wallet_adr = $claim['wallet_to'];
+
                     $r = $p = '-';
                     if(isset($rank_table[$wallet_adr])){
                         $r = $rank_table[$wallet_adr]['rank'];
@@ -90,7 +96,7 @@ class controller extends Ctrl {
                 }
 
                 $recordsTotal = count($claim_table);
-                echo json_encode(array('data' => $claim_table,'recordsTotal'=>$recordsTotal,'recordsFiltered'=>$recordsTotal));
+                echo json_encode(array("draw" => $this->hasParam('draw')?$this->getParam('draw'):1, 'data' => $claim_table,'recordsTotal'=>1000,'recordsFiltered'=>1000));
                 exit();
             }
             elseif (__ROUTER_PATH =='/contribution-history') {

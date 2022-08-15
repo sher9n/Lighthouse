@@ -4,7 +4,8 @@ use lighthouse\Community;
 class controller extends Ctrl {
     function init() {
 
-        if(isset($_SESSION['lh_sel_wallet_adr']) && !is_null($this->__lh_request->get__PB())) {
+        $login = Auth::attemptLogin();
+        if($login != false && !is_null($this->__lh_request->get__PB())) {
             header("Location: " . $this->__lh_request->get__PB());
             exit();
         }
@@ -15,15 +16,8 @@ class controller extends Ctrl {
 
             if(__ROUTER_PATH == '/wallet-menu' ) {
                 $selected_adr = $this->getParam('sel_add');
-                //if($com->isAdmin($selected_adr)) {
-                    $_SESSION['lh_sel_wallet_adr'] = $selected_adr;
-                    echo json_encode(array('success' => true));
-/*                }
-                else {
-                    $_SESSION['lh_sel_wallet_adr'] = null;
-                    $_SESSION['lighthouse'] = null;
-                    echo json_encode(array('success' => false));
-                }*/
+                Auth::setCookieWallet($selected_adr);
+                echo json_encode(array('success' => true));
                 exit();
             }
             else if(__ROUTER_PATH =='/disconnect_wallet') {

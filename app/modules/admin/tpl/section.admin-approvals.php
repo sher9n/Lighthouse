@@ -9,13 +9,13 @@
                         <div class="card-header border-bottom">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="tab_link nav-link active" id="pills-queue-tab" data-bs-toggle="pill" data-bs-target="#pills-queue" type="button" role="tab" aria-controls="pills-queue" aria-selected="true">Queue</button>
+                                    <button class="tab_link nav-link active" id="pills-queue-tab" data-bs-toggle="pill" data-bs-target="#pills-queue" type="button" role="tab" aria-controls="pills-queue" aria-selected="true">Claims</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="tab_link nav-link" id="pills-approved-tab" data-bs-toggle="pill" data-bs-target="#pills-approved" type="button" role="tab" aria-controls="pills-approved" aria-selected="false">Approved</button>
+                                    <button class="tab_link nav-link" id="pills-reviewed-tab" data-bs-toggle="pill" data-bs-target="#pills-reviewed" type="button" role="tab" aria-controls="pills-reviewed" aria-selected="false">Queued</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="tab_link nav-link" id="pills-reviewed-tab" data-bs-toggle="pill" data-bs-target="#pills-reviewed" type="button" role="tab" aria-controls="pills-reviewed" aria-selected="false">Reviewed</button>
+                                    <button class="tab_link nav-link" id="pills-approved-tab" data-bs-toggle="pill" data-bs-target="#pills-approved" type="button" role="tab" aria-controls="pills-approved" aria-selected="false">Attested</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="tab_link nav-link" id="pills-denied-tab" data-bs-toggle="pill" data-bs-target="#pills-denied" type="button" role="tab" aria-controls="pills-denied" aria-selected="false">Denied</button>
@@ -50,7 +50,7 @@
                                                                 ?>
                                                                 <div class="d-flex align-items-center text-blue-stone my-1">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                                                    <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Approval period ends in <?php echo $date_count; ?></div>
+                                                                    <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Attestation Period ends in <?php echo $date_count; ?></div>
                                                                 </div>
                                                                 <?php
                                                             }
@@ -77,7 +77,7 @@
                                                                             $(".end_time_<?php echo $claim['c_id']; ?>").html("EXPIRED");
                                                                         }
                                                                         else {
-                                                                            $(".end_time_<?php echo $claim['c_id']; ?>").html("Approval period ends in " + hours_<?php echo $claim['c_id']; ?> + "h "
+                                                                            $(".end_time_<?php echo $claim['c_id']; ?>").html("Attestation Period ends in " + hours_<?php echo $claim['c_id']; ?> + "h "
                                                                                 + minutes_<?php echo $claim['c_id']; ?> + "m " + seconds_<?php echo $claim['c_id']; ?> + "s ");
                                                                         }
                                                                     }, 1000);
@@ -110,15 +110,15 @@
                                     ?>
                                     <div class="d-flex flex-column align-items-center justify-content-center h-100">
                                         <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">
-                                        <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your queue!</div>
+                                        <div class="fs-2 fw-semibold mt-20 text-center">Hurray, there's nothing in your claims!</div>
                                         <div class="fw-medium text-muted mt-4">When someone makes a claim, it will show up here. </div>
                                     </div>
                                     <?php
                                 } ?>
                             </div>
-                            <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
-                            </div>
                             <div class="tab-pane fade h-100" id="pills-reviewed" role="tabpanel" aria-labelledby="pills-reviewed-tab">
+                            </div>
+                            <div class="tab-pane fade h-100" id="pills-approved" role="tabpanel" aria-labelledby="pills-approved-tab">
                             </div>
                             <div class="tab-pane fade h-100" id="pills-denied" role="tabpanel" aria-labelledby="pills-denied-tab">
                             </div>
@@ -147,7 +147,7 @@
 
     $(document).on('shown.bs.tab', function (e) {
         var t = $(e.target).text();
-        if(t=='Approved' || t=='Reviewed' || t=='Denied' || t=='Queue') {
+        if(t=='Claims' || t=='Queued' || t=='Attested' || t=='Denied') {
             $('#claim_details').html('');
 
             $.ajax({
@@ -210,9 +210,9 @@
                 },
                 success: function (response) {
                     if (response.success == true) {
-                        if (t == 'Approved')
+                        if (t == 'Attested')
                             $('#pills-approved').html(response.html);
-                        else if(t == 'Reviewed')
+                        else if(t == 'Queued')
                             $('#pills-reviewed').html(response.html);
                         else if(t == 'Denied')
                             $('#pills-denied').html(response.html);

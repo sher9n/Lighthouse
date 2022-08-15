@@ -27,7 +27,7 @@ if($claims != false && count($claims) > 0 ){
                             ?>
                             <div class="d-flex align-items-center text-blue-stone my-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Approval period ends in <?php echo $date_count; ?></div>
+                                <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Attestation Period ends in <?php echo $date_count; ?></div>
                             </div>
                         <?php
                         }
@@ -54,7 +54,7 @@ if($claims != false && count($claims) > 0 ){
                                         $(".end_time_<?php echo $claim['c_id']; ?>").html("EXPIRED");
                                     }
                                     else {
-                                        $(".end_time_<?php echo $claim['c_id']; ?>").html("Approval period ends in " + hours_<?php echo $claim['c_id']; ?> + "h "
+                                        $(".end_time_<?php echo $claim['c_id']; ?>").html("Attestation Period ends in " + hours_<?php echo $claim['c_id']; ?> + "h "
                                             + minutes_<?php echo $claim['c_id']; ?> + "m " + seconds_<?php echo $claim['c_id']; ?> + "s ");
                                     }
                                 }, 1000);

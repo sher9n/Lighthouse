@@ -49,5 +49,32 @@ class Auth{
                 return false;
         }
     }
+
+    public static function attemptLogin()
+    {
+        if(isset($_SESSION['lh_sel_wallet_adr']) && strlen($_SESSION['lh_sel_wallet_adr']) > 0)
+            return $_SESSION['lh_sel_wallet_adr'];
+
+        if(isset($_COOKIE['lighthouse']) && is_string($_COOKIE['lighthouse']))
+        {
+            $wallet = json_decode($_COOKIE['lighthouse'], true);
+
+            if(isset($wallet['lh_sel_wallet_adr']) && strlen($wallet['lh_sel_wallet_adr']) > 0)
+            {
+                return $wallet['lh_sel_wallet_adr'];
+            }
+        }
+
+        return false;
+    }
+
+    public static function setCookieWallet($wallet)
+    {
+        if(headers_sent()) return false;
+        $_SESSION['lh_sel_wallet_adr'] = $wallet;
+        $sessions = array('lh_sel_wallet_adr' => $wallet);
+        $s = json_encode($sessions);
+        return setcookie('lighthouse', $s, time()+60*60*24*1, '/', $_SERVER['HTTP_HOST']);
+    }
 }
 ?>

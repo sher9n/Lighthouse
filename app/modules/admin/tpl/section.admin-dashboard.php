@@ -145,7 +145,7 @@
                                     <a class="page-link" id="dashboard_table_prev"><img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-left.svg" class="me-2">Previous</a>
                                 </li>
                                 <li class="page-item">
-                                <a class="page-link" href="#" id="dashboard_table_next">Next<img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-right.svg" class="ms-2"></a>
+                                <a class="page-link" id="dashboard_table_next">Next<img src="<?php echo app_cdn_path; ?>img/arrow-fill-gray-right.svg" class="ms-2"></a>
                                 </li>
                             </ul>
                         </div>
@@ -379,14 +379,20 @@
             window.location = 'admin';
 
         $('#dashboard_table_prev').click(function(){
+            $("#table_skeleton_data").removeClass('d-none');
+            $("#table_data").addClass('d-none');
             dashboard_table.page( 'previous' ).draw( 'page' );
         });
 
         $('#dashboard_table_next').click(function(){
+            $("#table_skeleton_data").removeClass('d-none');
+            $("#table_data").addClass('d-none');
             dashboard_table.page( 'next' ).draw( 'page' );
         });
 
         $('#dashboard_table_length').change(function(){
+            $("#table_skeleton_data").removeClass('d-none');
+            $("#table_data").addClass('d-none');
             dashboard_table.page.len($(this).val()).draw();
         });
 
@@ -400,19 +406,14 @@
             "sDom": "t",
             "autoWidth": false,
             "responsive": true,
-            "processing": true,
             "bLengthChange": false,
             "ordering": false,
             "info": false,
-            "language": {
-                processing: "Loading...ssss"
-            },
+            "processing": true,
+            "serverSide": true,
             "rowCallback": function( row, data ) {
                 $("#table_skeleton_data").addClass('d-none');
                 $("#table_data").removeClass('d-none');
-            },
-            "drawCallback": function( settings ) {
-                feather.replace();
             },
             "ajax": "get-ntts"
         });

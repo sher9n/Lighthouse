@@ -9,8 +9,9 @@ class controller extends Ctrl {
         $community = Community::getByDomain(app_site);
         $com_id    = $community->id;
 
-        if(isset($_SESSION['lh_sel_wallet_adr']) && strlen($_SESSION['lh_sel_wallet_adr']) > 0) {
-            $sel_wallet_adr = $_SESSION['lh_sel_wallet_adr'];
+        $login = Auth::attemptLogin();
+        if($login != false) {
+            $sel_wallet_adr = $login;
             $is_admin = $community->isAdmin($sel_wallet_adr);
         }
         else
