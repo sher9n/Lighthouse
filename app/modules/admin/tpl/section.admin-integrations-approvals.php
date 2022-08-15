@@ -5,22 +5,26 @@
             <div class="row">
                 <form id="formApproval" method="post" action="integrations-approvals" autocomplete="off">
                     <input type="hidden" name="form_id" value="<?php echo $__page->form->id; ?>">
-                    <div class="col-lg-11">
-                        <div class="d-flex mb-6">
-                            <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-arrow-left me-2">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                                Back
-                            </a>
-                            <button type="submit" id="finish" class="btn btn-primary">Finish</button>
+                        <div class="nav-right-fixed">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <div class="d-flex">
+                                        <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-arrow-left me-2">
+                                                <line x1="19" y1="12" x2="5" y2="12"></line>
+                                                <polyline points="12 19 5 12 12 5"></polyline>
+                                            </svg>
+                                            Back
+                                        </a>
+                                        <button type="submit" id="finish" class="btn btn-primary">Finish</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-11">
-                        <div class="card shadow mb-12">
+                        <div class="card shadow mb-12 mt-28">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
                                     <div class="fw-medium text-lg me-12">Setup Scoring</div>
