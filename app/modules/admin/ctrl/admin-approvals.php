@@ -33,14 +33,13 @@ class controller extends Ctrl {
                     if($this->getParam('status') == 2){
 
                         $contribution->refusal += 1;
-                        //$contribution->status = 2;
                         $contribution->update();
 
-                        $log = new Log();
-                        $log->type = 'Contribution';
+                        $log          = new Log();
+                        $log->type    = 'Contribution';
                         $log->type_id = $contribution->id;
-                        $log->action = 'rejected';
-                        $log->c_by = $sel_wallet_adr;
+                        $log->action  = 'rejected';
+                        $log->c_by    = $sel_wallet_adr;
                         $log->insert();
 
                         echo json_encode(array('success' => true));
@@ -48,102 +47,59 @@ class controller extends Ctrl {
                     }
                     else {
                         $approve = false;
-                        $post = $_POST;
+                        $update  = false;
+                        $post    = $_POST;
+                        $form    = Form::get($contribution->form_id);
+
                         unset($post['con_id']);
                         unset($post['status']);
 
-                        $approval = new Approval();
-                        $form     = Form::get($contribution->form_id);
+                        if($this->hasParam('approval_id') && strlen($this->getParam('approval_id')) > 0){
+                            $update = true;
+                            $approval_id = $this->getParam('approval_id');
+                            unset($post['approval_id']);
+                            $approval = Approval::get($approval_id);
+                            $approval->approval = json_encode($post);
+                            $approval->update();
 
-                        $approval->approval_by      = $sel_wallet_adr;
-                        $approval->contribution_id  = $contribution->id;
-                        $approval->approval         = json_encode($post);
-                        $approval->approval_type    = $contribution->approval_type;
-                        $approval->comunity_id      = $contribution->comunity_id;
-                        $contribution->approvals += 1;
-                        $contribution->score = 0;
+                            $log = new Log();
+                            $log->type      = 'Contribution';
+                            $log->type_id   = $contribution->id;
+                            $log->action    = 'approved-update';
+                            $log->c_by      = $sel_wallet_adr;
+                            $log->insert();
+                        }
+                        else {
+                            $approval = new Approval();
+                            $approval->approval_by      = $sel_wallet_adr;
+                            $approval->contribution_id  = $contribution->id;
+                            $approval->approval         = json_encode($post);
+                            $approval->approval_type    = $contribution->approval_type;
+                            $approval->comunity_id      = $contribution->comunity_id;
+                            $approval->insert();
 
-                       /* if($contribution->approvals == $community->approval_count) {
-                            $blockchain = $community->blockchain;
-                            $dao_domain = $community->dao_domain;
-                            $tags       = $contribution->tags;
-                            if($blockchain != SOLANA)
-                                $api_response = Api::AddAttestation(constant(strtoupper($blockchain) . "_API"), $dao_domain,$contribution->wallet_to,$points,$contribution->contribution_reason,$tags);
-                            else
-                                $api_response = Api::AddSolanaAttestation(constant(strtoupper($blockchain) . "_API"), $dao_domain,$contribution->wallet_to,$points,$contribution->contribution_reason,$tags,'');
+                            $contribution->approvals   += 1;
+                            $contribution->score        = 0;
+                            $contribution->update();
 
-                            if (isset($api_response->error)) {
-                                $log = new Log();
-                                $log->type = 'Attestation';
-                                $log->log = serialize($api_response->error);
-                                $log->action = 'create-failed';
-                                $log->type_id = $contribution->id;
-                                $log->c_by = $sel_wallet_adr;
-                                $log->insert();
-
-                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to create attestation, please retry again.'));
-                                exit();
-                            }
-                            else {
-                                $contribution->status = 1;
-                                $approve = true;
-                                $contribution->txHash = $api_response->txHash;
-
-                                $contribution->update();
-                                $approval->insert();
-
-                                $log = new Log();
-                                $log->type = 'Contribution';
-                                $log->type_id = $contribution->id;
-                                $log->action = 'created';
-                                $log->c_by = $sel_wallet_adr;
-                                $log->insert();
-
-                                $contribution_id = $contribution->id;
-                                $stewards = $community->getStewards();
-                                $html = '';
-                                foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
-                                    $steward = $stewards[$stewd_adr];
-                                    $html .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
-                                }
-
-                                $view_transaction_link = '';
-                                if($community->blockchain == SOLANA)
-                                    $view_transaction_link = SOLANA_VIEW_LINK.'tx/'.$contribution->txHash;
-                                elseif ($community->blockchain == OPTIMISM)
-                                    $view_transaction_link = OPTIMISM_VIEW_LINK.'tx/'.$contribution->txHash;
-                                else
-                                    $view_transaction_link = GNOSIS_CHAIN_VIEW_LINK.'tx/'.$contribution->txHash;
-
-                                echo json_encode(array('success' => true,
-                                    'approve' => $approve ,
-                                    'steward_html' => $html,
-                                    'c_id' => $contribution->id,
-                                    'message' => 'Success! Your attestation has been recorded. <a target="_blank" class="text-white ms-1" href="'.$view_transaction_link.'">View Transaction</a>')
-                                );
-                                exit();
-                            }
-                        }*/
-
-                        $contribution->update();
-                        $approval->insert();
-
-                        $log = new Log();
-                        $log->type = 'Contribution';
-                        $log->type_id = $contribution->id;
-                        $log->action = 'approved';
-                        $log->c_by = $sel_wallet_adr;
-                        $log->insert();
+                            $log = new Log();
+                            $log->type      = 'Contribution';
+                            $log->type_id   = $contribution->id;
+                            $log->action    = 'approved';
+                            $log->c_by      = $sel_wallet_adr;
+                            $log->insert();
+                        }
 
                         $contribution_id = $contribution->id;
-                        $stewards = $community->getStewards();
+                        $stewards        = $community->getStewards();
                         $html = '';
+
                         foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
                             $steward = $stewards[$stewd_adr];
                             $html .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
                         }
 
-                        echo json_encode(array('success' => true, 'approve' => $approve ,'steward_html' => $html,'c_id' => $contribution->id,'message' => 'Success! Your attestation has been recorded.'));
+                        echo json_encode(array('success' => true,'update' => $update, 'approve' => $approve ,'steward_html' => $html,'c_id' => $contribution->id,'message' => 'Success! Your attestation has been recorded.'));
                         exit();
                     }
 
@@ -163,7 +119,8 @@ class controller extends Ctrl {
                 $com_id        = $community->id;
                 $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where is_realms=0 AND comunity_id='$com_id' AND wallet_to='$wallet_to' order by c_at");
                 $user_arrovals = Approval::getUserApprovals($contribution->id,$sel_wallet_adr);
-                $send_api      = ($community->approval_count - $contribution->approvals) == 1 ?true:false;
+                $user_appproval_ids = $user_arrovals['ids'];
+                $user_arrovals = $user_arrovals['approvals'];
 
                     $view_transaction_link = '';
                 if($community->blockchain == SOLANA)

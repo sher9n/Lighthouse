@@ -66,6 +66,8 @@ class controller extends Ctrl {
 
                     if($this->hasParam('tags') && count($this->getParam('tags')) > 0)
                         $form->tags = implode(",",$this->getParam('tags'));
+                    else
+                        throw new Exception("tags:This fields are required.");
 
                     if($form->approval_type == 2) {
                         $rating_cats = array();

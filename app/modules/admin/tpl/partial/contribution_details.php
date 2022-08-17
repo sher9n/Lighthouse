@@ -6,16 +6,11 @@
     <form id="" method="post" action="" autocomplete="off" class="d-flex flex-column h-100">
         <div class="card-body p-xxl-20">
             <div class="display-5 fw-medium mb-25">Review this contribution</div>
-
             <?php
-
             if(count($user_arrovals) > 0 ){
-
                 if($contribution->approval_type == 2){
                     $ratings = $contribution->rating_categories;
                     $ratings = json_decode($ratings);
-                    foreach ($ratings as $rating){
-                    $category = strtolower(preg_replace("/\s+/", "-", $rating));
                     ?>
                     <div class="row">
                         <div class="col-8 offset-md-4">
@@ -25,6 +20,10 @@
                             </div>
                         </div>
                     </div>
+                    <?php
+                    foreach ($ratings as $rating){
+                    $category = strtolower(preg_replace("/\s+/", "-", $rating));
+                    ?>
                     <div class="row">
                         <div class="col-4 align-self-center">
                             <div class="fw-medium fs-lg"><?php echo ucfirst(strtolower($rating));?></div>
@@ -101,7 +100,7 @@
                     <?php if($contribution->status == 1 ) { ?>
                         <a target="_blank" href="<?php echo $view_transaction_link ; ?>" type="button" class="btn btn-white">View Transaction</a>
                     <?php }else{
-                        if($contribution->status != 2 && !in_array($sel_wallet_adr, $approvals)){ ?>
+                        if($contribution->status != 2 ){ ?>
                             <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
                             <button id="btn_approve" type="button" class="btn btn-primary">Attest</button>
                             <?php
@@ -131,17 +130,6 @@
                     <div class="fw-medium fs-4 mt-1"><?php echo $contribution->wallet_to; ?></div>
                     <div class="fw-semibold mt-12">Reason</div>
                     <div class="fw-medium fs-4 mt-1"><?php echo $contribution->contribution_reason; ?></div>
-                    <div class="fw-semibold mt-12">Tags</div>
-                    <ul class="select2-selection__rendered d-flex gap-3 mt-1">
-                        <?php
-                        if(strlen($form->tags) > 0){
-                            $tags_arry = explode(",",$form->tags);
-                            foreach ($tags_arry as $tag){ ?>
-                                <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
-                                <?php
-                            }
-                        } ?>
-                    </ul>
                     <?php
                     $data = (array)json_decode($contribution->form_data);
                     foreach ($elements as $index => $element){
@@ -176,6 +164,17 @@
                             }
                         }
                     } ?>
+                    <div class="fw-semibold mt-12">Tags</div>
+                    <ul class="select2-selection__rendered d-flex gap-3 mt-1">
+                        <?php
+                        if(strlen($form->tags) > 0){
+                            $tags_arry = explode(",",$form->tags);
+                            foreach ($tags_arry as $tag){ ?>
+                                <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
+                                <?php
+                            }
+                        } ?>
+                    </ul>
                 </div>
                 <div class="tab-pane fade" id="claim-history" role="tabpanel" aria-labelledby="claim-history-tab" tabindex="0">
                     <?php
@@ -235,6 +234,9 @@
             var c_id = '<?php echo $contribution->id; ?>';
             review_data['con_id'] = c_id;
             review_data['status'] = 1;
+            <?php if(count($user_appproval_ids) > 0){ ?>
+                review_data['approval_id'] = '<?php echo array_pop($user_appproval_ids); ?>';
+            <?php } ?>
 
             $.ajax({
                 url: 'contribution-status',
@@ -242,27 +244,25 @@
                 data: review_data,
                 type: 'POST',
                 beforeSend: function () {
-                    <?php if($send_api == true){ ?>
-                    showMessage('success', 10000, 'Submitting the attestation on-chain...');
-                    <?php } ?>
                     $('#btn_deny').prop('disabled', true);
                     $('#btn_approve').prop('disabled', true);
                 },
                 success: function (response) {
                     if (response.success == true) {
+                        if(response.update == false) {
+                            if ($('#cq_item_' + c_id).parent().parent().find("li").length == 2) {
+                                $('#cq_item_' + c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                                    '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                                    '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
+                                    '</div>');
 
-                        if($('#cq_item_'+c_id).parent().parent().find("li").length == 2) {
-                            $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                                '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                                '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
-                                '</div>');
-
+                            }
+                            $('#cq_item_' + c_id).remove();
                         }
+
                         showMessage('success',10000,response.message);
                         $('#claim-approvals').html(response.steward_html);
                         $('#claim_details').html('');
-                        $('#btn_row').remove();
-                        $('#cq_item_'+c_id).remove();
                     }
                 }
             });

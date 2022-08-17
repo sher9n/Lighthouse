@@ -19,7 +19,7 @@ if($claims != false && count($claims) > 0 ){
                     <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>
                 </div>
                 <?php
-                if ($t == 'Queue'){
+                if ($t == 'Queued' || $t == 'Claims'){
                     $is_expired = Utils::isExpired(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')));
                     if($is_expired == false) {
                         $date_count = Utils::expire_date_count(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')));

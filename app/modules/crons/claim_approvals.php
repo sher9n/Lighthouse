@@ -8,7 +8,7 @@ use lighthouse\Log;
 if(app_site == 'app') {
 
     $communities = array();
-    $comms = Community::find("SELECT id,blockchain,contract_name FROM communities WHERE is_delete=0");
+    $comms = Community::find("SELECT id,blockchain,contract_name,approval_count FROM communities WHERE is_delete=0");
     foreach ($comms as $row)
         $communities[$row['id']] = $row;
 
@@ -23,6 +23,7 @@ if(app_site == 'app') {
             $dao_name = $com['contract_name'];
             $tags = $contribution->tags;
             $approval = Approval::getUserApprovals($contribution->id);
+            $approval = $approval['approvals'];
             $points = 0;
 
             if ($contribution->scoring == 1 && $contribution->max_point > 0) {
@@ -53,7 +54,6 @@ if(app_site == 'app') {
                 $log->log = serialize($api_response->error);
                 $log->action = 'create-failed';
                 $log->type_id = $contribution->id;
-                //$log->c_by = $sel_wallet_adr;
                 $log->insert();
             } else {
                 $contribution->status = 1;
@@ -64,11 +64,11 @@ if(app_site == 'app') {
                 $log->type = 'Attestation';
                 $log->type_id = $contribution->id;
                 $log->action = 'created';
-                // $log->c_by = $sel_wallet_adr;
                 $log->insert();
             }
         }
         else {
+
             $contribution->status = 2;
             $contribution->update();
 
@@ -76,8 +76,8 @@ if(app_site == 'app') {
             $log->type = 'Contribution';
             $log->type_id = $contribution->id;
             $log->action = 'denied';
-           // $log->c_by = $sel_wallet_adr;
             $log->insert();
+
         }
     }
 }

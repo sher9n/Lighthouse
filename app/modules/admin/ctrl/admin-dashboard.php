@@ -47,7 +47,15 @@ class controller extends Ctrl {
                 $length = $this->hasParam('length')?$this->getParam('length'):10;
                 $start  = $this->hasParam('start')?$this->getParam('start'):0;
                 $com_id = $community->id;
-                $claims = Claim::find("SELECT wallet_to,sum(score) as score FROM contributions WHERE status=1 AND comunity_id='$com_id' group by wallet_to LIMIT $start, $length");
+
+                if($this->hasParam('search')){
+                    $search = $this->getParam('search');
+                    $search = $search['value'];
+                    $claims = Claim::find("SELECT wallet_to,sum(score) as score FROM contributions WHERE status=1 AND comunity_id='$com_id' AND wallet_to LIKE '%$search%' group by wallet_to LIMIT $start, $length");
+                }
+                else
+                    $claims = Claim::find("SELECT wallet_to,sum(score) as score FROM contributions WHERE status=1 AND comunity_id='$com_id' group by wallet_to LIMIT $start, $length");
+
                 $ranks  = Claim::find("SELECT wallet_to,sum(score) as ntts FROM contributions WHERE comunity_id='$com_id' AND status=1 group by wallet_to order by ntts DESC");
 
                 $rank_index = 0;
@@ -57,25 +65,43 @@ class controller extends Ctrl {
                     $total += $rank['ntts'];
                 }
 
-                foreach ($claims as $claim) {
-                    $wallet_adr = $claim['wallet_to'];
-                    $tags = Claim::find("SELECT tags FROM contributions WHERE status=1 AND comunity_id='1' AND wallet_to='$wallet_adr'");
-                    /*$tags = explode(',', $claim['tags']);*/
-                    $tem_tags = array();
-                    foreach ($tags as $ele) {
-                        $tag = $ele['tags'];
+                $wallets  = array();
+                $tem_tags = array();
+                foreach ($claims as $clm)
+                    array_push($wallets,$clm['wallet_to']);
+
+                if(count($wallets) > 0) {
+                    $wallets_sql = implode("','",$wallets);
+                    $wallets_sql = "('".$wallets_sql."')";
+                    $tags_data = Claim::find("SELECT tags,wallet_to FROM contributions WHERE status=1 AND comunity_id='1' AND wallet_to IN ".$wallets_sql);
+                    foreach ($tags_data as $data){
+                        $tag = $data['tags'];
+                        $wal = $data['wallet_to'];
                         if(strlen($tag) > 0) {
                             $tag = ucfirst($tag);
-                            if (isset($tem_tags[$tag]))
-                                $tem_tags[$tag] += 1;
-                            else
-                                $tem_tags[$tag] = 1;
+                            if (isset($tem_tags[$wal])) {
+                                if(isset($tem_tags[$wal][$tag]))
+                                    $tem_tags[$wal][$tag] += 1;
+                                else
+                                    $tem_tags[$wal][$tag] = 1;
+                            }
+                            else {
+                                $tem_tags[$wal][$tag] = 1 ;
+                            }
                         }
                     }
-                    $tag_string = array();
-                    foreach ($tem_tags as $key => $c)
-                        array_push($tag_string , $key.':'.$c);
+                }
 
+                foreach ($claims as $claim) {
+                    $wallet_adr = $claim['wallet_to'];
+                    $tag_string = array();
+
+                    if(isset($tem_tags[$wallet_adr])) {
+                        $wallet_tags = $tem_tags[$wallet_adr];
+
+                        foreach ($wallet_tags as $key => $c)
+                            array_push($tag_string, $key . ':' . $c);
+                    }
 
                     $r = $p = '-';
                     if(isset($rank_table[$wallet_adr])){

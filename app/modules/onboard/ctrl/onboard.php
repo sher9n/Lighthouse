@@ -129,7 +129,7 @@ class controller extends Ctrl {
                                 $contribusion->rating_categories = $form->rating_categories;
                                 $contribusion->status = 1;
                                 $contribusion->score = 0;
-                                $contribusion->tags = implode(',', array('Onboarding'));
+                                $contribusion->tags = 'Onboarding';
                                 $con_id = $contribusion->insert();
 
                                 $log = new Log();

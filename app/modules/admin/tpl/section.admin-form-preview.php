@@ -11,7 +11,7 @@ use lighthouse\Form;
                         <div class="card-body mb-auto">
                             <div class="display-5 fw-medium"><?php echo $form_title; ?></div>
                             <div class="text-muted mt-1"><?php echo $form_description; ?></div>
-                            <div class="col-xl-12">
+                            <div class="col-xl-7">
                                 <label class="form-label mt-10">Which wallet do you want to contribute to?</label>
                                 <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
                                 <?php

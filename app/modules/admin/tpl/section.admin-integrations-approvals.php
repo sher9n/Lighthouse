@@ -327,7 +327,11 @@
         });
 
         $('#formApproval').validate({
-            rules: {},
+            rules: {
+                "tags[]":{
+                    required: true
+                }
+            },
             submitHandler: function (form) {
                 $(form).ajaxSubmit({
                     type: 'post',

@@ -44,17 +44,19 @@ class Approval{
     public static function getUserApprovals($contribution_id,$user=null){
         $connect = Ds::connect();
         if(is_null($user))
-            $items   = $connect->query("select approval,approval_type from approvals where contribution_id='$contribution_id'");
+            $items   = $connect->query("select id,approval,approval_type from approvals where contribution_id='$contribution_id'");
         else
-            $items   = $connect->query("select approval,approval_type from approvals where contribution_id='$contribution_id' AND approval_by='$user'");
+            $items   = $connect->query("select id,approval,approval_type from approvals where contribution_id='$contribution_id' AND approval_by='$user'");
 
         $results = array();
         $tem     = array();
+        $ids     = array();
         $type    = null;
         $x       = 0;
 
         if($items != false){
             while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
+                array_push($ids,$row['id']);
                 if($row['approval_type'] == 2) {
                     $x++;
                     $categories = json_decode($row['approval']);
@@ -69,13 +71,12 @@ class Approval{
                     $results = array(1);
             }
 
-            foreach ($tem as $c => $v){
+            foreach ($tem as $c => $v)
                 $results[$c] = round($v/$x);
-            }
 
         }
         $connect->close();
-        return $results;
+        return array('ids' => $ids, 'approvals' => $results);
     }
 
     public function load(array $item)
