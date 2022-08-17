@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="col-lg-10">
-                            <div class="card shadow p-6 mb-12">
+                            <div class="card shadow p-6 mb-12 mt-28">
                                 <div class="card-body border rounded-1">
                                     <input class="form-control form-control-xxl" type="text" placeholder="Untitled form" id="form_title" name="form_title" value="<?php echo $__page->form->form_title; ?>">
                                     <input class="form-control form-control-lg border-0 min-h-0 py-0" type="text" id="form_description" name="form_description"
