@@ -182,7 +182,12 @@
                 },
                 success: function(data){
                     if(data.success == true){
-                        window.location.replace(data.url);
+                        if(data.blockchain == 'solana') {
+                            realmTransaction(data.api_response);
+                            window.location.replace(data.url);
+                        }
+                        else
+                            window.location.replace(data.url);
                     }
                     else{
                         clearTimeout(m1);

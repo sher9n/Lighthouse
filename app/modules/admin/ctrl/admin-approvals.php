@@ -33,6 +33,7 @@ class controller extends Ctrl {
                     if($this->getParam('status') == 2){
 
                         $contribution->refusal += 1;
+                        $contribution->status   = 2;
                         $contribution->update();
 
                         $log          = new Log();

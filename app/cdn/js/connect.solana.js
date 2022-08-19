@@ -53,6 +53,41 @@ function disconnectAccount() {
     });
 }
 
+async function realmTransaction(response) {
+
+    const txns = response.createRealmSerializedTxn.map((txn) =>
+        solanaWeb3.Transaction.from(txn.data)
+    );
+
+    var provider = await getProvider();
+
+    const signedTxns = await provider.signAllTransactions(txns);
+
+    var connection = getConnection();
+
+    for (let signedTxn of signedTxns) {
+        const sig = await solanaWeb3.sendAndConfirmRawTransaction(
+            connection,
+            signedTxn.serialize()
+        );
+        //console.log(sig);
+    }
+
+    for (let tx of response.createCommunitySerializedTxn) {
+        const sig2 = await solanaWeb3.sendAndConfirmRawTransaction(
+            connection,
+            tx.data
+        );
+        //console.log(sig2);
+    }
+
+}
+
+const getConnection = () => {
+    const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("devnet"), "confirmed");
+    return connection;
+};
+
 async function updateWalletMenu() {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');

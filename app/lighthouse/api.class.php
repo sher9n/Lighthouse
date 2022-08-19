@@ -211,6 +211,34 @@ class Api{
         return json_decode($response);
     }
 
+    public static function addSolanaCommunityWithRealmWithoutMint($contractName,$initialSteward,$yesVoteThreshold) {
+        $url = SOLANA_API."api/createWithRealmWithoutMint?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "name": "'.$contractName.'",
+            "yesVoteThreshold": '.$yesVoteThreshold.',
+            "councilMemberPks": ["'.$initialSteward.'"],
+            "walletPk": "'.$initialSteward.'"
+        }';
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+        $response = curl_exec($curl);
+                /*$error_msg = curl_error($curl);
+                var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
+
     public static function addSolanaCommunityWithoutMint($contractName,$initialSteward) {
         $url = SOLANA_API."api/createWithoutMint?key=".SOLANA_API_KEY;
         $curl = curl_init($url);

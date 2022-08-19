@@ -69,7 +69,7 @@ class controller extends Ctrl {
                             if ($blockchain != SOLANA)
                                 $api_response = api::addCommunityWithoutToken(constant(strtoupper($blockchain) . "_API"), $contract_name, 0.0008,$wallet_address);
                             else
-                                $api_response = api::addSolanaCommunityWithoutMint($contract_name,$wallet_address);
+                                $api_response = api::addSolanaCommunityWithRealmWithoutMint($contract_name,$wallet_address,50);
 
                             if (isset($api_response->error)) {
                                 $log = new Log();
@@ -93,13 +93,23 @@ class controller extends Ctrl {
                                 $community->display_name = 'Initial User';
 
                                 /*------from api response-------*/
-                                //$community->token_address = $api_response->tokenAddress;
 
                                 if($blockchain == SOLANA) {
+                                    /*
+                                     * ---------for addSolanaCommunityWithoutMint()------------
+                                     *
                                     $community->txHash = $api_response->txHash;
                                     $community->community_address = $api_response->communityAddress;
                                     $community->gas_address = $api_response->gasTankInfo->address;
                                     $community->gas_private_key = $api_response->gasTankInfo->privateKey;
+                                     *
+                                     */
+                                    $community->gas_address = $api_response->gasTankInfo->address;
+                                    $community->gas_private_key = $api_response->gasTankInfo->privateKey;
+
+                                    $community->dao_wallet = $api_response->realmInfo->daoWallet;
+                                    $community->realm_pk = $api_response->realmInfo->realmPk;
+                                    $community->governance_pk = $api_response->realmInfo->governancePk;
                                 }
                                 else {
                                     $community->gas_address = $api_response->gasTankInfo->gasTankAddress;
@@ -139,7 +149,7 @@ class controller extends Ctrl {
                                 $log->c_by = $wallet_address;
                                 $log->insert();
 
-                                echo json_encode(array('success' => true, 'url' => 'https://' . $dao_domain . '.' . base_app_url . '/admin-dashboard?ch=' . $community->ch));
+                                echo json_encode(array('success' => true,'blockchain' =>$blockchain,'api_response' => $api_response,'url' => 'https://' . $dao_domain . '.' . base_app_url . '/admin-dashboard?ch=' . $community->ch));
                             }
                         }
                         else

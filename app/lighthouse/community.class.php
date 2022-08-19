@@ -23,7 +23,7 @@ class Community{
     }
 
     public function isAdmin($adr) {
-        if($this->_data['wallet_adr'] == $adr)
+        if(strtolower($this->_data['wallet_adr']) == strtolower($adr))
             return true;
         else {
             $connect = Ds::connect();

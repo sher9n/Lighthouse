@@ -28,6 +28,7 @@ class controller extends Ctrl {
         }
 
         $login = Auth::attemptLogin();
+
         if($login != false) {
             $sel_wallet_adr = $login;
             $is_admin = $community->isAdmin($sel_wallet_adr);
@@ -144,9 +145,9 @@ class controller extends Ctrl {
             }
 
             $view_contract = '';
-           /* if($community->blockchain == SOLANA)
-                $view_contract = SOLANA_VIEW_LINK.'account/'.$community->token_address;
-            elseif ($community->blockchain == OPTIMISM)
+            if($community->blockchain == SOLANA)
+                $view_contract = 'https://app.realms.today/dao/'.$community->realm_pk.'?cluster=devnet';
+            /*elseif ($community->blockchain == OPTIMISM)
                 $view_contract = OPTIMISM_VIEW_LINK.'address/'.$community->token_address;
             else
                 $view_contract = GNOSIS_CHAIN_VIEW_LINK.'address/'.$community->token_address;*/
