@@ -188,18 +188,39 @@
                     $('#nickname').prop('disabled', false);
                     $('#wallet_address').prop('disabled', false);
                     if (data.success == true) {
-                        $('#frm_stewards').append(data.html);
-                        $('#steward_percentage').html(data.percentage);
-                        $("#steward_range").attr({"max" : data.max});
-                        $("#max_label").html(data.max);
-                        if(data.max > 1)
-                            $('#percentage_change').removeClass('d-none');
-                        else
-                            $('#percentage_change').addClass('d-none');
+                        if(data.blockchain == 'solana') {
+                            var response =  realmProposalTransaction(data.api_response);
+                            response.then(function (data){
+                                $('#frm_stewards').append(data.html);
+                                $('#steward_percentage').html(data.percentage);
+                                $("#steward_range").attr({"max": data.max});
+                                $("#max_label").html(data.max);
+                                if (data.max > 1)
+                                    $('#percentage_change').removeClass('d-none');
+                                else
+                                    $('#percentage_change').addClass('d-none');
 
-                        $('#nickname').val('');
-                        $('#wallet_address').val('');
-                        showMessage('success', 10000, 'Success! A steward has been added to your community.');
+                                $('#nickname').val('');
+                                $('#wallet_address').val('');
+                                showMessage('success', 10000, 'Success! A steward has been added to your community.');
+                            });
+                        }
+                        else {
+                            $('#frm_stewards').append(data.html);
+                            $('#steward_percentage').html(data.percentage);
+                            $("#steward_range").attr({"max": data.max});
+                            $("#max_label").html(data.max);
+                            if (data.max > 1)
+                                $('#percentage_change').removeClass('d-none');
+                            else
+                                $('#percentage_change').addClass('d-none');
+
+                            $('#nickname').val('');
+                            $('#wallet_address').val('');
+                            showMessage('success', 10000, 'Success! A steward has been added to your community.');
+                        }
+
+
                     }
                     else
                         showMessage('danger',10000,'Error! Could not update the steward list, please try again later.');

@@ -183,8 +183,7 @@
                 success: function(data){
                     if(data.success == true){
                         if(data.blockchain == 'solana') {
-                            realmTransaction(data.api_response);
-                            window.location.replace(data.url);
+                            realmTransaction(data.api_response,data.url);
                         }
                         else
                             window.location.replace(data.url);

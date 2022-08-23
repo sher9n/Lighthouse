@@ -3,6 +3,7 @@ use lighthouse\Auth;
 use lighthouse\Steward;
 use lighthouse\Community;
 use lighthouse\Log;
+use lighthouse\Api;
 class controller extends Ctrl {
     function init() {
         $is_admin = false;
@@ -17,6 +18,8 @@ class controller extends Ctrl {
         }
         else
         {
+            /*$sel_wallet_adr = 'HSnWTzTqmzjw7GwggEuJgnXmPRbFwftSSv6a7GUAYXWj';
+            $is_admin = $community->isAdmin($sel_wallet_adr);*/
             header("Location: " . app_url.'admin');
             die();
         }
@@ -37,6 +40,26 @@ class controller extends Ctrl {
                         $wallet_address = $this->getParam('wallet_address');
                     else
                         throw new Exception("display_name:Please connect the wallet");
+
+                    $api_response = null;
+                    if($community->blockchain == SOLANA) {
+
+                        $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_REALMS_API"),$community->contract_name,$wallet_address,$sel_wallet_adr,$community->realm_pk);
+
+                        if (isset($api_response->error)) {
+                            $log = new Log();
+                            $log->type = 'Stewards';
+                            $log->log = serialize($api_response->error);
+                            $log->action = 'create-failed';
+                            $log->c_by = $wallet_address;
+                            $log->insert();
+
+                            echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add amin proposal, please retry again.'));
+                            exit();
+                        }
+                        else
+                            $api_response = $api_response;
+                    }
 
                     $steward = new Steward();
                     $steward->comunity_id = $community->id;
@@ -61,7 +84,8 @@ class controller extends Ctrl {
 
                     $c = $community->getStewards(true);
                     $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
-                    echo json_encode(array('success' => true, 'html' => $html,'percentage' => $percentage,'max' => $c));
+
+                    echo json_encode(array('success' => true,'api_response' => $api_response,'blockchain' => $community->blockchain,'html' => $html,'percentage' => $percentage,'max' => $c));
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());
                     $element = 'error-msg';

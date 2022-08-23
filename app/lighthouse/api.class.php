@@ -179,6 +179,95 @@ class Api{
         return json_decode($response);
     }
 
+    public static function getSolanaRealmsStewards($url,$realm_pk) {
+        $url = $url."api/getRealmStewards?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "realmPk": "'.$realm_pk.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function addSolanaAdminProposal($url,$community_name,$newAdmin,$proposer,$realmPk) {
+        $url = $url."api/$community_name/addMultisigAdminProposal?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "newAdmin": "'.$newAdmin.'",
+          "proposer": "'.$proposer.'",
+          "realmPk": "'.$realmPk.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+       // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function addSolanaLogProposal($url,$community_name,$receiver,$proposer,$realmPk) {
+        $url = $url."api/.$community_name./addLogProposal?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+
+        $data = '{
+            "receiver": "'.$receiver.'",
+            "realmPk": "'.$realmPk.'",
+            "amount": 0,
+            "reason":"null",
+            "tags": "null",
+            "pointsBreakdown": "null",
+            "proposer": "'.$proposer.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
     public static function addCommunity($url,$contractName,$tokenName,$tokenSymbol,$tokenDecimals,$tankTopUpAmount,$initialSteward) {
         $url = $url."api/contractsAPI?key=".API_KEY;
         $curl = curl_init($url);
@@ -225,9 +314,10 @@ class Api{
         $data = '{
             "name": "'.$contractName.'",
             "yesVoteThreshold": '.$yesVoteThreshold.',
-            "councilMemberPks": ["'.$initialSteward.'"],
+            "councilMemberPks": ["'.$initialSteward.'","LHTsVjUDKH99XYNbvzRAEfrG836KY63sJnvHFvLuNfa"],
             "walletPk": "'.$initialSteward.'"
         }';
+
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

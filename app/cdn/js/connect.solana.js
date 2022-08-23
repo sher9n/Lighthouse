@@ -53,7 +53,8 @@ function disconnectAccount() {
     });
 }
 
-async function realmTransaction(response) {
+
+async function realmTransaction(response,url) {
 
     const txns = response.createRealmSerializedTxn.map((txn) =>
         solanaWeb3.Transaction.from(txn.data)
@@ -81,6 +82,31 @@ async function realmTransaction(response) {
         //console.log(sig2);
     }
 
+    window.location.replace(url);
+}
+
+
+async function realmProposalTransaction(response) {
+
+    const txns = response.serializedTxns.map((txn) =>
+        solanaWeb3.Transaction.from(txn.data)
+    );
+
+    var provider = await getProvider();
+
+    const signedTxns = await provider.signAllTransactions(txns);
+
+    var connection = getConnection();
+
+    showMessage('success', 10000, 'Initiating and Writing transactions...');
+    for (let signedTxn of signedTxns) {
+        const sig = await solanaWeb3.sendAndConfirmRawTransaction(
+            connection,
+            signedTxn.serialize()
+        );
+    }
+    showMessage('success', 10000, 'Finalizing the transaction...');
+    return true;
 }
 
 const getConnection = () => {
