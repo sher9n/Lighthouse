@@ -26,27 +26,6 @@
                     <div class="col-lg-11">
                         <div class="card shadow mb-12 mt-28">
                             <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="fw-medium text-lg me-12">Setup Scoring</div>
-                                    <label class="switch">
-                                        <input type="checkbox" class="form-switch-input" <?php echo ($__page->form->scoring ==1)?'checked':''; ?> id="scoring" name="scoring">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                                <div id="max_point_section" class="mt-12 <?php echo ($__page->form->scoring ==0)?'d-none':''; ?>">
-                                    <label for="" class="form-label">Max Points *</label>
-                                    <input type="number" class="form-control form-control-lg" id="max_point" name="max_point" value="<?php echo $__page->form->max_point; ?>"
-                                           aria-describedby="Help">
-                                    <div id="Help" class="form-text">* Any modifications to scores will only apply to
-                                        future contributions.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-11">
-                        <div class="card shadow mb-12">
-                            <div class="card-body">
                                 <label for="" class="form-label">Approval type</label>
                                 <div class="form-check form-check-lg">
                                     <input class="form-check-input radio_rating" value="1" <?php echo ($__page->form->approval_type != 2)?'checked':''; ?> type="radio" name="approval_type">
@@ -201,22 +180,39 @@
                                     <button type="button" id="add_category" class="btn btn-primary">Add Category</button>
                                 </div>
                             </div>
+                            <div class="border-dashed"></div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="fw-medium text-lg me-12">Setup Scoring</div>
+                                    <label class="switch">
+                                        <input type="checkbox" class="form-switch-input" <?php echo ($__page->form->scoring ==1)?'checked':''; ?> id="scoring" name="scoring">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div id="max_point_section" class="mt-12 <?php echo ($__page->form->scoring ==0)?'d-none':''; ?>">
+                                    <label for="" class="form-label">Max Points *</label>
+                                    <div class="col-3">
+                                        <input type="number" class="form-control form-control-lg" id="max_point" name="max_point" value="<?php echo $__page->form->max_point; ?>" aria-describedby="Help">
+                                    </div>
+                                    <div id="Help" class="form-text">* Any modifications to scores will only apply to future contributions.</div>
+                                </div>
+                            </div>            
                         </div>
                     </div>
 
                     <div class="col-lg-11">
                         <div class="card shadow">
                             <div class="card-body">
-                                <div class="form-check form-check-lg">
+                                <div class="mb-3">
                                     <label for="" class="form-label">Claim approval period</label>
                                     <div class="input-group">
                                         <input type="number" id="approval_days" name="approval_days" class="form-control form-control-lg" value="<?php echo $__page->form->approval_days; ?>" placeholder="7">
                                         <span class="input-group-text fw-medium" id="">Days</span>
                                     </div>
                                 </div>
-                                <div class="form-check form-check-lg">
+                                <div class="mb-3">
                                     <label for="" class="form-label">Tags</label>
-                                    <select style="width: width: 100px !important;" class="form-control form-control-lg" multiple="multiple" name="tags[]" id="tags" placeholder="Marketing, Sales, Development">
+                                    <select class="form-control form-control-lg" multiple="multiple" name="tags[]" id="tags" placeholder="Marketing, Sales, Development">
                                         <?php
                                         if(strlen($__page->form->tags) > 0){
                                             $tags_arry = explode(",",$__page->form->tags);

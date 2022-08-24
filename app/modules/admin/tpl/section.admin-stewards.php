@@ -7,30 +7,50 @@
                     <div class="card shadow" style="min-height: calc(100vh - 60px);">
                         <div class="card-body p-xl-20">
                             <div class="display-5 fw-medium">Manage stewards</div>
-                            <div class="text-muted mt-1">Add or remove community elected stewards and set multisig parameters</div>
-                            <form id="frm_stewards" class="mt-25 col-xl-6">
-                                <div class="fw-medium mt-26">Quorum</div>
-                                <div class="d-flex align-items-center mt-6">
+                            <div class="text-muted mt-1">Add or remove stewards and set multisig parameters</div>
+                            <form id="frm_stewards" class="mt-16">
+                                <div class="fw-medium">Quorum</div>
+                                <button type="button" id="percentage_change" class="btn btn-primary mt-6 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Propose new quorum</button>
+                                <div class="d-flex align-items-center mt-4">
                                     <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
                                         <div class="fs-1"><?php echo $__page->community->approval_count.'</div><div class="fs-2">/'.count($__page->stewards); ?></div>
-                                    </div>
-                                    <button type="button" id="percentage_change" class="btn btn-primary ms-12 <?php echo (count($__page->stewards) < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Change Quorum</button>
+                                    </div>                                    
                                 </div>
-                                <div class="fw-medium mt-22">Whitelist members</div>
+                                <div class="fw-medium mt-16">Stewards</div>
+                                <button type="button" class="btn btn-primary mt-6">Propose new steward</button>
+                                <!-- <div class="fw-medium mt-22">Whitelist members</div>
                                 <a role="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Add member</a>
-                                <div class="fw-medium mt-22"><?php echo $__page->community->display_name; ?> </div>
-                                <div class="d-flex align-items-center">
-                                    <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
+                                -->
+                                <div class="mt-26">
+                                    <div class="mb-8"><!-- repeat this block -->
+                                        <div class="fw-medium text-muted"><?php echo $__page->community->display_name; ?> </div>
+                                        <div class="d-flex align-items-center mt-1">
+                                            <div>
+                                                <div class="fs-3 fw-semibold me-6"><?php echo $__page->community->wallet_adr; ?></div>
+                                                <div class="d-flex align-items-center text-blue-stone">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                    <div class="fw-medium ms-2">Approval period ends in 45m</div>                                            
+                                                </div>
+                                            </div>
+                                            <div class="ms-auto">
+                                                <button type="button" class="btn btn-primary">View Proposal</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <?php
                                 unset($__page->stewards[$__page->community->wallet_adr]);
                                 foreach ($__page->stewards as $steward){ ;?>
-                                <div class="stew-<?php echo $steward['id']; ?> fw-medium mt-22"><?php echo $steward['name']; ?> </div>
-                                <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
-                                    <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
-                                    <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                                    </a>
+                                <div class="mt-26">
+                                    <div class="mb-8"><!-- repeat this block -->
+                                        <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><?php echo $steward['name']; ?> </div>
+                                        <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
+                                            <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
+                                            <!-- <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                            </a> -->
+                                        </div>
+                                    </div>
                                 </div>
                                 <?php } ?>
                             </form>
