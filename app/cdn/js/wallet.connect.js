@@ -11,9 +11,7 @@ async function connectToEth(blockchain='gnosis_chain'){
 
     if (selectedAccount) {
         sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
-        //document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
         document.querySelector("#wallet_address").value = selectedAccount;
-        //document.querySelector("#add_wallet").innerHTML = 'CHANGE WALLET';
 
         if (sessionStorage.getItem('lh_wallet_adds')) {
             var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
@@ -31,7 +29,6 @@ async function connectToEth(blockchain='gnosis_chain'){
 
     switchNetwork(blockchain);
 }
-
 
 function connectToWCEth(blockchain='gnosis_chain'){
 

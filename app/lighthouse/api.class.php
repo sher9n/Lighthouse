@@ -314,7 +314,7 @@ class Api{
         $data = '{
             "name": "'.$contractName.'",
             "yesVoteThreshold": '.$yesVoteThreshold.',
-            "councilMemberPks": ["'.$initialSteward.'","LHTsVjUDKH99XYNbvzRAEfrG836KY63sJnvHFvLuNfa"],
+            "councilMemberPks": ["'.$initialSteward.'"],
             "walletPk": "'.$initialSteward.'"
         }';
 

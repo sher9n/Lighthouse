@@ -1,13 +1,15 @@
 
 const getProvider = async () => {
     if ("solana" in window) {
-        await window.solana.connect(); // opens wallet to connect to
+        await window.solana.connect();
         const provider = window.solana;
         return provider;
-    } else {
+    }
+    else {
         console.log("No Solana wallet detected. Redirecting to Phantom.");
         window.open("https://www.phantom.app/", "_blank");
-    }};
+    }
+};
 
 function getSolanaAccount() {
 
@@ -15,9 +17,7 @@ function getSolanaAccount() {
         if(provider) {
             selectedAccount = provider.publicKey.toString();
             sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
-            //document.querySelector("#sel_wallet_address").innerHTML = selectedAccount;
             document.querySelector("#wallet_address").value = selectedAccount;
-            //document.querySelector("#add_wallet").innerHTML = 'CHANGE WALLET';
             
             if (sessionStorage.getItem('lh_wallet_adds')) {
                 var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
@@ -53,7 +53,7 @@ function disconnectAccount() {
     });
 }
 
-
+/*** ------------START REALMS TRANSACTIONS JS-----------------*/
 async function realmTransaction(response,url) {
 
     const txns = response.createRealmSerializedTxn.map((txn) =>
@@ -113,6 +113,7 @@ const getConnection = () => {
     const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("devnet"), "confirmed");
     return connection;
 };
+/*** ------------END REALMS TRANSACTIONS JS-----------------*/
 
 async function updateWalletMenu() {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
