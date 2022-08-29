@@ -68,24 +68,24 @@ async function realmProposalTransaction(response) {
     const txns = response.serializedTxns.map((txn) =>
         solanaWeb3.Transaction.from(txn.data)
     );
-    console.log(txns);
+
     var provider = await getProvider();
 
     const signedTxns = await provider.signAllTransactions(txns);
 
     var connection = getConnection();
 
-    showMessage('success', 10000, 'Initiating and Writing transactions...');
+    showMessage('success', 10000, 'Creating a new proposal...');
+    const results = [];
     for (let signedTxn of signedTxns) {
         const sig = await solanaWeb3.sendAndConfirmRawTransaction(
             connection,
             signedTxn.serialize()
         );
-
-        console.log(sig);
+        results.push(sig);
     }
-    showMessage('success', 10000, 'Finalizing the transaction...');
-    return true;
+    showMessage('success', 10000, 'Setting up parameters...');
+    return results;
 }
 
 const getConnection = () => {

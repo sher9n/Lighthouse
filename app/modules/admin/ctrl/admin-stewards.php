@@ -41,7 +41,9 @@ class controller extends Ctrl {
                     else
                         throw new Exception("display_name:Please connect the wallet");
 
+                    $steward      = new Steward();
                     $api_response = null;
+
                     if($community->blockchain == SOLANA) {
 
                         $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_REALMS_API"),$community->contract_name,$wallet_address,$sel_wallet_adr,$community->realm_pk);
@@ -57,15 +59,34 @@ class controller extends Ctrl {
                             echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add amin proposal, please retry again.'));
                             exit();
                         }
-                        else
-                            $api_response = $api_response;
-                    }
+                        else {
 
-                    $steward = new Steward();
-                    $steward->comunity_id = $community->id;
-                    $steward->wallet_adr = $wallet_address;
-                    $steward->display_name = $display_name;
-                    $id = $steward->insert();
+                            $api_response = $api_response;
+                            $steward->comunity_id = $community->id;
+                            $steward->wallet_adr = $wallet_address;
+                            $steward->display_name = $display_name;
+                            $steward->praposal_adr = $api_response->proposalAddress;
+                            $id = $steward->insert();
+
+                            include __DIR__ . '/../tpl/partial/realms_steward_line.php';
+                            $html = ob_get_clean();
+                        }
+
+                    }
+                    else {
+                        $steward->praposal_passed = 1;
+                        $steward->comunity_id = $community->id;
+                        $steward->wallet_adr = $wallet_address;
+                        $steward->display_name = $display_name;
+                        $id = $steward->insert();
+
+                        $html = '<div class="mb-8">
+                            <div class="stew-'.$id.' fw-medium text-muted">'.$display_name.'</div>
+                                <div class="stew-'.$id.' d-flex align-items-center">
+                                    <div class="fs-3 fw-semibold me-6">'.$wallet_address.'</div>  
+                                </div>
+                            </div>';
+                    }
 
                     $log = new Log();
                     $log->type = 'Steward';
@@ -74,18 +95,11 @@ class controller extends Ctrl {
                     $log->c_by = $wallet_address;
                     $log->insert();
 
-                    $html = '<div class="stew-'.$id.' fw-medium mt-22">'.$display_name.'</div>
-                                <div class="stew-'.$id.' d-flex align-items-center">
-                                    <div class="fs-3 fw-semibold me-6">'.$wallet_address.'</div>
-                                    <a class="del_steward" href="delete-stewards?id='.$id.'&adr='.$wallet_address.'" data-bs-toggle="modal" data-bs-target="#delMember">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                                    </a>
-                                </div>';
-
                     $c = $community->getStewards(true);
                     $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
 
                     echo json_encode(array('success' => true,'api_response' => $api_response,'blockchain' => $community->blockchain,'html' => $html,'percentage' => $percentage,'max' => $c));
+
                 } catch (Exception $e) {
                     $msg = explode(':', $e->getMessage());
                     $element = 'error-msg';
@@ -128,11 +142,38 @@ class controller extends Ctrl {
         }
         else {
 
-            $site = Auth::getSite();
+            $site           = Auth::getSite();
+            $approval_count = 0;
+            $maxVotingTime  = 0;
+
             if($site === false) {
                 header("Location: https://lighthouse.xyz");
                 die();
             }
+
+            $allStewards  = $community->getAllStewards();
+            $stewardCount = 0;
+            foreach ($allStewards as $steward){
+                if($steward['praposal_passed'] == 1){
+                    $stewardCount++;
+                }
+            }
+
+            if($community->blockchain == SOLANA) {
+                $api_response = api::getRealmInfo(constant(strtoupper(SOLANA) . "_REALMS_API"), $community->governance_pk);
+                if (!isset($api_response->error)) {
+                    $maxVotingTime    = $api_response->maxVotingTime;
+                    $quorumPercentage = $api_response->quorumPercentage;
+                    $approval_count   = ($quorumPercentage/100) * $stewardCount;
+                    $approval_count   = round($approval_count,0,PHP_ROUND_HALF_UP);
+                    $community->approval_count  = $approval_count;
+                    $community->max_voting_time = $maxVotingTime;
+                    $community->update();
+
+                }
+            }
+            else
+                $approval_count = $community->approval_count;
 
             $__page = (object)array(
                 'title' => $site['site_name'],
@@ -140,7 +181,10 @@ class controller extends Ctrl {
                 'community' => $community,
                 'is_admin' => $is_admin,
                 'blockchain' => $community->blockchain,
-                'stewards' => $community->getStewards(),
+                'stewards' => $allStewards,
+                'stewardCount' => $stewardCount,
+                'approval_count' => $approval_count,
+                'maxVotingTime' => $maxVotingTime,
                 'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(

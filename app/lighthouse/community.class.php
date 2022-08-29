@@ -28,7 +28,7 @@ class Community{
         else {
             $connect = Ds::connect();
             $com_id = $this->_data['id'];
-            $items = $connect->query("select id from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND is_delete=0");
+            $items = $connect->query("select id from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND praposal_passed=1 AND is_delete=0");
             if ($items->num_rows > 0)
                 return true;
             else
@@ -37,6 +37,32 @@ class Community{
     }
 
     public function getStewards($count=false) {
+        $connect  = Ds::connect();
+        $com_id   = $this->_data['id'];
+
+        if($count==true){
+            $stewards = 0;
+            $items = Steward::find("SELECT count(id) c FROM stewards WHERE comunity_id=" . $com_id . " AND praposal_passed=1 AND is_delete=0");
+            if ($items->num_rows > 0) {
+                $response = $items->fetch_array(MYSQLI_ASSOC);
+                $stewards = $response['c'];
+            }
+            return ($stewards +1);
+        }
+        else {
+            $stewards = array();
+            $stewards[$this->_data['wallet_adr']] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr']);
+
+            $stewards_data = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0 AND praposal_passed=1");
+            foreach ($stewards_data as $steward) {
+                $stewards[$steward['wallet_adr']] = array('id' => $steward['id'], 'name' => $steward['display_name'], 'wallet_adr' => $steward['wallet_adr']);
+            }
+        }
+        return $stewards;
+    }
+
+
+    public function getAllStewards($count=false) {
         $connect  = Ds::connect();
         $com_id   = $this->_data['id'];
 
@@ -51,11 +77,18 @@ class Community{
         }
         else {
             $stewards = array();
-            $stewards[$this->_data['wallet_adr']] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr']);
+            $stewards[$this->_data['wallet_adr']] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr'],'praposal_passed'=> 1);
 
             $stewards_data = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0");
             foreach ($stewards_data as $steward) {
-                $stewards[$steward['wallet_adr']] = array('id' => $steward['id'], 'name' => $steward['display_name'], 'wallet_adr' => $steward['wallet_adr']);
+                $stewards[$steward['wallet_adr']] = array(
+                    'id' => $steward['id'],
+                    'name' => $steward['display_name'],
+                    'wallet_adr' => $steward['wallet_adr'],
+                    'praposal_passed'=> $steward['praposal_passed'],
+                    'praposal_adr'=> $steward['praposal_adr'],
+                    'c_at' => $steward['c_at']
+                );
             }
         }
         return $stewards;

@@ -6,7 +6,8 @@ use lighthouse\Form;
     <section class="admin-body-section">
         <div class="container-fluid">
             <div class="col">
-                <div class="card shadow mb-12">
+                <div class="card shadow mb-12 border-0">
+                    <div class="card-header text-center bg-orange-peel-25 text-orange-peel fw-medium">You will only be able to submit responses when your form is live.</div>
                     <form id="sendContributionForm" method="post" action="#" autocomplete="off" class="d-flex flex-column" style="min-height: calc(100vh - 60px);">
                         <div class="card-body mb-auto">
                             <div class="display-5 fw-medium"><?php echo $form_title; ?></div>

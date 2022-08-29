@@ -31,6 +31,7 @@ try {
         '/cron-claim-approvals' => 'modules/crons/claim_approvals.php',
         '/cron-realms-api' => 'modules/crons/realms_api.php',
         '/cron-realms-proposals' => 'modules/crons/realms_proposals.php',
+        '/cron-update-stewards' => 'modules/crons/realms_stewards_update.php',
         '/disconnect_wallet' => 'modules/admin/ctrl/admin.php',
         '/check-dao-domain' => 'modules/onboard/ctrl/onboard.php',
         '/update-contract-address' => 'modules/onboard/ctrl/first_member.php',

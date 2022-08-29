@@ -146,7 +146,8 @@ class controller extends Ctrl {
 
             $view_contract = '';
             if($community->blockchain == SOLANA)
-                $view_contract = 'https://app.realms.today/dao/'.$community->realm_pk.'?cluster=devnet';
+                $view_contract = SOLANA_VIEW_LINK.'account/'.$community->governance_pk;
+                //$view_contract = 'https://app.realms.today/dao/'.$community->realm_pk.'?cluster=devnet';
             /*elseif ($community->blockchain == OPTIMISM)
                 $view_contract = OPTIMISM_VIEW_LINK.'address/'.$community->token_address;
             else

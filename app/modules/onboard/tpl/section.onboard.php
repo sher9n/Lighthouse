@@ -183,6 +183,7 @@
                 success: function(data){
                     if(data.success == true){
                         if(data.blockchain == 'solana') {
+                            showMessage('success', 10000, 'Initializing wallet signing process...');
                             realmTransaction(data.api_response,data.url);
                         }
                         else

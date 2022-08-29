@@ -93,7 +93,7 @@
 <!-- Short answer END -->
 <!-- Multiple choice -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_MULTIPLE_CHOICE; ?>">
-    <label for="" class="form-label">Description</label>
+    <label for="" class="form-label">Please enter the options</label>
     <div class="description_elements">
         <div class="row mb-6">
             <div class="col-10 col-xxl-11">
@@ -106,7 +106,7 @@
                     </svg>
                     <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
                            aria-describedby=""
-                           placeholder="Please enter multiple choice option">
+                           placeholder="Add option">
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@
 <!-- Multiple choice END -->
 <!-- Checkboxes -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_CHECKBOXES; ?>">
-    <label for="" class="form-label">Description</label>
+    <label for="" class="form-label">Please enter the options</label>
     <div class="description_elements">
         <div class="row mb-6">
             <div class="col-10 col-xxl-11">
@@ -128,7 +128,7 @@
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                     </svg>
                     <input type="text" class="form-control form-control-lg"  id="description_1" name="description[][]"
-                           aria-describedby="" placeholder="Please enter checkbox option">
+                           aria-describedby="" placeholder="Add option">
                 </div>
             </div>
         </div>
@@ -138,12 +138,12 @@
 <!-- Checkboxes END -->
 <!-- Dropdown -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_DROPDOWN; ?>">
-    <label for="" class="form-label">Description</label>
+    <label for="" class="form-label">Please enter the options</label>
     <div class="description_elements">
         <div class="row mb-6">
             <div class="col-10 col-xxl-11">
                 <input type="text" class="form-control form-control-lg" id="description_1" name="description[][]"
-                       aria-describedby="" placeholder="Please enter dropdown option">
+                       aria-describedby="" placeholder="Add option">
             </div>
         </div>
     </div>
@@ -153,7 +153,7 @@
 <!-- Tags -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_TAGS; ?>">
     <div class="d-flex justify-content-between">
-        <label for="" class="form-label">Description</label>
+        <label for="" class="form-label">Please enter the options</label>
         <div class="fw-medium text-muted">Enter comma separated values</div>
     </div>
     <input type="text" class="form-control form-control-lg" id="description_1" name="description[]"

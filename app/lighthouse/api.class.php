@@ -179,6 +179,33 @@ class Api{
         return json_decode($response);
     }
 
+    public static function getRealmInfo($url,$governance_pk) {
+        $url = $url."api/getRealmInfo?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "councilMintGovPk": "'.$governance_pk.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
     public static function getSolanaRealmsStewards($url,$realm_pk) {
         $url = $url."api/getRealmStewards?key=".API_KEY;
         $curl = curl_init($url);

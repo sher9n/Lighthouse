@@ -5,7 +5,8 @@ async function addWallet() {
 }
 
 window.ethereum.on("accountsChanged", accounts => {
-    if (accounts.length > 0) {
+    console.log("ssssssssssss");
+/*    if (accounts.length > 0) {
         selectedAccount = accounts[0];
         if (selectedAccount) {
             sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
@@ -23,7 +24,7 @@ window.ethereum.on("accountsChanged", accounts => {
         updateAdminSession();
     }
     else
-        onDisconnect();
+        onDisconnect();*/
 });
 
 async function changeWallet(pop=false) {

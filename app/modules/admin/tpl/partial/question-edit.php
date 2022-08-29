@@ -186,7 +186,7 @@
             }else if($element['e_type'] == Form::QT_MULTIPLE_CHOICE) {
                 ?>
                 <div class="q_description" id="q_type_<?php echo Form::QT_MULTIPLE_CHOICE; ?>">
-                    <label for="" class="form-label">Description</label>
+                    <label for="" class="form-label">Please enter the options</label>
                         <div class="description_elements">
                         <?php
                         $descriptions = $element['e_description'];
@@ -204,7 +204,7 @@
                                     </svg>
                                     <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
                                            aria-describedby=""
-                                           placeholder="Please enter multiple choice option" value="<?php echo $des; ?>">
+                                           placeholder="Add option" value="<?php echo $des; ?>">
                                 </div>
                             </div>
                             <?php if($index != 0){ ?>
@@ -229,7 +229,7 @@
             }else if($element['e_type'] == Form::QT_CHECKBOXES) {
                 ?>
                 <div class="q_description" id="q_type_<?php echo Form::QT_CHECKBOXES; ?>">
-                    <label for="" class="form-label">Description</label>
+                    <label for="" class="form-label">Please enter the options</label>
                     <div class="description_elements">
                         <?php
                         $descriptions = $element['e_description'];
@@ -246,7 +246,7 @@
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     </svg>
                                     <input type="text" class="form-control form-control-lg"  id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                           aria-describedby="" placeholder="Please enter checkbox option" value="<?php echo $des; ?>">
+                                           aria-describedby="" placeholder="Add option" value="<?php echo $des; ?>">
                                 </div>
                             </div>
                             <?php if($index != 0){ ?>
@@ -271,7 +271,7 @@
             }else if($element['e_type'] == Form::QT_DROPDOWN) {
                 ?>
                 <div class="q_description " id="q_type_<?php echo Form::QT_DROPDOWN; ?>">
-                    <label for="" class="form-label">Description</label>
+                    <label for="" class="form-label">Please enter the options</label>
                     <div class="description_elements">
                     <?php
                     $descriptions = $element['e_description'];
@@ -281,7 +281,7 @@
                     <div class="row mb-6">
                         <div class="col-10 col-xxl-11">
                             <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>][]"
-                                   aria-describedby="" placeholder="Please enter dropdown option" value="<?php echo $des; ?>">
+                                   aria-describedby="" placeholder="Add option" value="<?php echo $des; ?>">
                         </div>
                         <?php if($index != 0){ ?>
                         <div class="col px-0">
