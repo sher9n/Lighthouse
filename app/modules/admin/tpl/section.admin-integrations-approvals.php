@@ -190,10 +190,10 @@
                                     </label>
                                 </div>
                                 <div id="max_point_section" class="mt-12 <?php echo ($__page->form->scoring ==0)?'d-none':''; ?>">
-                                    <label for="" class="form-label">Max Tokens * 
-                                        <a tabindex="0" class="text-decoration-none text-primary" role="button" data-bs-toggle="popover"
+                                    <label for="" class="form-label col-3">Max Tokens * 
+                                        <a tabindex="0" class="text-decoration-none text-primary float-end" role="button" data-bs-toggle="popover"
                                         data-bs-html="true"
-                                        data-bs-trigger="focus" 
+                                         
                                         data-bs-title="What are max tokens?" 
                                         data-bs-content="<div class='fw-medium'>
                                             This is the maximum number of tokens a member can receive for this type of contribution.<br><br>

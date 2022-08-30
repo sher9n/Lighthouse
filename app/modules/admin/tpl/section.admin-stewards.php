@@ -127,6 +127,26 @@
         </div>
     </div>
 </div>
+<!-- Modal Edit steward -->
+<div class="modal fade" id="editSteward" tabindex="-1" aria-labelledby="editStewardLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form id="" method="post" action="" autocomplete="off">
+                <div class="modal-body">
+                    <div class="fs-2 fw-semibold mb-15">Edit steward</div>
+                    <label for="displayName" class="form-label">Display name</label>
+                    <input type="text" class="form-control form-control-lg" name="displayName" id="displayName" placeholder="Bob">
+                    <label for="walletAddress" class="form-label mt-16">Wallet address</label>
+                    <input type="text" class="form-control form-control-lg" name="walletAddress" id="walletAddress" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn_cancel" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" id="btn_save"  class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- Modal delete member -->
 <div class="modal fade" id="delMember" tabindex="-1" aria-labelledby="delMemberLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
