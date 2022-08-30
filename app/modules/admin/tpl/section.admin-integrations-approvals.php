@@ -190,7 +190,16 @@
                                     </label>
                                 </div>
                                 <div id="max_point_section" class="mt-12 <?php echo ($__page->form->scoring ==0)?'d-none':''; ?>">
-                                    <label for="" class="form-label">Max Points *</label>
+                                    <label for="" class="form-label">Max Tokens * 
+                                        <a tabindex="0" class="text-decoration-none text-primary" role="button" data-bs-toggle="popover"
+                                        data-bs-html="true"
+                                        data-bs-trigger="focus" 
+                                        data-bs-title="What are max tokens?" 
+                                        data-bs-content="<div class='fw-medium'>
+                                            This is the maximum number of tokens a member can receive for this type of contribution.<br><br>
+                                            If you're using a Yes/No approval type, this will equal either 0 for a denied attestation or the max points for an approved one.<br><br>
+                                            If you are using a rating system, the average rating across all vectors will be multiplied by the max points (e.g. 4.3/5 average rating x 100 max points = 86 points awarded).</div>">Help</a>
+                                    </label>
                                     <div class="col-3">
                                         <input type="number" class="form-control form-control-lg" id="max_point" name="max_point" value="<?php echo $__page->form->max_point; ?>" aria-describedby="Help">
                                     </div>
@@ -309,7 +318,7 @@
     });
 
     $(document).ready(function() {
-
+        $('[data-bs-toggle="popover"]').popover();  
         $("#tags").select2({
             tags: true,
             tokenSeparators: [',']

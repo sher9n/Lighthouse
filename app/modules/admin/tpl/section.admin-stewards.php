@@ -72,7 +72,7 @@
                                     foreach ($__page->stewards as $steward){
                                         if($steward['praposal_passed'] == 1){ ?>
                                         <div class="mb-8">
-                                            <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><?php echo $steward['name']; ?> </div>
+                                            <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><?php echo $steward['name']; ?> <a class="fw-medium text-decoration-none text-primary ms-3" href="#">Edit > </a></div>
                                             <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                                 <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                                 <!-- <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
@@ -88,7 +88,7 @@
                                     <?php
                                     foreach ($__page->stewards as $steward){ ?>
                                             <div class="mb-8">
-                                                <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><?php echo $steward['name']; ?> </div>
+                                                <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><?php echo $steward['name']; ?> <a class="fw-medium text-decoration-none text-primary ms-3" href="#">Edit > </a></div>
                                                 <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                                     <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                                     <!-- <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
@@ -114,7 +114,7 @@
             <form id="addStewardsForm" method="post" action="add-stewards" autocomplete="off">
                 <div class="modal-body">
                     <div class="fs-2 fw-semibold mb-15">Propose new steward </div>
-                    <label for="Nickname" class="form-label">Nickname</label>
+                    <label for="Nickname" class="form-label">Display name</label>
                     <input type="text" class="form-control form-control-lg" name="nickname" id="nickname" placeholder="Bob">
                     <label for="WalletAddress" class="form-label mt-16">Wallet address</label>
                     <input type="text" class="form-control form-control-lg" name="wallet_address" id="wallet_address" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
