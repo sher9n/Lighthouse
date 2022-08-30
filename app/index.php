@@ -17,7 +17,7 @@ try {
     } else
         define('__ROUTER_PATH', '/' . trim((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
 
-    if(app_site != 'app') {
+    if(app_site != 'app' && app_site != 'contact') {
 
         $site = \lighthouse\Auth::getSite();
 
@@ -79,6 +79,8 @@ try {
     {
         if(app_site == 'app')
             $route = __DIR__ . DS . 'modules/onboard/ctrl/onboard.php';
+        else if(app_site == 'contact')
+            $route = __DIR__ . DS . 'modules/contact/ctrl/contact.php';
         else
             $route = __DIR__ . DS . 'modules/admin/ctrl/admin.php';
 
