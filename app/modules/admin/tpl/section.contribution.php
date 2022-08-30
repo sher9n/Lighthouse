@@ -5,50 +5,54 @@
             <div class="col">
                 <div class="card shadow" style="min-height: calc(100vh - 60px);">                    
                     <div class="card-body p-xl-20">
-                        <div class="display-5 fw-medium">Submit a claim</div>
-                        <div class="text-muted mt-1">Request attestations for completed activity</div>
+                        <div class="display-5 fw-medium">Contribute to Grape <img src="<?php echo app_cdn_path; ?>img/fire.png"></div>
+                        <div class="text-muted mt-1">Request $repGrape for your contributions.</div>
                         <div class="row mt-12">
                             <?php if($__page->simple_claim_form==1){ ?>
-                            <div class="col-lg-6 col-xl-5">
-                                <div class="card border rounded-3 mb-12 mb-lg-0">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-7">
-                                        <div class="card-logo me-8">
-                                            <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
+                            <div class="col-12">
+                                <div class="card border rounded-3 mb-12">
+                                <div class="card-body p-10">
+                                    <div class="d-flex align-items-center">  
+                                        <div class="me-auto">                                      
+                                            <div class="fs-4 fw-semibold">Simple claim</div>
+                                            <a class="fw-medium text-decoration-none text-primary" href="#">Edit > </a>
                                         </div>
-                                        <div class="fs-4 fw-semibold">Simple claim</div>
-                                    </div>
-                                    <div class="fw-medium lh-lg two-lines-wrap text-gray-700">Use this form to request an attestation for completed activity. </div>
-                                    <a href="contribution?form=1" class="btn btn-primary mt-8">View Form</a>
+                                        <img src="<?php echo app_cdn_path; ?>img/coins.png">
+                                        <div class="fs-4 fw-semibold mx-10">100 $repGRAPE</div>
+                                        <a href="contribution?form=1" class="btn btn-primary">Submit</a>
+                                    </div>                                    
                                 </div>                                
                                 </div>
                             </div>
                             <?php } ?>
                             <?php foreach ($__page->forms as $form){ ?>
-                                <div class="col-lg-6 col-xl-5">
+                                <div class="col-12">
                                     <div class="card border rounded-3 mb-12">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center mb-7">
-                                                <div class="card-logo me-8">
-                                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-simple.png">
+                                        <div class="card-body p-10">
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-auto">                                      
+                                                    <div class="fs-4 fw-semibold"><?php echo $form->form_title; ?></div>
+                                                    <a class="fw-medium text-decoration-none text-primary" href="#">Edit > </a>
                                                 </div>
-                                                <div>
-                                                    <div class="fs-4 fw-semibold pe-2"><?php echo $form->form_title; ?></div>
-                                                    <?php if($form->scoring ==1){ ?>
-                                                        <div class="fs-6 fw-medium">Fixed score, upto <?php echo number_format($form->max_point); ?></div>
-                                                    <?php }else{ ?>
-                                                        <div class="fs-6 fw-medium">No score</div>
-                                                    <?php } ?>
-                                                </div>
+                                                <img src="<?php echo app_cdn_path; ?>img/coins.png">
+                                                <?php if($form->scoring ==1){ ?>
+                                                    <div class="fs-4 fw-semibold mx-10">Fixed score, upto <?php echo number_format($form->max_point); ?></div>
+                                                <?php }else{ ?>
+                                                    <div class="fs-4 fw-semibold mx-10">No score</div>
+                                                <?php } ?>
+                                                <a href="contribution?form=<?php echo $form->id; ?>" class="btn btn-primary">Submit</a>                                               
                                             </div>
-                                            <div class="fw-medium lh-lg two-lines-wrap text-gray-700">
-                                                <?php echo $form->form_description; ?>
-                                            </div>
-                                            <a href="contribution?form=<?php echo $form->id; ?>" class="btn btn-primary mt-8">View Form</a>
                                         </div>
                                     </div>
                                 </div>
                             <?php } ?>
+                            <div class="col-12">
+                                <a class="card border-dashed rounded-3 text-decoration-none justify-content-center" role="button" href="#">
+                                    <div class="d-flex align-items-center flex-column p-9">
+                                        <img src="cdn/img/icon-add.png" width="60" height="60">
+                                    </div>                               
+                                </a>
+                            </div>
                         </div>
                     </div>                    
                 </div>
