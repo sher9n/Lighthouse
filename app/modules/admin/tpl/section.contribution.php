@@ -5,8 +5,8 @@
             <div class="col">
                 <div class="card shadow" style="min-height: calc(100vh - 60px);">                    
                     <div class="card-body p-xl-20">
-                        <div class="display-5 fw-medium">Contribute to Grape <img src="<?php echo app_cdn_path; ?>img/fire.png"></div>
-                        <div class="text-muted mt-1">Request $repGrape for your contributions.</div>
+                        <div class="display-5 fw-medium">Contribute to <?php echo $__page->community_name; ?><img src="<?php echo app_cdn_path; ?>img/fire.png"></div>
+                        <div class="text-muted mt-1">Request $rep<?php echo $__page->community->ticker; ?> for your contributions.</div>
                         <div class="row mt-12">
                             <?php if($__page->simple_claim_form==1){ ?>
                             <div class="col-12">
@@ -18,7 +18,7 @@
                                             <!--<a class="fw-medium text-decoration-none text-primary" href="integrations-form?form_id=1">Edit > </a>-->
                                         </div>
                                         <img src="<?php echo app_cdn_path; ?>img/coins.png">
-                                        <div class="fs-4 fw-semibold mx-10">100 $repGRAPE</div>
+                                        <div class="fs-4 fw-semibold mx-10">100 $rep<?php echo $__page->community->ticker; ?></div>
                                         <a href="contribution?form=1" class="btn btn-primary">Submit</a>
                                     </div>                                    
                                 </div>                                
@@ -36,7 +36,7 @@
                                                 </div>
                                                 <img src="<?php echo app_cdn_path; ?>img/coins.png">
                                                 <?php if($form->scoring ==1){ ?>
-                                                    <div class="fs-4 fw-semibold mx-10">Fixed score, upto <?php echo number_format($form->max_point); ?></div>
+                                                    <div class="fs-4 fw-semibold mx-10">Fixed score, upto <?php echo number_format($form->max_point); ?> $rep<?php echo $__page->community->ticker; ?></div>
                                                 <?php }else{ ?>
                                                     <div class="fs-4 fw-semibold mx-10">No score</div>
                                                 <?php } ?>
@@ -77,6 +77,15 @@
     });
 
     $(document).ready(function() {
+
+        <?php if(strlen($__page->wallet_adr) > 0){ ?>
+            sessionStorage.setItem("lh_sel_wallet_add", '<?php echo $__page->wallet_adr; ?>');
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify(['<?php echo $__page->wallet_adr; ?>']));
+            <?php if(strlen($__page->view_contract) > 0) { ?>
+                showMessage('success',10000,'Success! Your community has been created. '+'<a class="text-white ms-1" target="_blank" href="<?php echo $__page->view_contract; ?>"> VIEW TRANSACTION</a>');
+            <?php } ?>
+        <?php } ?>
+
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
         if (selectedAccount) {
             $("#wallet_address").val(selectedAccount);

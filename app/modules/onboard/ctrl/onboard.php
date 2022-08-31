@@ -93,8 +93,7 @@ class controller extends Ctrl {
                                 $community->dao_domain = $dao_domain;
                                 $community->contract_name = $contract_name;
                                 $community->blockchain = $blockchain;
-                                $community->ticker = $ticker;
-                                $community->n_t_token = $n_t_token;
+                                $community->ticker = $n_t_token;
                                 $community->wallet_adr = $wallet_address;
                                 $community->display_name = 'Initial User';
 

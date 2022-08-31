@@ -6,32 +6,14 @@ use lighthouse\Contribution;
 use Core\Utils;
 class controller extends Ctrl {
     function init() {
-        $is_admin = false;
+        $is_admin       = false;
         $sel_wallet_adr = $wallet_adr = null;
-        $community = Community::getByDomain(app_site);
-
-        if($this->hasParam('ch') && strlen($this->getParam('ch'))) {
-            $ch = $this->getParam('ch');
-            $_SESSION['lighthouse'] = null;
-            $site = Auth::getSite();
-            if($site === false) {
-                header("Location: https://lighthouse.xyz");
-                die();
-            }
-
-            if(isset($site['ch']) && $ch == $site['ch']){
-                $_SESSION['lh_sel_wallet_adr'] = $site['wallet_adr'];
-                $wallet_adr = $site['wallet_adr'];
-                $community->ch = '';
-                $community->update();
-            }
-        }
-
-        $login = Auth::attemptLogin();
+        $community      = Community::getByDomain(app_site);
+        $login          = Auth::attemptLogin();
 
         if($login != false) {
             $sel_wallet_adr = $login;
-            $is_admin = $community->isAdmin($sel_wallet_adr);
+            $is_admin       = $community->isAdmin($sel_wallet_adr);
         }
         else
         {
@@ -144,11 +126,11 @@ class controller extends Ctrl {
                 die();
             }
 
-            $view_contract = '';
+            /*$view_contract = '';
             if($community->blockchain == SOLANA)
                 $view_contract = SOLANA_VIEW_LINK.'account/'.$community->governance_pk;
                 //$view_contract = 'https://app.realms.today/dao/'.$community->realm_pk.'?cluster=devnet';
-            /*elseif ($community->blockchain == OPTIMISM)
+            elseif ($community->blockchain == OPTIMISM)
                 $view_contract = OPTIMISM_VIEW_LINK.'address/'.$community->token_address;
             else
                 $view_contract = GNOSIS_CHAIN_VIEW_LINK.'address/'.$community->token_address;*/
@@ -157,8 +139,6 @@ class controller extends Ctrl {
                 'title' => $site['site_name'],
                 'site' => $site,
                 'is_admin' => $is_admin,
-                'view_contract' => $view_contract,
-                'wallet_adr' => $wallet_adr,
                 'blockchain' => $community->blockchain,
                 'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,

@@ -60,7 +60,7 @@
                 <input type="hidden" id="blockchain_hidden" name="blockchain" value="<?php echo SOLANA; ?>">
                 <input type="hidden" class="form-control form-control-lg" name="wallet_address" id="wallet_address">
                 <div class="modal-body p-10">
-                    <div class="fs-2 fw-semibold mb-22 mt-3">Setup your community</div>
+                    <div class="fs-2 fw-semibold mb-22 mt-3">Setup your Lighthouse</div>
                     <div class="mb-16">
                         <label for="" class="form-label">Community name</label>
                         <input type="text" class="form-control form-control-lg" name="dao_name" id="dao_name" placeholder="MyDAO">
@@ -122,7 +122,8 @@
         dao_domain = dao_name.replace(/\s+/g, '-');
         dao_domain = dao_domain.toLowerCase();
         $('#dao_domain').val(dao_domain);
-
+        $('#n_t_token').val(dao_domain);
+        
             $.ajax({
                 url: 'check-dao-domain',
                 data: {'dao_name': dao_domain},

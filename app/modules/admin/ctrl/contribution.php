@@ -7,12 +7,31 @@ use Core\Utils;
 use lighthouse\Form;
 class controller extends Ctrl {
     function init() {
-        $is_admin = false;
-        $sel_wallet_adr = null;
-        $community = Community::getByDomain(app_site);
-        $site = Auth::getSite();
+        $is_admin       = false;
+        $sel_wallet_adr = $wallet_adr = null;
+        $community      = Community::getByDomain(app_site);
+        $site           = Auth::getSite();
+
+        if($this->hasParam('ch') && strlen($this->getParam('ch'))) {
+            $_SESSION['lighthouse'] = null;
+            $ch     = $this->getParam('ch');
+            $site   = Auth::getSite();
+
+            if($site === false) {
+                header("Location: https://lighthouse.xyz");
+                die();
+            }
+
+            if(isset($site['ch']) && $ch == $site['ch']){
+                $_SESSION['lh_sel_wallet_adr'] = $site['wallet_adr'];
+                $wallet_adr     = $site['wallet_adr'];
+                $community->ch  = '';
+                $community->update();
+            }
+        }
 
         $login = Auth::attemptLogin();
+
         if($login != false) {
             $sel_wallet_adr = $login;
             $is_admin = $community->isAdmin($sel_wallet_adr);
@@ -194,26 +213,34 @@ class controller extends Ctrl {
         }
         else {
 
-            $form = null;
-            $template = '/../tpl/section.contribution.php';
+            $form           = null;
+            $template       = '/../tpl/section.contribution.php';
+            $view_contract  = '';
+
+            if($community->blockchain == SOLANA)
+                $view_contract = SOLANA_VIEW_LINK.'account/'.$community->governance_pk;
 
             if($this->hasParam('form') && strlen($this->getParam('form')) > 0) {
-                $form_id = $this->getParam('form');
-                $form = Form::get($form_id);
-                $template = '/../tpl/section.form_template.php';
+                $form_id    = $this->getParam('form');
+                $form       = Form::get($form_id);
+                $template   = '/../tpl/section.form_template.php';
             }
 
             $com_id = $community->id;
-            $forms = Form::find("SELECT * FROM forms WHERE active=1 AND id <> 2 AND comunity_id='$com_id'",true);
+            $forms  = Form::find("SELECT * FROM forms WHERE active=1 AND id <> 2 AND comunity_id='$com_id'",true);
 
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'form' => $form,
                 'forms' => $forms,
                 'site' => $site,
+                'community' => $community,
                 'simple_claim_form' => $community->simple_claim_form,
                 'logo_url' => $community->getLogoImage(),
+                'community_name' => $community->dao_name,
                 'is_admin' => $is_admin,
+                'view_contract' => $view_contract,
+                'wallet_adr' => $wallet_adr,
                 'blockchain' => $site['blockchain'],
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(

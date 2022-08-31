@@ -11,8 +11,7 @@
                             <div class="row">
                                 <div class="col-lg-10">
                                     <div class="d-flex">
-                                        <?php if(!is_null($this->__lh_request->__referer)) { ?>
-                                        <a role="button" class="btn btn-white text-capitalize me-auto" href="<?php echo $this->__lh_request->__referer; ?>">
+                                        <a role="button" class="btn btn-white text-capitalize me-auto" href="contribution">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                 stroke-linejoin="round" class="feather feather-arrow-left me-2">
@@ -20,16 +19,6 @@
                                                 <polyline points="12 19 5 12 12 5"></polyline>
                                             </svg>
                                             Back</a>
-                                         <?php }else{ ?>
-                                        <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                 stroke-linejoin="round" class="feather feather-arrow-left me-2">
-                                                <line x1="19" y1="12" x2="5" y2="12"></line>
-                                                <polyline points="12 19 5 12 12 5"></polyline>
-                                            </svg>
-                                            Back</a>
-                                         <?php } ?>
                                         <button type="button" name="btn_preview" id="btn_preview" class="btn btn-blue-stone me-2">Preview</button>
                                         <button type="submit" name="btn_save" id="btn_save" class="btn btn-primary" href="integrations-form">NEXT</button>
                                     </div>
@@ -60,7 +49,7 @@
                             <div class="row">
                                 <div class="col-lg-10">
                                     <div class="d-flex">
-                                        <a role="button" class="btn btn-white text-capitalize me-auto" href="integrations">
+                                        <a role="button" class="btn btn-white text-capitalize me-auto" href="contribution">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" class="feather feather-arrow-left me-2">

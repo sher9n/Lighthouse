@@ -81,11 +81,13 @@ class controller extends Ctrl {
                         $id = $steward->insert();
 
                         $html = '<div class="mb-8">
-                            <div class="stew-'.$id.' fw-medium text-muted">'.$display_name.'</div>
-                                <div class="stew-'.$id.' d-flex align-items-center">
-                                    <div class="fs-3 fw-semibold me-6">'.$wallet_address.'</div>  
-                                </div>
-                            </div>';
+                                    <div class="stew-'.$id.' fw-medium text-muted"><span>'.$display_name.'</span>
+                                        <a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="'.$wallet_address.'" data-sid="'.$id.'" data-sname="'.$display_name.'" data-bs-toggle="modal" data-bs-target="#editSteward" href="#">Edit > </a>
+                                    </div>
+                                    <div class="stew-'.$id.' d-flex align-items-center">
+                                        <div class="fs-3 fw-semibold me-6">'.$wallet_address.'</div>                                                                              
+                                    </div>
+                                </div>';
                     }
 
                     $log = new Log();

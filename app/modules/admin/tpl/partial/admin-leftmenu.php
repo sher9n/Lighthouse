@@ -41,7 +41,6 @@
                     <div class="ms-12">Integrations</div>
                 </a>
                 <ul class="nav-sub tree" style="display: none;">
-                    <li class="nav-item"><a class="nav-link" href="#Forms">> Forms</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Interactions">> Interactions</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Identity">> Identity</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Apps">> Apps</a></li>
