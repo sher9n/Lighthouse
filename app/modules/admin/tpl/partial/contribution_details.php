@@ -101,7 +101,7 @@
                         <a target="_blank" href="<?php echo $view_transaction_link ; ?>" type="button" class="btn btn-white">View Transaction</a>
                     <?php }else{
                         if($contribution->status != 2 ){ ?>
-                            <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
+                            <button id="btn_deny" type="button" class="btn btn-secondary">Deny</button>
                             <button id="btn_approve" type="button" class="btn btn-primary">Attest</button>
                             <?php
                         }

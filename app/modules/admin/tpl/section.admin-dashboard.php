@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="d-flex flex-column flex-xl-row mb-13">
-                        <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto" id="dashboard_table_search"  placeholder="Search...">                        
+                        <input type="text" class="form-control form-search mb-6 mb-xl-0 me-xl-auto bg-white border-light" id="dashboard_table_search"  placeholder="Search...">                        
                         <button id="sendNewNtt" type="button" class="btn btn-primary">Submit a Claim</button>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                             </div>
                         </div>
                         <div class="d-flex flex-column flex-xl-row justify-content-between">
-                            <select id="dashboard_table_length" class="form-select form-length rounded border-light">
+                            <select id="dashboard_table_length" class="form-select form-length rounded border-light bg-white">
                                 <option value="10">Rows per page: 10</option>
                                 <option value="25">Rows per page: 25</option>
                                 <option value="50">Rows per page: 50</option>
