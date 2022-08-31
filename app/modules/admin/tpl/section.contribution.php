@@ -15,7 +15,7 @@
                                     <div class="d-flex align-items-center">  
                                         <div class="me-auto">                                      
                                             <div class="fs-4 fw-semibold">Simple claim</div>
-                                            <a class="fw-medium text-decoration-none text-primary" href="#">Edit > </a>
+                                            <!--<a class="fw-medium text-decoration-none text-primary" href="integrations-form?form_id=1">Edit > </a>-->
                                         </div>
                                         <img src="<?php echo app_cdn_path; ?>img/coins.png">
                                         <div class="fs-4 fw-semibold mx-10">100 $repGRAPE</div>
@@ -32,7 +32,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="me-auto">                                      
                                                     <div class="fs-4 fw-semibold"><?php echo $form->form_title; ?></div>
-                                                    <a class="fw-medium text-decoration-none text-primary" href="#">Edit > </a>
+                                                    <a class="fw-medium text-decoration-none text-primary" href="integrations-form?form_id=<?php echo $form->id; ?>">Edit > </a>
                                                 </div>
                                                 <img src="<?php echo app_cdn_path; ?>img/coins.png">
                                                 <?php if($form->scoring ==1){ ?>
@@ -40,14 +40,14 @@
                                                 <?php }else{ ?>
                                                     <div class="fs-4 fw-semibold mx-10">No score</div>
                                                 <?php } ?>
-                                                <a href="contribution?form=<?php echo $form->id; ?>" class="btn btn-primary">Submit</a>                                               
+                                                <a href="contribution?form=<?php echo $form->id; ?>" class="btn btn-primary">Submit</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             <?php } ?>
                             <div class="col-12">
-                                <a class="card border-dashed rounded-3 text-decoration-none justify-content-center" role="button" href="#">
+                                <a class="card border-dashed rounded-3 text-decoration-none justify-content-center" role="button" href="integrations-form">
                                     <div class="d-flex align-items-center flex-column p-9">
                                         <img src="cdn/img/icon-add.png" width="60" height="60">
                                     </div>                               

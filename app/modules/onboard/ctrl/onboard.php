@@ -34,7 +34,7 @@ class controller extends Ctrl {
 
                 try {
 
-                    $dao_name = $wallet_address = $dao_domain = $ticker = '';
+                    $dao_name = $wallet_address = $dao_domain = $ticker = $n_t_token = '';
                     $blockchain = SOLANA;
 
                     if($this->hasParam('dao_name') && strlen($this->getParam('dao_name')) > 0)
@@ -49,6 +49,11 @@ class controller extends Ctrl {
                         $wallet_address = $this->getParam('wallet_address');
                     else
                         throw new Exception("dao_name:Please connect the wallet");
+
+                    if($this->hasParam('n_t_token') && strlen($this->getParam('n_t_token')) > 0)
+                        $n_t_token = $this->getParam('n_t_token');
+                    else
+                        throw new Exception("n_t_token:Not a valid token");
 
                     if($this->hasParam('dao_domain') && strlen($this->getParam('dao_domain')) > 0) {
                         $dao_domain = $this->getParam('dao_domain');
@@ -89,6 +94,7 @@ class controller extends Ctrl {
                                 $community->contract_name = $contract_name;
                                 $community->blockchain = $blockchain;
                                 $community->ticker = $ticker;
+                                $community->n_t_token = $n_t_token;
                                 $community->wallet_adr = $wallet_address;
                                 $community->display_name = 'Initial User';
 
@@ -149,7 +155,7 @@ class controller extends Ctrl {
                                 $log->c_by = $wallet_address;
                                 $log->insert();
 
-                                echo json_encode(array('success' => true,'blockchain' =>$blockchain,'api_response' => $api_response,'url' => 'https://' . $dao_domain . '.' . base_app_url . '/admin-dashboard?ch=' . $community->ch));
+                                echo json_encode(array('success' => true,'blockchain' =>$blockchain,'api_response' => $api_response,'url' => 'https://' . $dao_domain . '.' . base_app_url . '/contribution?ch=' . $community->ch));
                             }
                         }
                         else

@@ -49,6 +49,7 @@ try {
         '/steward-percentage' => 'modules/admin/ctrl/admin-stewards.php',
         '/delete-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/add-stewards' => 'modules/admin/ctrl/admin-stewards.php',
+        '/edit-steward' => 'modules/admin/ctrl/admin-stewards.php',
         '/admin-stewards' => 'modules/admin/ctrl/admin-stewards.php',
         '/integrations' => 'modules/admin/ctrl/admin-integrations.php',
         '/form-activation' =>  'modules/admin/ctrl/admin-integrations.php',

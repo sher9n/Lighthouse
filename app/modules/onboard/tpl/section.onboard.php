@@ -74,13 +74,12 @@
                         <label id="dao_domain-error" class="error" style="display: none;" for="dao_domain"></label>
                     </div>
                     <div class="mb-16">
-                        <label for="DAOName" class="form-label">Non-transferrable reputation token</label>
+                        <label for="n_t_token" class="form-label">Non-transferrable reputation token</label>
                         <div class="input-group input-group-lg">
                             <span class="input-group-text fw-medium" id="">$rep</span>
-                            <input type="text" class="form-control form-control-lg text-uppercase" name="non_transferrable" id="non_transferrable" placeholder="Token">
-                            
+                            <input type="text" class="form-control form-control-lg text-uppercase" name="n_t_token" id="n_t_token" placeholder="Token">
                          </div>
-                        <label id="non_transferrable-error" class="error" style="display: none;" for="dao_domain"></label>
+                        <label id="n_t_token-error" class="error" style="display: none;" for="n_t_token"></label>
                     </div>
                 </div>
                 <div class="modal-footer pe-10">
@@ -172,6 +171,9 @@
                 required: true
             },
             dao_domain:{
+                required: true
+            },
+            n_t_token:{
                 required: true
             }
         },

@@ -105,7 +105,7 @@ async function updateWalletMenu() {
         type: 'POST',
         success: function (response) {
             if (response.success == true) {
-                window.location = 'admin-dashboard';
+                window.location = 'contribution';
             }
             else {
                 sessionStorage.removeItem('lh_sel_wallet_add');

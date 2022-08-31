@@ -72,7 +72,7 @@
                                     foreach ($__page->stewards as $steward){
                                         if($steward['praposal_passed'] == 1){ ?>
                                         <div class="mb-8">
-                                            <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><?php echo $steward['name']; ?> <a class="fw-medium text-decoration-none text-primary ms-3" href="#">Edit > </a></div>
+                                            <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><span><?php echo $steward['name']; ?></span><a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="<?php echo $steward['wallet_adr']; ?>" data-sid="<?php echo $steward['id']; ?>" data-sname="<?php echo $steward['name']; ?>" data-bs-toggle="modal" data-bs-target="#editSteward"href="#">Edit > </a></div>
                                             <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                                 <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                                 <!-- <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
@@ -88,7 +88,7 @@
                                     <?php
                                     foreach ($__page->stewards as $steward){ ?>
                                             <div class="mb-8">
-                                                <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><?php echo $steward['name']; ?> <a class="fw-medium text-decoration-none text-primary ms-3" href="#">Edit > </a></div>
+                                                <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><span><?php echo $steward['name']; ?></span><a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="<?php echo $steward['wallet_adr']; ?>" data-sid="<?php echo $steward['id']; ?>" data-sname="<?php echo $steward['name']; ?>" data-bs-toggle="modal" data-bs-target="#editSteward" href="#">Edit > </a></div>
                                                 <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                                     <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                                     <!-- <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
@@ -131,17 +131,18 @@
 <div class="modal fade" id="editSteward" tabindex="-1" aria-labelledby="editStewardLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form id="" method="post" action="" autocomplete="off">
+            <form id="editStewardForm" method="post" action="edit-steward" autocomplete="off">
                 <div class="modal-body">
                     <div class="fs-2 fw-semibold mb-15">Edit steward</div>
                     <label for="displayName" class="form-label">Display name</label>
-                    <input type="text" class="form-control form-control-lg" name="displayName" id="displayName" placeholder="Bob">
+                    <input type="hidden" name="e_steward_id" id="e_steward_id">
+                    <input type="text" class="form-control form-control-lg" name="e_display_name" id="e_display_name" placeholder="Bob">
                     <label for="walletAddress" class="form-label mt-16">Wallet address</label>
-                    <input type="text" class="form-control form-control-lg" name="walletAddress" id="walletAddress" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
+                    <input type="text" class="form-control form-control-lg" readonly name="e_wallet_address" id="e_wallet_address" placeholder="0xD91cD76F3F0031cB27A1539eAfA4Bd3DBe434507">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btn_cancel" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" id="btn_save"  class="btn btn-primary">Save</button>
+                    <button type="button" id="e_btn_cancel" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" id="e_btn_save"  class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -190,12 +191,50 @@
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
 
+    $(document).on('click', '.edit_steward', function(event) {
+        event.preventDefault();
+        var element = $(this);
+        $('#e_steward_id').val(element.data('sid'));
+        $('#e_display_name').val(element.data('sname'));
+        $('#e_wallet_address').val(element.data('sadr'));
+    });
+
     $(document).on('click', '.del_steward', function(event) {
         event.preventDefault();
         var element = $(this);
         $("#user-deleteForm").attr('action', element.attr('href'));
     });
 
+    $('#editStewardForm').validate({
+        rules: {
+            nickname:{
+                e_display_name: true
+            }
+        },
+        submitHandler: function(form) {
+            $(form).ajaxSubmit({
+                type: 'post',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#e_btn_cancel').prop('disabled', true);
+                    $('#e_btn_save').prop('disabled', true);
+                    showMessage('success', 10000, 'Updating...');
+                },
+                success: function(data) {
+                    $('#editSteward').modal('toggle');
+                    if (data.success == true) {
+                        $('#e_btn_cancel').prop('disabled', false);
+                        $('#e_btn_save').prop('disabled', false);
+                        $('.stew-'+data.e_steward_id+' a').data('sname',data.e_display_name);
+                        $('.stew-'+data.e_steward_id+' span').text(data.e_display_name);
+                        showMessage('success',10000,'Success! Steward has been updated.');
+                    }
+                    else
+                        showMessage('danger',10000,'Error! Could not update the quorum, please try again later.');
+                }
+            });
+        }
+    });
 
     $('#stewardForm').validate({
         rules: {},

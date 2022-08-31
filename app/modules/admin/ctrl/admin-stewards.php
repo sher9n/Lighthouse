@@ -111,6 +111,47 @@ class controller extends Ctrl {
                 }
                 exit();
             }
+            elseif (__ROUTER_PATH == '/edit-steward') {
+
+                try {
+
+                    $e_steward_id = $display_name = $e_steward_adr = '';
+
+                    if ($this->hasParam('e_display_name') && strlen($this->getParam('e_display_name')) > 0)
+                        $display_name = $this->getParam('e_display_name');
+                    else
+                        throw new Exception("e_display_name:Not a valid name");
+
+                    if ($this->hasParam('e_steward_id') && strlen($this->getParam('e_steward_id')) > 0)
+                        $e_steward_id = $this->getParam('e_steward_id');
+                    else
+                        throw new Exception("Please connect the wallet");
+
+                    if($e_steward_id != 0) {
+                        $steward = Steward::get($e_steward_id);
+                        $steward->display_name = $display_name;
+                        $steward->update();
+                        $e_steward_adr = $steward->wallet_adr;
+                    }
+                    else {
+                        $community->display_name = $display_name;
+                        $community->update();
+                        $e_steward_adr = $community->wallet_adr;
+                    }
+
+                    echo json_encode(array('success' => true, 'e_steward_id' => $e_steward_id,'e_display_name' => $display_name,'e_steward_adr' => $e_steward_adr));
+
+                } catch (Exception $e) {
+                    $msg = explode(':', $e->getMessage());
+                    $element = 'error-msg';
+                    if (isset($msg[1])) {
+                        $element = $msg[0];
+                        $msg = $msg[1];
+                    }
+                    echo json_encode(array('success' => false, 'msg' => $msg,'element' => $element));
+                }
+                exit();
+            }
             elseif (__ROUTER_PATH == '/delete-stewards') {
                 if($this->hasParam('id') && $this->hasParam('adr')) {
                     $id  = $this->getParam('id');
