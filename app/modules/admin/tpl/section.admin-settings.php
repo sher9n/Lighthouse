@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card shadow">
-                        <form id="settingsForm" method="post" action="admin-settings" autocomplete="off">
+                        <form id="settingsForm" method="post" action="settings" autocomplete="off">
                             <div class="card-body p-xl-20">
                                 <div class="display-5 fw-medium">Community info</div>
                                 <div class="text-muted mt-1">Configure details and setup your community</div>

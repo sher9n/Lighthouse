@@ -132,7 +132,7 @@ class controller extends Ctrl {
 
                     echo json_encode(array(
                         'success' => true,
-                        'url' => 'admin-settings',
+                        'url' => 'settings',
                         'logo_change' => $tick_change,
                         'logo_img_url' => 'https://lighthouse-cdn.s3.amazonaws.com/instances/'.$community->dao_domain.'/logo/logo_image.png'
                     ));

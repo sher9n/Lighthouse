@@ -30,19 +30,19 @@
                         </div>
                         <div class="col-8">
                             <div class="list-rating-scale">
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="1" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==1)?'checked':'';?> id="<?php echo $category; ?>1" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="1" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==1)?'checked':'';?> id="<?php echo $category; ?>1" autocomplete="off">
                                 <label class="btn btn-light ms-0" for="<?php echo $category; ?>1">1</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="2" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==2)?'checked':'';?> id="<?php echo $category; ?>2" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="2" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==2)?'checked':'';?> id="<?php echo $category; ?>2" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>2">2</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="3" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==3)?'checked':'';?> id="<?php echo $category; ?>3" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="3" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==3)?'checked':'';?> id="<?php echo $category; ?>3" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>3">3</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="4" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==4)?'checked':'';?> id="<?php echo $category; ?>4" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="4" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==4)?'checked':'';?> id="<?php echo $category; ?>4" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>4">4</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="5" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==5)?'checked':'';?> id="<?php echo $category; ?>5" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="5" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==5)?'checked':'';?> id="<?php echo $category; ?>5" autocomplete="off">
                                 <label class="btn btn-light me-0" for="<?php echo $category; ?>5">5</label>
                             </div>
                         </div>
@@ -260,11 +260,12 @@
 
                             }
                             $('#cq_item_' + c_id).remove();
+                            $('#claim-approvals').html(response.steward_html);
+                            $('#claim_details').html('');
                         }
-
+                        $('#btn_deny').prop('disabled', false);
+                        $('#btn_approve').prop('disabled', false);
                         showMessage('success',10000,response.message);
-                        $('#claim-approvals').html(response.steward_html);
-                        $('#claim_details').html('');
                     }
                 }
             });

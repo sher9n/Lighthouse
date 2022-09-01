@@ -14,7 +14,7 @@ class controller extends Ctrl {
         $login = Auth::attemptLogin();
         if($login != false) {
             $sel_wallet_adr = $login;
-            $is_admin = $community->isAdmin($sel_wallet_adr);
+            $is_admin       = $community->isAdmin($sel_wallet_adr);
         }
         else
         {
