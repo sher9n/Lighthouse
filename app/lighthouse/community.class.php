@@ -51,11 +51,11 @@ class Community{
         }
         else {
             $stewards = array();
-            $stewards[$this->_data['wallet_adr']] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr']);
+            $stewards[strtolower($this->_data['wallet_adr'])] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr']);
 
             $stewards_data = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0 AND praposal_passed=1");
             foreach ($stewards_data as $steward) {
-                $stewards[$steward['wallet_adr']] = array('id' => $steward['id'], 'name' => $steward['display_name'], 'wallet_adr' => $steward['wallet_adr']);
+                $stewards[strtolower($steward['wallet_adr'])] = array('id' => $steward['id'], 'name' => $steward['display_name'], 'wallet_adr' => $steward['wallet_adr']);
             }
         }
         return $stewards;

@@ -56,8 +56,8 @@ class controller extends Ctrl {
                 exit();
             }
             else {
-                try {
 
+                try {
 
                     if ($this->hasParam('dao_name') && strlen($this->getParam('dao_name')) > 0)
                         $community->dao_name = $this->getParam('dao_name');

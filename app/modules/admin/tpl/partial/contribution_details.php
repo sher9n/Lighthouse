@@ -30,19 +30,19 @@
                         </div>
                         <div class="col-8">
                             <div class="list-rating-scale">
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="1" disabled <?php echo ($user_arrovals[$category]==1)?'checked':'';?> id="<?php echo $category; ?>1" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="1" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==1)?'checked':'';?> id="<?php echo $category; ?>1" autocomplete="off">
                                 <label class="btn btn-light ms-0" for="<?php echo $category; ?>1">1</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="2" disabled <?php echo ($user_arrovals[$category]==2)?'checked':'';?> id="<?php echo $category; ?>2" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="2" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==2)?'checked':'';?> id="<?php echo $category; ?>2" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>2">2</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="3" disabled <?php echo ($user_arrovals[$category]==3)?'checked':'';?> id="<?php echo $category; ?>3" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="3" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==3)?'checked':'';?> id="<?php echo $category; ?>3" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>3">3</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="4" disabled <?php echo ($user_arrovals[$category]==4)?'checked':'';?> id="<?php echo $category; ?>4" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="4" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==4)?'checked':'';?> id="<?php echo $category; ?>4" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>4">4</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="5" disabled <?php echo ($user_arrovals[$category]==5)?'checked':'';?> id="<?php echo $category; ?>5" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="5" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo ($user_arrovals[$category]==5)?'checked':'';?> id="<?php echo $category; ?>5" autocomplete="off">
                                 <label class="btn btn-light me-0" for="<?php echo $category; ?>5">5</label>
                             </div>
                         </div>
@@ -74,19 +74,19 @@
                             </div>
                             <div class="col-8">
                                 <div class="list-rating-scale">
-                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="1" id="<?php echo $category; ?>1" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> data-name="<?php echo $category; ?>" data-val="1" id="<?php echo $category; ?>1" autocomplete="off">
                                     <label class="btn btn-light ms-0" for="<?php echo $category; ?>1">1</label>
 
-                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="2" id="<?php echo $category; ?>2" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> data-name="<?php echo $category; ?>" data-val="2" id="<?php echo $category; ?>2" autocomplete="off">
                                     <label class="btn btn-light" for="<?php echo $category; ?>2">2</label>
 
-                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="3" id="<?php echo $category; ?>3" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> data-name="<?php echo $category; ?>" data-val="3" id="<?php echo $category; ?>3" autocomplete="off">
                                     <label class="btn btn-light" for="<?php echo $category; ?>3">3</label>
 
-                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="4" id="<?php echo $category; ?>4" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> data-name="<?php echo $category; ?>" data-val="4" id="<?php echo $category; ?>4" autocomplete="off">
                                     <label class="btn btn-light" for="<?php echo $category; ?>4">4</label>
 
-                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="5" id="<?php echo $category; ?>5" autocomplete="off">
+                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> data-name="<?php echo $category; ?>" data-val="5" id="<?php echo $category; ?>5" autocomplete="off">
                                     <label class="btn btn-light me-0" for="<?php echo $category; ?>5">5</label>
                                 </div>
                             </div>
@@ -98,10 +98,10 @@
             <div class="row mt-10">
                 <div id="btn_row" class="col-8 offset-md-4 text-end">
                     <?php if($contribution->status == 1 ) { ?>
-                        <a target="_blank" href="<?php echo $view_transaction_link ; ?>" type="button" class="btn btn-white">View Transaction</a>
+                        <a target="_blank" href="<?php echo $view_transaction_link ; ?>" type="button" class="btn btn-secondary">View Transaction</a>
                     <?php }else{
                         if($contribution->status != 2 ){ ?>
-                            <button id="btn_deny" type="button" class="btn btn-white">Deny</button>
+                            <button id="btn_deny" type="button" class="btn btn-secondary">Deny</button>
                             <button id="btn_approve" type="button" class="btn btn-primary">Attest</button>
                             <?php
                         }
@@ -118,7 +118,7 @@
                     <button class="tab_link nav-link" id="claim-history-tab" data-bs-toggle="tab" data-bs-target="#claim-history" type="button" role="tab" aria-controls="claim-history" aria-selected="false">History</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
-                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Attestors (<?php echo count($approvals); ?>/<?php echo $community->approval_count; ?>)</button>
+                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Attestors (<?php echo count($approvals); ?>/<?php echo $contribution->approval_count; ?>)</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
                     <button class="tab_link nav-link" id="claim-similar-tab" data-bs-toggle="tab" data-bs-target="#claim-similar" type="button" role="tab" aria-controls="claim-similar" aria-selected="false">Similar Claims</button>
@@ -196,10 +196,13 @@
                     <?php
                     if(count($approvals) > 0){
                         foreach ($approvals as $stewd_adr) {
+                            $stewd_adr = strtolower($stewd_adr);
                             if(isset($stewards[$stewd_adr])) {
                                 $steward = $stewards[$stewd_adr]; ?>
-                                <div class="fw-semibold"><?php echo $steward['name']; ?></div>
-                                <div class="fw-medium fs-4 mt-1"><?php echo $steward['wallet_adr']; ?></div>
+
+                                    <div class="fw-semibold mt-12"><?php echo $steward['name']; ?></div>
+                                    <div class="fw-medium fs-4 mt-1"><?php echo $steward['wallet_adr']; ?></div>
+
                                 <?php
                             }
                         }

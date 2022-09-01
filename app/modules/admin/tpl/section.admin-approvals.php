@@ -37,7 +37,7 @@
                                                             <?php if($claim['form_id'] == 2){ ?>
                                                                 <div><?php echo $claim['form_title']; ?></div>
                                                             <?php }else{ ?>
-                                                                <div>Lighthouse - <?php echo $claim['form_title']; ?></div>
+                                                                <div><?php echo $claim['form_title']; ?></div>
                                                             <?php } ?>
                                                         </div>
                                                         <div class="ms-auto fw-medium text-muted"><?php echo Utils::time_elapsed_string($claim['c_at'],false,true); ?></div>

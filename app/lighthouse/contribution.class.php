@@ -3,6 +3,10 @@ namespace lighthouse;
 use Core\Ds;
 class Contribution{
 
+    const CONTRIBUTION_STATUS_PENDING  = 0;
+    const CONTRIBUTION_STATUS_ATTESTED = 1;
+    const CONTRIBUTION_STATUS_DENIED   = 2;
+
     private $_data = array();
 
     public function __construct() {

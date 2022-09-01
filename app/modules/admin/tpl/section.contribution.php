@@ -18,7 +18,10 @@
                                             <!--<a class="fw-medium text-decoration-none text-primary" href="integrations-form?form_id=1">Edit > </a>-->
                                         </div>
                                         <img src="<?php echo app_cdn_path; ?>img/coins.png">
-                                        <div class="fs-4 fw-semibold mx-10">100 $rep<?php echo $__page->community->ticker; ?></div>
+                                        <div class="score-block mx-10 text-end">
+                                            <div class="fw-medium">Max reputation</div>
+                                            <div class="fs-4 fw-semibold">100 $rep<?php echo $__page->community->ticker; ?></div>
+                                        </div>
                                         <a href="contribution?form=1" class="btn btn-primary">Submit</a>
                                     </div>                                    
                                 </div>                                
@@ -35,11 +38,14 @@
                                                     <a class="fw-medium text-decoration-none text-primary" href="integrations-form?form_id=<?php echo $form->id; ?>">Edit > </a>
                                                 </div>
                                                 <img src="<?php echo app_cdn_path; ?>img/coins.png">
-                                                <?php if($form->scoring ==1){ ?>
-                                                    <div class="fs-4 fw-semibold mx-10">Fixed score, upto <?php echo number_format($form->max_point); ?> $rep<?php echo $__page->community->ticker; ?></div>
-                                                <?php }else{ ?>
-                                                    <div class="fs-4 fw-semibold mx-10">No score</div>
-                                                <?php } ?>
+                                                <div class="score-block mx-10 text-end">
+                                                    <?php if($form->scoring ==1){ ?>
+                                                        <div class="fw-medium">Max reputation</div>
+                                                        <div class="fs-4 fw-semibold"><?php echo number_format($form->max_point); ?> $rep<?php echo $__page->community->ticker; ?></div>
+                                                    <?php }else{ ?>
+                                                        <div class="fs-4 fw-semibold">No score</div>
+                                                    <?php } ?>
+                                                </div>
                                                 <a href="contribution?form=<?php echo $form->id; ?>" class="btn btn-primary">Submit</a>
                                             </div>
                                         </div>

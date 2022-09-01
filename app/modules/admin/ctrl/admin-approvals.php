@@ -7,9 +7,9 @@ use lighthouse\Log;
 use lighthouse\Form;
 class controller extends Ctrl {
     function init() {
-        $is_admin = false;
+        $is_admin       = false;
         $sel_wallet_adr = null;
-        $community = Community::getByDomain(app_site);
+        $community      = Community::getByDomain(app_site);
 
         $login = Auth::attemptLogin();
         if($login != false) {
@@ -30,8 +30,7 @@ class controller extends Ctrl {
 
                 if($this->hasParam('status')) {
 
-                    if($this->getParam('status') == 2){
-
+                    if($this->getParam('status') == Contribution::CONTRIBUTION_STATUS_DENIED){
                         $contribution->refusal += 1;
                         $contribution->status   = 2;
                         $contribution->update();
@@ -56,10 +55,11 @@ class controller extends Ctrl {
                         unset($post['status']);
 
                         if($this->hasParam('approval_id') && strlen($this->getParam('approval_id')) > 0){
-                            $update = true;
+                            $update      = true;
                             $approval_id = $this->getParam('approval_id');
                             unset($post['approval_id']);
-                            $approval = Approval::get($approval_id);
+                            $approval    = Approval::get($approval_id);
+
                             $approval->approval = json_encode($post);
                             $approval->update();
 
@@ -93,14 +93,21 @@ class controller extends Ctrl {
 
                         $contribution_id = $contribution->id;
                         $stewards        = $community->getStewards();
-                        $html = '';
+                        $html            = '';
 
                         foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
-                            $steward = $stewards[$stewd_adr];
-                            $html .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
+                            $stewd_adr = strtolower($stewd_adr);
+                            $steward   = $stewards[$stewd_adr];
+                            $html     .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
                         }
 
-                        echo json_encode(array('success' => true,'update' => $update, 'approve' => $approve ,'steward_html' => $html,'c_id' => $contribution->id,'message' => 'Success! Your attestation has been recorded.'));
+                        echo json_encode(array('success' => true,
+                            'update'  => $update,
+                            'approve' => $approve ,
+                            'steward_html' => $html,
+                            'c_id'    => $contribution->id,
+                            'message' => 'Success! Your attestation has been recorded.')
+                        );
                         exit();
                     }
 
@@ -119,11 +126,16 @@ class controller extends Ctrl {
                 $approvals     = Approval::getApprovals($contribution->id);
                 $com_id        = $community->id;
                 $contributions = Contribution::find("SELECT contribution_reason,c_at FROM contributions where is_realms=0 AND comunity_id='$com_id' AND wallet_to='$wallet_to' order by c_at");
-                $user_arrovals = Approval::getUserApprovals($contribution->id,$sel_wallet_adr);
-                $user_appproval_ids = $user_arrovals['ids'];
-                $user_arrovals = $user_arrovals['approvals'];
 
-                    $view_transaction_link = '';
+                if($contribution->status == Contribution::CONTRIBUTION_STATUS_ATTESTED)
+                    $user_arrovals = Approval::getUserApprovals($contribution->id);
+                else
+                    $user_arrovals = Approval::getUserApprovals($contribution->id,$sel_wallet_adr);
+
+                $user_appproval_ids = $user_arrovals['ids'];
+                $user_arrovals      = $user_arrovals['approvals'];
+
+                $view_transaction_link = '';
                 if($community->blockchain == SOLANA)
                     $view_transaction_link = SOLANA_VIEW_LINK.'tx/'.$contribution->txHash;
                 elseif ($community->blockchain == OPTIMISM)

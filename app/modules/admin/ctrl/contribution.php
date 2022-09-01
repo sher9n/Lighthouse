@@ -81,6 +81,7 @@ class controller extends Ctrl {
 
                         if ($element['e_required'] == 1) {
                             $ele_name = $element['e_name'];
+
                             if (!isset($post[$ele_name]) || strlen($post[$ele_name]) < 1)
                                 throw new Exception($ele_name . ":This field is required.");
                         }
@@ -89,17 +90,20 @@ class controller extends Ctrl {
                     $contribusion = new Contribution();
                     $contribusion->comunity_id = $community->id;
                     $contribusion->wallet_from = $sel_wallet_adr;
-                    $contribusion->contribution_reason = current($post);
-                    $contribusion->wallet_to = $wallet_to;
-                    $contribusion->tags = $tags;
+                    $contribusion->wallet_to   = $wallet_to;
+                    $contribusion->tags        = $tags;
                     //update contribution approval data
-                    $contribusion->form_id = $form_id;
-                    $contribusion->max_point = $form->max_point;
-                    $contribusion->scoring   = $form->scoring;
-                    $contribusion->approval_type = $form->approval_type;
+                    $contribusion->form_id     = $form_id;
+                    $contribusion->max_point   = $form->max_point;
+                    $contribusion->scoring     = $form->scoring;
+                    $contribusion->approval_type       = $form->approval_type;
+                    $contribusion->approval_count      = $form->approval_count;
+                    $contribusion->contribution_reason = current($post);
+
                     if($form->approval_type == 2)
                         $contribusion->rating_categories = $form->rating_categories;
-                    $contribusion->form_data = json_encode($post);
+
+                    $contribusion->form_data   = json_encode($post);
                     $contribusion->insert();
 
                     echo json_encode(array('success' => true, 'message' => 'Success! Your claim has been submitted.'));
