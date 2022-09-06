@@ -15,12 +15,7 @@
                                     <div class="d-flex align-items-center">  
                                         <div class="me-auto">                                      
                                             <div class="fs-4 fw-semibold">Simple claim</div>
-                                            <!--<a class="fw-medium text-decoration-none text-primary" href="integrations-form?form_id=1">Edit > </a>-->
-                                        </div>
-                                        <img src="<?php echo app_cdn_path; ?>img/coins.png">
-                                        <div class="score-block mx-10 text-end">
-                                            <div class="fw-medium">Max reputation</div>
-                                            <div class="fs-4 fw-semibold">100 $rep<?php echo $__page->community->ticker; ?></div>
+                                            <div class="fw-medium">Max 100 $rep<?php echo $__page->community->ticker; ?></div>
                                         </div>
                                         <a href="contribution?form=1" class="btn btn-primary">Submit</a>
                                     </div>                                    
@@ -33,17 +28,15 @@
                                     <div class="card border rounded-3 mb-12">
                                         <div class="card-body p-10">
                                             <div class="d-flex align-items-center">
-                                                <div class="me-auto">                                      
-                                                    <div class="fs-4 fw-semibold"><?php echo $form->form_title; ?></div>
-                                                    <a class="fw-medium text-decoration-none text-primary" href="integrations-form?form_id=<?php echo $form->id; ?>">Edit > </a>
-                                                </div>
-                                                <img src="<?php echo app_cdn_path; ?>img/coins.png">
-                                                <div class="score-block mx-10 text-end">
+                                                <div class="me-auto">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="fs-4 fw-semibold"><?php echo $form->form_title; ?></div>
+                                                        <a class="fw-medium text-decoration-none text-primary ms-3" href="integrations-form?form_id=<?php echo $form->id; ?>">Edit > </a>
+                                                    </div>
                                                     <?php if($form->scoring ==1){ ?>
-                                                        <div class="fw-medium">Max reputation</div>
-                                                        <div class="fs-4 fw-semibold"><?php echo number_format($form->max_point); ?> $rep<?php echo $__page->community->ticker; ?></div>
+                                                        <div class="fw-medium">Max <?php echo number_format($form->max_point); ?> $rep<?php echo $__page->community->ticker; ?></div>
                                                     <?php }else{ ?>
-                                                        <div class="fs-4 fw-semibold">No score</div>
+                                                        <div class="fw-medium">No score</div>
                                                     <?php } ?>
                                                 </div>
                                                 <a href="contribution?form=<?php echo $form->id; ?>" class="btn btn-primary">Submit</a>
