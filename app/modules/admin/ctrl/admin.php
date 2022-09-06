@@ -4,16 +4,6 @@ use lighthouse\Community;
 class controller extends Ctrl {
     function init() {
 
-        $login = Auth::attemptLogin();
-
-        if($login != false ) {
-            if(!is_null($this->__lh_request->get__PB()))
-                header("Location: " . $this->__lh_request->get__PB());
-            else
-                header("Location: contribution");
-            exit();
-        }
-
         if($this->__lh_request->is_xmlHttpRequest) {
 
             $com = Community::getByDomain(app_site);
@@ -35,6 +25,17 @@ class controller extends Ctrl {
             }
         }
         else {
+
+            $login = Auth::attemptLogin();
+
+            if($login != false ) {
+                if(!is_null($this->__lh_request->get__PB()))
+                    header("Location: " . $this->__lh_request->get__PB());
+                else
+                    header("Location: contribution");
+                exit();
+            }
+
             $wallet_adr = null;
 
             $site = Auth::getSite();

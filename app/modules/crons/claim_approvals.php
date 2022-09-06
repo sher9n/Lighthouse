@@ -18,7 +18,7 @@ if(app_site == 'app') {
 
         $com = $communities[$contribution->comunity_id];
 
-        if ($contribution->approvals >= $com['approval_count']) {
+        if ($contribution->approvals >= $contribution->approval_count) {
             $blockchain = $com['blockchain'];
             $dao_name = $com['contract_name'];
             $tags = $contribution->tags;

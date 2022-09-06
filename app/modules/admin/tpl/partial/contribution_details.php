@@ -274,6 +274,9 @@
         $('#btn_deny').click(function (e){
             var c_id = '<?php echo $contribution->id; ?>';
             var data = {'con_id': c_id,'status':2};
+            <?php if(count($user_appproval_ids) > 0){ ?>
+                data['approval_id'] = '<?php echo array_pop($user_appproval_ids); ?>';
+            <?php } ?>
             $.ajax({
                 url: 'contribution-status',
                 dataType: 'json',
@@ -286,18 +289,21 @@
                 },
                 success: function (response) {
                     if (response.success == true) {
+                        if(response.update == false) {
+                            if ($('#cq_item_' + c_id).parent().parent().find("li").length == 2) {
+                                $('#cq_item_' + c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                                    '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                                    '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
+                                    '</div>');
 
-                        showMessage('success',10000,'Success! Your attestation has been recorded');
-
-                        if($('#cq_item_'+c_id).parent().parent().find("li").length == 2) {
-                            $('#cq_item_'+c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                                '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                                '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
-                                '</div>');
-
+                            }
+                            $('#cq_item_' + c_id).remove();
+                            $('#claim-approvals').html(response.steward_html);
+                            $('#claim_details').html('');
                         }
-                        $('#claim_details').html('');
-                        $('#cq_item_'+c_id).remove();
+                        $('#btn_deny').prop('disabled', false);
+                        $('#btn_approve').prop('disabled', false);
+                        showMessage('success',10000,response.message);
                     }
                 }
             });

@@ -27,89 +27,86 @@ class controller extends Ctrl {
             if(__ROUTER_PATH == '/contribution-status' && $this->getParam('con_id')){
                 $con_id = $this->getParam('con_id');
                 $contribution = Contribution::get($con_id);
+                $action       = '';
+                $app_status   = 1;
+                $approve      = true;
 
                 if($this->hasParam('status')) {
 
                     if($this->getParam('status') == Contribution::CONTRIBUTION_STATUS_DENIED){
                         $contribution->refusal += 1;
-                        $contribution->status   = 2;
-                        $contribution->update();
+                        $app_status = 0;
+                        $action     = 'rejected';
+                        $approve    = false;
+                    }
+                    else
+                    {
+                        $contribution->approvals += 1;
+                        $action  = 'approved';
+                    }
 
-                        $log          = new Log();
-                        $log->type    = 'Contribution';
-                        $log->type_id = $contribution->id;
-                        $log->action  = 'rejected';
-                        $log->c_by    = $sel_wallet_adr;
-                        $log->insert();
+                    $update  = false;
+                    $form    = Form::get($contribution->form_id);
+                    $post    = $_POST;
+                    unset($post['con_id']);
+                    unset($post['status']);
 
-                        echo json_encode(array('success' => true));
-                        exit();
+                    if($this->hasParam('approval_id') && strlen($this->getParam('approval_id')) > 0){
+                        unset($post['approval_id']);
+                        $update      = true;
+                        $action      = 'approved-update';
+                        $approval_id = $this->getParam('approval_id');
+                        $approval    = Approval::get($approval_id);
+                        if($approval->approval_status == 1)
+                            $contribution->approvals -= 1;
+                        else
+                            $contribution->refusal -= 1;
+
+                        $approval->approval        = json_encode($post);
+                        $approval->approval_status = $app_status;
+                        $approval->update();
                     }
                     else {
-                        $approve = false;
-                        $update  = false;
-                        $post    = $_POST;
-                        $form    = Form::get($contribution->form_id);
-
-                        unset($post['con_id']);
-                        unset($post['status']);
-
-                        if($this->hasParam('approval_id') && strlen($this->getParam('approval_id')) > 0){
-                            $update      = true;
-                            $approval_id = $this->getParam('approval_id');
-                            unset($post['approval_id']);
-                            $approval    = Approval::get($approval_id);
-
-                            $approval->approval = json_encode($post);
-                            $approval->update();
-
-                            $log = new Log();
-                            $log->type      = 'Contribution';
-                            $log->type_id   = $contribution->id;
-                            $log->action    = 'approved-update';
-                            $log->c_by      = $sel_wallet_adr;
-                            $log->insert();
-                        }
-                        else {
-                            $approval = new Approval();
-                            $approval->approval_by      = $sel_wallet_adr;
-                            $approval->contribution_id  = $contribution->id;
-                            $approval->approval         = json_encode($post);
-                            $approval->approval_type    = $contribution->approval_type;
-                            $approval->comunity_id      = $contribution->comunity_id;
-                            $approval->insert();
-
-                            $contribution->approvals   += 1;
-                            $contribution->score        = 0;
-                            $contribution->update();
-
-                            $log = new Log();
-                            $log->type      = 'Contribution';
-                            $log->type_id   = $contribution->id;
-                            $log->action    = 'approved';
-                            $log->c_by      = $sel_wallet_adr;
-                            $log->insert();
-                        }
-
-                        $contribution_id = $contribution->id;
-                        $stewards        = $community->getStewards();
-                        $html            = '';
-
-                        foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
-                            $stewd_adr = strtolower($stewd_adr);
-                            $steward   = $stewards[$stewd_adr];
-                            $html     .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
-                        }
-
-                        echo json_encode(array('success' => true,
-                            'update'  => $update,
-                            'approve' => $approve ,
-                            'steward_html' => $html,
-                            'c_id'    => $contribution->id,
-                            'message' => 'Success! Your attestation has been recorded.')
-                        );
-                        exit();
+                        $approval = new Approval();
+                        $approval->approval_by      = $sel_wallet_adr;
+                        $approval->contribution_id  = $contribution->id;
+                        $approval->approval         = json_encode($post);
+                        $approval->approval_type    = $contribution->approval_type;
+                        $approval->comunity_id      = $contribution->comunity_id;
+                        $approval->approval_status  = $app_status;
+                        $app_id = $approval->insert();
                     }
+
+                    if($approve == true)
+                        $contribution->approvals += 1;
+                    else
+                        $contribution->refusal += 1;
+                    $contribution->update();
+
+                    $log = new Log();
+                    $log->type      = 'Contribution';
+                    $log->type_id   = $contribution->id;
+                    $log->action    = $action;
+                    $log->c_by      = $sel_wallet_adr;
+                    $log->insert();
+                    $contribution_id = $contribution->id;
+                    $stewards        = $community->getStewards();
+                    $html            = '';
+
+                    foreach (Approval::getApprovals($contribution_id) as $stewd_adr) {
+                        $stewd_adr = strtolower($stewd_adr);
+                        $steward   = $stewards[$stewd_adr];
+                        $html     .= '<div class="fw-semibold">'.$steward["name"].'</div><div class="fw-medium fs-4 mt-1">'.$steward["wallet_adr"].'</div>';
+                    }
+
+                    echo json_encode(array('success' => true,
+                        'update'  => $update,
+                        'approve' => $approve ,
+                        'steward_html' => $html,
+                        'c_id'    => $contribution->id,
+                        'message' => 'Success! Your attestation has been updated.')
+                    );
+                    exit();
 
                 }
                 else

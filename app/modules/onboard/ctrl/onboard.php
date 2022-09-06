@@ -67,21 +67,21 @@ class controller extends Ctrl {
                         $domain_check = Community::isExistsCommunity($dao_domain);
 
                         if ($domain_check === FALSE) {
-                            $ticker = strtoupper($dao_domain);
-                            $subdomain = $dao_domain;
-                            $contract_name = $dao_domain.'-'.time();
+                            $ticker         = strtoupper($n_t_token);
+                            $subdomain      = $dao_domain;
+                            $contract_name  = $dao_domain.'-'.time();
 
                             if ($blockchain != SOLANA)
                                 $api_response = api::addCommunityWithoutToken(constant(strtoupper($blockchain) . "_API"), $contract_name, 0.0008,$wallet_address);
                             else
-                                $api_response = api::addSolanaCommunityWithRealmWithoutMint($contract_name,$wallet_address,50);
+                                $api_response = api::addSolanaCommunityWithRealm($contract_name,$ticker,$ticker,9,$wallet_address,50);
 
                             if (isset($api_response->error)) {
                                 $log = new Log();
-                                $log->type = 'Community';
-                                $log->log = serialize($api_response->error);
+                                $log->type   = 'Community';
+                                $log->log    = serialize($api_response->error);
                                 $log->action = 'create-failed';
-                                $log->c_by = $wallet_address;
+                                $log->c_by   = $wallet_address;
                                 $log->insert();
 
                                 echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to create community, please retry again.'));
@@ -89,13 +89,13 @@ class controller extends Ctrl {
                             }
                             else {
                                 $community = new Community();
-                                $community->dao_name = $dao_name;
-                                $community->dao_domain = $dao_domain;
-                                $community->contract_name = $contract_name;
-                                $community->blockchain = $blockchain;
-                                $community->ticker = $n_t_token;
-                                $community->wallet_adr = $wallet_address;
-                                $community->display_name = 'Initial User';
+                                $community->dao_name    = $dao_name;
+                                $community->dao_domain  = $dao_domain;
+                                $community->ticker      = $ticker;
+                                $community->contract_name   = $contract_name;
+                                $community->blockchain      = $blockchain;
+                                $community->wallet_adr      = $wallet_address;
+                                $community->display_name    = 'Initial User';
 
                                 /*------from api response-------*/
 
@@ -109,15 +109,15 @@ class controller extends Ctrl {
                                     $community->gas_private_key = $api_response->gasTankInfo->privateKey;
                                      *
                                      */
-                                    $community->gas_address = $api_response->gasTankInfo->address;
+                                    $community->gas_address     = $api_response->gasTankInfo->address;
                                     $community->gas_private_key = $api_response->gasTankInfo->privateKey;
 
-                                    $community->dao_wallet = $api_response->realmInfo->daoWallet;
-                                    $community->realm_pk = $api_response->realmInfo->realmPk;
-                                    $community->governance_pk = $api_response->realmInfo->governancePk;
+                                    $community->dao_wallet      = $api_response->realmInfo->daoWallet;
+                                    $community->realm_pk        = $api_response->realmInfo->realmPk;
+                                    $community->governance_pk   = $api_response->realmInfo->governancePk;
                                 }
                                 else {
-                                    $community->gas_address = $api_response->gasTankInfo->gasTankAddress;
+                                    $community->gas_address     = $api_response->gasTankInfo->gasTankAddress;
                                     $community->gas_private_key = $api_response->gasTankInfo->gasTankPrivateKey;
                                 }
 
@@ -125,10 +125,10 @@ class controller extends Ctrl {
                                 $com_id = $community->insert();
 
                                 $log = new Log();
-                                $log->type = 'Community';
-                                $log->type_id = $com_id;
-                                $log->action = 'created';
-                                $log->c_by = $community->wallet_adr;
+                                $log->type      = 'Community';
+                                $log->type_id   = $com_id;
+                                $log->action    = 'created';
+                                $log->c_by      = $community->wallet_adr;
                                 $log->insert();
 
                                 $form = Form::get(2);
@@ -137,21 +137,21 @@ class controller extends Ctrl {
                                 $contribusion->wallet_from = $community->wallet_adr;
                                 $contribusion->contribution_reason = ucfirst(strtolower($community->dao_name));
                                 $contribusion->wallet_to = $community->wallet_adr;
-                                $contribusion->form_id = 2;
+                                $contribusion->form_id   = 2;
                                 $contribusion->max_point = $form->max_point;
                                 $contribusion->scoring   = $form->scoring;
-                                $contribusion->approval_type = $form->approval_type;
+                                $contribusion->approval_type     = $form->approval_type;
                                 $contribusion->rating_categories = $form->rating_categories;
-                                $contribusion->status = 1;
-                                $contribusion->score = 0;
-                                $contribusion->tags = 'Onboarding';
+                                $contribusion->status    = 1;
+                                $contribusion->score     = 0;
+                                $contribusion->tags      = 'Onboarding';
                                 $con_id = $contribusion->insert();
 
                                 $log = new Log();
-                                $log->type = 'Contribution';
-                                $log->type_id = $con_id;
-                                $log->action = 'create-pending';
-                                $log->c_by = $wallet_address;
+                                $log->type      = 'Contribution';
+                                $log->type_id   = $con_id;
+                                $log->action    = 'create-pending';
+                                $log->c_by      = $wallet_address;
                                 $log->insert();
 
                                 echo json_encode(array('success' => true,'blockchain' =>$blockchain,'api_response' => $api_response,'url' => 'https://' . $dao_domain . '.' . base_app_url . '/contribution?ch=' . $community->ch));
