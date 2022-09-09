@@ -5,15 +5,15 @@ use lighthouse\Form;
 use lighthouse\FormElement;
 class controller extends Ctrl {
     function init() {
-        $is_admin = false;
+        $form       = null;
+        $is_admin   = false;
+        $community  = Community::getByDomain(app_site);
         $sel_wallet_adr = null;
-        $form = null;
-        $community = Community::getByDomain(app_site);
 
         $login = Auth::attemptLogin();
         if($login != false) {
             $sel_wallet_adr = $login;
-            $is_admin = $community->isAdmin($sel_wallet_adr);
+            $is_admin       = $community->isAdmin($sel_wallet_adr);
         }
         else
         {
@@ -21,9 +21,9 @@ class controller extends Ctrl {
             die();
         }
 
-        $form_title = $form_description = null;
-        $questions = array();
-        $selected_type = $question = $description = $required = $element_ids =  array();
+        $form_title     = $form_description = null;
+        $questions      = array();
+        $selected_type  = $question = $description = $required = $element_ids =  array();
 
         if ($this->hasParam('form_title') && strlen($this->getParam('form_title')) > 0)
             $form_title = $this->getParam('form_title');
@@ -46,9 +46,9 @@ class controller extends Ctrl {
         if ($this->hasParam('element_ids') && count($this->getParam('element_ids')) > 0)
             $element_ids = $this->getParam('element_ids');
 
-        $q_count = count($selected_type);
+        $keys = array_keys($selected_type);
 
-        for($i=1;$i <= $q_count; $i++) {
+        foreach ($keys as $index => $i) {
 
             if(isset($element_ids[$i]))
                 $questions[$i]['e_id'] = is_array($element_ids[$i])?array_key_first($element_ids[$i]):null;
@@ -85,8 +85,8 @@ class controller extends Ctrl {
 
         $__page = (object)array(
             'title' => $site['site_name'],
-            'site' => $site,
-            'is_admin' => $is_admin,
+            'site'  => $site,
+            'is_admin'   => $is_admin,
             'blockchain' => GNOSIS_CHAIN,
             'sel_wallet_adr' => $sel_wallet_adr,
             'logo_url' => $community->getLogoImage(),

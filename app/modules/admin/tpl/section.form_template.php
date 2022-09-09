@@ -66,6 +66,15 @@ $form_elements = $__page->form->getElements();
                                             <select class="w-100 form-select form-select-lg tags" multiple="multiple" name="<?php echo $ele['e_name']; ?>" id="<?php echo $ele['e_id']; ?>" placeholder="<?php echo $ele['e_description']; ?>"></select>
                                             <?php
                                             break;
+                                        case Form::QT_FILE_UPLOAD:
+                                            ?>
+                                            <input class="form-control form-control-lg" name="<?php echo $ele['e_name']; ?>" type="file" id="<?php echo $ele['e_id']; ?>">
+                                            <?php
+                                            break;
+                                        case Form::QT_DATE:
+                                            ?>
+                                            <input type="text" id="<?php echo $ele['e_id']; ?>" name="<?php echo $ele['e_name']; ?>" class="date-calender form-control form-control-lg"/>
+                                            <?php
                                     }
                                 }
                                 ?>
@@ -91,6 +100,11 @@ $form_elements = $__page->form->getElements();
 
         $(".tags").select2({
             tags: true
+        });
+
+        $('.date-calender').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true
         });
 
         $('#sendContributionForm').validate({

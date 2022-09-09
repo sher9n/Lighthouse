@@ -327,7 +327,7 @@ class Api{
         return json_decode($response);
     }
 
-    public static function addSolanaCommunityWithRealm($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward,$yesVoteThreshold) {
+    public static function addSolanaCommunityWithRealm($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward,$yesVoteThreshold,$quorumPercent,$votingDuration) {
         $url = SOLANA_API."api/createWithRealmWithoutMint?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -340,25 +340,20 @@ class Api{
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $data = '{
             "name": "'.$contractName.'",
-            "yesVoteThreshold": '.$yesVoteThreshold.',
-            "councilMemberPks": ["'.$initialSteward.'"],
-            "walletPk": "'.$initialSteward.'"
-        }';
-
-        $data = '{
-            "name": "'.$contractName.'",
             "tokenName": "'.$tokenName.'",
             "tokenSymbol": "'.$tokenSymbol.'",
             "tokenDecimals": '.$tokenDecimals.',
             "yesVoteThreshold": '.$yesVoteThreshold.',
             "councilMemberPks": ["'.$initialSteward.'"],
-            "walletPk": "'.$initialSteward.'"
+            "walletPk": "'.$initialSteward.'",
+            "quorumPercent": '.$quorumPercent.',
+            "votingDuration": '.$votingDuration.'
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+       // curl_setopt($curl, CURLOPT_FAILONERROR,true);
         $response = curl_exec($curl);
         /*$error_msg = curl_error($curl);
         var_dump($error_msg);exit();*/

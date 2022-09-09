@@ -42,6 +42,8 @@
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/js-snackbar.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/moment.min.js"></script>
+<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/daterangepicker.min.js"></script>
 <!--Wallet connect JS-->
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.iife.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.min.js"></script>

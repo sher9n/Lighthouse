@@ -9,6 +9,8 @@ class Form{
     const QT_CHECKBOXES = 4;
     const QT_DROPDOWN = 5;
     const QT_TAGS = 6;
+    const QT_DATE = 7;
+    const QT_FILE_UPLOAD = 8;
 
     private $_data = array();
 

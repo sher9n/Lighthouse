@@ -169,7 +169,20 @@
               placeholder="Please enter the reason for this contribution"></textarea>
 </div>
 <!-- Paragraph END -->
-
+<!-- File upload -->
+<div class="q_description d-none" id="q_type_<?php echo Form::QT_FILE_UPLOAD; ?>">
+    <label for="" class="form-label">Description</label>
+    <input type="text" class="form-control form-control-lg" id="description_1" name="description[]"
+           placeholder="No file chosen">
+</div>
+<!-- File upload END -->
+<!-- date -->
+<div class="q_description d-none" id="q_type_<?php echo Form::QT_DATE; ?>">
+    <label for="" class="form-label">Description</label>
+    <input type="text" class="form-control form-control-lg" id="description_1" name="description[]"
+           placeholder="MM/DD/YYYY">
+</div>
+<!-- Date END -->
 <div class="modal fade" id="preview" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-size-02">
         <div id="preview_data" class="modal-content">

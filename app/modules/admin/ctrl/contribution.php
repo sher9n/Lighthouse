@@ -3,6 +3,7 @@ use lighthouse\Auth;
 use lighthouse\Community;
 use lighthouse\Contribution;
 use lighthouse\Log;
+use Core\AmazonS3;
 use Core\Utils;
 use lighthouse\Form;
 class controller extends Ctrl {
@@ -85,6 +86,25 @@ class controller extends Ctrl {
                             if (!isset($post[$ele_name]) || strlen($post[$ele_name]) < 1)
                                 throw new Exception($ele_name . ":This field is required.");
                         }
+                    }
+
+                    $contribution_f_name = $form_id;
+                    if(isset($_FILES) && is_array($_FILES)) {
+                        $files    = $_FILES;
+                        $f_e_name = array_key_first($files);
+                        $contribution_f_name = $contribution_f_name.'_'.$f_e_name.'_'.time();
+
+                            if (!empty($files[$f_e_name]) && is_array($files[$f_e_name])) {
+                                $file = $files[$f_e_name];
+
+                                if (!Utils::isValidImageSize($file['size']))
+                                    throw new Exception($f_e_name.":Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE);
+
+                                $img_name = time();
+                                $amazons3 = new AmazonS3(app_site);
+                                $t_url    = $amazons3->uploadFile($file['tmp_name'], $contribution_f_name.'/'.$file['type']);
+                                $post[$contribution_f_name] = $contribution_f_name.'/'.$file['type'];
+                            }
                     }
 
                     $contribusion = new Contribution();

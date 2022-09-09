@@ -61,6 +61,23 @@
                                     <line x1="12" y1="8" x2="12" y2="16"></line>
                                 </svg>
                                 <div class="fs-4">Dropdown</div>
+                            <?php } elseif ($type == Form::QT_DATE) { ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-calendar me-6">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <div class="fs-4">Date</div>
+                            <?php } elseif ($type == Form::QT_FILE_UPLOAD) { ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-upload me-6">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <div class="fs-4">File upload</div>
                             <?php } else { ?>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -140,7 +157,7 @@
                                 <div class="fs-4">Dropdown</div>
                             </a>
                         </li>
-                        <li class="">
+                        <li class="border-bottom">
                             <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type"  data-val="<?php echo Form::QT_TAGS; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -150,6 +167,29 @@
                                     <line x1="7" y1="7" x2="7.01" y2="7"></line>
                                 </svg>
                                 <div class="fs-4">Tags</div>
+                            </a>
+                        </li>
+                        <li class="border-bottom">
+                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type" data-val="<?php echo Form::QT_DATE; ?>">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-calendar me-6">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <div class="fs-4">Date</div>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="dropdown-item d-flex align-items-center py-6  px-12 question_type" data-val="<?php echo Form::QT_FILE_UPLOAD; ?>">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-upload me-6">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <div class="fs-4">File upload</div>
                             </a>
                         </li>
                     </ul>
@@ -227,6 +267,18 @@
                     </div>
                     <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>" name="description[<?php echo $row_id; ?>]"
                            placeholder="Marketing, Sales, Development">
+                </div>
+            <?php } elseif ($type == Form::QT_FILE_UPLOAD) { ?>
+                <div class="q_description" id="q_type_<?php echo Form::QT_FILE_UPLOAD; ?>">
+                    <label for="" class="form-label">Description</label>
+                    <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>1" name="description[<?php echo $row_id; ?>]"
+                           placeholder="Please upload the file here">
+                </div>
+            <?php } elseif ($type == Form::QT_DATE) { ?>
+                <div class="q_description" id="q_type_<?php echo Form::QT_DATE; ?>">
+                    <label for="" class="form-label">Description</label>
+                    <input type="text" class="form-control form-control-lg" id="description_<?php echo $row_id; ?>1" name="description[<?php echo $row_id; ?>]"
+                           placeholder="MM/DD/YYYY">
                 </div>
             <?php } else { ?>
                 <div class="q_description" id="q_type_<?php echo Form::QT_PARAGRAPH; ?>">

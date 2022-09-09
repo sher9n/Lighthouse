@@ -5,10 +5,10 @@ use lighthouse\Form;
 use lighthouse\FormElement;
 class controller extends Ctrl {
     function init() {
-        $is_admin = false;
+        $form       = null;
+        $is_admin   = false;
+        $community  = Community::getByDomain(app_site);
         $sel_wallet_adr = null;
-        $form = null;
-        $community = Community::getByDomain(app_site);
 
         $login = Auth::attemptLogin();
         if($login != false) {
