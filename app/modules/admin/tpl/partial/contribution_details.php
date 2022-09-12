@@ -132,6 +132,7 @@
                     <div class="fw-medium fs-4 mt-1"><?php echo $contribution->contribution_reason; ?></div>
                     <?php
                     $data = (array)json_decode($contribution->form_data);
+
                     foreach ($elements as $index => $element){
                         if($index != 0){
                             //$ele_name =  trim($element['e_name'], "[]");
@@ -145,14 +146,13 @@
                                 }
                             }
                             elseif ($element['e_type'] == Form::QT_TAGS) {
-
                                 ?>
                                 <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
                                 <?php if(isset($data[$ele_name])){ ?>
                                     <ul class="select2-selection__rendered d-flex gap-3 mt-1">
                                         <?php
-                                        if(count($data[$ele_name]) > 0){
-                                            $tags_arry = $data[$ele_name];
+                                        if(strlen($data[$ele_name]) > 0){
+                                            $tags_arry = explode(",",$data[$ele_name]);
                                             foreach ($tags_arry as $tag){ ?>
                                                 <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
                                                 <?php
