@@ -19,7 +19,39 @@
                                     <div class="fs-1"><?php echo $__page->approval_count.'</div><div class="fs-2">/'.$__page->stewardCount; ?></div>
                                 </div>
                             </div>
-                            <div class="fw-medium mt-16">Stewards</div>
+                            <div class="d-flex align-items-center justify-content-between mt-4">
+                                <div>
+                                    <div class="d-flex align-items-center fw-medium">
+                                        <a href="#" class="text-blue-stone me-2 text-decoration-none">Modify</a>
+                                        <div class="text-muted">Quorum</div>
+                                    </div>
+                                    <div class="d-flex align-items-center fw-medium text-gray-700">
+                                        <div class="fs-2">4</div>
+                                        <div class="fs-3">/5</div>
+                                    </div>
+                                    <div class="d-flex align-items-center text-blue-stone">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                        <div class="fw-medium ms-2">Approval period ends in 45m</div>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <div class="fw-medium text-muted mb-1">3 of 5 Approved</div>
+                                    <div>
+                                        <button type="button" id="" class="btn btn-secondary me-2">Deny</button>
+                                        <button type="button" id="" class="btn btn-blue-stone">Approve</button>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-end mt-2">
+                                        <div class="fw-semibold me-2">View Proposal</div>                                        
+                                        <a href="#" class="text-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-dashed"></div>
+                        <div class="card-body p-xl-20">
+                            <div class="fw-medium">Stewards</div>
                             <a type="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Propose new steward</a>
                             <?php if($__page->blockchain == SOLANA){ ?>
                                 <div class="mt-26" id="pending_steward_list">
@@ -100,6 +132,61 @@
                                     } ?>
                                 </div>
                             <?php } ?>
+                            <div class="mb-8">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="d-flex align-items-center fw-medium">
+                                            <a href="#" class="text-blue-stone me-2 text-decoration-none">Add</a>
+                                            <div class="text-muted">Quorum</div>
+                                        </div>
+                                        <div class="fs-3 fw-semibold me-6">0x0916B14989260cBe1575D93cfd5AA6E7025EC95a</div>
+                                        <div class="d-flex align-items-center text-blue-stone">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                            <div class="fw-medium ms-2">Approval period ends in 45m</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-medium text-muted mb-1">3 of 5 Approved</div>
+                                        <div>
+                                            <button type="button" id="" class="btn btn-secondary me-2">Deny</button>
+                                            <button type="button" id="" class="btn btn-blue-stone">Approve</button>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-end mt-2">
+                                            <div class="fw-semibold me-2">View Proposal</div>                                        
+                                            <a href="#" class="text-primary">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-8">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="d-flex align-items-center fw-medium">
+                                            <a href="#" class="text-danger me-2 text-decoration-none">Remove</a>
+                                            <div class="text-muted">Quorum</div>
+                                        </div>
+                                        <div class="fs-3 fw-semibold me-6">0x0916B14989260cBe1575D93cfd5AA6E7025EC95a</div>
+                                        <div class="d-flex align-items-center text-blue-stone">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                            <div class="fw-medium ms-2">Approval period ends in 45m</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-medium text-muted mb-1">3 of 5 Approved</div>
+                                        <div>
+                                            <button type="button" id="" class="btn btn-blue-stone">execute</button>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-end mt-2">
+                                            <div class="fw-semibold me-2">View Proposal</div>                                        
+                                            <a href="#" class="text-primary">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

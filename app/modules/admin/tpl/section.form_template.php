@@ -73,7 +73,7 @@ $form_elements = $__page->form->getElements();
                                             break;
                                         case Form::QT_DATE:
                                             ?>
-                                            <input type="text" id="<?php echo $ele['e_id']; ?>" name="<?php echo $ele['e_name']; ?>" class="date-calender form-control form-control-lg"/>
+                                            <input type="text" id="<?php echo $ele['e_id']; ?>" name="<?php echo $ele['e_name']; ?>" class="date-calender form-control form-control-lg form-control-calender"/>
                                             <?php
                                     }
                                 }
@@ -93,6 +93,7 @@ $form_elements = $__page->form->getElements();
 <script>
 
     $(document).ready(function() {
+        $(".applyBtn").addClass("btn-lg");
         selectedAccount = sessionStorage.getItem("lh_sel_wallet_add");
         if (selectedAccount) {
             $("#wallet_address").val(selectedAccount);
