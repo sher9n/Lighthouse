@@ -32,7 +32,7 @@
         </div>
         <div class="ms-auto">
             <?php $praposal_adr = $steward->praposal_adr; ?>
-            <a type="button" class="btn btn-primary" target="_blank" href="https://app.realms.today/dao/<?php echo $community->realm_pk; ?>/proposal/<?php echo $praposal_adr; ?>?cluster=devnet">View Proposal</a>
+            <a type="button" class="btn btn-primary" target="_blank" href="https://solscan.io/account/<?php echo $praposal_adr; ?>">View Proposal</a>
         </div>
     </div>
 </div>

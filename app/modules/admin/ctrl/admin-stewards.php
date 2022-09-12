@@ -46,7 +46,7 @@ class controller extends Ctrl {
 
                     if($community->blockchain == SOLANA) {
 
-                        $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_REALMS_API"),$community->contract_name,$wallet_address,$sel_wallet_adr,$community->realm_pk);
+                        $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_API"),$community->contract_name,$wallet_address,$sel_wallet_adr);
 
                         if (isset($api_response->error)) {
                             $log = new Log();
@@ -61,7 +61,6 @@ class controller extends Ctrl {
                         }
                         else {
 
-                            $api_response = $api_response;
                             $steward->comunity_id = $community->id;
                             $steward->wallet_adr = $wallet_address;
                             $steward->display_name = $display_name;
@@ -187,7 +186,7 @@ class controller extends Ctrl {
 
             $site           = Auth::getSite();
             $approval_count = 0;
-            $maxVotingTime  = 0;
+            $maxVotingTime  = $community->max_voting_time;
 
             if($site === false) {
                 header("Location: https://lighthouse.xyz");
@@ -202,7 +201,7 @@ class controller extends Ctrl {
                 }
             }
 
-            if($community->blockchain == SOLANA) {
+/*            if($community->blockchain == SOLANA) {
                 $api_response = api::getRealmInfo(constant(strtoupper(SOLANA) . "_REALMS_API"), $community->governance_pk);
                 if (!isset($api_response->error)) {
                     $maxVotingTime    = $api_response->maxVotingTime;
@@ -214,9 +213,9 @@ class controller extends Ctrl {
                     $community->update();
 
                 }
-            }
-            else
-                $approval_count = $community->approval_count;
+            }*/
+
+            $approval_count = $community->approval_count;
 
             $__page = (object)array(
                 'title' => $site['site_name'],

@@ -74,7 +74,7 @@ class controller extends Ctrl {
                             if ($blockchain != SOLANA)
                                 $api_response = api::addCommunityWithoutToken(constant(strtoupper($blockchain) . "_API"), $contract_name, 0.0008,$wallet_address);
                             else
-                                $api_response = api::addSolanaCommunityWithRealm($contract_name,$ticker,$ticker,9,$wallet_address,50,50,604800);
+                                $api_response = api::addSolanaCommunity($contract_name,$ticker,$ticker,9,$wallet_address,50,604800);
 
                             if (isset($api_response->error)) {
                                 $log = new Log();
@@ -100,21 +100,21 @@ class controller extends Ctrl {
                                 /*------from api response-------*/
 
                                 if($blockchain == SOLANA) {
-                                    /*
-                                     * ---------for addSolanaCommunityWithoutMint()------------
-                                     *
-                                    $community->txHash = $api_response->txHash;
+                                    /* ---------for addSolanaCommunityWithoutMint()------------ */
+                                    $community->txHash            = $api_response->txHash;
                                     $community->community_address = $api_response->communityAddress;
-                                    $community->gas_address = $api_response->gasTankInfo->address;
-                                    $community->gas_private_key = $api_response->gasTankInfo->privateKey;
-                                     *
-                                     */
+                                    $community->token_address      = $api_response->tokenAddress;
+                                    $community->gas_address       = $api_response->gasTankInfo->address;
+                                    $community->gas_private_key   = $api_response->gasTankInfo->privateKey;
+
+                                    /* ---------for Realm endpoints ------------
                                     $community->gas_address     = $api_response->gasTankInfo->address;
                                     $community->gas_private_key = $api_response->gasTankInfo->privateKey;
 
                                     $community->dao_wallet      = $api_response->realmInfo->daoWallet;
                                     $community->realm_pk        = $api_response->realmInfo->realmPk;
                                     $community->governance_pk   = $api_response->realmInfo->governancePk;
+                                    */
                                 }
                                 else {
                                     $community->gas_address     = $api_response->gasTankInfo->gasTankAddress;

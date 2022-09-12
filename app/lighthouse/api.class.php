@@ -22,58 +22,6 @@ class Api{
             return null;
     }
 
-    public static function realms_get_info($realmKey,$start=null,$end=null) {
-        $url  = 'https://realms-api.vercel.app/api/getInfo';
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $headers = array(
-            "accept: application/json",
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-
-        if(is_null($start))
-            $data = '{"realmPubKey":"'.$realmKey.'"}';
-        else
-            $data = '{"realmPubKey":"'.$realmKey.'","start":'.$start.',"end":'.$end.'}';
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-       // curl_setopt($curl, CURLOPT_FAILONERROR,true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-        $response = curl_exec($curl);
-       /*$error_msg = curl_error($curl);
-           var_dump($error_msg);exit();*/
-        curl_close($curl);
-        return json_decode($response);
-    }
-
-    public static function realms_update($realmKey) {
-        $url  = 'https://realms-api.vercel.app/api/addOrUpdate';
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $headers = array(
-            "accept: application/json",
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $data = '{"realmKeys":["'.$realmKey.'"]}';
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-        $response = curl_exec($curl);
-        /* $error_msg = curl_error($curl);
-           var_dump($error_msg);exit();*/
-        curl_close($curl);
-        return json_decode($response);
-    }
-
     public static function getSolanaGasTankBalance($url,$slug) {
         $url = SOLANA_API."api/".$slug."/getTankBalance?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
@@ -179,122 +127,6 @@ class Api{
         return json_decode($response);
     }
 
-    public static function getRealmInfo($url,$governance_pk) {
-        $url = $url."api/getRealmInfo?key=".API_KEY;
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $headers = array(
-            "accept: application/json",
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $data = '{
-          "councilMintGovPk": "'.$governance_pk.'"
-        }';
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
-
-        $response = curl_exec($curl);
-        curl_close($curl);
-        /*$error_msg = curl_error($curl);
-        var_dump($error_msg);exit();*/
-        return json_decode($response);
-    }
-
-    public static function getSolanaRealmsStewards($url,$realm_pk) {
-        $url = $url."api/getRealmStewards?key=".API_KEY;
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $headers = array(
-            "accept: application/json",
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $data = '{
-          "realmPk": "'.$realm_pk.'"
-        }';
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
-
-        $response = curl_exec($curl);
-        curl_close($curl);
-        /*$error_msg = curl_error($curl);
-        var_dump($error_msg);exit();*/
-        return json_decode($response);
-    }
-
-    public static function addSolanaAdminProposal($url,$community_name,$newAdmin,$proposer,$realmPk) {
-        $url = $url."api/$community_name/addMultisigAdminProposal?key=".API_KEY;
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $headers = array(
-            "accept: application/json",
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $data = '{
-          "newAdmin": "'.$newAdmin.'",
-          "proposer": "'.$proposer.'",
-          "realmPk": "'.$realmPk.'"
-        }';
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-       // curl_setopt($curl, CURLOPT_FAILONERROR,true);
-
-        $response = curl_exec($curl);
-        curl_close($curl);
-        /*$error_msg = curl_error($curl);
-        var_dump($error_msg);exit();*/
-        return json_decode($response);
-    }
-
-    public static function addSolanaLogProposal($url,$community_name,$receiver,$proposer,$realmPk) {
-        $url = $url."api/.$community_name./addLogProposal?key=".API_KEY;
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $headers = array(
-            "accept: application/json",
-            "Content-Type: application/json",
-        );
-
-        $data = '{
-            "receiver": "'.$receiver.'",
-            "realmPk": "'.$realmPk.'",
-            "amount": 0,
-            "reason":"null",
-            "tags": "null",
-            "pointsBreakdown": "null",
-            "proposer": "'.$proposer.'"
-        }';
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        // curl_setopt($curl, CURLOPT_FAILONERROR,true);
-
-        $response = curl_exec($curl);
-        curl_close($curl);
-        /*$error_msg = curl_error($curl);
-        var_dump($error_msg);exit();*/
-        return json_decode($response);
-    }
-
     public static function addCommunity($url,$contractName,$tokenName,$tokenSymbol,$tokenDecimals,$tankTopUpAmount,$initialSteward) {
         $url = $url."api/contractsAPI?key=".API_KEY;
         $curl = curl_init($url);
@@ -327,69 +159,6 @@ class Api{
         return json_decode($response);
     }
 
-    public static function addSolanaCommunityWithRealm($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward,$yesVoteThreshold,$quorumPercent,$votingDuration) {
-        $url = SOLANA_API."api/createWithRealmWithoutMint?key=".SOLANA_API_KEY;
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $headers = array(
-            "accept: application/json",
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $data = '{
-            "name": "'.$contractName.'",
-            "tokenName": "'.$tokenName.'",
-            "tokenSymbol": "'.$tokenSymbol.'",
-            "tokenDecimals": '.$tokenDecimals.',
-            "yesVoteThreshold": '.$yesVoteThreshold.',
-            "councilMemberPks": ["'.$initialSteward.'"],
-            "walletPk": "'.$initialSteward.'",
-            "quorumPercent": '.$quorumPercent.',
-            "votingDuration": '.$votingDuration.'
-        }';
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-       // curl_setopt($curl, CURLOPT_FAILONERROR,true);
-        $response = curl_exec($curl);
-        /*$error_msg = curl_error($curl);
-        var_dump($error_msg);exit();*/
-        curl_close($curl);
-        return json_decode($response);
-    }
-
-    public static function addSolanaCommunityWithRealmWithoutMint($contractName,$initialSteward,$yesVoteThreshold) {
-        $url = SOLANA_API."api/createWithRealmWithoutMint?key=".SOLANA_API_KEY;
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $headers = array(
-            "accept: application/json",
-            "Content-Type: application/json",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $data = '{
-            "name": "'.$contractName.'",
-            "yesVoteThreshold": '.$yesVoteThreshold.',
-            "councilMemberPks": ["'.$initialSteward.'"],
-            "walletPk": "'.$initialSteward.'"
-        }';
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
-        $response = curl_exec($curl);
-                /*$error_msg = curl_error($curl);
-                var_dump($error_msg);exit();*/
-        curl_close($curl);
-        return json_decode($response);
-    }
-
     public static function addSolanaCommunityWithoutMint($contractName,$initialSteward) {
         $url = SOLANA_API."api/createWithoutMint?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
@@ -418,7 +187,7 @@ class Api{
         return json_decode($response);
     }
 
-    public static function addSolanaCommunity($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward) {
+    public static function addSolanaCommunity($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward,$quorumPercent,$votingDuration) {
         $url = SOLANA_API."api/create?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -430,20 +199,21 @@ class Api{
         );
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $data = '{
-          "name": "'.$contractName.'",
-          "tokenName": "'.$tokenName.'",
-          "tokenSymbol": "'.$tokenSymbol.'",
-          "tokenDecimals": "'.$tokenDecimals.'",
-          "initialAdmin": "'.$initialSteward.'"
+            "name": "'.$contractName.'",
+            "tokenName": "'.$tokenName.'",
+            "tokenSymbol": "'.$tokenSymbol.'",
+            "tokenDecimals": '.$tokenDecimals.',
+            "initialAdmin": "'.$initialSteward.'",
+            "quorumPercent": '.$quorumPercent.',
+            "votingDuration": '.$votingDuration.'
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
        // curl_setopt($curl, CURLOPT_FAILONERROR,true);
-
         $response = curl_exec($curl);
-/*        $error_msg = curl_error($curl);
+        /*$error_msg = curl_error($curl);
         var_dump($error_msg);exit();*/
         curl_close($curl);
         return json_decode($response);
@@ -507,6 +277,237 @@ class Api{
         /*        $error_msg = curl_error($curl);
                 var_dump($error_msg);exit();*/
         curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function realms_get_info($realmKey,$start=null,$end=null) {
+        $url  = 'https://realms-api.vercel.app/api/getInfo';
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        if(is_null($start))
+            $data = '{"realmPubKey":"'.$realmKey.'"}';
+        else
+            $data = '{"realmPubKey":"'.$realmKey.'","start":'.$start.',"end":'.$end.'}';
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($curl);
+        /*$error_msg = curl_error($curl);
+            var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function realms_update($realmKey) {
+        $url  = 'https://realms-api.vercel.app/api/addOrUpdate';
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{"realmKeys":["'.$realmKey.'"]}';
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($curl);
+        /* $error_msg = curl_error($curl);
+           var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function getRealmInfo($url,$governance_pk) {
+        $url = $url."api/getRealmInfo?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "councilMintGovPk": "'.$governance_pk.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function getSolanaRealmsStewards($url,$realm_pk) {
+        $url = $url."api/getRealmStewards?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+          "realmPk": "'.$realm_pk.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function addSolanaCommunityWithRealm($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward,$yesVoteThreshold,$quorumPercent,$votingDuration) {
+        $url = SOLANA_API."api/createWithRealmWithoutMint?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "name": "'.$contractName.'",
+            "tokenName": "'.$tokenName.'",
+            "tokenSymbol": "'.$tokenSymbol.'",
+            "tokenDecimals": '.$tokenDecimals.',
+            "yesVoteThreshold": '.$yesVoteThreshold.',
+            "councilMemberPks": ["'.$initialSteward.'"],
+            "walletPk": "'.$initialSteward.'",
+            "quorumPercent": '.$quorumPercent.',
+            "votingDuration": '.$votingDuration.'
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+        $response = curl_exec($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function addSolanaCommunityWithRealmWithoutMint($contractName,$initialSteward,$yesVoteThreshold) {
+        $url = SOLANA_API."api/createWithRealmWithoutMint?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "name": "'.$contractName.'",
+            "yesVoteThreshold": '.$yesVoteThreshold.',
+            "councilMemberPks": ["'.$initialSteward.'"],
+            "walletPk": "'.$initialSteward.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+        $response = curl_exec($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        curl_close($curl);
+        return json_decode($response);
+    }
+
+    public static function addSolanaAdminProposal($url,$community_name,$newAdmin,$proposer) {
+        $url = $url."api/$community_name/createAdminProposal?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "modifiedAdmin": "'.$newAdmin.'",
+            "admin": "'.$proposer.'",
+            "action": "ADD"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function addSolanaLogProposal($url,$community_name,$receiver,$proposer,$realmPk) {
+        $url = $url."api/.$community_name./addLogProposal?key=".API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+
+        $data = '{
+            "receiver": "'.$receiver.'",
+            "realmPk": "'.$realmPk.'",
+            "amount": 0,
+            "reason":"null",
+            "tags": "null",
+            "pointsBreakdown": "null",
+            "proposer": "'.$proposer.'"
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
         return json_decode($response);
     }
 }

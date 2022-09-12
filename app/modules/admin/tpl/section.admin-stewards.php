@@ -9,11 +9,7 @@
                             <div class="display-5 fw-medium">Manage stewards</div>
                             <div class="text-muted mt-1">Add or remove stewards and set multisig parameters</div>
                             <div class="fw-medium mt-16">Quorum</div>
-                            <?php if($__page->blockchain == SOLANA){ ?>
-                                <a type="button" class="btn btn-primary mt-6" target="_blank" href="https://app.realms.today/dao/<?php echo $__page->community->realm_pk; ?>/params?cluster=devnet">Propose new quorum</a>
-                            <?php }else{ ?>
-                                <button type="button" id="percentage_change" class="btn btn-primary mt-6 <?php echo ($__page->stewardCount < 2)?'d-none':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Propose new quorum</button>
-                            <?php } ?>
+                            <button type="button" id="percentage_change" class="btn btn-primary mt-6" data-bs-toggle="modal" data-bs-target="#ModalChange">Propose new quorum</button>
                             <div class="d-flex align-items-center mt-4">
                                 <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
                                     <div class="fs-1"><?php echo $__page->approval_count.'</div><div class="fs-2">/'.$__page->stewardCount; ?></div>
@@ -92,7 +88,7 @@
                                                 </div>
                                                 <div class="ms-auto">
                                                     <?php $praposal_adr = $steward['praposal_adr']; ?>
-                                                    <a type="button" class="btn btn-primary" target="_blank" href="https://app.realms.today/dao/<?php echo $__page->community->realm_pk; ?>/proposal/<?php echo $praposal_adr; ?>?cluster=devnet">View Proposal</a>
+                                                    <a type="button" class="btn btn-primary" target="_blank" href="https://solscan.io/account/<?php echo $praposal_adr; ?>">View Proposal</a>
                                                 </div>
                                             </div>
                                         </div>

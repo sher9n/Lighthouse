@@ -100,10 +100,12 @@ class controller extends Ctrl {
                                 if (!Utils::isValidImageSize($file['size']))
                                     throw new Exception($f_e_name.":Maximum image size exceeded. File size should be less then " . MAX_IMAGE_UPLOAD_SIZE);
 
-                                $img_name = time();
-                                $amazons3 = new AmazonS3(app_site);
-                                $t_url    = $amazons3->uploadFile($file['tmp_name'], $contribution_f_name.'/'.$file['type']);
-                                $post[$contribution_f_name] = $contribution_f_name.'/'.$file['type'];
+                                $path      = $file['name'];
+                                $ext       = pathinfo($path, PATHINFO_EXTENSION);
+                                $img_name  = time();
+                                $amazons3  = new AmazonS3(app_site);
+                                $t_url     = $amazons3->uploadFile($file['tmp_name'], $contribution_f_name.'/'.$ext);
+                                $post[$contribution_f_name] = $contribution_f_name.'/'.$ext;
                             }
                     }
 
@@ -242,7 +244,7 @@ class controller extends Ctrl {
             $view_contract  = '';
 
             if($community->blockchain == SOLANA)
-                $view_contract = SOLANA_VIEW_LINK.'account/'.$community->governance_pk;
+                $view_contract = SOLANA_VIEW_LINK.'account/'.$community->community_address;
 
             if($this->hasParam('form') && strlen($this->getParam('form')) > 0) {
                 $form_id    = $this->getParam('form');
