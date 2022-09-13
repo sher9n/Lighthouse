@@ -28,10 +28,11 @@
     <meta name="msapplication-TileImage" content="<?php echo app_cdn_path; ?>img/fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#0692D2">
     <!-- Bootstrap CSS -->
-    <link href="<?php echo app_cdn_path; ?>css/style.min.css" rel="stylesheet" crossorigin="anonymous">
+    
     <link href="<?php echo app_cdn_path; ?>css/select2.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="<?php echo app_cdn_path; ?>css/js-snackbar.css" rel="stylesheet" crossorigin="anonymous">
     <link href="<?php echo app_cdn_path; ?>css/daterangepicker.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="<?php echo app_cdn_path; ?>css/style.min.css" rel="stylesheet" crossorigin="anonymous">
     <title><?php echo app_name; ?> - <?php echo $__page->title; ?></title>
     <script type="text/javascript" src="https://unpkg.com/feather-icons"></script>
 </head>
