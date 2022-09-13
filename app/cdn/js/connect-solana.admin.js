@@ -63,6 +63,14 @@ function disconnectAccount() {
     });
 }
 
+async function solanaProposalTransaction(response) {
+    const txn        = solanaWeb3.Transaction.from(response.serializedTxn)
+    var provider     = await getProvider();
+    var connection   = getConnection();
+    const signedTxn  = await provider.signTransaction(txn);
+    return  await solanaWeb3.sendAndConfirmRawTransaction(connection,signedTxn.serialize());
+}
+
 async function realmProposalTransaction(response) {
 
     const txns = response.serializedTxns.map((txn) =>

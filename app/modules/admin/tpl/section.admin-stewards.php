@@ -311,7 +311,7 @@
                     $('#wallet_address').prop('disabled', false);
                     if (data.success == true) {
                         if(data.blockchain == 'solana') {
-                            const response =  realmProposalTransaction(data.api_response);
+                            const response =  solanaProposalTransaction(data.api_response);
                             const r_data   = data;
                             response.then(function (data){
                                 $('#pending_steward_list').append(r_data.html);

@@ -61,10 +61,11 @@ class controller extends Ctrl {
                         }
                         else {
 
-                            $steward->comunity_id = $community->id;
-                            $steward->wallet_adr = $wallet_address;
-                            $steward->display_name = $display_name;
-                            $steward->praposal_adr = $api_response->proposalAddress;
+                            $steward->comunity_id   = $community->id;
+                            $steward->wallet_adr    = $wallet_address;
+                            $steward->display_name  = $display_name;
+                            $steward->praposal_adr  = $api_response->proposalAddress;
+                            $steward->proposal_id   = $api_response->proposalId;
                             $id = $steward->insert();
 
                             include __DIR__ . '/../tpl/partial/realms_steward_line.php';
