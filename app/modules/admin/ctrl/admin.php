@@ -15,7 +15,7 @@ class controller extends Ctrl {
                 exit();
             }
             else if(__ROUTER_PATH =='/disconnect_wallet') {
-
+                Auth::clearCookieWallet();
                 $solana = false;
                 if($com->blockchain == 'solana')
                     $solana = true;

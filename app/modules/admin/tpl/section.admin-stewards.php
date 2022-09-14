@@ -31,10 +31,10 @@
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <div class="fw-medium text-muted mb-1">3 of 5 Approved</div>
+                                    <div class="fw-medium text-muted mb-1">3 of <?php echo $__page->stewardCount; ?> Approved</div>
                                     <div>
-                                        <button type="button" id="" class="btn btn-secondary me-2">Deny</button>
-                                        <button type="button" id="" class="btn btn-blue-stone">Approve</button>
+                                        <a type="button" id="" class="btn btn-secondary me-2">Deny</a>
+                                        <a type="button" id="" class="btn btn-blue-stone">Approve</a>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-end mt-2">
                                         <div class="fw-semibold me-2">View Proposal</div>                                        
@@ -55,9 +55,12 @@
                                     foreach ($__page->stewards as $steward){
                                         if($steward['praposal_passed'] == 0){ ?>
                                         <div class="mb-8">
-                                            <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><?php echo $steward['name']; ?> </div>
-                                            <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center mt-1">
+                                            <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center justify-content-between">
                                                 <div>
+                                                    <div class="d-flex align-items-center fw-medium">
+                                                        <a href="#" class="text-blue-stone me-2 text-decoration-none">Add</a>
+                                                        <div class="text-muted"><?php echo $steward['name']; ?></div>
+                                                    </div>
                                                     <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                                     <script>
 
@@ -86,9 +89,34 @@
                                                         <div class="fw-medium ms-2 end_time_<?php echo $steward['id']; ?>"></div>
                                                     </div>
                                                 </div>
-                                                <div class="ms-auto">
-                                                    <?php $praposal_adr = $steward['praposal_adr']; ?>
-                                                    <a type="button" class="btn btn-primary" target="_blank" href="https://solscan.io/account/<?php echo $praposal_adr; ?>">View Proposal</a>
+                                                <div class="text-end">
+                                                    <div class="fw-medium text-muted mb-1"><?php echo $steward['proposal_yes']; ?> of <?php echo $__page->stewardCount; ?> Approved</div>
+                                                    <div>
+                                                        <?php if(!isset($__page->user_votes[$steward['id']])){ ?>
+                                                            <a type="button" data-sid="<?php echo $steward['id']; ?>" data-vote="NO" id="deny_<?php echo $steward['id']; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
+                                                            <a type="button" data-sid="<?php echo $steward['id']; ?>" data-vote="YES" id="approve_<?php echo $steward['id']; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
+                                                        <?php }else{
+                                                            $vote = $__page->user_votes[$steward['id']];
+                                                            if($vote == 'NO'){?>
+                                                                <a type="button" data-sid="<?php echo $steward['id']; ?>" data-vote="NO" id="deny_<?php echo $steward['id']; ?>" class="admin_proposal_vote btn btn-secondary me-2 disabled">Deny</a>
+                                                                <?php
+                                                            }
+                                                            if($vote == 'YES'){?>
+                                                                <a type="button" data-sid="<?php echo $steward['id']; ?>" data-vote="YES" id="approve_<?php echo $steward['id']; ?>" class="admin_proposal_vote btn btn-blue-stone me-2 disabled">Approve</a>
+                                                                <?php
+                                                            }
+                                                        } ?>
+                                                        <?php if($steward['proposal_yes'] >=  $__page->stewardCount ){ ?>
+                                                            <a type="button" data-sid="<?php echo $steward['id']; ?>" id="execute_<?php echo $steward['id']; ?>" class="admin_proposal_execute btn btn-blue-stone">execute</a>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end mt-2">
+                                                        <?php $praposal_adr = $steward['praposal_adr']; ?>
+                                                        <div class="fw-semibold me-2" >View Proposal</div>
+                                                        <a target="_blank" href="https://solscan.io/account/<?php echo $praposal_adr; ?>?cluster=devnet" class="text-primary">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,35 +156,8 @@
                                     } ?>
                                 </div>
                             <?php } ?>
-                            <div class="mb-8">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <div class="d-flex align-items-center fw-medium">
-                                            <a href="#" class="text-blue-stone me-2 text-decoration-none">Add</a>
-                                            <div class="text-muted">Quorum</div>
-                                        </div>
-                                        <div class="fs-3 fw-semibold me-6">0x0916B14989260cBe1575D93cfd5AA6E7025EC95a</div>
-                                        <div class="d-flex align-items-center text-blue-stone">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                            <div class="fw-medium ms-2">Approval period ends in 45m</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-end">
-                                        <div class="fw-medium text-muted mb-1">3 of 5 Approved</div>
-                                        <div>
-                                            <button type="button" id="" class="btn btn-secondary me-2">Deny</button>
-                                            <button type="button" id="" class="btn btn-blue-stone">Approve</button>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-end mt-2">
-                                            <div class="fw-semibold me-2">View Proposal</div>                                        
-                                            <a href="#" class="text-primary">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-8">
+
+                            <!--<div class="mb-8">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <div class="d-flex align-items-center fw-medium">
@@ -182,7 +183,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -288,6 +289,63 @@
         $("#user-deleteForm").attr('action', element.attr('href'));
     });
 
+    $(document).on('click','.admin_proposal_execute',function (e){
+        e.preventDefault();
+        var ele = $(this);
+        $.ajax({
+            url: 'execute-admin-proposal?sid='+ele.data("sid"),
+            dataType: 'json',
+            beforeSend: function () {
+                showMessage('success', 10000, 'Initializing wallet signing process...');
+            },
+            success: function(data) {
+                if (data.success == true){
+                    showMessage('success',10000,'Success! The proposal has been executed.');
+                }
+                else {
+                    if(data.element) {
+                        $('#' + data.element).addClass('form-control-lg error');
+                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                    }
+                    else {
+                        setTimeout(function () {
+                            showMessage('danger', 10000, data.msg);
+                        }, 6000);
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.admin_proposal_vote', function (e){
+        e.preventDefault();
+        var ele = $(this);
+        $.ajax({
+            url: 'vote-stewards?sid='+ele.data("sid")+'&vote='+ele.data("vote"),
+            dataType: 'json',
+            beforeSend: function () {
+                showMessage('success', 10000, 'Initializing wallet signing process...');
+            },
+            success: function(data) {
+                if (data.success == true){
+                    const response =  solanaProposalTransaction(data.api_response);
+                    showMessage('success',10000,'Success! The vote has been submitted.');
+                }
+                else {
+                    if(data.element) {
+                            $('#' + data.element).addClass('form-control-lg error');
+                            $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                    }
+                    else {
+                        setTimeout(function () {
+                            showMessage('danger', 10000, data.msg);
+                        }, 6000);
+                    }
+                }
+            }
+        });
+    });
+
     $('#editStewardForm').validate({
         rules: {
             nickname:{
@@ -389,6 +447,7 @@
                     $('#nickname').prop('disabled', true);
                     $('#wallet_address').prop('disabled', true);
                     showMessage('success', 10000, 'Initializing wallet signing process...');
+                    showMessage('success', 10000, 'Creating a new proposal...');
                 },
                 success: function(data) {
                     $('#addMember').modal('toggle');

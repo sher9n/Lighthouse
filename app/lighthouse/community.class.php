@@ -87,7 +87,8 @@ class Community{
                     'wallet_adr' => $steward['wallet_adr'],
                     'praposal_passed'=> $steward['praposal_passed'],
                     'praposal_adr'=> $steward['praposal_adr'],
-                    'c_at' => $steward['c_at']
+                    'c_at' => $steward['c_at'],
+                    'proposal_yes' => $steward['proposal_yes']
                 );
             }
         }

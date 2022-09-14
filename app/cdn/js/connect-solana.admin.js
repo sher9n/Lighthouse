@@ -64,11 +64,13 @@ function disconnectAccount() {
 }
 
 async function solanaProposalTransaction(response) {
+    showMessage('success', 10000, 'Setting up parameters...');
     const txn        = solanaWeb3.Transaction.from(response.serializedTxn)
     var provider     = await getProvider();
     var connection   = getConnection();
     const signedTxn  = await provider.signTransaction(txn);
-    return  await solanaWeb3.sendAndConfirmRawTransaction(connection,signedTxn.serialize());
+    const sig = await solanaWeb3.sendAndConfirmRawTransaction(connection,signedTxn.serialize());
+    return sig;
 }
 
 async function realmProposalTransaction(response) {

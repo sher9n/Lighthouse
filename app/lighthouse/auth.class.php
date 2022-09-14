@@ -76,5 +76,12 @@ class Auth{
         $s = json_encode($sessions);
         return setcookie('lighthouse', $s, time()+60*60*24*1, '/', $_SERVER['HTTP_HOST']);
     }
+
+    public static function clearCookieWallet()
+    {
+        unset($_SESSION['lh_sel_wallet_adr']);
+        setcookie('lighthouse', '', time() - 60*60*24*1);
+        setcookie('lighthouse', '', time() - 60*60*24*1, '/', $_SERVER['HTTP_HOST']);
+    }
 }
 ?>
