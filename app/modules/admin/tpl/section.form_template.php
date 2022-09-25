@@ -131,7 +131,6 @@ $form_elements = $__page->form->getElements();
                     dataType:'json',
                     beforeSend: function() {
                         $('#btn_submit').prop('disabled', true);
-                       // showMessage('success',10000,'Submitting your claim...');
                     },
                     success: function(data){
                         $('#btn_submit').prop('disabled', false);

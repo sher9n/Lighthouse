@@ -10,7 +10,6 @@ const getProvider = async () => {
 }};
 
 function changeSolanaAccount() {
-
     getProvider().then(provider => {
         if(provider) {
             selectedAccount = provider.publicKey.toString();
@@ -21,8 +20,11 @@ function changeSolanaAccount() {
     });
 }
 
-function getSolanaAccount() {
+window.solana.on('accountChanged', (publicKey) => {
+    disconnectWallet();
+});
 
+function getSolanaAccount(update=true) {
     getProvider().then(provider => {
         if(provider) {
             selectedAccount = provider.publicKey.toString();
@@ -38,7 +40,8 @@ function getSolanaAccount() {
             else
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
 
-            updateWalletMenu();
+            if(update == true)
+                updateWalletMenu();
         }
     }).catch(function(error) {
             console.log(error)
@@ -63,9 +66,8 @@ function disconnectAccount() {
     });
 }
 
-async function solanaProposalTransaction(response) {
-    showMessage('success', 10000, 'Setting up parameters...');
-    const txn        = solanaWeb3.Transaction.from(response.serializedTxn)
+async function solanaProposalTransaction(proposalResponse) {
+    const txn        = solanaWeb3.Transaction.from(proposalResponse.serializedTxn);
     var provider     = await getProvider();
     var connection   = getConnection();
     const signedTxn  = await provider.signTransaction(txn);
@@ -73,9 +75,9 @@ async function solanaProposalTransaction(response) {
     return sig;
 }
 
-async function realmProposalTransaction(response) {
+async function realmProposalTransaction(relResponse) {
 
-    const txns = response.serializedTxns.map((txn) =>
+    const txns = relResponse.serializedTxns.map((txn) =>
         solanaWeb3.Transaction.from(txn.data)
     );
 
@@ -94,7 +96,6 @@ async function realmProposalTransaction(response) {
         );
         results.push(sig);
     }
-    showMessage('success', 10000, 'Setting up parameters...');
     return results;
 }
 

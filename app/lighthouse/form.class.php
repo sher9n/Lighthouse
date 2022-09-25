@@ -3,19 +3,45 @@ namespace lighthouse;
 use Core\Ds;
 class Form{
 
-    const QT_SHORT_ANSWER = 1;
-    const QT_PARAGRAPH = 2;
+    const QT_SHORT_ANSWER    = 1;
+    const QT_PARAGRAPH       = 2;
     const QT_MULTIPLE_CHOICE = 3;
-    const QT_CHECKBOXES = 4;
-    const QT_DROPDOWN = 5;
-    const QT_TAGS = 6;
-    const QT_DATE = 7;
-    const QT_FILE_UPLOAD = 8;
+    const QT_CHECKBOXES      = 4;
+    const QT_DROPDOWN        = 5;
+    const QT_TAGS            = 6;
+    const QT_DATE            = 7;
+    const QT_FILE_UPLOAD     = 8;
+
+    const APPROVAL_TYPE_BINARY     = 1;
+    const APPROVAL_TYPE_SUBJECTIVE = 2;
 
     private $_data = array();
 
     public function __construct() {
         $this->_data = array();
+    }
+
+    public static function addDefaultForms($com_id) {
+        $forms =  Form::find("SELECT * FROM forms WHERE is_delete=0 AND comunity_id = ''");
+        foreach ($forms as $form){
+            $id        = $form['id'];
+            $connect   = Ds::connect();
+            $e_results = $connect->query("SELECT * FROM form_elements WHERE is_delete=0 AND form_id='$id' ORDER by e_order");
+
+            unset($form['id']);
+            $form['comunity_id'] = $com_id;
+            $f = new Form();
+            $f->load($form);
+            $fid = $f->insert();
+
+            foreach ($e_results as $row){
+                unset($row['id']);
+                $f_ele = new FormElement();
+                $f_ele->load($row);
+                $f_ele->form_id = $fid;
+                $f_ele->insert();
+            }
+        }
     }
 
     public function __get($key)

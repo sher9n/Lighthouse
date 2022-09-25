@@ -41,12 +41,12 @@ class Approval{
         return null;
     }
 
-    public static function getUserApprovals($contribution_id,$user=null){
+    public static function getUserApprovals($contribution_type,$contribution_id,$user=null){
         $connect = Ds::connect();
         if(is_null($user))
-            $items   = $connect->query("select id,approval,approval_type from approvals where contribution_id='$contribution_id'");
+            $items   = $connect->query("select id,approval,approval_type,approval_status from approvals where contribution_id='$contribution_id'");
         else
-            $items   = $connect->query("select id,approval,approval_type from approvals where contribution_id='$contribution_id' AND approval_by='$user'");
+            $items   = $connect->query("select id,approval,approval_type,approval_status from approvals where contribution_id='$contribution_id' AND approval_by='$user'");
 
         $results = array();
         $tem     = array();
@@ -55,9 +55,11 @@ class Approval{
         $x       = 0;
 
         if($items != false){
-            while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
-                array_push($ids,$row['id']);
-                if($row['approval_type'] == 2) {
+
+            if($contribution_type == Form::APPROVAL_TYPE_SUBJECTIVE) {
+
+                while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
+                    array_push($ids, $row['id']);
                     $x++;
                     $categories = json_decode($row['approval']);
                     foreach ($categories as $cat => $val) {
@@ -67,14 +69,24 @@ class Approval{
                             $tem[$cat] = $val;
                     }
                 }
-                else
-                    $results = array(1);
+
+                foreach ($tem as $c => $v)
+                    $results[$c] = round($v / $x);
+            }
+            else {
+                while ($row = $items->fetch_array(MYSQLI_ASSOC)) {
+                    array_push($ids, $row['id']);
+
+                    $cat = $row['approval_status'];
+                    if (isset($tem[$cat]))
+                        $results[$cat] += 1;
+                    else
+                        $results[$cat] = 1;
+                }
             }
 
-            foreach ($tem as $c => $v)
-                $results[$c] = round($v/$x);
-
         }
+
         $connect->close();
         return array('ids' => $ids, 'approvals' => $results);
     }

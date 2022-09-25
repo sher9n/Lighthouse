@@ -196,7 +196,8 @@
                     if(data.success == true){
                         window.location.replace(data.url);
                     }
-                    else{
+                    else
+                    {
                         clearTimeout(m1);
                         clearTimeout(m2);
                         clearTimeout(m3);
@@ -213,11 +214,8 @@
                                 $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
                             }
                         }
-                        else {
-                            setTimeout(function () {
-                                showMessage('danger', 10000, data.msg);
-                            }, 6000);
-                        }
+                        else
+                            showMessage('danger', 10000, data.msg);
                     }
                 }
             });

@@ -52,8 +52,6 @@ class controller extends Ctrl {
                     $post = $_POST;
                     unset($post['form_id']);
                     unset($post['wallet_address']);
-                    /*unset($post['tags']);
-                    unset($post['contribution_reason']);*/
 
                     if ($this->hasParam('form_id') && strlen($this->getParam('form_id')) > 0)
                         $form_id = $this->getParam('form_id');
@@ -64,16 +62,6 @@ class controller extends Ctrl {
                         $wallet_to = $this->getParam('wallet_address');
                     else
                         throw new Exception("wallet_address:This field is required.");
-/*
-                    if ($this->hasParam('contribution_reason') && strlen($this->getParam('contribution_reason')) > 0)
-                        $contribution_reason = $this->getParam('contribution_reason');
-                    else
-                        throw new Exception("contribution_reason:This field is required.");
-
-                    if ($this->hasParam('tags') && count($this->getParam('tags')) > 0) {
-                        $tags = $this->getParam('tags');
-                        $tags = is_array($tags) ? implode(',', $tags) : '';
-                    }*/
 
                     $form = Form::get($form_id);
                     $elements = $form->getElements();
@@ -113,7 +101,7 @@ class controller extends Ctrl {
                     $contribusion->comunity_id = $community->id;
                     $contribusion->wallet_from = $sel_wallet_adr;
                     $contribusion->wallet_to   = $wallet_to;
-                    $contribusion->tags        = $tags;
+                    $contribusion->tags        = $form->tags;
                     //update contribution approval data
                     $contribusion->form_id     = $form_id;
                     $contribusion->max_point   = $form->max_point;
@@ -253,7 +241,7 @@ class controller extends Ctrl {
             }
 
             $com_id = $community->id;
-            $forms  = Form::find("SELECT * FROM forms WHERE active=1 AND id <> 2 AND comunity_id='$com_id'",true);
+            $forms  = Form::find("SELECT * FROM forms WHERE is_delete=0 AND active=1 AND id <> 2 AND comunity_id='$com_id'",true);
 
             $__page = (object)array(
                 'title' => $site['site_name'],
@@ -267,7 +255,7 @@ class controller extends Ctrl {
                 'is_admin' => $is_admin,
                 'view_contract' => $view_contract,
                 'wallet_adr' => $wallet_adr,
-                'blockchain' => $site['blockchain'],
+                'blockchain' => $community->blockchain,
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
                     __DIR__ . $template

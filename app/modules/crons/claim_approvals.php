@@ -4,7 +4,7 @@ use lighthouse\Approval;
 use lighthouse\Community;
 use lighthouse\Api;
 use lighthouse\Log;
-
+exit();
 if(app_site == 'app') {
 
     $communities = array();
@@ -22,7 +22,7 @@ if(app_site == 'app') {
             $blockchain = $com['blockchain'];
             $dao_name = $com['contract_name'];
             $tags = $contribution->tags;
-            $approval = Approval::getUserApprovals($contribution->id);
+            $approval = Approval::getUserApprovals($contribution->approval_type,$contribution->id);
             $approval = $approval['approvals'];
             $points = 0;
 

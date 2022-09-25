@@ -1,6 +1,7 @@
 <?php
     use Core\Utils;
     use lighthouse\Form;
+    use lighthouse\Contribution;
 ?>
 <div class="card shadow">
     <form id="" method="post" action="" autocomplete="off" class="d-flex flex-column h-100">
@@ -8,7 +9,7 @@
             <div class="display-5 fw-medium mb-25">Review this contribution</div>
             <?php
             if(count($user_arrovals) > 0 ){
-                if($contribution->approval_type == 2){
+                if($contribution->approval_type == Form::APPROVAL_TYPE_SUBJECTIVE){
                     $ratings = $contribution->rating_categories;
                     $ratings = json_decode($ratings);
                     ?>
@@ -30,19 +31,19 @@
                         </div>
                         <div class="col-8">
                             <div class="list-rating-scale">
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="1" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==1)?'checked':'';?> id="<?php echo $category; ?>1" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="1" disabled <?php /*echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; */?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==1)?'checked':'';?> id="<?php echo $category; ?>1" autocomplete="off">
                                 <label class="btn btn-light ms-0" for="<?php echo $category; ?>1">1</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="2" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==2)?'checked':'';?> id="<?php echo $category; ?>2" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="2" disabled <?php /*echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; */?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==2)?'checked':'';?> id="<?php echo $category; ?>2" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>2">2</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="3" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==3)?'checked':'';?> id="<?php echo $category; ?>3" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="3" disabled <?php /*echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; */?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==3)?'checked':'';?> id="<?php echo $category; ?>3" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>3">3</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="4" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==4)?'checked':'';?> id="<?php echo $category; ?>4" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="4" disabled <?php /*echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; */?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==4)?'checked':'';?> id="<?php echo $category; ?>4" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>4">4</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="5" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==5)?'checked':'';?> id="<?php echo $category; ?>5" autocomplete="off">
+                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="5" disabled <?php /*echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; */?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==5)?'checked':'';?> id="<?php echo $category; ?>5" autocomplete="off">
                                 <label class="btn btn-light me-0" for="<?php echo $category; ?>5">5</label>
                             </div>
                         </div>
@@ -52,7 +53,7 @@
                 }
             }
             else{
-                if($contribution->approval_type == 2){
+                if($contribution->approval_type == Form::APPROVAL_TYPE_SUBJECTIVE){
                     ?>
                     <div class="row">
                         <div class="col-8 offset-md-4">
@@ -96,16 +97,98 @@
                 }
             } ?>
             <div class="row mt-10">
-                <div id="btn_row" class="col-8 offset-md-4 text-end">
-                    <?php if($contribution->status == 1 ) { ?>
-                        <a target="_blank" href="<?php echo $view_transaction_link ; ?>" type="button" class="btn btn-secondary">View Transaction</a>
-                    <?php }else{
-                        if($contribution->status != 2 ){ ?>
-                            <button id="btn_deny" type="button" class="btn btn-secondary">Deny</button>
-                            <button id="btn_approve" type="button" class="btn btn-primary">Attest</button>
+                <div id="btn_row" class="col-12 text-end">
+                    <?php
+
+                    if($community->blockchain == SOLANA){
+                        $p = \lighthouse\Proposal::get($contribution->proposal_id);
+
+                        if($p instanceof \lighthouse\Proposal && $p->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_SUCCEEDED){
+                            ?>
+                            <a type="button" data-pid="<?php echo $p->id; ?>" id="execute_<?php echo $p->id; ?>" class="log_proposal_execute btn btn-blue-stone">execute</a>
+                             <?php
+                        }
+                        else {
+
+                            if($contribution->approval_type == Form::APPROVAL_TYPE_SUBJECTIVE){
+
+                                if($contribution->status != Contribution::CONTRIBUTION_STATUS_DENIED ){
+                                    if(count($user_arrovals) > 0 ) {
+                                        ?>
+                                        <button id="btn_approve" type="button" disabled class="btn btn-primary">Attest</button>
+                                        <?php
+                                    }
+                                    else {
+                                        ?>
+                                        <button id="btn_approve" type="button" class="btn btn-primary">Attest</button>
+                                        <?php
+                                    }
+                                }
+                            }
+                            else {
+
+                                if($contribution->status != Contribution::CONTRIBUTION_STATUS_DENIED ){
+                                    if(count($user_arrovals) > 0 ) {
+                                        if(isset($user_arrovals[0])) { ?>
+                                            <button id="btn_deny" type="button" disabled class="btn btn-secondary">Deny</button>
+                                            <?php
+                                        }
+                                        else {
+                                            ?>
+                                            <button id="btn_approve" type="button" disabled class="btn btn-primary">Attest</button>
+                                            <?php
+                                        }
+                                    }
+                                    else {
+                                        ?>
+                                        <button id="btn_deny" type="button" class="btn btn-secondary">Deny</button>
+                                        <button id="btn_approve" type="button" class="btn btn-primary">Attest</button>
+                                        <?php
+                                    }
+                                }
+                                else { ?>
+                                    <button id="btn_deny" type="button" disabled class="btn btn-secondary">Deny</button>
+                                    <?php
+                                }
+                            }
+
+                        }
+
+                        if(strlen($contribution->proposal_adr) > 0 ) { ?>
+                            <a target="_blank" href="https://solscan.io/account/<?php echo $contribution->proposal_adr ; ?>?cluster=devnet" type="button" class="btn btn-secondary">View Transaction</a>
                             <?php
                         }
-                    }?>
+                    }
+                    else {
+
+                        if($contribution->status != Contribution::CONTRIBUTION_STATUS_DENIED ){
+                            if(count($user_arrovals) > 0 ) {
+                                if(isset($user_arrovals[0])) { ?>
+                                    <button id="btn_deny" type="button" disabled class="btn btn-secondary">Deny</button>
+                                    <?php
+                                }
+                                else
+                                {
+                                    ?>
+                                    <button id="btn_approve" type="button" disabled class="btn btn-primary">Attest</button>
+                                    <?php
+                                }
+                            }
+                            else
+                            {
+                                ?>
+                                <button id="btn_deny" type="button" class="btn btn-secondary">Deny</button>
+                                <button id="btn_approve" type="button" class="btn btn-primary">Attest</button>
+                                <?php
+                            }
+                        }
+                        else {
+                            ?>
+                            <button id="btn_deny" type="button" disabled class="btn btn-secondary">Deny</button>
+                            <?php
+                        }
+                    }
+                 ?>
                 </div>
             </div>
         </div>
@@ -118,7 +201,7 @@
                     <button class="tab_link nav-link" id="claim-history-tab" data-bs-toggle="tab" data-bs-target="#claim-history" type="button" role="tab" aria-controls="claim-history" aria-selected="false">History</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
-                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Attestors (<?php echo count($approvals); ?>/<?php echo $contribution->approval_count; ?>)</button>
+                    <button class="tab_link nav-link" id="claim-approvals-tab" data-bs-toggle="tab" data-bs-target="#claim-approvals" type="button" role="tab" aria-controls="claim-approvals" aria-selected="false">Attestors (<?php echo count($approvals); ?>)</button>
                 </li>
                 <li class="nav-item pt-0" role="presentation">
                     <button class="tab_link nav-link" id="claim-similar-tab" data-bs-toggle="tab" data-bs-target="#claim-similar" type="button" role="tab" aria-controls="claim-similar" aria-selected="false">Similar Claims</button>
@@ -135,7 +218,6 @@
 
                     foreach ($elements as $index => $element){
                         if($index != 0){
-                            //$ele_name =  trim($element['e_name'], "[]");
                             $ele_name = strtolower(preg_replace("/\s+/", "_", $element['e_name']));
                             if($element['e_type'] == Form::QT_SHORT_ANSWER || $element['e_type'] == Form::QT_PARAGRAPH || $element['e_type'] == Form::QT_DROPDOWN || $element['e_type'] == Form::QT_CHECKBOXES || $element['e_type'] == Form::QT_MULTIPLE_CHOICE) {
                                 ?>
@@ -236,9 +318,11 @@
             var c_id = '<?php echo $contribution->id; ?>';
             review_data['con_id'] = c_id;
             review_data['status'] = 1;
-            <?php if(count($user_appproval_ids) > 0){ ?>
+            <?php
+            if(count($user_appproval_ids) > 0){ ?>
                 review_data['approval_id'] = '<?php echo array_pop($user_appproval_ids); ?>';
-            <?php } ?>
+                <?php
+            } ?>
 
             $.ajax({
                 url: 'contribution-status',
@@ -248,25 +332,31 @@
                 beforeSend: function () {
                     $('#btn_deny').prop('disabled', true);
                     $('#btn_approve').prop('disabled', true);
+                    showMessage('success', 10000, 'Updating...');
                 },
-                success: function (response) {
-                    if (response.success == true) {
-                        if(response.update == false) {
-                            if ($('#cq_item_' + c_id).parent().parent().find("li").length == 2) {
-                                $('#cq_item_' + c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
-                                    '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
-                                    '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
-                                    '</div>');
-
+                success: function (data) {
+                    if (data.success == true) {
+                        if(data.blockchain == 'solana')
+                        {
+                            if(data.api_response)
+                            {
+                                solanaProposalTransaction(data.api_response).then((result) => {
+                                    vote(data.p_id,data.approval_id);
+                                });
                             }
-                            $('#cq_item_' + c_id).remove();
-                            $('#claim-approvals').html(response.steward_html);
-                            $('#claim_details').html('');
+                            else
+                                vote(data.p_id,data.approval_id);
+
+                            reviewContrubutionHtmlChange(data,c_id);
                         }
-                        $('#btn_deny').prop('disabled', false);
-                        $('#btn_approve').prop('disabled', false);
-                        showMessage('success',10000,response.message);
+                        else
+                        {
+                            reviewContrubutionHtmlChange(data,c_id)
+                            showMessage('success', 10000, data.message);
+                        }
                     }
+                    else
+                        showMessage('danger', 10000, data.msg);
                 }
             });
         });
@@ -274,9 +364,12 @@
         $('#btn_deny').click(function (e){
             var c_id = '<?php echo $contribution->id; ?>';
             var data = {'con_id': c_id,'status':2};
-            <?php if(count($user_appproval_ids) > 0){ ?>
+            <?php
+            if(count($user_appproval_ids) > 0){ ?>
                 data['approval_id'] = '<?php echo array_pop($user_appproval_ids); ?>';
-            <?php } ?>
+                <?php
+            } ?>
+
             $.ajax({
                 url: 'contribution-status',
                 dataType: 'json',
@@ -310,16 +403,76 @@
         });
     });
 
-    /* $(document).on("click", '.btn_complexity', function(event) {
-         c = $(this).data('val');
-         $.ajax({
-             url: 'similar-contributions?c='+c+'&i='+i+'&q='+q,
-             dataType: 'json',
-             type: 'GET',
-             success: function (response) {
-                 $('#claim-similar').html(response.html);
-             }
-         });
-     });*/
+    $(document).on('click','.log_proposal_execute', function (e){
+        e.preventDefault();
+        var ele = $(this);
+        $.ajax({
+            url: 'execute-log-proposal?pid='+ele.data("pid"),
+            dataType: 'json',
+            beforeSend: function () {
+                showMessage('success', 10000, 'Initializing wallet signing process...');
+            },
+            success: function(data) {
+                if (data.success == true){
+                    showMessage('success',10000,'Success! The proposal has been executed.');
+                    reviewContrubutionHtmlChange(data,data.c_id)
+                }
+                else
+                    showMessage('danger', 10000, data.msg);
+            }
+        });
+    });
+
+    function reviewContrubutionHtmlChange(response,c_id){
+        if (response.update == false) {
+            if ($('#cq_item_' + c_id).parent().parent().find("li").length == 2) {
+                $('#cq_item_' + c_id).parent().parent().html('<div class="d-flex flex-column align-items-center justify-content-center h-100">\n' +
+                    '   <img src="<?php echo app_cdn_path; ?>img/img-empty.svg" width="208">\n' +
+                    '   <div class="fs-2 fw-semibold mt-20 text-center">When someone makes a contribution,<br>it will show up here</div>' +
+                    '</div>');
+
+            }
+            $('#cq_item_' + c_id).remove();
+            $('#claim_details').html('');
+        }
+        $('#btn_deny').prop('disabled', false);
+        $('#btn_approve').prop('disabled', false);
+    }
+
+    function vote(pid,aid) {
+        $.ajax({
+            url: 'vote-log-proposal?pid='+pid+'&aid='+aid,
+            dataType: 'json',
+            beforeSend: function () {
+                showMessage('success', 10000, 'Initializing wallet signing process...');
+            },
+            success: function(data) {
+                if (data.success == true){
+                    const response =  solanaProposalTransaction(data.api_response);
+                    const r_data   = data;
+                    response.then(function (data){
+                        $('.prop-'+r_data.pid).html(r_data.html);
+                        showMessage('success', 10000, 'Success! The vote has been submitted.');
+                        checkProposalState(r_data.pid);
+                    });
+                }
+                else {
+                    if(data.element) {
+                        $('#' + data.element).addClass('form-control-lg error');
+                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                    }
+                    else
+                        showMessage('danger', 10000, data.msg);
+                }
+            }
+        });
+    }
+
+    function checkProposalState(pid) {
+        $.ajax({
+            url: 'get-proposal?pid='+pid,
+            dataType: 'json'
+        });
+    }
 
 </script>

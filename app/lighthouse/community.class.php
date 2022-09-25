@@ -22,18 +22,28 @@ class Community{
             $this->_data[$name] = $value;
     }
 
+    public function getAdminProposals($type=null){
+        $com_id    = $this->_data['id'];
+        if(!is_null($type))
+            return Proposal::find("SELECT p.*,s.display_name,s.wallet_adr as modified_admin,s.c_at FROM proposals p LEFT JOIN stewards s ON p.object_id = s.id WHERE p.proposal_type='$type' AND p.is_executed=0 AND p.comunity_id=$com_id AND p.object_name='admin'",true);
+        else
+            return Proposal::find("SELECT p.*,s.display_name,s.wallet_adr as modified_admin,s.c_at FROM proposals p LEFT JOIN stewards s ON p.object_id = s.id WHERE p.is_executed=0 AND p.comunity_id=$com_id AND p.object_name='admin'",true);
+    }
+
+    public function getQuorumProposals(){
+        $com_id    = $this->_data['id'];
+        return Proposal::find("SELECT * FROM proposals WHERE is_executed=0 AND comunity_id=$com_id AND object_name='quorum'",true);
+    }
+
     public function isAdmin($adr) {
-        if(strtolower($this->_data['wallet_adr']) == strtolower($adr))
+        $connect = Ds::connect();
+        $com_id  = $this->_data['id'];
+        $items   = $connect->query("select id from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND is_delete=0 AND active=1");
+        if ($items->num_rows > 0)
             return true;
-        else {
-            $connect = Ds::connect();
-            $com_id = $this->_data['id'];
-            $items = $connect->query("select id from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND praposal_passed=1 AND is_delete=0");
-            if ($items->num_rows > 0)
-                return true;
-            else
-                return false;
-        }
+        else
+            return false;
+
     }
 
     public function getStewards($count=false) {
@@ -42,53 +52,21 @@ class Community{
 
         if($count==true){
             $stewards = 0;
-            $items = Steward::find("SELECT count(id) c FROM stewards WHERE comunity_id=" . $com_id . " AND praposal_passed=1 AND is_delete=0");
+            $items = Steward::find("SELECT count(id) c FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0 AND active=1");
             if ($items->num_rows > 0) {
                 $response = $items->fetch_array(MYSQLI_ASSOC);
                 $stewards = $response['c'];
             }
-            return ($stewards +1);
+            return $stewards;
         }
         else {
-            $stewards = array();
-            $stewards[strtolower($this->_data['wallet_adr'])] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr']);
-
-            $stewards_data = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0 AND praposal_passed=1");
+            $stewards_data = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0 AND active=1");
             foreach ($stewards_data as $steward) {
-                $stewards[strtolower($steward['wallet_adr'])] = array('id' => $steward['id'], 'name' => $steward['display_name'], 'wallet_adr' => $steward['wallet_adr']);
-            }
-        }
-        return $stewards;
-    }
-
-
-    public function getAllStewards($count=false) {
-        $connect  = Ds::connect();
-        $com_id   = $this->_data['id'];
-
-        if($count==true){
-            $stewards = 0;
-            $items = Steward::find("SELECT count(id) c FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0");
-            if ($items->num_rows > 0) {
-                $response = $items->fetch_array(MYSQLI_ASSOC);
-                $stewards = $response['c'];
-            }
-            return ($stewards +1);
-        }
-        else {
-            $stewards = array();
-            $stewards[$this->_data['wallet_adr']] = array('id' => 0, 'name' => $this->_data['display_name'], 'wallet_adr' => $this->_data['wallet_adr'],'praposal_passed'=> 1);
-
-            $stewards_data = Steward::find("SELECT * FROM stewards WHERE comunity_id=" . $com_id . " AND is_delete=0");
-            foreach ($stewards_data as $steward) {
-                $stewards[$steward['wallet_adr']] = array(
+                $stewards[strtolower($steward['wallet_adr'])] = array(
                     'id' => $steward['id'],
                     'name' => $steward['display_name'],
                     'wallet_adr' => $steward['wallet_adr'],
-                    'praposal_passed'=> $steward['praposal_passed'],
-                    'praposal_adr'=> $steward['praposal_adr'],
-                    'c_at' => $steward['c_at'],
-                    'proposal_yes' => $steward['proposal_yes']
+                    'initial_admin' => $steward['initial_admin']
                 );
             }
         }
@@ -168,7 +146,7 @@ class Community{
     public static function isExistsCommunity($subdomain) {
         $subdomain = strtolower(preg_replace("/\s+/", "", $subdomain));
         $connect = Ds::connect();
-        $results = $connect->query("SELECT id,dao_name,blockchain,ch,wallet_adr FROM communities WHERE dao_domain='$subdomain' AND is_delete=0 LIMIT 1");
+        $results = $connect->query("SELECT c.id,c.dao_name,c.blockchain,c.ch,s.wallet_adr FROM communities c JOIN stewards s ON c.id=s.comunity_id WHERE c.dao_domain='$subdomain' AND c.is_delete=0 LIMIT 1");
 
         if($results->num_rows > 0) {
             $community_data = $results->fetch_array(MYSQLI_ASSOC);

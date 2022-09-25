@@ -449,8 +449,85 @@ class Api{
         return json_decode($response);
     }
 
-    public static function executeAdminProposal($url,$community_name,$proposalId,$newAdmin) {
-        $url = $url."api/$community_name/executeAdminProposal?key=".API_KEY;
+    public static function createLogProposal($url,$community_name,$receiver,$amount,$reason,$tags,$proposalType,$admin,$categories=null) {
+        $url = $url."api/$community_name/createLogProposal?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        if(is_array($categories)) {
+            $categories = json_encode($categories);
+            $data = '{
+            "admin": "' . $admin . '",
+                "proposalType": {
+                    "type": "' . $proposalType . '",
+                    "receiver": "' . $receiver . '",
+                    "reason": "' . $reason . '",
+                    "tag": "' . $tags . '",
+                    "maxPoints": ' . $amount . ',
+                    "categories": '.$categories.'
+                }
+            }';
+        }
+        else {
+            $data = '{
+            "admin": "' . $admin . '",
+                "proposalType": {
+                    "type": "' . $proposalType . '",
+                    "receiver": "' . $receiver . '",
+                    "reason": "' . $reason . '",
+                    "tag": "' . $tags . '",
+                    "maxPoints": ' . $amount . '
+                }
+            }';
+        }
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /* $error_msg = curl_error($curl);
+         var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function executeBasicProposal($url,$community_name,$proposalId) {
+        $url = $url."api/$community_name/executeBasicProposal?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "proposalId": "'.$proposalId.'"
+        }';
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /* $error_msg = curl_error($curl);
+         var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function executeAdminProposal($url,$community_name,$proposalId,$newAdmin,$action='ADD') {
+        $url = $url."api/$community_name/executeAdminProposal?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -463,7 +540,7 @@ class Api{
         $data = '{
             "proposalId": "'.$proposalId.'",
             "modifiedAdmin": "'.$newAdmin.'",
-            "action": "ADD"
+            "action": "'.$action.'"
         }';
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
@@ -478,7 +555,7 @@ class Api{
     }
 
     public static function getSolanaProposal($url,$community_name,$proposalId) {
-        $url = $url."api/$community_name/getProposal?key=".API_KEY;
+        $url = $url."api/$community_name/getProposal?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -501,8 +578,29 @@ class Api{
         return json_decode($response);
     }
 
-    public static function solanaAdminProposalVote($url,$community_name,$admin,$proposalId,$vote) {
-        $url = $url."api/$community_name/vote?key=".API_KEY;
+    public static function getSolanaCommunity($url,$community_name) {
+        $url = $url."api/$community_name/getCommunity?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /* $error_msg = curl_error($curl);
+         var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function solanaProposalVote($url,$community_name,$admin,$proposalId,$vote,$type='BINARY') {
+        $url = $url."api/$community_name/vote?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -512,14 +610,27 @@ class Api{
             "Content-Type: application/json",
         );
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $data = '{
+        if($type == Proposal::PROPOSAL_TYPE_SUBJECTIVE){
+            $vote = json_encode($vote);
+            $data = '{
             "admin": "'.$admin.'",
             "proposalId": "'.$proposalId.'",
             "voteType": {
-                "type": "BINARY",
+                "type": "'.$type.'",
+                "vote": '.$vote.'
+                }
+            }';
+        }
+        else {
+            $data = '{
+            "admin": "'.$admin.'",
+            "proposalId": "'.$proposalId.'",
+            "voteType": {
+                "type": "'.$type.'",
                 "vote": "'.$vote.'"
-            }
-        }';
+                }
+            }';
+        }
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
@@ -533,8 +644,36 @@ class Api{
         return json_decode($response);
     }
 
-    public static function addSolanaAdminProposal($url,$community_name,$newAdmin,$proposer) {
-        $url = $url."api/$community_name/createAdminProposal?key=".API_KEY;
+    public static function addSolanaQuorumProposal($url,$community_name,$proposer,$new_quorum) {
+        $url = $url."api/$community_name/createQuorumProposal?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "admin": "'.$proposer.'",
+            "newQuorum": '.$new_quorum.'
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function addSolanaAdminProposal($url,$community_name,$newAdmin,$proposer,$action='ADD') {
+        $url = $url."api/$community_name/createAdminProposal?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -547,7 +686,7 @@ class Api{
         $data = '{
             "modifiedAdmin": "'.$newAdmin.'",
             "admin": "'.$proposer.'",
-            "action": "ADD"
+            "action": "'.$action.'"
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
@@ -563,7 +702,7 @@ class Api{
     }
 
     public static function addSolanaLogProposal($url,$community_name,$receiver,$proposer,$realmPk) {
-        $url = $url."api/.$community_name./addLogProposal?key=".API_KEY;
+        $url = $url."api/.$community_name./addLogProposal?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);

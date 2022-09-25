@@ -8,21 +8,6 @@
                         <div class="display-5 fw-medium">Contribute to <?php echo $__page->community_name; ?><img src="<?php echo app_cdn_path; ?>img/fire.png"></div>
                         <div class="text-muted mt-1">Request $rep<?php echo $__page->community->ticker; ?> for your contributions.</div>
                         <div class="row mt-12">
-                            <?php if($__page->simple_claim_form==1){ ?>
-                            <div class="col-12">
-                                <div class="card border rounded-3 mb-12">
-                                <div class="card-body p-10">
-                                    <div class="d-flex align-items-center">  
-                                        <div class="me-auto">                                      
-                                            <div class="fs-4 fw-semibold">Simple claim</div>
-                                            <div class="fw-medium">Max 100 $rep<?php echo $__page->community->ticker; ?></div>
-                                        </div>
-                                        <a href="contribution?form=1" class="btn btn-primary">Submit</a>
-                                    </div>                                    
-                                </div>                                
-                                </div>
-                            </div>
-                            <?php } ?>
                             <?php foreach ($__page->forms as $form){ ?>
                                 <div class="col-12">
                                     <div class="card border rounded-3 mb-12">

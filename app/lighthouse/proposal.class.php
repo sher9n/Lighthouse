@@ -2,11 +2,15 @@
 namespace lighthouse;
 use Core\Ds;
 
-class Vote{
+class Proposal{
 
-    const V_TYPE_ADMIN = 'admin';
-    const V_TYPE_QUORUM = 'quorum';
-    const V_TYPE_LOG_PROPOSAL = 'contribution';
+    const PROPOSAL_STATE_DEFEATED  = 'defeated';
+    const PROPOSAL_STATE_VOTING    = 'voting';
+    const PROPOSAL_STATE_EXECUTED  = 'executed';
+    const PROPOSAL_STATE_SUCCEEDED = 'succeeded';
+
+    const PROPOSAL_TYPE_BINARY      = 'BINARY';
+    const PROPOSAL_TYPE_SUBJECTIVE  = 'SUBJECTIVE';
 
     private $_data = array();
 
@@ -28,13 +32,13 @@ class Vote{
 
     public static function get($id){
         $connect = Ds::connect();
-        $items   = $connect->query("select * from votes where id='$id' limit 1");
+        $items   = $connect->query("select * from proposals where id='$id' limit 1");
 
         if($items->num_rows > 0){
             $data = $items->fetch_array(MYSQLI_ASSOC);
-            $vote = new Vote();
+            $proposal = new Proposal();
             $connect->close();
-            return $vote->load($data);
+            return $proposal->load($data);
             exit();
 
         }
@@ -52,30 +56,17 @@ class Vote{
         return $this;
     }
 
-    public static function getUserVotes($adr,$com_id) {
-        $results = array();
-        $votes   = Vote::find("SELECT v.proposal_id, v.vote FROM votes v LEFT JOIN proposals p ON v.proposal_id=p.id WHERE p.is_executed=0 AND v.comunity_id=$com_id AND v.wallet_adr='$adr'");
-
-        if($votes != false){
-            foreach ($votes as $vote) {
-                $results[$vote['proposal_id']] = $vote['vote'];
-            }
-        }
-
-        return $results;
-    }
-
     public static function find($query,$objects=false)
     {
-        $data = array();
+        $data    = array();
         $connect = Ds::connect();
         $results = $connect->query($query);
 
         if($objects != false){
             while ($row = $results->fetch_array(MYSQLI_ASSOC)) {
-                $vote = new Vote();
-                $vote = $vote->load($row);
-                $data[$vote->id] = $vote;
+                $proposal = new Proposal();
+                $proposal = $proposal->load($row);
+                $data[$proposal->id] = $proposal;
             }
             $connect->close();
             return $data;
@@ -104,7 +95,7 @@ class Vote{
                 $update_sql .= $key . "='" . $connect->real_escape_string($val) . "'";
         }
 
-        $update = "UPDATE votes SET ".$update_sql." WHERE id=".$id;
+        $update = "UPDATE proposals SET ".$update_sql." WHERE id=".$id;
         $connect->query($update);
         $connect->close();
     }
@@ -118,7 +109,7 @@ class Vote{
         }
         $fields = implode(",",array_keys($data));
         $values = implode("','",array_values($data));
-        $insert_sql = "INSERT INTO votes (".$fields.") VALUES ('".$values."')";
+        $insert_sql = "INSERT INTO proposals (".$fields.") VALUES ('".$values."')";
         $connect->query($insert_sql);
         $id = $connect->insert_id;
         $connect->close();

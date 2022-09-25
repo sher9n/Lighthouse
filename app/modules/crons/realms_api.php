@@ -3,7 +3,7 @@ use lighthouse\Community;
 use lighthouse\Api;
 use lighthouse\RealmsProposal;
 use lighthouse\RealmsVote;
-
+exit();
 if(app_site == 'app') {
 
     $communities = Community::find("SELECT id,realm_id,realm_enddate FROM communities where is_delete = 0 AND realm_id <>''",true);

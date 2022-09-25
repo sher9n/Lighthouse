@@ -6,7 +6,7 @@ use lighthouse\RealmsVote;
 use lighthouse\Contribution;
 use lighthouse\Log;
 use lighthouse\Approval;
-
+exit();
 if(app_site == 'app') {
     $p = isset($_GET['p'])?$_GET['p']:0;
     $skip = 500;

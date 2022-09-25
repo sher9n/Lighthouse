@@ -4,8 +4,9 @@ use lighthouse\Community;
 use lighthouse\Api;
 use lighthouse\Log;
 
+exit();
 if(app_site == 'app') {
-    $stewards = Steward::find("SELECT * FROM stewards WHERE praposal_passed=0 AND praposal_adr <> '' LIMIT 1");
+    $stewards = Steward::find("SELECT * FROM stewards WHERE proposal_passed=0 AND proposal_adr <> '' LIMIT 1");
     foreach ($stewards as $steward) {
         $com_id = $steward['comunity_id'];
         $com    = Community::get($com_id);
@@ -25,7 +26,7 @@ if(app_site == 'app') {
                 foreach ($api_response->stewards as $index => $adr){
                     if(isset($comStewards[$adr]) && $comStewards[$adr]['id'] != 0) {
                         $stew = Steward::get($comStewards[$adr]['id']);
-                        $stew->praposal_passed = 1;
+                        $stew->proposal_passed = 1;
                         $stew->update();
 
                         $log = new Log();

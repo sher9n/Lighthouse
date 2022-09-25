@@ -212,13 +212,13 @@
                     <div class="col-lg-11">
                         <div class="card shadow">
                             <div class="card-body">
-                                <div class="mb-3">
+                                <!--<div class="mb-3">
                                     <label for="" class="form-label">Claim approval period</label>
                                     <div class="input-group">
-                                        <input type="number" id="approval_days" name="approval_days" class="form-control form-control-lg" value="<?php echo $__page->form->approval_days; ?>" placeholder="7">
+                                        <input type="number" id="approval_days" name="approval_days" class="form-control form-control-lg" value="<?php /*echo $__page->form->approval_days; */?>" placeholder="7">
                                         <span class="input-group-text fw-medium" id="">Days</span>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="mb-3">
                                     <label for="" class="form-label">Tags</label>
                                     <select class="form-control form-control-lg" multiple="multiple" name="tags[]" id="tags" placeholder="Marketing, Sales, Development">
@@ -296,6 +296,7 @@
             $('#max_point_section').addClass('d-none');
     });
 
+
     $(document).on('click', '#add_category', function(event) {
         event.preventDefault();
         var regex = /^(.+?)(\d+)$/i;
@@ -318,6 +319,7 @@
     });
 
     $(document).ready(function() {
+
         $('[data-bs-toggle="popover"]').popover();  
         $("#tags").select2({
             tags: true,
@@ -346,7 +348,7 @@
                     },
                     success: function (data) {
                         if (data.success == true) {
-                            window.location.replace('integrations');
+                            window.location.replace('contribution');
                         } else {
                             if (data.element) {
                                 $('#' + data.element).addClass('form-control-lg error');

@@ -5,6 +5,7 @@ use lighthouse\Log;
 use lighthouse\Form;
 use lighthouse\Api;
 use lighthouse\Contribution;
+use lighthouse\Steward;
 class controller extends Ctrl {
     function init() {
 
@@ -88,14 +89,13 @@ class controller extends Ctrl {
                                 exit();
                             }
                             else {
+
                                 $community = new Community();
                                 $community->dao_name    = $dao_name;
                                 $community->dao_domain  = $dao_domain;
                                 $community->ticker      = $ticker;
                                 $community->contract_name   = $contract_name;
                                 $community->blockchain      = $blockchain;
-                                $community->wallet_adr      = $wallet_address;
-                                $community->display_name    = 'Initial User';
 
                                 /*------from api response-------*/
 
@@ -122,21 +122,35 @@ class controller extends Ctrl {
                                 }
 
                                 $community->ch = Utils::getUniqid();
-                                $com_id = $community->insert();
+                                $com_id        = $community->insert();
+
+                                Form::addDefaultForms($com_id);
+
+                                $initial_admin = new Steward();
+                                $initial_admin->wallet_adr   = $wallet_address;
+                                $initial_admin->display_name = 'Initial User';
+                                $initial_admin->active       = 1;
+                                $initial_admin->comunity_id  = $com_id;
+                                $user_id = $initial_admin->insert();
 
                                 $log = new Log();
                                 $log->type      = 'Community';
                                 $log->type_id   = $com_id;
                                 $log->action    = 'created';
-                                $log->c_by      = $community->wallet_adr;
+                                $log->c_by      = $wallet_address;
                                 $log->insert();
+
+                                $community->id            = $com_id;
+                                $community->initial_admin = $user_id;
+                                $community->default_forms = 1;
+                                $community->update();
 
                                 $form = Form::get(2);
                                 $contribusion = new Contribution();
                                 $contribusion->comunity_id = $com_id;
-                                $contribusion->wallet_from = $community->wallet_adr;
+                                $contribusion->wallet_from = $wallet_address;
                                 $contribusion->contribution_reason = ucfirst(strtolower($community->dao_name));
-                                $contribusion->wallet_to = $community->wallet_adr;
+                                $contribusion->wallet_to = $wallet_address;
                                 $contribusion->form_id   = 2;
                                 $contribusion->max_point = $form->max_point;
                                 $contribusion->scoring   = $form->scoring;
@@ -146,13 +160,6 @@ class controller extends Ctrl {
                                 $contribusion->score     = 0;
                                 $contribusion->tags      = 'Onboarding';
                                 $con_id = $contribusion->insert();
-
-                                $log = new Log();
-                                $log->type      = 'Contribution';
-                                $log->type_id   = $con_id;
-                                $log->action    = 'create-pending';
-                                $log->c_by      = $wallet_address;
-                                $log->insert();
 
                                 echo json_encode(array('success' => true,'blockchain' =>$blockchain,'api_response' => $api_response,'url' => 'https://' . $dao_domain . '.' . base_app_url . '/contribution?ch=' . $community->ch));
                             }

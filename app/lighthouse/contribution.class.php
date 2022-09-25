@@ -25,9 +25,13 @@ class Contribution{
             $this->_data[$name] = $value;
     }
 
-    public static function get($id){
+    public static function get($id,$withProposal=false){
         $connect = Ds::connect();
-        $items   = $connect->query("select * from contributions where id='$id' limit 1");
+        if($withProposal != false) {
+            $items = $connect->query("select c.*,p.proposal_adr from contributions c LEFT JOIN proposals p ON c.proposal_id=p.id where c.id='$id' limit 1");
+        }
+        else
+            $items   = $connect->query("select * from contributions where id='$id' limit 1");
 
         if($items->num_rows > 0){
             $data = $items->fetch_array(MYSQLI_ASSOC);
@@ -36,7 +40,6 @@ class Contribution{
             $connect->close();
             return $contribution->load($data);
             exit();
-
         }
         $connect->close();
         return null;

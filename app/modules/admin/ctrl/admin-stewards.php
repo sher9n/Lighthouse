@@ -4,9 +4,11 @@ use lighthouse\Steward;
 use lighthouse\Community;
 use lighthouse\Log;
 use lighthouse\Api;
+use lighthouse\Proposal;
 use lighthouse\Vote;
 class controller extends Ctrl {
     function init() {
+
         $is_admin = false;
         $sel_wallet_adr = null;
         $community = Community::getByDomain(app_site);
@@ -53,10 +55,10 @@ class controller extends Ctrl {
 
                             if (isset($api_response->error)) {
                                 $log = new Log();
-                                $log->type = 'Stewards';
-                                $log->log = serialize($api_response->error);
+                                $log->type   = 'Stewards';
+                                $log->log    = serialize($api_response->error);
+                                $log->c_by   = $wallet_address;
                                 $log->action = 'create-failed';
-                                $log->c_by = $wallet_address;
                                 $log->insert();
 
                                 echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add amin proposal, please retry again.'));
@@ -67,19 +69,32 @@ class controller extends Ctrl {
                                 $steward->comunity_id   = $community->id;
                                 $steward->wallet_adr    = $wallet_address;
                                 $steward->display_name  = $display_name;
-                                $steward->praposal_adr  = $api_response->proposalAddress;
-                                $steward->proposal_id   = $api_response->proposalId;
-                                $id = $steward->insert();
+                                $sid = $steward->insert();
 
-                                include __DIR__ . '/../tpl/partial/realms_steward_line.php';
-                                $html = ob_get_clean();
+                                $proposal = new Proposal();
+                                $proposal->proposal_adr  = $api_response->proposalAddress;
+                                $proposal->proposal_id   = $api_response->proposalId;
+                                $proposal->proposal_type = 'ADD';
+                                $proposal->object_name   = 'admin';
+                                $proposal->object_id     = $sid;
+                                $proposal->wallet_adr    = $sel_wallet_adr;
+                                $proposal->comunity_id   = $community->id;
+                                $pid = $proposal->insert();
+
+                                $user_votes     = array();
+                                $stewardCount   = $community->getStewards(true);
+                                $approval_count = $community->approval_count;
+                                $html = '<div class="mb-8"><div class="prop-'.$pid.' d-flex align-items-center justify-content-between">';
+                                include __DIR__ . '/../tpl/partial/admin_proposal_line.php';
+                                $html.= ob_get_clean();
+                                $html.= '</div></div>';
                             }
 
                         }
                         else {
-                            $steward->praposal_passed = 1;
-                            $steward->comunity_id = $community->id;
-                            $steward->wallet_adr = $wallet_address;
+                            $steward->active = 1;
+                            $steward->comunity_id  = $community->id;
+                            $steward->wallet_adr   = $wallet_address;
                             $steward->display_name = $display_name;
                             $id = $steward->insert();
 
@@ -94,10 +109,10 @@ class controller extends Ctrl {
                         }
 
                         $log = new Log();
-                        $log->type = 'Steward';
-                        $log->type_id = $id;
-                        $log->action = 'create';
-                        $log->c_by = $wallet_address;
+                        $log->type      = 'Steward';
+                        $log->type_id   = $id;
+                        $log->action    = 'create';
+                        $log->c_by      = $wallet_address;
                         $log->insert();
 
                         $c = $community->getStewards(true);
@@ -162,50 +177,136 @@ class controller extends Ctrl {
                 case '/delete-stewards':
 
                     if($this->hasParam('id') && $this->hasParam('adr')) {
-                        $id  = $this->getParam('id');
-                        $adr = $this->getParam('adr');
-                        if(Steward::deleteSteward($id,$adr,$community_id)) {
-                            $c = $community->getStewards(true);
-                            $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
-                            echo json_encode(array('success' => true, 'stew_id' => $id,'percentage' => $percentage,'max' => $c));
+                        $sid            = $this->getParam('id');
+                        $wallet_address = $this->getParam('adr');
+                        $steward        = Steward::get($sid);
+                        $remove_stewards= $community->getAdminProposals('REMOVE');
+
+                        if(count($remove_stewards) > 0){
+                            echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to submit a Remove Admin proposal, Already have a pending proposal.'));
+                            exit();
                         }
-                        else
-                            echo json_encode(array('success' => false));
+
+                        if ($community->blockchain == SOLANA ) {
+
+                            $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $wallet_address, $sel_wallet_adr, 'REMOVE');
+
+                            if (isset($api_response->error)) {
+                                $log = new Log();
+                                $log->type   = 'Stewards';
+                                $log->log    = serialize($api_response->error);
+                                $log->action = 'remove-failed';
+                                $log->c_by   = $wallet_address;
+                                $log->insert();
+
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add amin proposal, please retry again.'));
+                                exit();
+                            } else {
+
+                                $proposal                 = new Proposal();
+                                $proposal->proposal_adr   = $api_response->proposalAddress;
+                                $proposal->proposal_id    = $api_response->proposalId;
+                                $proposal->proposal_type  = 'REMOVE';
+                                $proposal->object_name    = 'admin';
+                                $proposal->object_id      = $steward->id;
+                                $proposal->wallet_adr     = $sel_wallet_adr;
+                                $proposal->comunity_id    = $community->id;
+                                $pid = $proposal->insert();
+
+                                $user_votes     = array();
+                                $stewardCount   = $community->getStewards(true);
+                                $approval_count = $community->approval_count;
+                                $html = '<div class="mb-8"><div class="prop-'.$pid.' d-flex align-items-center justify-content-between">';
+                                include __DIR__ . '/../tpl/partial/admin_proposal_line.php';
+                                $html.= ob_get_clean();
+                                $html.= '</div></div>';
+
+                                echo json_encode(array('success' => true, 'stew_id' => $steward->id, 'api_response' => $api_response, 'blockchain' => $community->blockchain, 'html' => $html));
+                                exit();
+                            }
+                        }
                     }
-                    else
-                        echo json_encode(array('success' => false));
-                    exit();
+                    echo json_encode(array('success' => false));
                     break;
 
                 case '/steward-percentage':
                     if($this->hasParam('range') && $this->getParam('range') > 0) {
-                        $community->approval_count = $this->getParam('range');
-                        $community->update();
-                        $c = $community->getStewards(true);
-                        $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
-                        echo json_encode(array('success' => true, 'percentage' => $percentage,'max' => $c));
+                        $approval_count = $this->getParam('range');
+
+                        if ($community->blockchain != SOLANA) {
+                            $community->approval_count = $approval_count;
+                            $community->update();
+                            $c = $community->getStewards(true);
+                            $percentage = '<div class="fs-1"><?php echo $__page->' . $community->approval_count . '</div><div class="fs-2">/' . $c . '</div>';
+                            echo json_encode(array('success' => true, 'percentage' => $percentage, 'max' => $c,'blockchain' => $community->blockchain));
+                        }
+                        else {
+
+                            if(count($community->getQuorumProposals()) > 0){
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add Quorum proposal. There is a pending proposal for quorum.'));
+                                exit();
+                            }
+
+                            $stewardCount  = $community->getStewards(true);
+                            $percentage    =  round((($approval_count/$stewardCount) * 100),0,PHP_ROUND_HALF_DOWN);
+                            $api_response  = api::addSolanaQuorumProposal(constant(strtoupper(SOLANA) . "_API"),$community->contract_name,$sel_wallet_adr,$percentage);
+
+                            if (isset($api_response->error)) {
+                                $log = new Log();
+                                $log->type   = 'Quorum';
+                                $log->log    = serialize($api_response->error);
+                                $log->action = 'create-failed';
+                                $log->c_by   = $sel_wallet_adr;
+                                $log->insert();
+
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add Quorum proposal, please retry again.'));
+                                exit();
+                            }
+                            else {
+
+                                $proposal = new Proposal();
+                                $proposal->proposal_adr  = $api_response->proposalAddress;
+                                $proposal->proposal_id   = $api_response->proposalId;
+                                $proposal->proposal_type = 'ADD';
+                                $proposal->object_name   = Vote::V_TYPE_QUORUM;
+                                $proposal->wallet_adr    = $sel_wallet_adr;
+                                $proposal->comunity_id   = $community->id;
+                                $proposal->proposal_data = json_encode(array('c'=>$approval_count,'p' => $percentage));
+                                $pid = $proposal->insert();
+
+                                $user_votes     = array();
+                                $approval_count = $community->approval_count;
+                                $html  = '<div class="prop-<?php echo $qid; ?>  d-flex align-items-center justify-content-between mt-4">';
+                                $qdata = json_decode($proposal->proposal_data);
+                                include __DIR__ . '/../tpl/partial/quorum_proposal_line.php';
+                                $html .= ob_get_clean();
+                                $html .= '</div>';
+                                echo json_encode(array('success' => true,'api_response' => $api_response,'blockchain' => $community->blockchain,'html' => $html));
+                            }
+                        }
                     }
                     else
                         echo json_encode(array('success' => false));
 
                     break;
 
-                case  '/vote-stewards':
+                case  '/vote-proposal':
 
                     try {
-                        $vote = $this->hasParam('vote') ? $this->getParam('vote') : null;
-                        $steward = $this->hasParam('sid') ? Steward::get($this->getParam('sid')) : null;
 
-                        if ($steward instanceof Steward) {
-                            $vote = ($vote == 'YES') ? 'YES' : 'NO';
-                            $api_response = api::solanaAdminProposalVote(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $sel_wallet_adr, $steward->proposal_id, $vote);
+                        $vote = $this->hasParam('vote') ? $this->getParam('vote') : null;
+                        $proposal = $this->hasParam('pid') ? Proposal::get($this->getParam('pid')) : null;
+
+                        if ($proposal instanceof Proposal) {
+                            $pid  = $proposal->id;
+                            $api_response = api::solanaProposalVote(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $sel_wallet_adr, $proposal->proposal_id, $vote);
 
                             if (isset($api_response->error)) {
                                 $log = new Log();
-                                $log->type = 'Stewards';
-                                $log->log = serialize($api_response->error);
+                                $log->type   = $proposal->object_name;
+                                $log->log    = serialize($api_response->error);
                                 $log->action = 'vote-failed';
-                                $log->c_by = $sel_wallet_adr;
+                                $log->c_by   = $sel_wallet_adr;
                                 $log->insert();
 
                                 echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to submit the vote, please retry again.'));
@@ -213,20 +314,37 @@ class controller extends Ctrl {
                             }
                             else {
                                 $v = new Vote();
-                                $v->wallet_adr = $sel_wallet_adr;
-                                $v->type = Vote::V_TYPE_ADMIN;
-                                $v->type_id = $steward->id;
-                                $v->proposal_adr = $steward->praposal_adr;
-                                $v->proposal_id  = $steward->proposal_id;
-                                $v->comunity_id = $community->id;
-                                $v->vote = $vote;
+                                $v->wallet_adr   = $sel_wallet_adr;
+                                $v->comunity_id  = $community->id;
+                                $v->vote         = $vote;
+                                $v->proposal_id  = $proposal->id;
                                 $v->insert();
 
-                                $steward->proposal_yes = (int)$steward->proposal_yes + 1;
-                                $steward->update();
+                                if($vote =='YES')
+                                    $proposal->proposal_yes_count = (int)$proposal->proposal_yes_count + 1;
+                                else
+                                    $proposal->proposal_no_count = (int)$proposal->proposal_no_count + 1;
+
+                                $proposal->update();
                             }
 
-                            echo json_encode(array('success' => true,'api_response' => $api_response,'sid' => $steward->id));
+                            $user_votes     = Vote::getUserVotes($sel_wallet_adr,$community->id);
+                            $stewardCount   = $community->getStewards(true);
+                            $approval_count = $community->approval_count;
+                            $qdata          = json_decode($proposal->proposal_data);
+
+                            if($proposal->object_name == Vote::V_TYPE_QUORUM) {
+                                $qid  = $pid;
+                                include __DIR__ . '/../tpl/partial/quorum_proposal_line.php';
+                                $html = ob_get_clean();
+                            }
+                            else {
+                                $steward = Steward::get($proposal->object_id);
+                                include __DIR__ . '/../tpl/partial/admin_proposal_line.php';
+                                $html    = ob_get_clean();
+                            }
+
+                            echo json_encode(array('success' => true,'api_response' => $api_response,'pid' => $proposal->id,'html' => $html));
                         }
                     } catch (Exception $e) {
                         $msg = explode(':', $e->getMessage());
@@ -242,22 +360,28 @@ class controller extends Ctrl {
 
                 case '/get-proposal':
 
-                    $steward = $this->hasParam('sid') ? Steward::get($this->getParam('sid')) : null;
+                    $proposal = $this->hasParam('pid') ? Proposal::get($this->getParam('pid')) : null;
 
-                    if ($steward instanceof Steward) {
-                        $api_response =  API::getSolanaProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $steward->proposal_id);
+                    if ($proposal instanceof Proposal) {
+                        $api_response =  API::getSolanaProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id);
                         $response     = array();
 
                         if (!isset($api_response->error)) {
-                            $response['create_at'] = $api_response->createdAt;
-                            $response['state']     = $api_response->state;
-                            $response['voting_closes_at'] = $api_response->votingClosesAt;
+
+                            $proposal->proposal_state = $api_response->state;
+                            if($api_response->state == Proposal::PROPOSAL_STATE_DEFEATED)
+                                $proposal->is_executed = 2;
+                            $proposal->update();
+
+                            $response['create_at']    = $api_response->createdAt;
+                            $response['state']        = $api_response->state;
+                            $response['voting_closes_at']     = $api_response->votingClosesAt;
                             $response['min_votes_to_succeed'] = $api_response->minVotesToSucceed;
 
-                            echo json_encode(array('success' => true,'response' => $response,'sid' => $steward->id));
+                            echo json_encode(array('success' => true));
                         }
-                        else
-                            echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
+                        /*else
+                            echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));*/
 
                     }
 
@@ -265,22 +389,73 @@ class controller extends Ctrl {
 
                 case '/execute-admin-proposal':
 
-                    $steward = $this->hasParam('sid') ? Steward::get($this->getParam('sid')) : null;
+                    $proposal = $this->hasParam('pid') ? Proposal::get($this->getParam('pid')) : null;
 
-                    if ($steward instanceof Steward) {
-                        $api_response =  API::executeAdminProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $steward->proposal_id,$steward->wallet_adr);
+                    if ($proposal instanceof Proposal) {
+                        $steward      = Steward::get($proposal->object_id);
+
+                        if($proposal->proposal_type != 'REMOVE') {
+                            $api_response = API::executeAdminProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id, $steward->wallet_adr);
+
+                            if (!isset($api_response->error)) {
+                                $proposal->txnHash = $api_response->txHash;
+                                $proposal->proposal_passed = 1;
+                                $proposal->is_executed = 1;
+                                $proposal->update();
+
+                                $steward->active = 1;
+                                $steward->update();
+
+                                echo json_encode(array('success' => true, 'pid' => $proposal->id));
+                            }
+                            else
+                                echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
+                        }
+                        else {
+                            $api_response = API::executeAdminProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id, $steward->wallet_adr,'REMOVE');
+
+                            if (!isset($api_response->error)) {
+                                $proposal->txnHash = $api_response->txHash;
+                                $proposal->proposal_passed = 1;
+                                $proposal->is_executed = 1;
+                                $proposal->update();
+
+                                $steward->active    = 0;
+                                $steward->is_delete = 0;
+                                $steward->update();
+
+                                echo json_encode(array('success' => true, 'pid' => $proposal->id));
+                            }
+                            else
+                                echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
+
+                        }
+                    }
+
+                    break;
+
+                case '/execute-quorum-proposal':
+
+                    $proposal = $this->hasParam('pid') ? Proposal::get($this->getParam('pid')) : null;
+
+                    if($proposal instanceof Proposal){
+                        $api_response =  API::executeBasicProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id);
 
                         if (!isset($api_response->error)) {
-                            $steward->txnHash = $api_response->txnHash;
-                            $steward->praposal_passed = 1;
-                            $steward->update();
+                            $proposal->txnHash          = $api_response->txHash;
+                            $proposal->proposal_passed  = 1;
+                            $proposal->is_executed      = 1;
+                            $proposal->update();
 
-                            echo json_encode(array('success' => true,'sid' => $steward->id));
+                            $qdata = json_decode($proposal->proposal_data);
+                            $community->approval_count  = $qdata->c;
+                            $community->update();
+
+                            echo json_encode(array('success' => true,'pid' => $proposal->id));
                         }
                         else
                             echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
                     }
-
                     break;
             }
 
@@ -292,25 +467,22 @@ class controller extends Ctrl {
             $approval_count = 0;
             $maxVotingTime  = $community->max_voting_time;
             $user_votes     = Vote::getUserVotes($sel_wallet_adr,$community->id);
-            
+            $adminProposals = $community->getAdminProposals();
+            $quorumProposals= $community->getQuorumProposals();
+
             if($site === false) {
                 header("Location: https://lighthouse.xyz");
                 die();
             }
 
-            $allStewards  = $community->getAllStewards();
-            $stewardCount = 0;
-            foreach ($allStewards as $steward){
-                if($steward['praposal_passed'] == 1){
-                    $stewardCount++;
-                }
-            }
+            $allStewards  = $community->getStewards();
+            $stewardCount = count($allStewards);
 
-/*            if($community->blockchain == SOLANA) {
-                $api_response = api::getRealmInfo(constant(strtoupper(SOLANA) . "_REALMS_API"), $community->governance_pk);
+            if($community->blockchain == SOLANA) {
+                $api_response = api::getSolanaCommunity(constant(strtoupper(SOLANA) . "_API"), $community->contract_name);
                 if (!isset($api_response->error)) {
-                    $maxVotingTime    = $api_response->maxVotingTime;
-                    $quorumPercentage = $api_response->quorumPercentage;
+                    $maxVotingTime    = $api_response->votingDuration;
+                    $quorumPercentage = $api_response->quorumPercent;
                     $approval_count   = ($quorumPercentage/100) * $stewardCount;
                     $approval_count   = round($approval_count,0,PHP_ROUND_HALF_UP);
                     $community->approval_count  = $approval_count;
@@ -318,9 +490,9 @@ class controller extends Ctrl {
                     $community->update();
 
                 }
-            }*/
-
-            $approval_count = $community->approval_count;
+            }
+            else
+                $approval_count = $community->approval_count;
 
             $__page = (object)array(
                 'title' => $site['site_name'],
@@ -333,6 +505,8 @@ class controller extends Ctrl {
                 'approval_count' => $approval_count,
                 'maxVotingTime' => $maxVotingTime,
                 'user_votes' => $user_votes,
+                'admin_Proposals' => $adminProposals,
+                'quorumProposals' => $quorumProposals,
                 'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(

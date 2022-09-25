@@ -1,3 +1,4 @@
+<?php use Core\Utils; ?>
 <main>
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
@@ -9,40 +10,104 @@
                             <div class="display-5 fw-medium">Manage stewards</div>
                             <div class="text-muted mt-1">Add or remove stewards and set multisig parameters</div>
                             <div class="fw-medium mt-16">Quorum</div>
-                            <button type="button" id="percentage_change" class="btn btn-primary mt-6" data-bs-toggle="modal" data-bs-target="#ModalChange">Propose new quorum</button>
+                            <button type="button" id="percentage_change" class="btn btn-primary mt-6 <?php echo count($__page->quorumProposals) > 0 ?'disabled':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Propose new quorum</button>
                             <div class="d-flex align-items-center mt-4">
                                 <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
                                     <div class="fs-1"><?php echo $__page->approval_count.'</div><div class="fs-2">/'.$__page->stewardCount; ?></div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                                <div>
-                                    <div class="d-flex align-items-center fw-medium">
-                                        <a href="#" class="text-blue-stone me-2 text-decoration-none">Modify</a>
-                                        <div class="text-muted">Quorum</div>
+                            <div class="mt-26" id="quorum_list">
+                            <?php
+                            if($__page->blockchain == SOLANA){
+                                foreach ($__page->quorumProposals as $qid => $proposal){
+                                    $qdata = json_decode($proposal->proposal_data); ?>
+                                    <div class="prop-<?php echo $qid; ?>  d-flex align-items-center justify-content-between mt-4">
+                                        <div>
+                                            <div class="d-flex align-items-center fw-medium">
+                                                <a class="text-blue-stone me-2 text-decoration-none">Modify</a>
+                                                <div class="text-muted">Quorum</div>
+                                            </div>
+                                            <div class="d-flex align-items-center fw-medium text-gray-700">
+                                                <div class="fs-2"><?php echo $qdata->c; ?></div>
+                                                <div class="fs-3">/<?php echo $__page->stewardCount; ?></div>
+                                            </div>
+                                            <?php
+                                            $date_count = Utils::expire_date_count(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($proposal->c_at .' +'.($__page->maxVotingTime/86400).' days')));
+                                            if(!is_null($date_count)) {
+                                                ?>
+                                                <div class="d-flex align-items-center text-blue-stone">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                    <div class="fw-medium ms-2 end_time_<?php echo $qid; ?>">Approval period ends in <?php echo $date_count; ?></div>
+                                                </div>
+                                            <?php
+                                            }
+                                            else{
+                                                ?>
+                                                <script>
+
+                                                    var countDownDate_<?php echo $qid; ?> = new Date("<?php echo date('Y-m-d H:i:s',strtotime($proposal->c_at .' +'.($__page->maxVotingTime/86400).' days')); ?>").getTime();
+
+                                                    var x_<?php echo $qid; ?> = setInterval(function() {
+
+                                                        var now_<?php echo $qid; ?> = new Date().getTime();
+                                                        var distance_<?php echo $qid; ?> = countDownDate_<?php echo $qid; ?> - now_<?php echo $qid; ?>;
+                                                        var hours_<?php echo $qid; ?> = Math.floor((distance_<?php echo $qid; ?> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                        var minutes_<?php echo $qid; ?> = Math.floor((distance_<?php echo $qid; ?> % (1000 * 60 * 60)) / (1000 * 60));
+                                                        var seconds_<?php echo $qid; ?> = Math.floor((distance_<?php echo $qid; ?> % (1000 * 60)) / 1000);
+
+                                                        if (countDownDate_<?php echo $qid; ?> < now_<?php echo $qid; ?>) {
+                                                            clearInterval(x_<?php echo $qid; ?>);
+                                                            $(".end_time_<?php echo $qid; ?>").html("EXPIRED");
+                                                        }
+                                                        else {
+                                                            $(".end_time_<?php echo $qid; ?>").html("Approval period ends in " + hours_<?php echo $qid; ?> + "h "
+                                                                + minutes_<?php echo $qid; ?> + "m " + seconds_<?php echo $qid; ?> + "s ");
+                                                        }
+                                                    }, 1000);
+                                                </script>
+                                                <div class="d-flex align-items-center text-blue-stone">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                    <div class="fw-medium ms-2 end_time_<?php echo $qid; ?>"></div>
+                                                </div>
+                                                <?php
+                                            } ?>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-medium text-muted mb-1"><?php echo $proposal->proposal_yes_count; ?> of <?php echo $__page->stewardCount; ?> Approved</div>
+                                            <div>
+                                                <?php
+
+                                                if(!isset($__page->user_votes[$qid])){
+                                                    /*$vote = $__page->user_votes[$qid];
+                                                    if($vote == 'NO'){*/?><!--
+                                                        <a type="button" data-pid="<?php /*echo $qid; */?>" data-vote="NO" id="deny_<?php /*echo $qid; */?>" class="admin_proposal_vote btn btn-secondary me-2 disabled">Deny</a>
+                                                        <?php
+/*                                                    }
+                                                    if($vote == 'YES'){*/?>
+                                                        <a type="button" data-pid="<?php /*echo $qid; */?>" data-vote="YES" id="approve_<?php /*echo $qid; */?>" class="admin_proposal_vote btn btn-blue-stone me-2 disabled">Approve</a>
+                                                        --><?php
+/*                                                    }
+                                                }
+                                                else { */?>
+                                                    <a type="button" data-pid="<?php echo $qid; ?>" data-vote="NO" id="deny_<?php echo $qid; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
+                                                    <a type="button" data-pid="<?php echo $qid; ?>" data-vote="YES" id="approve_<?php echo $qid; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
+                                                    <?php
+                                                }
+                                                if($proposal->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_SUCCEEDED ){ ?>
+                                                    <a type="button" data-pid="<?php echo $qid; ?>" id="execute_<?php echo $qid; ?>" class="quorum_proposal_execute btn btn-blue-stone">execute</a>
+                                                    <?php
+                                                } ?>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-end mt-2">
+                                                <div class="fw-semibold me-2">View Proposal</div>
+                                                <a target="_blank" href="https://solscan.io/account/<?php echo $proposal->proposal_adr ; ?>?cluster=devnet" class="text-primary">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center fw-medium text-gray-700">
-                                        <div class="fs-2">4</div>
-                                        <div class="fs-3">/5</div>
-                                    </div>
-                                    <div class="d-flex align-items-center text-blue-stone">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                        <div class="fw-medium ms-2">Approval period ends in 45m</div>
-                                    </div>
-                                </div>
-                                <div class="text-end">
-                                    <div class="fw-medium text-muted mb-1">3 of <?php echo $__page->stewardCount; ?> Approved</div>
-                                    <div>
-                                        <a type="button" id="" class="btn btn-secondary me-2">Deny</a>
-                                        <a type="button" id="" class="btn btn-blue-stone">Approve</a>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-end mt-2">
-                                        <div class="fw-semibold me-2">View Proposal</div>                                        
-                                        <a href="#" class="text-primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                                        </a>
-                                    </div>
-                                </div>
+                                <?php }
+                            } ?>
                             </div>
                         </div>
                         <div class="border-dashed"></div>
@@ -52,91 +117,111 @@
                             <?php if($__page->blockchain == SOLANA){ ?>
                                 <div class="mt-26" id="pending_steward_list">
                                     <?php
-                                    foreach ($__page->stewards as $steward){
-                                        if($steward['praposal_passed'] == 0){ ?>
+                                    foreach ($__page->admin_Proposals as $id => $proposal){ ?>
                                         <div class="mb-8">
-                                            <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center justify-content-between">
+                                            <div class="prop-<?php echo $id; ?> d-flex align-items-center justify-content-between">
                                                 <div>
                                                     <div class="d-flex align-items-center fw-medium">
-                                                        <a href="#" class="text-blue-stone me-2 text-decoration-none">Add</a>
-                                                        <div class="text-muted"><?php echo $steward['name']; ?></div>
+                                                        <?php if($proposal->proposal_type == 'ADD'){ ?>
+                                                        <a class="text-blue-stone me-2 text-decoration-none">Add</a>
+                                                        <?php }else{ ?>
+                                                        <a class="text-danger me-2 text-decoration-none">Remove</a>
+                                                        <?php } ?>
+                                                        <div class="text-muted"><?php echo $proposal->display_name; ?></div>
                                                     </div>
-                                                    <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
-                                                    <script>
+                                                    <div class="fs-3 fw-semibold me-6"><?php echo $proposal->modified_admin; ?></div>
+                                                    <?php
+                                                    $date_count = Utils::expire_date_count(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($proposal->c_at .' +'.($__page->maxVotingTime/86400).' days')));
+                                                    if(!is_null($date_count)) {
+                                                        ?>
+                                                        <div class="d-flex align-items-center text-blue-stone">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                            <div class="fw-medium ms-2 end_time_<?php echo $id; ?>">Approval period ends in <?php echo $date_count; ?></div>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                    else{
+                                                        ?>
+                                                        <script>
+                                                            var countDownDate_<?php echo $id; ?> = new Date("<?php echo date('Y-m-d H:i:s',strtotime($proposal->c_at .' +'.($__page->maxVotingTime/86400).' days')); ?>").getTime();
 
-                                                        var countDownDate_<?php echo $steward['id']; ?> = new Date("<?php echo date('Y-m-d H:i:s',strtotime($steward['c_at'] .' +'.($__page->maxVotingTime/86400).' days')); ?>").getTime();
+                                                            var x_<?php echo $id; ?> = setInterval(function() {
 
-                                                        var x_<?php echo $steward['id']; ?> = setInterval(function() {
+                                                                var now_<?php echo $id; ?> = new Date().getTime();
+                                                                var distance_<?php echo $id; ?> = countDownDate_<?php echo $id; ?> - now_<?php echo $id; ?>;
+                                                                var hours_<?php echo $id; ?> = Math.floor((distance_<?php echo $id; ?> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                                var minutes_<?php echo $id; ?> = Math.floor((distance_<?php echo $id; ?> % (1000 * 60 * 60)) / (1000 * 60));
+                                                                var seconds_<?php echo $id; ?> = Math.floor((distance_<?php echo $id; ?> % (1000 * 60)) / 1000);
 
-                                                            var now = new Date().getTime();
-                                                            var distance_<?php echo $steward['id']; ?> = countDownDate_<?php echo $steward['id']; ?> - now;
-                                                            var hours_<?php echo $steward['id']; ?> = Math.floor((distance_<?php echo $steward['id']; ?> % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                                            var minutes_<?php echo $steward['id']; ?> = Math.floor((distance_<?php echo $steward['id']; ?> % (1000 * 60 * 60)) / (1000 * 60));
-                                                            var seconds_<?php echo $steward['id']; ?> = Math.floor((distance_<?php echo $steward['id']; ?> % (1000 * 60)) / 1000);
-
-                                                            if (countDownDate_<?php echo $steward['id']; ?> < now) {
-                                                                clearInterval(x_<?php echo $steward['id']; ?>);
-                                                                $(".end_time_<?php echo $steward['id']; ?>").html("EXPIRED");
-                                                            }
-                                                            else {
-                                                                $(".end_time_<?php echo $steward['id']; ?>").html("Approval period ends in " + hours_<?php echo $steward['id']; ?> + "h "
-                                                                    + minutes_<?php echo $steward['id']; ?> + "m " + seconds_<?php echo $steward['id']; ?> + "s ");
-                                                            }
-                                                        }, 1000);
-                                                    </script>
-                                                    <div class="d-flex align-items-center text-blue-stone">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                                        <div class="fw-medium ms-2 end_time_<?php echo $steward['id']; ?>"></div>
-                                                    </div>
+                                                                if (countDownDate_<?php echo $id; ?> < now_<?php echo $id; ?>) {
+                                                                    clearInterval(x_<?php echo $id; ?>);
+                                                                    $(".end_time_<?php echo $id; ?>").html("EXPIRED");
+                                                                }
+                                                                else {
+                                                                    $(".end_time_<?php echo $id; ?>").html("Approval period ends in " + hours_<?php echo $id; ?> + "h "
+                                                                        + minutes_<?php echo $id; ?> + "m " + seconds_<?php echo $id; ?> + "s ");
+                                                                }
+                                                            }, 1000);
+                                                        </script>
+                                                        <div class="d-flex align-items-center text-blue-stone">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                            <div class="fw-medium ms-2 end_time_<?php echo $id; ?>"></div>
+                                                        </div>
+                                                        <?php
+                                                    } ?>
                                                 </div>
                                                 <div class="text-end">
-                                                    <div class="fw-medium text-muted mb-1"><?php echo $steward['proposal_yes']; ?> of <?php echo $__page->stewardCount; ?> Approved</div>
+                                                    <div class="fw-medium text-muted mb-1"><?php echo $proposal->proposal_yes_count; ?> of <?php echo $__page->stewardCount; ?> Approved</div>
                                                     <div>
-                                                        <?php if(!isset($__page->user_votes[$steward['id']])){ ?>
-                                                            <a type="button" data-sid="<?php echo $steward['id']; ?>" data-vote="NO" id="deny_<?php echo $steward['id']; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
-                                                            <a type="button" data-sid="<?php echo $steward['id']; ?>" data-vote="YES" id="approve_<?php echo $steward['id']; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
-                                                        <?php }else{
-                                                            $vote = $__page->user_votes[$steward['id']];
-                                                            if($vote == 'NO'){?>
-                                                                <a type="button" data-sid="<?php echo $steward['id']; ?>" data-vote="NO" id="deny_<?php echo $steward['id']; ?>" class="admin_proposal_vote btn btn-secondary me-2 disabled">Deny</a>
+                                                        <?php
+                                                        if(!isset($__page->user_votes[$id])){
+                                                            /*$vote = $__page->user_votes[$id];
+                                                            if($vote == 'NO'){*/?><!--
+                                                                <a type="button" data-pid="<?php /*echo $id; */?>" data-vote="NO" id="deny_<?php /*echo $id; */?>" class="admin_proposal_vote btn btn-secondary me-2 disabled">Deny</a>
                                                                 <?php
-                                                            }
-                                                            if($vote == 'YES'){?>
-                                                                <a type="button" data-sid="<?php echo $steward['id']; ?>" data-vote="YES" id="approve_<?php echo $steward['id']; ?>" class="admin_proposal_vote btn btn-blue-stone me-2 disabled">Approve</a>
-                                                                <?php
-                                                            }
+/*                                                            }
+                                                            if($vote == 'YES'){*/?>
+                                                                <a type="button" data-pid="<?php /*echo $id; */?>" data-vote="YES" id="approve_<?php /*echo $id; */?>" class="admin_proposal_vote btn btn-blue-stone me-2 disabled">Approve</a>
+                                                                --><?php
+/*                                                            }
+                                                        }
+                                                        else{ */?>
+                                                            <a type="button" data-pid="<?php echo $id; ?>" data-vote="NO" id="deny_<?php echo $id; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
+                                                            <a type="button" data-pid="<?php echo $id; ?>" data-vote="YES" id="approve_<?php echo $id; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
+                                                            <?php
+                                                        }
+                                                        if($proposal->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_SUCCEEDED){ ?>
+                                                            <a type="button" data-pid="<?php echo $id; ?>" id="execute_<?php echo $id; ?>" class="admin_proposal_execute btn btn-blue-stone">execute</a>
+                                                            <?php
                                                         } ?>
-                                                        <?php if($steward['proposal_yes'] >=  $__page->stewardCount ){ ?>
-                                                            <a type="button" data-sid="<?php echo $steward['id']; ?>" id="execute_<?php echo $steward['id']; ?>" class="admin_proposal_execute btn btn-blue-stone">execute</a>
-                                                        <?php } ?>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-end mt-2">
-                                                        <?php $praposal_adr = $steward['praposal_adr']; ?>
                                                         <div class="fw-semibold me-2" >View Proposal</div>
-                                                        <a target="_blank" href="https://solscan.io/account/<?php echo $praposal_adr; ?>?cluster=devnet" class="text-primary">
+                                                        <a target="_blank" href="https://solscan.io/account/<?php echo $proposal->proposal_adr ; ?>?cluster=devnet" class="text-primary">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php }
+                                        <?php
                                     } ?>
                                 </div>
                                 <div class="mt-26" id="steward_list">
                                     <?php
-                                    foreach ($__page->stewards as $steward){
-                                        if($steward['praposal_passed'] == 1){ ?>
+                                    foreach ($__page->stewards as $steward){ ?>
                                         <div class="mb-8">
                                             <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><span><?php echo $steward['name']; ?></span><a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="<?php echo $steward['wallet_adr']; ?>" data-sid="<?php echo $steward['id']; ?>" data-sname="<?php echo $steward['name']; ?>" data-bs-toggle="modal" data-bs-target="#editSteward"href="#">Edit > </a></div>
                                             <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                                 <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
-                                                <!-- <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
+                                                <?php if($steward['initial_admin'] != 1){ ?>
+                                                <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                                                </a> -->
+                                                </a>
+                                                <?php } ?>
                                             </div>
                                         </div>
-                                        <?php }
+                                        <?php
                                     }?>
                                 </div>
                             <?php }else{ ?>
@@ -156,34 +241,6 @@
                                     } ?>
                                 </div>
                             <?php } ?>
-
-                            <!--<div class="mb-8">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <div class="d-flex align-items-center fw-medium">
-                                            <a href="#" class="text-danger me-2 text-decoration-none">Remove</a>
-                                            <div class="text-muted">Quorum</div>
-                                        </div>
-                                        <div class="fs-3 fw-semibold me-6">0x0916B14989260cBe1575D93cfd5AA6E7025EC95a</div>
-                                        <div class="d-flex align-items-center text-blue-stone">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                            <div class="fw-medium ms-2">Approval period ends in 45m</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-end">
-                                        <div class="fw-medium text-muted mb-1">3 of 5 Approved</div>
-                                        <div>
-                                            <button type="button" id="" class="btn btn-blue-stone">execute</button>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-end mt-2">
-                                            <div class="fw-semibold me-2">View Proposal</div>                                        
-                                            <a href="#" class="text-primary">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -251,7 +308,7 @@
 <div class="modal fade" id="ModalChange" tabindex="-1" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
-        <form id="stewardForm" method="post" action="steward-percentage" autocomplete="off">
+        <form id="quorumForm" method="post" action="steward-percentage" autocomplete="off">
           <div class="modal-body">
             <div class="fs-2 fw-semibold mb-15">Select quorum</div>            
             <label for="basic-url" class="form-label">Quorum</label>
@@ -264,8 +321,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button id="btn_q_cancel" type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+            <button id="btn_q_save" type="submit" class="btn btn-primary">Save</button>
           </div>
         </form>
     </div>
@@ -274,6 +331,16 @@
 
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
+
+    $(document).ready(function() {
+        <?php foreach ($__page->quorumProposals as $id_key => $val){ ?>
+        checkProposalState(<?php echo $id_key; ?>);
+        <?php } ?>
+
+        <?php foreach ($__page->admin_Proposals as $id_key => $val){ ?>
+        checkProposalState(<?php echo $id_key; ?>);
+        <?php } ?>
+    });
 
     $(document).on('click', '.edit_steward', function(event) {
         event.preventDefault();
@@ -293,7 +360,7 @@
         e.preventDefault();
         var ele = $(this);
         $.ajax({
-            url: 'execute-admin-proposal?sid='+ele.data("sid"),
+            url: 'execute-admin-proposal?pid='+ele.data("pid"),
             dataType: 'json',
             beforeSend: function () {
                 showMessage('success', 10000, 'Initializing wallet signing process...');
@@ -301,27 +368,51 @@
             success: function(data) {
                 if (data.success == true){
                     showMessage('success',10000,'Success! The proposal has been executed.');
+                    window.location.replace('stewards');
                 }
                 else {
                     if(data.element) {
                         $('#' + data.element).addClass('form-control-lg error');
                         $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
                     }
-                    else {
-                        setTimeout(function () {
-                            showMessage('danger', 10000, data.msg);
-                        }, 6000);
-                    }
+                    else
+                        showMessage('danger', 10000, data.msg);
                 }
             }
         });
     });
 
-    $(document).on('click', '.admin_proposal_vote', function (e){
+    $(document).on('click','.quorum_proposal_execute', function (e){
         e.preventDefault();
         var ele = $(this);
         $.ajax({
-            url: 'vote-stewards?sid='+ele.data("sid")+'&vote='+ele.data("vote"),
+            url: 'execute-quorum-proposal?pid='+ele.data("pid"),
+            dataType: 'json',
+            beforeSend: function () {
+                showMessage('success', 10000, 'Initializing wallet signing process...');
+            },
+            success: function(data) {
+                if (data.success == true){
+                    showMessage('success',10000,'Success! The proposal has been executed.');
+                    window.location.replace('stewards');
+                }
+                else {
+                    if(data.element) {
+                        $('#' + data.element).addClass('form-control-lg error');
+                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                    }
+                    else
+                        showMessage('danger', 10000, data.msg);
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.admin_proposal_vote,quorum_proposal_vote', function (e){
+        e.preventDefault();
+        var ele = $(this);
+        $.ajax({
+            url: 'vote-proposal?pid='+ele.data("pid")+'&vote='+ele.data("vote"),
             dataType: 'json',
             beforeSend: function () {
                 showMessage('success', 10000, 'Initializing wallet signing process...');
@@ -329,18 +420,20 @@
             success: function(data) {
                 if (data.success == true){
                     const response =  solanaProposalTransaction(data.api_response);
-                    showMessage('success',10000,'Success! The vote has been submitted.');
+                    const r_data   = data;
+                    response.then(function (data){
+                        $('.prop-'+r_data.pid).html(r_data.html);
+                        showMessage('success', 10000, 'Success! The vote has been submitted.');
+                        checkProposalState(r_data.pid);
+                    });
                 }
                 else {
                     if(data.element) {
-                            $('#' + data.element).addClass('form-control-lg error');
-                            $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                        $('#' + data.element).addClass('form-control-lg error');
+                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
                     }
-                    else {
-                        setTimeout(function () {
-                            showMessage('danger', 10000, data.msg);
-                        }, 6000);
-                    }
+                    else
+                        showMessage('danger', 10000, data.msg);
                 }
             }
         });
@@ -377,26 +470,41 @@
         }
     });
 
-    $('#stewardForm').validate({
+    $('#quorumForm').validate({
         rules: {},
         submitHandler: function(form) {
             $(form).ajaxSubmit({
                 type: 'post',
                 dataType: 'json',
+                beforeSend: function () {
+                    $('#btn_q_cancel').prop('disabled', true);
+                    $('#btn_q_save').prop('disabled', true);
+                    showMessage('success', 10000, 'Updating...');
+                },
                 success: function(data) {
                     $('#ModalChange').modal('toggle');
+                    $('#btn_q_cancel').prop('disabled', false);
+                    $('#btn_q_save').prop('disabled', false);
+
                     if (data.success == true) {
-                        $('#steward_percentage').html(data.percentage);
-                        $("#steward_range").attr({"max" : data.max});
-                        $("#max_label").html(data.max);
-                        if(data.max > 1)
-                            $('#percentage_change').removeClass('d-none');
-                        else
-                            $('#percentage_change').addClass('d-none');
-                        showMessage('success',10000,'Success! The quorum has been updated.');
+                        if(data.blockchain == 'solana') {
+                            const response =  solanaProposalTransaction(data.api_response);
+                            const r_data   = data;
+                            response.then(function (data){
+                                $("#quorum_list").append(r_data.html);
+                                showMessage('success', 10000, 'Success! A proposal for a new quorum has been added.');
+                            });
+                        }
+                        else {
+                            $('#steward_percentage').html(data.percentage);
+                            $("#steward_range").attr({"max": data.max});
+                            $("#max_label").html(data.max);
+
+                            showMessage('success', 10000, 'Success! The quorum has been updated.');
+                        }
                     }
                     else
-                        showMessage('danger',10000,'Error! Could not update the quorum, please try again later.');
+                        showMessage('danger',10000,data.msg);
                 }
             });
         }
@@ -408,21 +516,29 @@
             $(form).ajaxSubmit({
                 type: 'post',
                 dataType: 'json',
+                beforeSend: function () {
+                    showMessage('success', 10000, 'Initializing wallet signing process...');
+                    showMessage('success', 10000, 'Creating a new proposal...');
+                },
                 success: function(data) {
                     $('#delMember').modal('toggle');
                     if (data.success == true) {
-                        $('.stew-'+data.stew_id).remove();
-                        $('#steward_percentage').html(data.percentage);
-                        $("#steward_range").attr({"max" : data.max});
-                        $("#max_label").html(data.max);
-                        if(data.max > 1)
-                            $('#percentage_change').removeClass('d-none');
-                        else
-                            $('#percentage_change').addClass('d-none');
-                        showMessage('success',10000,'Success! A steward has been deleted from your community.');
+
+                        if(data.blockchain == 'solana') {
+                            const response =  solanaProposalTransaction(data.api_response);
+                            const r_data   = data;
+                            response.then(function (data){
+                                $('#pending_steward_list').append(r_data.html);
+                                showMessage('success',10000,'Success! The remove steward proposal has been added.');
+                            });
+                        }
+                        else {
+                            $('.stew-' + data.stew_id).remove();
+                            showMessage('success',10000,'Success! The selected steward has been removed.');
+                        }
                     }
                     else
-                        showMessage('danger',10000,'Error! Could not update the steward list, please try again later.');
+                        showMessage('danger',10000,data.msg);
                 }
             });
         }
@@ -461,16 +577,9 @@
                             const r_data   = data;
                             response.then(function (data){
                                 $('#pending_steward_list').append(r_data.html);
-                               // $('#steward_percentage').html(data.percentage);
-                                $("#steward_range").attr({"max": r_data.max});
-                                $("#max_label").html(r_data.max);
-                                if (r_data.max > 1)
-                                    $('#percentage_change').removeClass('d-none');
-                                else
-                                    $('#percentage_change').addClass('d-none');
-
                                 $('#nickname').val('');
                                 $('#wallet_address').val('');
+                                $('#percentage_change').addClass('disabled');
                                 showMessage('success', 10000, 'Success! A proposal for a new steward has been added.');
                             });
                         }
@@ -488,8 +597,6 @@
                             $('#wallet_address').val('');
                             showMessage('success', 10000, 'Success! A steward has been added to your community.');
                         }
-
-
                     }
                     else
                         showMessage('danger',10000,'Error! Could not update the steward list, please try again later.');
@@ -497,4 +604,12 @@
             });
         }
     });
+
+    function checkProposalState(pid) {
+        $.ajax({
+            url: 'get-proposal?pid='+pid,
+            dataType: 'json'
+        });
+    }
+
 </script>

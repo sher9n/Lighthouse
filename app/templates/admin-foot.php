@@ -81,23 +81,35 @@ foreach ($__page->js as $page_js) { ?>
         });
     }
 
-    $(document).ready(function() {
-        $(document).on("click", '#disconnect_wallet', function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: 'disconnect_wallet',
-                dataType: 'json',
-                type: 'GET',
-                success: function (response) {
-                    if (response.success == true) {
-                        if(response.solana == true)
-                            disconnectAccount();
-                        else
-                            onDisconnect();
-                        window.location = 'admin';
-                    }
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    function disconnectWallet() {
+        $.ajax({
+            url: 'disconnect_wallet',
+            dataType: 'json',
+            type: 'GET',
+            success: function (response) {
+                if (response.success == true) {
+                    if(response.solana == true)
+                        disconnectAccount();
+                    else
+                        onDisconnect();
+                    window.location = 'admin';
                 }
-            });
+            }
         });
+    }
+
+    $(document).on("click", '#disconnect_wallet', function(event) {
+        event.preventDefault();
+        disconnectWallet();
+    });
+
+    $(document).ready(function() {
+       <?php if($__page->blockchain == SOLANA){ ?>
+       getSolanaAccount(false);
+       <?php } ?>
     });
 </script>

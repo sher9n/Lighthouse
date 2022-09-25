@@ -115,6 +115,7 @@ class controller extends Ctrl {
                             $formElement->e_label = $question['e_label'];
                             $formElement->e_order = $order;
                             $label_name = strtolower(preg_replace("/\s+/", "_", $formElement->e_label));
+                            $label_name = preg_replace("/'/i", '', $label_name);
                             $formElement->e_name  = $label_name;
                             $formElement->e_id    = $label_name;
                             $formElement->e_required = isset($question['e_required'])?1:0;
@@ -128,6 +129,7 @@ class controller extends Ctrl {
                             $formElement->e_label = $question['e_label'];
                             $formElement->e_order = $order;
                             $label_name = strtolower(preg_replace("/\s+/", "_", $formElement->e_label));
+                            $label_name = preg_replace("/'/i", '', $label_name);
                             $formElement->e_name  = $label_name;
                             $formElement->e_id    = $label_name;
                             $formElement->e_required = isset($question['e_required'])?1:0;
@@ -182,7 +184,7 @@ class controller extends Ctrl {
                 'row_id' => 1,
                 'form' => $form,
                 'is_admin' => $is_admin,
-                'blockchain' => GNOSIS_CHAIN,
+                'blockchain' => $community->blockchain,
                 'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'sections' => array(
