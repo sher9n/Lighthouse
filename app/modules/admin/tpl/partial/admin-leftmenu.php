@@ -18,7 +18,7 @@
                 <div class="ms-12">Leaderboard</div>
             </a>
         </li>
-        <?php if($__page->is_admin){ ?>
+
             <li class="nav-item">
                 <a class="nav-link <?php echo __ROUTER_PATH=='/approvals'?'active':'';?>" href="approvals">
                     <!-- <i data-feather="check-circle"></i> -->
@@ -33,6 +33,7 @@
                     <div class="ms-12">Stewards</div>
                 </a>
             </li>
+            <?php if($__page->is_admin){ ?>
             <li class="nav-item tree-toggle">
                 <a class="nav-link <?php echo __ROUTER_PATH=='/integrations'?'active':'';?>"  href="integrations">
                     <!-- <img src="img/icon-integrations.svg">  
@@ -46,6 +47,7 @@
                     <li class="nav-item"><a class="nav-link" href="#Apps">> Apps</a></li>
                 </ul>
             </li>
+            <?php } ?>
             <li class="nav-item">
                 <a class="nav-link <?php echo __ROUTER_PATH=='/settings'?'active':'';?>" href="settings">
                     <!-- <i data-feather="settings"></i> -->
@@ -53,7 +55,7 @@
                     <div class="ms-12">Settings</div>
                 </a>
             </li>
-        <?php } ?>
+
     </ul>
     </div>
     <div class="user-nav dropup">

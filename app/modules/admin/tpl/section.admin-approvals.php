@@ -11,9 +11,11 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="tab_link nav-link active" id="pills-queue-tab" data-bs-toggle="pill" data-bs-target="#pills-queue" type="button" role="tab" aria-controls="pills-queue" aria-selected="true">Claims</button>
                                 </li>
+                                <?php if($__page->is_admin != false){ ?>
                                 <li class="nav-item" role="presentation">
                                     <button class="tab_link nav-link" id="pills-reviewed-tab" data-bs-toggle="pill" data-bs-target="#pills-reviewed" type="button" role="tab" aria-controls="pills-reviewed" aria-selected="false">Queued</button>
                                 </li>
+                                <?php } ?>
                                 <li class="nav-item" role="presentation">
                                     <button class="tab_link nav-link" id="pills-approved-tab" data-bs-toggle="pill" data-bs-target="#pills-approved" type="button" role="tab" aria-controls="pills-approved" aria-selected="false">Attested</button>
                                 </li>

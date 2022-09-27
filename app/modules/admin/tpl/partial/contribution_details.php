@@ -96,6 +96,8 @@
                     }
                 }
             } ?>
+
+            <?php if($is_admin ==true){ ?>
             <div class="row mt-10">
                 <div id="btn_row" class="col-12 text-end">
                     <?php
@@ -191,6 +193,7 @@
                  ?>
                 </div>
             </div>
+            <?php } ?>
         </div>
         <div class="card-body p-xxl-20 border-top">
             <ul class="nav nav-pills" id="claim-tab" role="tablist">

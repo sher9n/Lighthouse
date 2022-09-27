@@ -10,7 +10,9 @@
                             <div class="display-5 fw-medium">Manage stewards</div>
                             <div class="text-muted mt-1">Add or remove stewards and set multisig parameters</div>
                             <div class="fw-medium mt-16">Quorum</div>
+                            <?php if($__page->is_admin != false){ ?>
                             <button type="button" id="percentage_change" class="btn btn-primary mt-6 <?php echo count($__page->quorumProposals) > 0 ?'disabled':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Propose new quorum</button>
+                            <?php } ?>
                             <div class="d-flex align-items-center mt-4">
                                 <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
                                     <div class="fs-1"><?php echo $__page->approval_count.'</div><div class="fs-2">/'.$__page->stewardCount; ?></div>
@@ -74,6 +76,7 @@
                                         </div>
                                         <div class="text-end">
                                             <div class="fw-medium text-muted mb-1"><?php echo $proposal->proposal_yes_count; ?> of <?php echo $__page->stewardCount; ?> Approved</div>
+                                            <?php if($__page->is_admin != false){ ?>
                                             <div>
                                                 <?php
 
@@ -98,6 +101,7 @@
                                                     <?php
                                                 } ?>
                                             </div>
+                                            <?php } ?>
                                             <div class="d-flex align-items-center justify-content-end mt-2">
                                                 <div class="fw-semibold me-2">View Proposal</div>
                                                 <a target="_blank" href="https://solscan.io/account/<?php echo $proposal->proposal_adr ; ?>?cluster=devnet" class="text-primary">
@@ -113,7 +117,9 @@
                         <div class="border-dashed"></div>
                         <div class="card-body p-xl-20">
                             <div class="fw-medium">Stewards</div>
+                            <?php if($__page->is_admin != false){ ?>
                             <a type="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Propose new steward</a>
+                            <?php } ?>
                             <?php if($__page->blockchain == SOLANA){ ?>
                                 <div class="mt-26" id="pending_steward_list">
                                     <?php
@@ -172,6 +178,7 @@
                                                 </div>
                                                 <div class="text-end">
                                                     <div class="fw-medium text-muted mb-1"><?php echo $proposal->proposal_yes_count; ?> of <?php echo $__page->stewardCount; ?> Approved</div>
+                                                    <?php if($__page->is_admin != false){ ?>
                                                     <div>
                                                         <?php
                                                         if(!isset($__page->user_votes[$id])){
@@ -195,6 +202,7 @@
                                                             <?php
                                                         } ?>
                                                     </div>
+                                                    <?php } ?>
                                                     <div class="d-flex align-items-center justify-content-end mt-2">
                                                         <div class="fw-semibold me-2" >View Proposal</div>
                                                         <a target="_blank" href="https://solscan.io/account/<?php echo $proposal->proposal_adr ; ?>?cluster=devnet" class="text-primary">
@@ -211,10 +219,15 @@
                                     <?php
                                     foreach ($__page->stewards as $steward){ ?>
                                         <div class="mb-8">
-                                            <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><span><?php echo $steward['name']; ?></span><a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="<?php echo $steward['wallet_adr']; ?>" data-sid="<?php echo $steward['id']; ?>" data-sname="<?php echo $steward['name']; ?>" data-bs-toggle="modal" data-bs-target="#editSteward"href="#">Edit > </a></div>
+                                            <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted">
+                                                <span><?php echo $steward['name']; ?></span>
+                                                <?php if($__page->is_admin != false){ ?>
+                                                <a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="<?php echo $steward['wallet_adr']; ?>" data-sid="<?php echo $steward['id']; ?>" data-sname="<?php echo $steward['name']; ?>" data-bs-toggle="modal" data-bs-target="#editSteward"href="#">Edit > </a>
+                                                <?php } ?>
+                                            </div>
                                             <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                                 <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
-                                                <?php if($steward['initial_admin'] != 1){ ?>
+                                                <?php if($__page->is_admin != false){ ?>
                                                 <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                                 </a>
@@ -229,7 +242,12 @@
                                     <?php
                                     foreach ($__page->stewards as $steward){ ?>
                                             <div class="mb-8">
-                                                <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted"><span><?php echo $steward['name']; ?></span><a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="<?php echo $steward['wallet_adr']; ?>" data-sid="<?php echo $steward['id']; ?>" data-sname="<?php echo $steward['name']; ?>" data-bs-toggle="modal" data-bs-target="#editSteward" href="#">Edit > </a></div>
+                                                <div class="stew-<?php echo $steward['id']; ?> fw-medium text-muted">
+                                                    <span><?php echo $steward['name']; ?></span>
+                                                    <?php if($__page->is_admin != false){ ?>
+                                                    <a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="<?php echo $steward['wallet_adr']; ?>" data-sid="<?php echo $steward['id']; ?>" data-sname="<?php echo $steward['name']; ?>" data-bs-toggle="modal" data-bs-target="#editSteward" href="#">Edit > </a>
+                                                    <?php } ?>
+                                                </div>
                                                 <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                                     <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                                     <!-- <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">

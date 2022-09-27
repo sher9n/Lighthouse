@@ -16,7 +16,9 @@
                                                 <div class="me-auto">
                                                     <div class="d-flex align-items-center">
                                                         <div class="fs-4 fw-semibold"><?php echo $form->form_title; ?></div>
+                                                        <?php if($__page->is_admin != false){ ?>
                                                         <a class="fw-medium text-decoration-none text-primary ms-3" href="integrations-form?form_id=<?php echo $form->id; ?>">Edit > </a>
+                                                        <?php } ?>
                                                     </div>
                                                     <?php if($form->scoring ==1){ ?>
                                                         <div class="fw-medium">Max <?php echo number_format($form->max_point); ?> $rep<?php echo $__page->community->ticker; ?></div>
@@ -30,7 +32,7 @@
                                     </div>
                                 </div>
                             <?php } ?>
-
+                            <?php if($__page->is_admin != false){ ?>
                             <div class="col-12">
                                 <a class="card border-dashed rounded-3 text-decoration-none justify-content-center" role="button" href="integrations-form">
                                     <div class="d-flex align-items-center flex-column p-9">
@@ -38,7 +40,7 @@
                                     </div>                               
                                 </a>
                             </div>
-
+                            <?php } ?>
                         </div>
                     </div>                    
                 </div>

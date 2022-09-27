@@ -91,9 +91,11 @@
                                   </div>
                                 </div>-->
                             </div>
+                            <?php if($__page->is_admin != false){ ?>
                             <div class="card-body border-top d-flex justify-content-end gap-3">
                               <button id="btn_submit" type="submit" class="btn btn-primary">Save</button>
                             </div>
+                            <?php } ?>
                         </form>
                     </div>
                     <div class="card shadow mt-12 mb-6">
