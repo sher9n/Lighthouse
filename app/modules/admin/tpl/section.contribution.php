@@ -3,6 +3,19 @@
     <section class="admin-body-section">
         <div class="container-fluid">
             <div class="col">
+                <div class="card shadow mb-12">
+                    <div class="card-body px-xl-20">
+                        <div class="d-flex align-items-center">
+                            <div class="fs-4 fw-medium">I consent to receiving non-transferrable reputation tokens ($repTOKEN).</div>
+                            <div class="ms-auto">
+                                <button type="button" class="btn btn-white me-2">I do not consent</button>
+                                <button type="button" class="btn btn-blue-stone">I consent</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
                 <div class="card shadow" style="min-height: calc(100vh - 60px);">                    
                     <div class="card-body p-xl-20">
                         <div class="display-5 fw-medium">Contribute to <?php echo $__page->community_name; ?><img src="<?php echo app_cdn_path; ?>img/fire.png"></div>
@@ -54,6 +67,19 @@
             <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
             <div class="fs-2 fw-semibold text-center">Sending your NTTs...</div>
         </div>
+    </div>
+</div>
+<!-- Welcome Modal -->
+<div class="modal show" id="WelcomeModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-size-01">
+      <div class="modal-content">
+        <div class="modal-body p-10 text-center">
+          <img src="<?php echo app_cdn_path; ?>img/icon-logo.png"  width="80" height="80" class="">
+          <div class="fs-2 fw-semibold mb-22 mt-3 text-center">Welcome to Lighthouse!</div>
+          <div class="fs-4 fw-medium text-center">Grape uses Lighthouse to capture contributions like governance, bounties, work and participation across your community. </div>
+          <button type="button" class="btn btn-primary">Let’s go!</button>
+        </div>
+      </div>
     </div>
 </div>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>

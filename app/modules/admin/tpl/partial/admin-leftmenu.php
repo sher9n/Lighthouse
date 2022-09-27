@@ -68,7 +68,7 @@
                 <li>
                     <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ModalConsent">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                        <div class="ms-11">Consent to NTTs</div>
+                        <div class="ms-11">Consent to Reputation NTTs</div>
                     </a>
                 </li>
 <!--                <li>
@@ -93,12 +93,7 @@
   <div class="modal-dialog modal-dialog-centered modal-size-02">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="fs-2 fw-semibold mb-9">Your community has activated Governance NTTs</div>
-        <div class="fs-4 fw-medium">I consent to receiving non-transferrable governance tokens,
-govTOKEN and delegating them to the govTOKEN program on the
-Solana blockchain. <br><br>
-
-These tokens are based on a 1,000,000 token supply and rebalance in real-time to reflect the proportional contribution of each community member relative to all contributions.</div>
+        <div class="fs-4 fw-medium">I consent to receiving non-transferrable reputation tokens ($repTOKEN).</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-white" data-bs-dismiss="modal">I do not consent</button>
