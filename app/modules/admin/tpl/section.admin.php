@@ -5,16 +5,27 @@
 </main>
 <!-- Phantom Modal -->
 <div class="modal show" id="AdminPhantom" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content p-2">
-            <a class="text-center link-modal" href="#" onclick="getSolanaAccount()">
+    <div class="modal-dialog modal-dialog-centered modal-size-01">
+      <div class="modal-content">
+        <div class="modal-body p-10">
+          <div class="fs-2 fw-semibold mb-22 mt-3">Connect your wallet</div>
+            <ui class="list-wallet">
+              <li class="list-wallet-item rounded border">
+                  <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()" id="solana_connect" href="#">
+                      <span class="fs-3">Phantom</span>
+                      <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg"  width="40" height="40" class="">
+                  </a>
+              </li>
+            </ui>
+            <!--<a class="text-center link-modal" href="#" onclick="getSolanaAccount()">
                 <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg" height="42">
                 <div class="modal-provider-name">Phantom</div>
                 <div type="button"  class="modal-provider-description">Connect to your Phantom Wallet</div>
                 <div id="whitelist_solana_error" class="text-danger fw-medium mt-20 d-none">This wallet does not have access to <?php echo $__page->dao_name; ?>. <br>
                     Please connect with a whitelisted wallet.</div>
-            </a>
+            </a>-->
         </div>
+      </div>
     </div>
 </div>
 <!-- Modal Send some NTTs -->
