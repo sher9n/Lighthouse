@@ -21,7 +21,26 @@ function changeSolanaAccount() {
 }
 
 window.solana.on('accountChanged', (publicKey) => {
-    disconnectWallet();
+    if (publicKey) {
+        selectedAccount = publicKey.toBase58();
+        $("#login_wallet_adr").html(selectedAccount.substring(0,6)+'...'+selectedAccount.substring(selectedAccount.length-4));
+        sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
+
+        if (sessionStorage.getItem('lh_wallet_adds')) {
+            var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+            if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
+                lh_wallet_adds.push(selectedAccount);
+                sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
+            }
+        }
+        else
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
+
+        updateWalletMenu(false);
+    }
+    else {
+        disconnectWallet();
+    }
 });
 
 function getSolanaAccount(update=true) {
@@ -44,7 +63,7 @@ function getSolanaAccount(update=true) {
                 updateWalletMenu();
         }
     }).catch(function(error) {
-            console.log(error)
+        console.log(error)
     });
 }
 
@@ -104,7 +123,7 @@ const getConnection = () => {
     return connection;
 };
 
-async function updateWalletMenu() {
+async function updateWalletMenu(redirect=true) {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
@@ -116,7 +135,8 @@ async function updateWalletMenu() {
         type: 'POST',
         success: function (response) {
             if (response.success == true) {
-                window.location = 'contribution';
+                if(redirect)
+                    window.location = 'contribution';
             }
             else {
                 sessionStorage.removeItem('lh_sel_wallet_add');

@@ -60,7 +60,7 @@
         <div class="dropdown">
             <button class="btn btn-white dropdown-toggle d-flex align-items-center p-0 border-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="non-avator me-3"></div>
-                <div class="me-2"><?php echo \Core\Utils::WalletAddressFormat($__page->sel_wallet_adr); ?></div>
+                <div id="login_wallet_adr" class="me-2"><?php echo \Core\Utils::WalletAddressFormat($__page->sel_wallet_adr); ?></div>
             </button>
             <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton1">
                 <li>

@@ -241,7 +241,8 @@ class controller extends Ctrl {
             }
 
             $com_id = $community->id;
-            $forms  = Form::find("SELECT * FROM forms WHERE is_delete=0 AND active=1 AND id <> 2 AND comunity_id='$com_id'",true);
+            $forms  = Form::find("SELECT * FROM forms WHERE is_delete=0 AND active=1 AND comunity_id='$com_id'",true);
+            var_dump("SELECT * FROM forms WHERE is_delete=0 AND active=1 AND comunity_id='$com_id'");exit();
 
             $__page = (object)array(
                 'title' => $site['site_name'],

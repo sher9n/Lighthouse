@@ -37,7 +37,7 @@
                                     <line x1="21" y1="14" x2="3" y2="14"></line>
                                     <line x1="21" y1="18" x2="3" y2="18"></line>
                                 </svg>
-                                <div class="fs-4">Paragraph</div>
+                                <div class="fs-4">Long Answer</div>
                                 <?php
                             }else if($element['e_type'] == Form::QT_MULTIPLE_CHOICE) {
                                ?>
@@ -130,7 +130,7 @@
                                     <line x1="21" y1="14" x2="3" y2="14"></line>
                                     <line x1="21" y1="18" x2="3" y2="18"></line>
                                 </svg>
-                                <div class="fs-4">Paragraph</div>
+                                <div class="fs-4">Long Answer</div>
                             </a>
                         </li>
                         <li class="border-bottom">

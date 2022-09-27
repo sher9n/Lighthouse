@@ -162,13 +162,13 @@
            placeholder="Marketing, Sales, Development">
 </div>
 <!-- Tags END -->
-<!-- Paragraph -->
+<!-- Long Answer -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_PARAGRAPH; ?>">
     <label for="" class="form-label">Description</label>
     <textarea class="form-control form-control-lg" id="description_1" name="description[]" rows="4"
               placeholder="Please enter the reason for this contribution"></textarea>
 </div>
-<!-- Paragraph END -->
+<!-- Long Answer END -->
 <!-- File upload -->
 <div class="q_description d-none" id="q_type_<?php echo Form::QT_FILE_UPLOAD; ?>">
     <label for="" class="form-label">Description</label>
@@ -276,6 +276,10 @@
                     row_id = data.row_id;
                     $('#add_item').remove();
                     $('#elements').append(data.html);
+
+                    $('html, body').animate({
+                        scrollTop: $(".card_"+row_id).offset().top
+                    }, 100);
                 }
             }
         });
@@ -312,6 +316,9 @@
                     row_id = data.row_id;
                     $('#add_item').remove();
                     ele.closest('.card').after(data.html);
+                    $('html, body').animate({
+                        scrollTop: $(".card_"+row_id).offset().top
+                    }, 100);
                 }
             }
         });

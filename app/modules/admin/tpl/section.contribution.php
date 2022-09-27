@@ -30,6 +30,7 @@
                                     </div>
                                 </div>
                             <?php } ?>
+
                             <div class="col-12">
                                 <a class="card border-dashed rounded-3 text-decoration-none justify-content-center" role="button" href="integrations-form">
                                     <div class="d-flex align-items-center flex-column p-9">
@@ -37,6 +38,7 @@
                                     </div>                               
                                 </a>
                             </div>
+
                         </div>
                     </div>                    
                 </div>

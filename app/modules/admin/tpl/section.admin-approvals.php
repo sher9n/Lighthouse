@@ -86,7 +86,7 @@
                                                             }
                                                         }
                                                     ?>
-                                                    <div class="fw-medium text-truncate text-muted my-1"><?php echo $claim['contribution_reason']; ?></div>
+                                                    <!--<div class="fw-medium text-truncate text-muted my-1"><?php /*echo $claim['contribution_reason']; */?></div>-->
                                                     <ul class="select2-selection__rendered d-flex gap-3">
                                                         <?php
                                                         if(isset($claim['tags']) && strlen($claim['tags']) > 0){
