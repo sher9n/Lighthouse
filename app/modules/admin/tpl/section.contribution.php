@@ -3,21 +3,9 @@
     <section class="admin-body-section">
         <div class="container-fluid">
             <?php
-            if($__page->user->ntt_consent_bar != 1){ ?>
-            <div id="consent_div" class="col">
-                <div class="card shadow mb-12">
-                    <div class="card-body px-xl-20">
-                        <div class="d-flex align-items-center">
-                            <div class="fs-4 fw-medium">I consent to receiving non-transferrable reputation tokens ($rep<?php echo $__page->ticker; ?>).</div>
-                            <div class="ms-auto">
-                                <button type="button" data-consent="0" id="i_do_not_consent" class="btn btn-white me-2 btn_consent">I do not consent</button>
-                                <button type="button" data-consent="1" id="i_consent" class="btn btn-blue-stone btn_consent">I consent</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
+            if($__page->user->ntt_consent_bar != 1){
+                require_once app_root. "/modules/admin/tpl/partial/ntt-consent-bar.php";
+            } ?>
             <div class="col">
                 <div class="card shadow" style="min-height: calc(100vh - 60px);">                    
                     <div class="card-body p-xl-20">
@@ -78,7 +66,7 @@
       <div class="modal-content">
         <div class="modal-body px-25 py-16 text-center">
           <img src="<?php echo app_cdn_path; ?>img/icon-logo.png"  width="80" height="80" class="">
-          <div class="fs-2 fw-semibold mb-22 mt-3 text-center mt-12">Welcome to Lighthouse!</div>
+          <div class="fs-2 fw-semibold mb-12 mt-3 text-center mt-12">Welcome to Lighthouse!</div>
           <div class="fs-4 fw-medium text-center"><?php echo $__page->community_name; ?> uses Lighthouse to capture contributions like governance, bounties, work and participation across your community. </div>
           <button data-bs-dismiss="modal" type="button" class="btn btn-primary mt-12">Let’s go!</button>
         </div>

@@ -21,23 +21,23 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
+<!--<div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content p-2">
             <a class="text-center link-modal" id="meta_click" href="#">
-                <img src="<?php echo app_cdn_path; ?>img/metamast-logo.svg" height="42">
+                <img src="<?php /*echo app_cdn_path; */?>img/metamast-logo.svg" height="42">
                 <div class="modal-provider-name">MetaMask</div>
                 <div type="button" class="modal-provider-description">Connect to your MetaMask Wallet</div>
             </a>
             <hr class="dropdown-divider">
             <a class="text-center link-modal" id="wallet_click" href="#">
-                <img src="<?php echo app_cdn_path; ?>img/walletconnect-logo.svg" height="42">
+                <img src="<?php /*echo app_cdn_path; */?>img/walletconnect-logo.svg" height="42">
                 <div class="modal-provider-name">WalletConnect</div>
                 <div type="button" class="modal-provider-description">Scan with WalletConnect to connect</div>
             </a>
         </div>
     </div>
-</div>
+</div>-->
 <div class="modal fade" id="setupCommunity" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-size-02">
         <div class="modal-content">

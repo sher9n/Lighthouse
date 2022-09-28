@@ -2,6 +2,10 @@
     <?php require_once 'partial/admin-leftmenu.php'; ?>
     <section class="admin-body-section">
         <div class="container-fluid">
+            <?php
+            if($__page->user->ntt_consent_bar != 1){
+                require_once app_root. "/modules/admin/tpl/partial/ntt-consent-bar.php";
+            } ?>
             <div class="row">
                 <div class="col">
                     <div class="card shadow">

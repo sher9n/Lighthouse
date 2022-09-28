@@ -6,12 +6,14 @@ use lighthouse\Log;
 use Core\AmazonS3;
 use Core\Utils;
 use lighthouse\Form;
+use lighthouse\User;
 class controller extends Ctrl {
     function init() {
         $is_admin       = false;
         $sel_wallet_adr = $wallet_adr = null;
         $community      = Community::getByDomain(app_site);
         $site           = Auth::getSite();
+        $user           = false;
 
         if($this->hasParam('ch') && strlen($this->getParam('ch'))) {
             $_SESSION['lighthouse'] = null;
@@ -28,6 +30,12 @@ class controller extends Ctrl {
                 $wallet_adr     = $site['wallet_adr'];
                 $community->ch  = '';
                 $community->update();
+
+                $user = new User();
+                $user->wallet_adr  = $wallet_adr;
+                $user->comunity_id = $community->id;
+                $uid = $user->insert();
+                $user->id = $uid;
             }
         }
 
@@ -240,12 +248,14 @@ class controller extends Ctrl {
                 $template   = '/../tpl/section.form_template.php';
             }
 
+
             $com_id   = $community->id;
             $forms    = Form::find("SELECT * FROM forms WHERE is_delete=0 AND active=1 AND comunity_id='$com_id'",true);
-            $user     = \lighthouse\User::isExistUser($sel_wallet_adr,$community->id);
-            $new_user = $user->new_user;
+            if(!$user instanceof User)
+                $user = User::isExistUser($sel_wallet_adr,$community->id);
 
-            if($user->new_user =! 0){
+            $new_user = $user->new_user;
+            if ($user->new_user = !0) {
                 $user->new_user = 0;
                 $user->update();
             }

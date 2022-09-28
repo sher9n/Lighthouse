@@ -3,21 +3,9 @@
     <section id="dashboard" class="admin-body-section">
         <div class="container-fluid h-100">
             <?php
-            if($__page->user->ntt_consent_bar != 1){ ?>
-                <div id="consent_div" class="col">
-                    <div class="card shadow mb-12">
-                        <div class="card-body px-xl-20">
-                            <div class="d-flex align-items-center">
-                                <div class="fs-4 fw-medium">I consent to receiving non-transferrable reputation tokens ($rep<?php echo $__page->ticker; ?>).</div>
-                                <div class="ms-auto">
-                                    <button type="button" data-consent="0" id="i_do_not_consent" class="btn btn-white me-2 btn_consent">I do not consent</button>
-                                    <button type="button" data-consent="1" id="i_consent" class="btn btn-blue-stone btn_consent">I consent</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
+            if($__page->user->ntt_consent_bar != 1){
+                require_once app_root. "/modules/admin/tpl/partial/ntt-consent-bar.php";
+            } ?>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="d-flex flex-column flex-xl-row mb-13">
