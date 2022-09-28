@@ -122,12 +122,15 @@ foreach ($__page->js as $page_js) { ?>
             data: {'wallet_address':selectedAccount,'consent':consent},
             type: 'post',
             beforeSend: function () {
-                showMessage('success', 10000, 'Updating consent');
+                showMessage('success', 10000, 'Your consent has been recorded.');
             },
             success: function(data) {
                 if (data.success == true){
                     $("#consent_div").addClass('d-none');
-                    showMessage('success',10000,'Success! The consent of reputation has been updated.');
+                    if(consent == 0)
+                        showMessage('success',10000,'Success! You will now start receiving NTTs to your wallet.');
+                    else
+                        showMessage('success',10000,'Success! You will start receiving NTTs to your wallet.');
                 }
                 else
                     showMessage('danger', 10000, data.msg);

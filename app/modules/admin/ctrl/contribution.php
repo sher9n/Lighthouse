@@ -34,8 +34,14 @@ class controller extends Ctrl {
                 $user = new User();
                 $user->wallet_adr  = $wallet_adr;
                 $user->comunity_id = $community->id;
+                $user->new_user    = 1;
                 $uid = $user->insert();
                 $user->id = $uid;
+            }
+            else
+            {
+                header("Location: ".app_url.'admin');
+                die();
             }
         }
 
@@ -255,8 +261,9 @@ class controller extends Ctrl {
                 $user = User::isExistUser($sel_wallet_adr,$community->id);
 
             $new_user = $user->new_user;
-            if ($user->new_user = !0) {
-                $user->new_user = 0;
+
+            if ($user->new_user != 0) {
+                $user->new_user  = 0;
                 $user->update();
             }
 
