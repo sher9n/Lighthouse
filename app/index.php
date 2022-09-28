@@ -38,6 +38,7 @@ try {
         '/update-contract-address' => 'modules/onboard/ctrl/first_member.php',
         '/wallet-menu' => 'modules/admin/ctrl/admin.php',
         '/admin' => 'modules/admin/ctrl/admin.php',
+        '/ntt-consent' => 'modules/admin/ctrl/admin.php',
         '/get-ntts' => 'modules/admin/ctrl/admin-dashboard.php',
         '/leaderboard' => 'modules/admin/ctrl/admin-dashboard.php',
         '/contribution-history' => 'modules/admin/ctrl/admin-dashboard.php',

@@ -240,14 +240,22 @@ class controller extends Ctrl {
                 $template   = '/../tpl/section.form_template.php';
             }
 
-            $com_id = $community->id;
-            $forms  = Form::find("SELECT * FROM forms WHERE is_delete=0 AND active=1 AND comunity_id='$com_id'",true);
+            $com_id   = $community->id;
+            $forms    = Form::find("SELECT * FROM forms WHERE is_delete=0 AND active=1 AND comunity_id='$com_id'",true);
+            $user     = \lighthouse\User::isExistUser($sel_wallet_adr,$community->id);
+            $new_user = $user->new_user;
+
+            if($user->new_user =! 0){
+                $user->new_user = 0;
+                $user->update();
+            }
 
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'form' => $form,
                 'forms' => $forms,
                 'site' => $site,
+                'ticker' => $community->ticker,
                 'community' => $community,
                 'simple_claim_form' => $community->simple_claim_form,
                 'logo_url' => $community->getLogoImage(),
@@ -257,6 +265,8 @@ class controller extends Ctrl {
                 'wallet_adr' => $wallet_adr,
                 'blockchain' => $community->blockchain,
                 'sel_wallet_adr' => $sel_wallet_adr,
+                'user' => $user,
+                'new_user' => $new_user,
                 'sections' => array(
                     __DIR__ . $template
                 ),

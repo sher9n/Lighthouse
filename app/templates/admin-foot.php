@@ -107,9 +107,38 @@ foreach ($__page->js as $page_js) { ?>
         disconnectWallet();
     });
 
+    $(document).on("click", '#reputation_ntts', function(event) {
+        event.preventDefault();
+        $("#ModalConsent").modal('show');
+    });
+
+    $(document).on('click','.btn_consent',function (e){
+        e.preventDefault();
+        var ele = $(this);
+        var consent = ele.data('consent');
+        $.ajax({
+            url: 'ntt-consent',
+            dataType: 'json',
+            data: {'wallet_address':selectedAccount,'consent':consent},
+            type: 'post',
+            beforeSend: function () {
+                showMessage('success', 10000, 'Updating consent');
+            },
+            success: function(data) {
+                if (data.success == true){
+                    $("#consent_div").addClass('d-none');
+                    showMessage('success',10000,'Success! The consent of reputation has been updated.');
+                }
+                else
+                    showMessage('danger', 10000, data.msg);
+            }
+        });
+    });
+
     $(document).ready(function() {
        <?php if($__page->blockchain == SOLANA){ ?>
        getSolanaAccount(false);
        <?php } ?>
+
     });
 </script>

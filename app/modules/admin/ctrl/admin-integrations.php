@@ -50,12 +50,14 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'ticker' => $community->ticker,
                 'forms' => $forms,
                 'is_admin' => $is_admin,
                 'blockchain' => $community->blockchain,
                 'simple_claim_form' => $community->simple_claim_form,
                 'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
+                'user' => \lighthouse\User::isExistUser($sel_wallet_adr,$community->id),
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-integrations.php'
                 ),

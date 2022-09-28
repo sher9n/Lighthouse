@@ -138,10 +138,12 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'ticker' => $community->ticker,
                 'is_admin' => $is_admin,
                 'blockchain' => $community->blockchain,
                 'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
+                'user' => \lighthouse\User::isExistUser($sel_wallet_adr,$community->id),
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-dashboard.php'
                 ),

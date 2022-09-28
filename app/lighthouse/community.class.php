@@ -46,8 +46,16 @@ class Community{
 
     }
 
+    public function getAdmin($sel_adr) {
+        $comId = $this->_data['comunity_id'];
+        $items = Steward::find("SELECT * FROM stewards WHERE comunity_id = '$comId' AND is_delete=0 AND active=1 LIMIT 1",true);
+        if(count($items) > 0)
+            return array_pop($items);
+        else
+            return null;
+    }
+
     public function getStewards($count=false) {
-        $connect  = Ds::connect();
         $com_id   = $this->_data['id'];
 
         if($count==true){

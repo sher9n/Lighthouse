@@ -5,36 +5,21 @@
 </main>
 <!-- Modal Select Chain-->
 <div class="modal fade" id="selectChain" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-size-01">
-    <div class="modal-content">        
-      <div class="modal-body p-10">
-        <!-- <div class="d-flex justify-content-between"> -->
-            <div class="fs-2 fw-semibold mb-22 mt-3">Select the chain you want<br> to launch on</div>
-            <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div> -->
-        <ui class="list-wallet">
-            <li class="list-wallet-item rounded border">
-                <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()" id="solana_connect" href="#">
-                    <span class="fs-3">Solana</span>
-                    <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png"  width="40" height="40" class="">
-                </a>
-            </li>
-            <li class="list-wallet-item rounded border">
-                <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" id="optimism_connect" href="#">
-                    <span class="fs-3">Optimism</span>
-                    <img src="<?php echo app_cdn_path; ?>img/optimism-logo.png"  width="40" height="40" class="">
-                </a>
-            </li>
-            <li class="list-wallet-item rounded border">
-                <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" id="gnosis_connect" href="#">
-                    <span class="fs-3">Gnosis</span>
-                    <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png"  width="40" height="40" class="">
-                </a>
-            </li>
-        </ui>       
-      </div>
+    <div class="modal-dialog modal-dialog-centered modal-size-01">
+        <div class="modal-content">
+            <div class="modal-body p-10">
+                <div class="fs-2 fw-semibold mb-22 mt-3">Connect your wallet</div>
+                <ui class="list-wallet">
+                    <li class="list-wallet-item rounded border">
+                        <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()"  href="#">
+                            <span class="fs-3">Phantom</span>
+                            <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg"  width="40" height="40" class="">
+                        </a>
+                    </li>
+                </ui>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">

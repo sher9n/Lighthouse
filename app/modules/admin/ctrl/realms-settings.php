@@ -77,9 +77,11 @@ class controller extends Ctrl {
                 'site' => $site,
                 'is_admin' => $is_admin,
                 'community' => $community,
+                'ticker' => $community->ticker,
                 'blockchain' => $community->blockchain,
                 'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
+                'user' => \lighthouse\User::isExistUser($sel_wallet_adr,$community->id),
                 'sections' => array(
                     __DIR__ . '/../tpl/section.realms-settings.php'
                 ),

@@ -135,8 +135,7 @@ async function updateWalletMenu(redirect=true) {
         type: 'POST',
         success: function (response) {
             if (response.success == true) {
-                if(redirect)
-                    window.location = 'contribution';
+                window.location = 'contribution';
             }
             else {
                 sessionStorage.removeItem('lh_sel_wallet_add');

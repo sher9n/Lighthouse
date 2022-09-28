@@ -353,12 +353,14 @@ class controller extends Ctrl {
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
+                'ticker' => $community->ticker,
                 'blockchain' => $site['blockchain'],
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'is_admin' => $is_admin,
                 'claims' => $claims,
                 'approval_days' => $community->approval_days,
                 'logo_url' => $community->getLogoImage(),
+                'user' => \lighthouse\User::isExistUser($sel_wallet_adr,$community->id),
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-approvals.php'
                 ),
