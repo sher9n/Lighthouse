@@ -512,7 +512,10 @@
                                         <div class="card-logo me-8">
                                             <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-realms.png">
                                         </div>
-                                        <div class="fs-4 fw-semibold pe-2">Primary Realms account</div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="fs-4 fw-semibold pe-3">Primary Realms account</div>
+                                            <a class="text-primary text-decoration-none fw-medium" href="#">Configure > </a>
+                                        </div>
                                         <div class="ms-auto">
                                         <label class="switch">
                                             <input type="checkbox" class="form-switch-input">
