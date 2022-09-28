@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card shadow" style="min-height: calc(100vh - 60px);">
-                        <div class="card-body p-xl-20">
+                        <div class="card-body p-xl-20" style="flex: inherit;">
                             <div class="display-5 fw-medium">Manage stewards</div>
                             <div class="text-muted mt-1">Add or remove stewards and set multisig parameters</div>
                             <div class="fw-medium mt-16">Quorum</div>

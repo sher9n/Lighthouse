@@ -80,7 +80,7 @@ $form_elements = $__page->form->getElements();
                                 ?>
                             </div>
                         </div>
-                        <div class="border-top d-flex justify-content-end gap-3 py-6 px-18">
+                        <div class="border-top gap-3 py-6 px-18">
                             <button type="submit" id="btn_submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
