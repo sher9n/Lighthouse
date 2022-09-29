@@ -38,7 +38,7 @@
                                 <input type="number" name="for_other_proposal" id="for_other_proposal" class="form-control form-control-lg" value="<?php echo $__page->community->for_other_proposal; ?>">
                             </div>
                         </div>
-                        <div class="border-top d-flex justify-content-end gap-3 py-6 px-18">
+                        <div class="border-top gap-3 py-6 px-18">
                             <button type="submit" id="btn_submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>

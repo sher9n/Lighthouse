@@ -23,7 +23,7 @@
                 <a class="nav-link <?php echo __ROUTER_PATH=='/approvals'?'active':'';?>" href="approvals">
                     <!-- <i data-feather="check-circle"></i> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    <div class="ms-12">Approve Claims</div>
+                    <div class="ms-12">Approve Contributions</div>
                 </a>
             </li>           
             <li class="nav-item">
@@ -34,18 +34,19 @@
                 </a>
             </li>
             <?php if($__page->is_admin){ ?>
-            <li class="nav-item tree-toggle">
+            <!--<li class="nav-item tree-toggle">-->
+            <li class="nav-item">
                 <a class="nav-link <?php echo __ROUTER_PATH=='/integrations'?'active':'';?>"  href="integrations">
                     <!-- <img src="img/icon-integrations.svg">  
                     <i data-feather="terminal"></i>-->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-terminal"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
                     <div class="ms-12">Integrations</div>
                 </a>
-                <ul class="nav-sub tree" style="display: none;">
+                <!-- <ul class="nav-sub tree" style="display: none;">
                     <li class="nav-item"><a class="nav-link" href="#Interactions">> Interactions</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Identity">> Identity</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Apps">> Apps</a></li>
-                </ul>
+                </ul> -->
             </li>
             <?php } ?>
             <li class="nav-item">
