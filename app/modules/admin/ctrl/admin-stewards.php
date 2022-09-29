@@ -201,7 +201,8 @@ class controller extends Ctrl {
 
                                 echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add amin proposal, please retry again.'));
                                 exit();
-                            } else {
+                            }
+                            else {
 
                                 $proposal                 = new Proposal();
                                 $proposal->proposal_adr   = $api_response->proposalAddress;

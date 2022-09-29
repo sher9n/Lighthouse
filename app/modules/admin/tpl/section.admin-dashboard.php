@@ -373,9 +373,6 @@
             }
         });
 
-        if('<?php echo $__page->sel_wallet_adr; ?>' != sessionStorage.getItem("lh_sel_wallet_add"))
-            window.location = 'admin';
-
         $('#dashboard_table_prev').click(function(){
             $("#table_skeleton_data").removeClass('d-none');
             $("#table_data").addClass('d-none');

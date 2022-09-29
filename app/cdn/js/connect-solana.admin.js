@@ -36,7 +36,7 @@ window.solana.on('accountChanged', (publicKey) => {
         else
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
 
-        updateWalletMenu(false);
+        updateWalletMenu();
     }
     else {
         disconnectWallet();
@@ -123,7 +123,7 @@ const getConnection = () => {
     return connection;
 };
 
-async function updateWalletMenu(redirect=true) {
+async function updateWalletMenu() {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};

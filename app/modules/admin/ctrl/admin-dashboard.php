@@ -126,15 +126,6 @@ class controller extends Ctrl {
                 die();
             }
 
-            /*$view_contract = '';
-            if($community->blockchain == SOLANA)
-                $view_contract = SOLANA_VIEW_LINK.'account/'.$community->governance_pk;
-                //$view_contract = 'https://app.realms.today/dao/'.$community->realm_pk.'?cluster=devnet';
-            elseif ($community->blockchain == OPTIMISM)
-                $view_contract = OPTIMISM_VIEW_LINK.'address/'.$community->token_address;
-            else
-                $view_contract = GNOSIS_CHAIN_VIEW_LINK.'address/'.$community->token_address;*/
-
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,

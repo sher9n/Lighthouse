@@ -66,7 +66,7 @@
             </button>
             <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton1">
                 <?php if($__page->user->ntt_consent != 1){ ?>
-                <li>
+                <li id="li_ntt_consent">
                     <a class="dropdown-item" id="reputation_ntts" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square">
                             <polyline points="9 11 12 14 22 4"></polyline>

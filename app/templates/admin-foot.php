@@ -127,10 +127,11 @@ foreach ($__page->js as $page_js) { ?>
             success: function(data) {
                 if (data.success == true){
                     $("#consent_div").addClass('d-none');
-                    if(consent == 0)
-                        showMessage('success',10000,'Success! You will now start receiving NTTs to your wallet.');
-                    else
-                        showMessage('success',10000,'Success! You will start receiving NTTs to your wallet.');
+
+                    if(consent != 0) {
+                        $("#li_ntt_consent").remove();
+                        showMessage('success', 10000, 'Success! You will now start receiving NTTs to your wallet.');
+                    }
                 }
                 else
                     showMessage('danger', 10000, data.msg);

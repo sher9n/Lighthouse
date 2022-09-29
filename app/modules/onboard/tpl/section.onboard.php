@@ -82,7 +82,7 @@
         $('#selectChain').modal('show');
     });
 
-    $(document).on("keyup", '#dao_domain', function(event) {
+    $(document).on("keyup", '#dao_domain', delay(function(event) {
         var dao_name = $(this).val();
 
         $.ajax({
@@ -100,7 +100,7 @@
                 }
             }
         });
-    });
+    },400));
 
     $(document).on("keyup", '#dao_name', delay(function(event) {
         var dao_name = $(this).val();
@@ -123,7 +123,7 @@
                     }
                 }
             });
-    },500));
+    },400));
 
     $(document).on("click", '#meta_click', function(event) {
         event.preventDefault();
@@ -173,9 +173,10 @@
                     $('#dao_domain').prop('disabled', true);
                     $('#btn_submit').html('Creating...');
                     showMessage('success', 10000, 'Starting the engines..');
-                   m1 = setTimeout(function() {showMessage('success', 10000, 'Initiating smart contracts...');}, 3000);
-                   m2 = setTimeout(function() {showMessage('success', 10000, 'Writing transactions...');}, 8000);
-                   m3 = setTimeout(function() {showMessage('success', 10000, 'Finalizing your community...');}, 12000);
+                   m1 = setTimeout(function() {showMessage('success', 10000, 'Initiating smart contracts...');}, 2000);
+                   m2 = setTimeout(function() {showMessage('success', 10000, 'Writing transactions...');}, 6000);
+                   m3 = setTimeout(function() {showMessage('success', 10000, 'Creating forms...');}, 9000);
+                   m4 = setTimeout(function() {showMessage('success', 10000, 'Finalizing your community...');}, 12000);
                 },
                 success: function(data){
                     if(data.success == true){
@@ -186,6 +187,7 @@
                         clearTimeout(m1);
                         clearTimeout(m2);
                         clearTimeout(m3);
+                        clearTimeout(m4);
                         $('#btn_submit').prop('disabled', false);
                         $('#dao_name').prop('disabled', false);
                         $('#dao_domain').prop('disabled', false);

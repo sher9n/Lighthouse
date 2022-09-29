@@ -254,14 +254,18 @@ class controller extends Ctrl {
                 $template   = '/../tpl/section.form_template.php';
             }
 
-
             $com_id   = $community->id;
             $forms    = Form::find("SELECT * FROM forms WHERE is_delete=0 AND active=1 AND comunity_id='$com_id'",true);
-            if(!$user instanceof User)
+            if($user == false)
                 $user = User::isExistUser($sel_wallet_adr,$community->id);
 
-            $new_user = $user->new_user;
+            if($user == false) {
+                Auth::clearCookieWallet();
+                header("Location: " . app_url.'admin');
+                die();
+            }
 
+            $new_user = $user->new_user;
             if ($user->new_user != 0) {
                 $user->new_user  = 0;
                 $user->update();
