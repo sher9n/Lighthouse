@@ -2,6 +2,7 @@
 use lighthouse\Auth;
 use lighthouse\Community;
 use lighthouse\Form;
+use lighthouse\ContributionSource;
 class controller extends Ctrl {
     function init() {
         $is_admin = false;
@@ -36,6 +37,85 @@ class controller extends Ctrl {
                 echo json_encode(array('success' => true));
                 exit();
             }
+            elseif (__ROUTER_PATH == '/cs-activation' && $this->hasParam('csid')){
+                $csid   = $this->getParam('csid');
+                $status = $this->hasParam('status')?(bool)$this->getParam('status'):1;
+
+                $cs     = ContributionSource::get($csid);
+                $cs->is_active = $status;
+                $cs->update();
+
+                echo json_encode(array('success' => true));
+                exit();
+            }
+            elseif (__ROUTER_PATH =='/add-realms_contribution'){
+
+                try {
+                    $public_key = $name = '';
+                    $vote_point = $pass_points = $create_point = 0;
+                    $update = false;
+                    if ($this->hasParam('cs_id') && strlen($this->getParam('cs_id')) > 0) {
+                        $cs = ContributionSource::get($this->getParam('cs_id'));
+                        $update = true;
+                    } else
+                        $cs = new ContributionSource();
+
+                    if ($this->hasParam('r_name') && strlen($this->getParam('r_name')) > 0)
+                        $name = $this->getParam('r_name');
+                    else
+                        throw new Exception("r_name:Not a valid name");
+
+                    if ($this->hasParam('r_public_key') && strlen($this->getParam('r_public_key')) > 0)
+                        $public_key = $this->getParam('r_public_key');
+                    else
+                        throw new Exception("r_public_key:Not a valid public key");
+
+                    if ($this->hasParam('r_vote_points') && $this->getParam('r_vote_points') > 0)
+                        $vote_point = $this->getParam('r_vote_points');
+                    else
+                        throw new Exception("r_vote_points:Not a valid vote point");
+
+                    if ($this->hasParam('r_proposal_pass_points') && $this->getParam('r_proposal_pass_points') > 0)
+                        $pass_points = $this->getParam('r_proposal_pass_points');
+                    else
+                        throw new Exception("r_proposal_pass_points:Not a valid vote pass point");
+
+                    if ($this->hasParam('r_proposal_create_points') && $this->getParam('r_proposal_create_points') > 0)
+                        $create_point = $this->getParam('r_proposal_create_points');
+                    else
+                        throw new Exception("r_proposal_create_points:Not a valid vote create point");
+
+                    $cs->source_name = $name;
+                    $cs->source_key = $public_key;
+                    $cs->vote_points = $vote_point;
+                    $cs->source_type = ContributionSource::PROPOSAL_SOURCE_REALMS;
+                    $cs->comunity_id = $community->id;
+                    $cs->is_active   = 1;
+                    $cs->proposal_create_points = $create_point;
+                    $cs->proposal_pass_points = $pass_points;
+                    if ($update == true)
+                        $cs->update();
+                    else {
+                        $id = $cs->insert();
+                        $cs->id = $id;
+                    }
+
+                    include __DIR__ . '/../tpl/partial/realms_contribution_source.php';
+                    $html = ob_get_clean();
+
+                    echo json_encode(array('success' => true, 'html' => $html, 'update' => $update, 'cs_id' => $cs->id));
+
+                } catch (Exception $e) {
+                    $msg = explode(':', $e->getMessage());
+                    $element = 'error-msg';
+                    if (isset($msg[1])) {
+                        $element = $msg[0];
+                        $msg = $msg[1];
+                    }
+                    echo json_encode(array('success' => false, 'msg' => $msg, 'element' => $element));
+                }
+                exit();
+            }
         }
         else {
 
@@ -45,16 +125,15 @@ class controller extends Ctrl {
                 die();
             }
 
-            $forms = Form::find("SELECT * FROM forms WHERE id <> 2 AND comunity_id='$com_id'",true);
+            $cs = ContributionSource::find("SELECT * FROM contribution_sources WHERE comunity_id='$com_id' AND is_delete=0",true);
 
             $__page = (object)array(
                 'title' => $site['site_name'],
                 'site' => $site,
                 'ticker' => $community->ticker,
-                'forms' => $forms,
                 'is_admin' => $is_admin,
+                'cs' => $cs,
                 'blockchain' => $community->blockchain,
-                'simple_claim_form' => $community->simple_claim_form,
                 'logo_url' => $community->getLogoImage(),
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'user' => \lighthouse\User::isExistUser($sel_wallet_adr,$community->id),

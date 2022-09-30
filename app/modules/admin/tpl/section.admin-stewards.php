@@ -22,7 +22,7 @@
                                     <div class="fs-1"><?php echo $__page->approval_count.'</div><div class="fs-2">/'.$__page->stewardCount; ?></div>
                                 </div>
                             </div>
-                            <div class="mt-26" id="quorum_list">
+                            <div class="mt-26 <?php echo count($__page->quorumProposals) < 1?'d-none':''; ?>" id="quorum_list">
                             <?php
                             if($__page->blockchain == SOLANA){
                                 foreach ($__page->quorumProposals as $qid => $proposal){
@@ -43,7 +43,7 @@
                                                 ?>
                                                 <div class="d-flex align-items-center text-blue-stone">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                                    <div class="fw-medium ms-2 end_time_<?php echo $qid; ?>">Approval period ends in d<?php echo $date_count; ?></div>
+                                                    <div class="fw-medium ms-2 end_time_<?php echo $qid; ?>">Approval period ends in <?php echo $date_count; ?></div>
                                                 </div>
                                             <?php
                                             }
@@ -231,7 +231,7 @@
                                             </div>
                                             <div class="stew-<?php echo $steward['id']; ?> d-flex align-items-center">
                                                 <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
-                                                <?php if(count($__page->stewards) > 1){ ?>
+                                                <?php if(($__page->is_admin != false) && (count($__page->stewards) > 1)){ ?>
                                                 <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                                 </a>
@@ -514,6 +514,7 @@
                             const r_data   = data;
                             response.then(function (data){
                                 $("#quorum_list").append(r_data.html);
+                                $("#quorum_list").removeClass('d-none');
                                 showMessage('success', 10000, 'Success! A proposal for a new quorum has been added.');
                             });
                         }

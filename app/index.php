@@ -61,6 +61,7 @@ try {
         '/get-proposal' => 'modules/admin/ctrl/admin-stewards.php',
         '/integrations' => 'modules/admin/ctrl/admin-integrations.php',
         '/form-activation' =>  'modules/admin/ctrl/admin-integrations.php',
+        '/cs-activation' =>'modules/admin/ctrl/admin-integrations.php',
         '/realms-settings' => 'modules/admin/ctrl/realms-settings.php',
         '/integrations-form-preview' => 'modules/admin/ctrl/integrations-form-preview.php',
         '/integrations-form' => 'modules/admin/ctrl/admin-integrations-form.php',
@@ -71,6 +72,7 @@ try {
         '/gas_tank_balance' => 'modules/admin/ctrl/admin-settings.php',
         '/settings' => 'modules/admin/ctrl/admin-settings.php',
         '/portal-dashboard' => 'modules/portal/ctrl/portal-dashboard.php',
+        '/add-realms_contribution' => 'modules/admin/ctrl/admin-integrations.php',
         '/404' => 'modules/default/ctrl/http-404.php',
         /* claim and onboard routes
         '/send-ntts' => 'modules/admin/ctrl/admin-ntts.php',

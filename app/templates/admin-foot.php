@@ -140,9 +140,10 @@ foreach ($__page->js as $page_js) { ?>
     });
 
     $(document).ready(function() {
-       <?php if($__page->blockchain == SOLANA){ ?>
-       getSolanaAccount(false);
-       <?php } ?>
-
+       <?php
+        if(__ROUTER_PATH != '/admin'){ ?>
+            getSolanaAccount(false);
+            <?php
+        } ?>
     });
 </script>

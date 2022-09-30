@@ -311,7 +311,7 @@ class Utils {
                 return null;//$date_dif->s . 's';
         }
         else
-            return '';
+            return null;
     }
 
     public static function ordering_data($data,$col,$dir='asc'){
