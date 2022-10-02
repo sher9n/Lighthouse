@@ -8,8 +8,8 @@ if($update != true){ ?>
                         <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-realms.png">
                     </div>
                     <div class="d-flex align-items-center">
-                        <div class="fs-4 fw-semibold pe-3"><?php echo $cs->source_name; ?></div>
-                        <a data-pk="<?php echo $cs->source_key; ?>" data-nm="<?php echo $cs->source_name; ?>" data-vp="<?php echo $cs->vote_points; ?>" data-ppp="<?php echo $cs->proposal_pass_points; ?>" data-pcp="<?php echo $cs->proposal_create_points; ?>" class="cs_edit text-primary text-decoration-none fw-medium" href="add-realms_contribution?cs_id=<?php echo $cs->id; ?>">Configure > </a>
+                        <div class="fs-4 fw-semibold pe-3"><?php echo ucfirst($cs->source_type); ?>: <?php echo $cs->source_name; ?></div>
+                        <a data-pk="<?php echo $cs->source_key; ?>" data-nm="<?php echo $cs->source_name; ?>" data-vp="<?php echo $cs->vote_points; ?>" data-ppp="<?php echo $cs->proposal_pass_points; ?>" data-pcp="<?php echo $cs->proposal_create_points; ?>" class="cs_edit text-primary text-decoration-none fw-medium" href="add-realms_contribution?cs_id=<?php echo $cs->id; ?>">Edit > </a>
                     </div>
                     <div class="ms-auto">
                         <label class="switch">
@@ -51,8 +51,8 @@ else
                     <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-realms.png">
                 </div>
                 <div class="d-flex align-items-center">
-                    <div class="fs-4 fw-semibold pe-3"><?php echo $cs->source_name; ?></div>
-                    <a data-pk="<?php echo $cs->source_key; ?>" data-nm="<?php echo $cs->source_name; ?>" data-vp="<?php echo $cs->vote_points; ?>" data-ppp="<?php echo $cs->proposal_pass_points; ?>" data-pcp="<?php echo $cs->proposal_create_points; ?>" class="cs_edit text-primary text-decoration-none fw-medium" href="add-realms_contribution?cs_id=<?php echo $cs->id; ?>">Configure > </a>
+                    <div class="fs-4 fw-semibold pe-3">><?php echo ucfirst($cs->source_type); ?>: <?php echo $cs->source_name; ?></div>
+                    <a data-pk="<?php echo $cs->source_key; ?>" data-nm="<?php echo $cs->source_name; ?>" data-vp="<?php echo $cs->vote_points; ?>" data-ppp="<?php echo $cs->proposal_pass_points; ?>" data-pcp="<?php echo $cs->proposal_create_points; ?>" class="cs_edit text-primary text-decoration-none fw-medium" href="add-realms_contribution?cs_id=<?php echo $cs->id; ?>">Edit > </a>
                 </div>
                 <div class="ms-auto">
                     <label class="switch">

@@ -83,7 +83,7 @@
 
     $(document).ready(function() {
     <?php if($__page->new_user != 0){ ?>
-        $("#WelcomeModal").modal('show');
+        //$("#WelcomeModal").modal('show');
     <?php } ?>
 
     <?php if(strlen($__page->wallet_adr) > 0){ ?>

@@ -249,7 +249,7 @@
                     <div class="mb-12">
                         <label for="" class="form-label">Points per passed proposal</label>
                         <div class="input-group">
-                            <input type="text" name="r_proposal_pass_points" id="r_proposal_pass_points" class="form-control form-control-lg" placeholder="100" aria-label="" aria-describedby="basic-addon2">
+                            <input type="text" name="r_proposal_pass_points" id="r_proposal_pass_points" class="form-control form-control-lg" placeholder="10000" aria-label="" aria-describedby="basic-addon2">
                             <span class="input-group-text" id="basic-addon2">$rep<?php echo $__page->ticker; ?></span>
                         </div>
                         <label id="r_proposal_pass_points-error" class="error" style="display: none;" for="r_proposal_pass_points"></label>
@@ -257,7 +257,7 @@
                     <div class="mb-12">
                         <label for="" class="form-label">Points per created proposal</label>
                         <div class="input-group">
-                            <input type="text" name="r_proposal_create_points" id="r_proposal_create_points" class="form-control form-control-lg" placeholder="100" aria-label="" aria-describedby="basic-addon2">
+                            <input type="text" name="r_proposal_create_points" id="r_proposal_create_points" class="form-control form-control-lg" placeholder="1000" aria-label="" aria-describedby="basic-addon2">
                             <span class="input-group-text" id="basic-addon2">$rep<?php echo $__page->ticker; ?></span>
                         </div>
                         <label id="r_proposal_create_points-error" class="error" style="display: none;" for="r_proposal_create_points"></label>
