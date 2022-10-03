@@ -99,7 +99,7 @@ class controller extends Ctrl {
                         $id = $cs->insert();
                         $cs->id = $id;
                     }
-
+                    $ticker = $community->ticker;
                     include __DIR__ . '/../tpl/partial/realms_contribution_source.php';
                     $html = ob_get_clean();
 

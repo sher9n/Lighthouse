@@ -489,7 +489,6 @@ class controller extends Ctrl {
                     $community->approval_count  = $approval_count;
                     $community->max_voting_time = $maxVotingTime;
                     $community->update();
-
                 }
             }
             else
