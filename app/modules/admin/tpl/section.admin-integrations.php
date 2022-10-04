@@ -198,24 +198,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body px-xl-20 pb-xl-20">
-                            <div class="border rounded-3">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-7">
-                                        <div class="card-logo me-8">
-                                            <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-ntts.png">
+                        <div class="accordion px-20 pb-10 pt-10" id="">
+                            <div class="accordion-item">
+                                <div class="border rounded-3">
+
+                                        <div class="d-flex align-items-center p-6">
+                                            <div class="card-logo me-8 cursor-pointer" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseReputation" aria-expanded="true" aria-controls="panelsStayOpen-collapseReputation">
+                                                <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-ntts.png">
+                                            </div>
+                                            <div class="fs-4 fw-semibold pe-2 cursor-pointer" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseReputation" aria-expanded="true" aria-controls="panelsStayOpen-collapseReputation">Reputation NTTs</div>
+                                            <div class="ms-auto">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseReputation" aria-expanded="true" aria-controls="panelsStayOpen-collapseReputation"></button>
+                                            </div>
                                         </div>
-                                        <div class="fs-4 fw-semibold pe-2">Reputation NTTs</div>
-                                        <div class="ms-auto">
-                                        <label class="switch">
-                                            <input type="checkbox" disabled checked="checked" class="form-switch-input">
-                                            <span class="slider"></span>
-                                        </label>
+                                        <div id="panelsStayOpen-collapseReputation" class="accordion-collapse collapse border-top p-6">
+                                            <div class="fw-medium lh-lg text-gray-700">Token name</div>
+                                            <div class="fw-semibold fs-lg">$rep<?php echo $__page->ticker; ?></div>
                                         </div>
-                                    </div>
-                                    <div class="fw-medium lh-lg text-gray-700">Token name</div>
-                                    <div class="fw-semibold fs-lg">$rep<?php echo $__page->ticker; ?></div>
-                                </div>                                
+
+                                </div>
                             </div>
                         </div>
                     </div>
