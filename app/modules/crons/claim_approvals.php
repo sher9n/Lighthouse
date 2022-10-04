@@ -4,8 +4,9 @@ use lighthouse\Approval;
 use lighthouse\Community;
 use lighthouse\Api;
 use lighthouse\Log;
+use lighthouse\Proposal;
 exit();
-if(app_site == 'app') {
+/*if(app_site == 'app') {
 
     $communities = array();
     $comms = Community::find("SELECT id,blockchain,contract_name,approval_count FROM communities WHERE is_delete=0");
@@ -80,6 +81,6 @@ if(app_site == 'app') {
 
         }
     }
-}
+}*/
 
 ?>

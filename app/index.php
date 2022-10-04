@@ -28,7 +28,7 @@ try {
     }
 
     $localRoutes = array(
-        '/cron-claim-approvals' => 'modules/crons/claim_approvals.php',
+        '/cron-proposal-status' => 'modules/crons/proposal_status.php',
         '/cron-realms-api' => 'modules/crons/realms_api.php',
         '/cron-realms-proposals' => 'modules/crons/realms_proposals.php',
         '/cron-update-stewards' => 'modules/crons/realms_stewards_update.php',

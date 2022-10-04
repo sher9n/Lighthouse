@@ -371,7 +371,7 @@ class controller extends Ctrl {
 
                             $proposal->proposal_state = $api_response->state;
                             if($api_response->state == Proposal::PROPOSAL_STATE_DEFEATED)
-                                $proposal->is_executed = 2;
+                                $proposal->is_executed = Proposal::PROPOSAL_EXECUTE_DEFEATED;
                             $proposal->update();
 
                             $response['create_at']    = $api_response->createdAt;

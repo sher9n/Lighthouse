@@ -9,8 +9,12 @@ class Proposal{
     const PROPOSAL_STATE_EXECUTED  = 'executed';
     const PROPOSAL_STATE_SUCCEEDED = 'succeeded';
 
-    const PROPOSAL_TYPE_BINARY      = 'BINARY';
-    const PROPOSAL_TYPE_SUBJECTIVE  = 'SUBJECTIVE';
+    const PROPOSAL_EXECUTE_PENDING  = 0;
+    const PROPOSAL_EXECUTED         = 1;
+    const PROPOSAL_EXECUTE_DEFEATED = 2;
+
+    const PROPOSAL_TYPE_BINARY     = 'BINARY';
+    const PROPOSAL_TYPE_SUBJECTIVE = 'SUBJECTIVE';
 
     private $_data = array();
 
