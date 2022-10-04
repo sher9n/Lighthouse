@@ -16,7 +16,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="card shadow mb-12">
                         <div class="card-header px-xl-20 py-xl-6 border-bottom">
                             <div class="d-flex align-items-center">
@@ -88,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="contribution_div">                            
+                        <div id="contribution_div" class="accordion px-20 pb-10 pt-10">
                             <?php
                             if(count($__page->cs) > 0) {
                                 foreach ($__page->cs as $cs){
