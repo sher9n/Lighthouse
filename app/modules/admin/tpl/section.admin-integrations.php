@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="contribution_div" class="card-body p-xl-20">
+                        <div id="contribution_div">                            
                             <?php
                             if(count($__page->cs) > 0) {
                                 foreach ($__page->cs as $cs){
@@ -99,14 +99,16 @@
                             }
                             else{
                                 ?>
-                                <div class="d-flex justify-content-center empty_Contribution_block">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-realms.png" width="50" height="50" class="me-3">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-squads.png" width="50" height="50" class="me-3">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-github.png" width="50" height="50" class="me-3">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-discord.png" width="50" height="50" class="me-3">
-                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-member-wallets.png" width="50" height="50">
+                                <div class="card-body p-xl-20">
+                                    <div class="d-flex justify-content-center empty_Contribution_block">
+                                        <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-realms.png" width="50" height="50" class="me-3">
+                                        <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-squads.png" width="50" height="50" class="me-3">
+                                        <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-github.png" width="50" height="50" class="me-3">
+                                        <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-discord.png" width="50" height="50" class="me-3">
+                                        <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-member-wallets.png" width="50" height="50">
+                                    </div>
+                                    <div class="text-center h4 mb-0 mt-8 fw-medium empty_Contribution_block">Integrate on-chain and off-chain contribution sources.</div>
                                 </div>
-                                <div class="text-center h4 mb-0 mt-8 fw-medium empty_Contribution_block">Integrate on-chain and off-chain contribution sources.</div>
                                 <?php
                             } ?>
                         </div>

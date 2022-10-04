@@ -122,10 +122,10 @@
                         <div class="card-body p-xl-20">
                             <div class="fw-medium">Stewards</div>
                             <?php if($__page->is_admin != false){ ?>
-                            <a type="button" class="btn btn-primary mt-6" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Propose new steward</a>
+                            <a type="button" class="btn btn-primary mt-6 mb-26" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Propose new steward</a>
                             <?php } ?>
                             <?php if($__page->blockchain == SOLANA){ ?>
-                                <div class="mt-26" id="pending_steward_list">
+                                <div class="mt-6 mb-26" id="pending_steward_list">
                                     <?php
                                     foreach ($__page->admin_Proposals as $id => $proposal){ ?>
                                         <div class="mb-8">
@@ -219,7 +219,7 @@
                                         <?php
                                     } ?>
                                 </div>
-                                <div class="mt-26" id="steward_list">
+                                <div class="mt-6" id="steward_list">
                                     <?php
                                     foreach ($__page->stewards as $steward){ ?>
                                         <div class="mb-8">
