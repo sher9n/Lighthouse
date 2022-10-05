@@ -51,8 +51,10 @@ class controller extends Ctrl {
             elseif (__ROUTER_PATH =='/add-realms_contribution'){
 
                 try {
+
                     $public_key = $name = '';
                     $vote_point = $pass_points = $create_point = 0;
+                    $active = 0;
                     $update = false;
                     if ($this->hasParam('cs_id') && strlen($this->getParam('cs_id')) > 0) {
                         $cs = ContributionSource::get($this->getParam('cs_id'));
@@ -85,12 +87,15 @@ class controller extends Ctrl {
                     else
                         throw new Exception("r_proposal_create_points:Not a valid vote create point");
 
+                    if ($this->hasParam('r_enable'))
+                        $active = ($this->getParam('r_enable') == 'on') ? 1 : 0;
+
                     $cs->source_name = $name;
                     $cs->source_key = $public_key;
                     $cs->vote_points = $vote_point;
                     $cs->source_type = ContributionSource::PROPOSAL_SOURCE_REALMS;
                     $cs->comunity_id = $community->id;
-                    $cs->is_active   = 1;
+                    $cs->is_active   = $active;
                     $cs->proposal_create_points = $create_point;
                     $cs->proposal_pass_points = $pass_points;
                     if ($update == true)
@@ -99,6 +104,7 @@ class controller extends Ctrl {
                         $id = $cs->insert();
                         $cs->id = $id;
                     }
+
                     $ticker = $community->ticker;
                     include __DIR__ . '/../tpl/partial/realms_contribution_source.php';
                     $html = ob_get_clean();
