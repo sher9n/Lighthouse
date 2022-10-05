@@ -106,8 +106,8 @@ class controller extends Ctrl {
                                 $ext       = pathinfo($path, PATHINFO_EXTENSION);
                                 $img_name  = time();
                                 $amazons3  = new AmazonS3(app_site);
-                                $t_url     = $amazons3->uploadFile($file['tmp_name'], $contribution_f_name.'/'.$ext);
-                                $post[$contribution_f_name] = $contribution_f_name.'/'.$ext;
+                                $t_url     = $amazons3->uploadFile($file['tmp_name'], $contribution_f_name.'.'.$ext);
+                                $post[$f_e_name] = $contribution_f_name.'.'.$ext;
                             }
                     }
 

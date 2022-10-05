@@ -3,6 +3,7 @@ use lighthouse\Auth;
 use lighthouse\Community;
 use lighthouse\Steward;
 use lighthouse\User;
+use lighthouse\Api;
 class controller extends Ctrl {
     function init() {
 
@@ -46,12 +47,32 @@ class controller extends Ctrl {
                     if($consent == 1){
                         $user->ntt_consent_bar = 1;
                         $user->ntt_consent     = 1;
-                    }
-                    else
-                        $user->ntt_consent_bar = 1;
 
-                    $user->update();
-                    echo json_encode(array('success' => true));
+                        $api_response = api::addDelegate(constant(strtoupper(SOLANA) . "_API"), $com->contract_name, $selected_adr);
+
+                        if (isset($api_response->error)) {
+                            $log = new Log();
+                            $log->type   = 'delegate';
+                            $log->log    = serialize($api_response->error);
+                            $log->action = 'failed';
+                            $log->c_by   = $selected_adr;
+                            $log->insert();
+
+                            echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to submit for non-transferrable reputation tokens, please retry again.'));
+                            exit();
+                        }
+                        else
+                            $user->update();
+
+                        echo json_encode(array('success' => true,'api_response' => $api_response));
+                    }
+                    else {
+                        $user->ntt_consent_bar = 1;
+                        $user->update();
+
+                        echo json_encode(array('success' => true,'api_response' => false));
+                    }
+
                 }
                 else
                     echo json_encode(array('success' => false,'msg' => "Something went wrong..."));

@@ -483,11 +483,64 @@ class Api{
                     "receiver": "' . $receiver . '",
                     "reason": "' . $reason . '",
                     "tag": "' . $tags . '",
-                    "maxPoints": ' . $amount . '
+                    "maxPoints": ' . $amount . ',
+                    "action": "ADD"
                 }
             }';
         }
 
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /* $error_msg = curl_error($curl);
+         var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function executePointsProposal($url,$community_name,$proposalId) {
+        $url = $url."api/$community_name/executePointsProposal?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "proposalId": "'.$proposalId.'"
+        }';
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /* $error_msg = curl_error($curl);
+         var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function executePointProposal($url,$community_name,$proposalId) {
+        $url = $url."api/$community_name/executePointsProposal?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "proposalId": "'.$proposalId.'"
+        }';
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -658,6 +711,33 @@ class Api{
         $data = '{
             "admin": "'.$proposer.'",
             "newQuorum": '.$new_quorum.'
+        }';
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        //curl_setopt($curl, CURLOPT_FAILONERROR,true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        /*$error_msg = curl_error($curl);
+        var_dump($error_msg);exit();*/
+        return json_decode($response);
+    }
+
+    public static function addDelegate($url,$community_name,$user) {
+        $url = $url."api/$community_name/delegate?key=".SOLANA_API_KEY;
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $headers = array(
+            "accept: application/json",
+            "Content-Type: application/json",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $data = '{
+            "user": "'.$user.'"
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);

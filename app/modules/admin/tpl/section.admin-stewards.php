@@ -84,18 +84,7 @@
                                             <div>
                                                 <?php
 
-                                                if(!isset($__page->user_votes[$qid])){
-                                                    /*$vote = $__page->user_votes[$qid];
-                                                    if($vote == 'NO'){*/?><!--
-                                                        <a type="button" data-pid="<?php /*echo $qid; */?>" data-vote="NO" id="deny_<?php /*echo $qid; */?>" class="admin_proposal_vote btn btn-secondary me-2 disabled">Deny</a>
-                                                        <?php
-/*                                                    }
-                                                    if($vote == 'YES'){*/?>
-                                                        <a type="button" data-pid="<?php /*echo $qid; */?>" data-vote="YES" id="approve_<?php /*echo $qid; */?>" class="admin_proposal_vote btn btn-blue-stone me-2 disabled">Approve</a>
-                                                        --><?php
-/*                                                    }
-                                                }
-                                                else { */?>
+                                                if(!isset($__page->user_votes[$qid])){ ?>
                                                     <a type="button" data-pid="<?php echo $qid; ?>" data-vote="NO" id="deny_<?php echo $qid; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
                                                     <a type="button" data-pid="<?php echo $qid; ?>" data-vote="YES" id="approve_<?php echo $qid; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
                                                     <?php
@@ -182,21 +171,11 @@
                                                 </div>
                                                 <div class="text-end">
                                                     <div class="fw-medium text-muted mb-1"><?php echo $proposal->proposal_yes_count; ?> of <?php echo $__page->stewardCount; ?> Approved</div>
-                                                    <?php if($__page->is_admin != false){ ?>
+                                                    <?php
+                                                    if($__page->is_admin != false){ ?>
                                                     <div>
                                                         <?php
-                                                        if(!isset($__page->user_votes[$id])){
-                                                            /*$vote = $__page->user_votes[$id];
-                                                            if($vote == 'NO'){*/?><!--
-                                                                <a type="button" data-pid="<?php /*echo $id; */?>" data-vote="NO" id="deny_<?php /*echo $id; */?>" class="admin_proposal_vote btn btn-secondary me-2 disabled">Deny</a>
-                                                                <?php
-/*                                                            }
-                                                            if($vote == 'YES'){*/?>
-                                                                <a type="button" data-pid="<?php /*echo $id; */?>" data-vote="YES" id="approve_<?php /*echo $id; */?>" class="admin_proposal_vote btn btn-blue-stone me-2 disabled">Approve</a>
-                                                                --><?php
-/*                                                            }
-                                                        }
-                                                        else{ */?>
+                                                        if(isset($__page->user_votes[$id])){ ?>
                                                             <a type="button" data-pid="<?php echo $id; ?>" data-vote="NO" id="deny_<?php echo $id; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
                                                             <a type="button" data-pid="<?php echo $id; ?>" data-vote="YES" id="approve_<?php echo $id; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
                                                             <?php

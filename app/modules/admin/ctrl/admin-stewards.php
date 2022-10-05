@@ -374,10 +374,10 @@ class controller extends Ctrl {
                                 $proposal->is_executed = Proposal::PROPOSAL_EXECUTE_DEFEATED;
                             $proposal->update();
 
-                            $response['create_at']    = $api_response->createdAt;
+          /*                  $response['create_at']    = $api_response->createdAt;
                             $response['state']        = $api_response->state;
                             $response['voting_closes_at']     = $api_response->votingClosesAt;
-                            $response['min_votes_to_succeed'] = $api_response->minVotesToSucceed;
+                            $response['min_votes_to_succeed'] = $api_response->minVotesToSucceed;*/
 
                             echo json_encode(array('success' => true));
                         }

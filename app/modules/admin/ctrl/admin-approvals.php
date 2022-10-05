@@ -213,7 +213,7 @@ class controller extends Ctrl {
 
                     if($proposal instanceof Proposal){
                         $contribution = Contribution::get($proposal->object_id);
-                        $api_response =  API::executeBasicProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id);
+                        $api_response =  API::executePointProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id);
 
                         if (!isset($api_response->error)) {
                             $proposal->txnHash          = $api_response->txHash;
@@ -267,8 +267,8 @@ class controller extends Ctrl {
 
                         if ($proposal instanceof Proposal && $approval instanceof Approval) {
                             $pid  = $proposal->id;
-                            $vote = $vote = ($approval->type == 1)?'YES':'NO';;
-                            if($approval->approval_type = Form::APPROVAL_TYPE_SUBJECTIVE) {
+                            $vote = ($approval->approval_status == 1)?'YES':'NO';;
+                            if($approval->approval_type == Form::APPROVAL_TYPE_SUBJECTIVE) {
                                 $data         = array();
                                 $vote_data    = json_decode($approval->approval);
                                 foreach ($vote_data as $k => $v)
