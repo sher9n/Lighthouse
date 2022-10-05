@@ -7,14 +7,14 @@
 <div class="card shadow">
     <form id="" method="post" action="" autocomplete="off" class="d-flex flex-column h-100">
         <div class="card-body p-xxl-20">
-            <div class="display-5 fw-medium mb-25">Review this contribution</div>
+            <div class="display-5 fw-medium">Review this contribution</div>
             <?php
             if(count($user_arrovals) > 0 ){
                 if($contribution->approval_type == Form::APPROVAL_TYPE_SUBJECTIVE){
                     $ratings = $contribution->rating_categories;
                     $ratings = json_decode($ratings);
                     ?>
-                    <div class="row">
+                    <div class="row mt-25">
                         <div class="col-8 offset-md-4">
                             <div class="text-muted fs-sm d-flex justify-content-between mb-3">
                                 <div>Least</div>
@@ -56,7 +56,7 @@
             else{
                 if($contribution->approval_type == Form::APPROVAL_TYPE_SUBJECTIVE){
                     ?>
-                    <div class="row">
+                    <div class="row mt-25">
                         <div class="col-8 offset-md-4">
                             <div class="text-muted fs-sm d-flex justify-content-between mb-3">
                                 <div>Least</div>
