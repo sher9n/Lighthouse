@@ -75,7 +75,7 @@ class controller extends Ctrl {
                             if ($blockchain != SOLANA)
                                 $api_response = api::addCommunityWithoutToken(constant(strtoupper($blockchain) . "_API"), $contract_name, 0.0008,$wallet_address);
                             else
-                                $api_response = api::addSolanaCommunity($contract_name,$ticker,$ticker,9,$wallet_address,50,604800);
+                                $api_response = api::addSolanaCommunity($contract_name,$dao_name,$ticker,9,$wallet_address,50,604800);
 
                             if (isset($api_response->error)) {
                                 $log = new Log();

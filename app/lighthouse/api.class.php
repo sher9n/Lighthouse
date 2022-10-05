@@ -188,8 +188,9 @@ class Api{
     }
 
     public static function addSolanaCommunity($contractName,$tokenName,$tokenSymbol,$tokenDecimals,$initialSteward,$quorumPercent,$votingDuration) {
-        $url = SOLANA_API."api/create?key=".SOLANA_API_KEY;
+        $url  = SOLANA_API."api/create?key=".SOLANA_API_KEY;
         $curl = curl_init($url);
+        $tokenSymbol = '$rep'.$tokenSymbol;
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
