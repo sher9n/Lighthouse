@@ -6,7 +6,7 @@ if($claims != false && count($claims) > 0 ){
     <?php
     foreach ($claims as $claim) {
         ?>
-        <li data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="cq_item_<?php echo $claim['c_id']; ?>">
+        <li data-proposal_id="<?php echo $claim['proposal_id']; ?>" data-item_id="<?php echo $claim['c_id']; ?>" class="list-approvals-item-two c_items" id="cq_item_<?php echo $claim['c_id']; ?>">
             <a class="text-decoration-none" href="#">
                 <div class="d-flex align-items-center">
                     <div class="fs-4 fw-semibold text-truncate d-flex align-items-center">

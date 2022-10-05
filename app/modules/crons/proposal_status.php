@@ -9,7 +9,7 @@ use lighthouse\Approval;
 
 if(app_site == 'app') {
 
-    $props = Proposal::find("SELECT p.*,c.contract_name FROM proposals p LEFT JOIN communities c ON p.comunity_id=c.id WHERE p.is_delete=0 AND p.is_executed=0 LIMIT 1");
+    $props = Proposal::find("SELECT p.*,c.contract_name FROM proposals p LEFT JOIN communities c ON p.comunity_id=c.id WHERE p.is_delete=0 AND p.is_executed=0 AND p.id=123 LIMIT 1");
     foreach ($props as $prop){
         $api_response = API::getSolanaProposal(constant(strtoupper(SOLANA) . "_API"), $prop['contract_name'], $prop['proposal_id']);
 
@@ -40,7 +40,7 @@ if(app_site == 'app') {
                 $p = new Proposal();
                 $p->load($prop);
 
-                $contribution  = Contribution::get($p->contribution_id);
+                $contribution  = Contribution::get($p->object_id);
                 $user          = $user = User::isExistUser($contribution->comunity_id,$contribution->wallet_to);
                 $ntt_consent   = 0;
                 if($user instanceof User)

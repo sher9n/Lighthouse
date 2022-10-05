@@ -106,10 +106,10 @@
                     if($community->blockchain == SOLANA){
                         $p = \lighthouse\Proposal::get($contribution->proposal_id);
 
-                        if($p instanceof \lighthouse\Proposal && $p->is_executed == \lighthouse\Proposal::PROPOSAL_EXECUTED){
+                        if($p instanceof \lighthouse\Proposal && ($p->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_SUCCEEDED || $p->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_EXECUTED)){
                             $user = User::isExistUser($wallet_to,$community->id);
 
-                            if($user instanceof User && $user->ntt_consent == 1){
+                            if($user instanceof User && $user->ntt_consent == 1 && $p->is_executed != \lighthouse\Proposal::PROPOSAL_EXECUTED ){
                                 ?>
                                 <a type="button" data-pid="<?php echo $p->id; ?>" id="execute_<?php echo $p->id; ?>" class="log_proposal_execute btn btn-blue-stone">execute</a>
                                 <?php
@@ -227,42 +227,46 @@
                     foreach ($elements as $index => $element){
 
                         $ele_name = strtolower(preg_replace("/\s+/", "_", $element['e_name']));
-                        if($element['e_type'] == Form::QT_SHORT_ANSWER || $element['e_type'] == Form::QT_PARAGRAPH || $element['e_type'] == Form::QT_DROPDOWN ||
-                            $element['e_type'] == Form::QT_CHECKBOXES || $element['e_type'] == Form::QT_MULTIPLE_CHOICE || $element['e_type'] == Form::QT_DATE) {
-                            ?>
-                            <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
-                            <?php if(isset($data[$ele_name])){ ?>
-                                <div class="fw-medium fs-4 mt-1"><?php echo $data[$ele_name]; ?></div>
-                            <?php
+
+                        if(isset($data[$ele_name]) && strlen($data[$ele_name]) > 0){
+
+                            if($element['e_type'] == Form::QT_SHORT_ANSWER || $element['e_type'] == Form::QT_PARAGRAPH || $element['e_type'] == Form::QT_DROPDOWN ||
+                                $element['e_type'] == Form::QT_CHECKBOXES || $element['e_type'] == Form::QT_MULTIPLE_CHOICE || $element['e_type'] == Form::QT_DATE) {
+                                ?>
+                                <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
+                                <?php if(isset($data[$ele_name])){ ?>
+                                    <div class="fw-medium fs-4 mt-1"><?php echo $data[$ele_name]; ?></div>
+                                <?php
+                                }
                             }
-                        }
-                        elseif ($element['e_type'] == Form::QT_TAGS) {
-                            ?>
-                            <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
-                            <?php if(isset($data[$ele_name])){ ?>
-                                <ul class="select2-selection__rendered d-flex gap-3 mt-1">
-                                    <?php
-                                    if(strlen($data[$ele_name]) > 0){
-                                        $tags_arry = explode(",",$data[$ele_name]);
-                                        foreach ($tags_arry as $tag){ ?>
-                                            <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
-                                            <?php
-                                        }
-                                    } ?>
-                                </ul>
-                            <?php
+                            elseif ($element['e_type'] == Form::QT_TAGS) {
+                                ?>
+                                <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
+                                <?php if(isset($data[$ele_name])){ ?>
+                                    <ul class="select2-selection__rendered d-flex gap-3 mt-1">
+                                        <?php
+                                        if(strlen($data[$ele_name]) > 0){
+                                            $tags_arry = explode(",",$data[$ele_name]);
+                                            foreach ($tags_arry as $tag){ ?>
+                                                <li class="select2-selection__choice" title="<?php echo $tag; ?>" data-select2-id="141"><?php echo $tag; ?></li>
+                                                <?php
+                                            }
+                                        } ?>
+                                    </ul>
+                                <?php
+                                }
                             }
-                        }
-                        elseif ($element['e_type'] == Form::QT_FILE_UPLOAD) {
-                            ?>
-                            <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
-                            <?php if(isset($data[$ele_name])){ ?>
-                                <div class="fw-medium fs-4 mt-1">
-                                    <a href="<?php echo app_cdn_path.'instances/'.$community->dao_domain.'/'.$data[$ele_name]; ?>" download>
-                                        <?php echo $data[$ele_name]; ?>
-                                    </a>
-                                </div>
-                            <?php
+                            elseif ($element['e_type'] == Form::QT_FILE_UPLOAD) {
+                                ?>
+                                <div class="fw-semibold mt-12"><?php echo $element['e_label']; ?></div>
+                                <?php if(isset($data[$ele_name])){ ?>
+                                    <div class="fw-medium fs-4 mt-1">
+                                        <a href="<?php echo app_cdn_path.'instances/'.$community->dao_domain.'/'.$data[$ele_name]; ?>" download>
+                                            <?php echo $data[$ele_name]; ?>
+                                        </a>
+                                    </div>
+                                <?php
+                                }
                             }
                         }
                     } ?>
@@ -430,12 +434,13 @@
             url: 'execute-log-proposal?pid='+ele.data("pid"),
             dataType: 'json',
             beforeSend: function () {
+                $(".log_proposal_execute").addClass('disabled');
                 showMessage('success', 10000, 'Initializing wallet signing process...');
             },
             success: function(data) {
                 if (data.success == true){
                     showMessage('success',10000,'Success! The proposal has been executed.');
-                    reviewContrubutionHtmlChange(data,data.c_id)
+                    //reviewContrubutionHtmlChange(data,data.c_id)
                 }
                 else
                     showMessage('danger', 10000, data.msg);
@@ -485,13 +490,6 @@
                         showMessage('danger', 10000, data.msg);
                 }
             }
-        });
-    }
-
-    function checkProposalState(pid) {
-        $.ajax({
-            url: 'get-proposal?pid='+pid,
-            dataType: 'json'
         });
     }
 

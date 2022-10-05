@@ -6,6 +6,7 @@ use lighthouse\Log;
 use lighthouse\Api;
 use lighthouse\Proposal;
 use lighthouse\Vote;
+use lighthouse\Contribution;
 class controller extends Ctrl {
     function init() {
 
@@ -372,6 +373,11 @@ class controller extends Ctrl {
                             $proposal->proposal_state = $api_response->state;
                             if($api_response->state == Proposal::PROPOSAL_STATE_DEFEATED)
                                 $proposal->is_executed = Proposal::PROPOSAL_EXECUTE_DEFEATED;
+                            elseif ($api_response->state == Proposal::PROPOSAL_STATE_SUCCEEDED && $proposal->object_name == 'contribution') {
+                                $c = Contribution::get($proposal->object_id);
+                                $c->status = 1;
+                                $c->update();
+                            }
                             $proposal->update();
 
           /*                  $response['create_at']    = $api_response->createdAt;

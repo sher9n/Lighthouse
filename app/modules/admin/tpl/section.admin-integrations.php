@@ -98,8 +98,8 @@
                             }
                             else{
                                 ?>
-                                <div class="card-body p-xl-20">
-                                    <div class="d-flex justify-content-center empty_Contribution_block">
+                                <div class="card-body p-xl-20 empty_Contribution_block">
+                                    <div class="d-flex justify-content-center">
                                         <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-realms.png" width="50" height="50" class="me-3">
                                         <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-squads.png" width="50" height="50" class="me-3">
                                         <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-github.png" width="50" height="50" class="me-3">
@@ -264,6 +264,13 @@
                         </div>
                         <label id="r_proposal_create_points-error" class="error" style="display: none;" for="r_proposal_create_points"></label>
                     </div>
+                    <div class="mb-12">
+                        <label class="form-label">Status</label>
+                        <label class="switch">
+                            <input id="r_enable" name="r_enable" type="checkbox" checked="checked" class="cs_active form-switch-input">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
                 </div>
                 <div class="modal-footer pe-10">
                     <button id="btn_cancel" type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
@@ -299,6 +306,7 @@
             $('#r_vote_points').val('');
             $('#r_proposal_pass_points').val('');
             $('#r_proposal_create_points').val('');
+            $('#r_enable').attr('checked', 'checked');
         });
 
         $(document).on('click', '.cs_edit', function(event) {
@@ -310,6 +318,11 @@
             $('#r_vote_points').val(element.data('vp'));
             $('#r_proposal_pass_points').val(element.data('ppp'));
             $('#r_proposal_create_points').val(element.data('pcp'));
+
+            if(element.data('is_active') != 0)
+                $('#r_enable').attr('checked', 'checked');
+            else
+                $('#r_disable').attr('checked', 'checked');
             $('#modalRealms').modal('toggle');
         });
 
