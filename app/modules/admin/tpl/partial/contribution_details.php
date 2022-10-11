@@ -335,8 +335,41 @@
 </div>
 <script>
     var review_data = {};
+    var categories  = {};
+    var cat_lenght  = 0;
+
+    async function CheckValidation(){
+        var t = true
+
+        jQuery.each(categories, function (cat) {
+            if (!review_data[cat])
+                t = false;
+        });
+
+        return t;
+    }
 
     $(document).ready(function(){
+
+        <?php
+        if($contribution->approval_type == Form::APPROVAL_TYPE_SUBJECTIVE){
+            $ratings = $contribution->rating_categories;
+            $ratings = json_decode($ratings);
+            foreach ($ratings as $rating){
+                $category = strtolower(preg_replace("/\s+/", "-", $rating));
+                ?>
+                categories['<?php echo $category; ?>'] = 1;
+                cat_lenght++;
+                <?php
+            }
+        }
+        ?>
+
+        $('.btn-check').click(function(event) {
+            val  = $(this).data('val');
+            name = $(this).data('name');
+            review_data[name] = val;
+        });
 
         $('#btn_approve').click(function (e){
             var c_id = '<?php echo $contribution->id; ?>';
@@ -348,45 +381,53 @@
                 <?php
             } ?>
 
-            $.ajax({
-                url: 'contribution-status',
-                dataType: 'json',
-                data: review_data,
-                type: 'POST',
-                beforeSend: function () {
-                    $('#btn_deny').prop('disabled', true);
-                    $('#btn_approve').prop('disabled', true);
-                    <?php
-                    if(count($user_appproval_ids) > 0){ ?>
-                        showMessage('success', 10000, 'Adding claim on-chain...');
-                    <?php
-                    } ?>
-                },
-                success: function (data) {
-                    if (data.success == true) {
-                        if(data.blockchain == 'solana')
-                        {
-                            if(data.api_response)
-                            {
-                                solanaProposalTransaction(data.api_response).then((result) => {
-                                    vote(data.p_id,data.approval_id);
-                                });
+            CheckValidation().then(validate => {
+
+                if(validate == true) {
+                    $.ajax({
+                        url: 'contribution-status',
+                        dataType: 'json',
+                        data: review_data,
+                        type: 'POST',
+                        beforeSend: function () {
+                            $('#btn_deny').prop('disabled', true);
+                            $('#btn_approve').prop('disabled', true);
+                            <?php
+                            if(count($user_appproval_ids) > 0){ ?>
+                            showMessage('success', 10000, 'Adding claim on-chain...');
+                            <?php
+                            } ?>
+                        },
+                        success: function (data) {
+                            if (data.success == true) {
+                                if(data.blockchain == 'solana')
+                                {
+                                    if(data.api_response)
+                                    {
+                                        solanaProposalTransaction(data.api_response).then((result) => {
+                                            vote(data.p_id,data.approval_id);
+                                        });
+                                    }
+                                    else
+                                        vote(data.p_id,data.approval_id);
+
+                                    reviewContrubutionHtmlChange(data,c_id);
+                                }
+                                else
+                                {
+                                    reviewContrubutionHtmlChange(data,c_id)
+                                    showMessage('success', 10000, data.message);
+                                }
                             }
                             else
-                                vote(data.p_id,data.approval_id);
-
-                            reviewContrubutionHtmlChange(data,c_id);
+                                showMessage('danger', 10000, data.msg);
                         }
-                        else
-                        {
-                            reviewContrubutionHtmlChange(data,c_id)
-                            showMessage('success', 10000, data.message);
-                        }
-                    }
-                    else
-                        showMessage('danger', 10000, data.msg);
+                    });
                 }
+                else
+                    showMessage('danger', 10000, "you must add points for every category");
             });
+
         });
 
         $('#btn_deny').click(function (e){

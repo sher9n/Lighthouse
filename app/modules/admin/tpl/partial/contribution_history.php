@@ -14,22 +14,22 @@
                         }
                         else {
                             ?>
-                            <div>Lighthouse - Claimed <?php echo $contribution['form_title']; ?></div>
+                            <div><?php echo $contribution['score']; ?> Points • Claimed <?php echo $contribution['form_title']; ?></div>
                             <?php
                         }
                     }
                     else if($contribution['is_realms'] == 1){
                         if($contribution['realms_status'] == 'Succeeded'){ ?>
-                            <div>SPL Governance - Passed Proposal</div>
+                            <div>SPL Governance • Passed Proposal</div>
                             <?php
                         }
                         else{ ?>
-                            <div>SPL Governance - Created Proposal</div>
+                            <div>SPL Governance • Created Proposal</div>
                             <?php
                         }
                     }
                     else{?>
-                        <div>SPL Governance - Voted</div>
+                        <div>SPL Governance • Voted</div>
                         <?php
                     } ?>
                 </div>
@@ -37,10 +37,9 @@
             </div>
             <div class="fw-medium text-truncate text-muted my-1"><?php echo $contribution['contribution_reason']?></div>
             <ul class="select2-selection__rendered d-flex gap-3">
-                <!--<li class="select2-selection__choice" title="dfddsfsdf" data-select2-id="141">
-                    <span class="select2-selection__choice__remove" role="presentation">×</span>dfddsfsdf</li>
-                <li class="select2-selection__choice" title="dfdsfdsf" data-select2-id="142">
-                    <span class="select2-selection__choice__remove" role="presentation">×</span>dfdsfdsf</li>-->
+                <?php if(strlen($contribution['tags']) >0 ){ ?>
+                <li class="select2-selection__choice" title="dfddsfsdf" data-select2-id="141"><?php echo $contribution['tags']; ?></li>
+                <?php } ?>
             </ul>
         </a>
     </li>

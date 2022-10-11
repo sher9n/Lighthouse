@@ -66,6 +66,18 @@ class controller extends Ctrl {
                         unset($post['con_id']);
                         unset($post['status']);
 
+                        if($contribution->approval_type == Form::APPROVAL_TYPE_SUBJECTIVE){
+                            $ratings = $contribution->rating_categories;
+                            $ratings = json_decode($ratings);
+                            foreach ($ratings as $rating){
+                                $category = strtolower(preg_replace("/\s+/", "-", $rating));
+                                if(!isset($post[$category])){
+                                    echo json_encode(array('success' => false, 'msg' => 'Something went wrong'));
+                                    exit();
+                                }
+                            }
+                        }
+
                         if($this->hasParam('approval_id') && strlen($this->getParam('approval_id')) > 0){
                             unset($post['approval_id']);
                             $update      = true;
