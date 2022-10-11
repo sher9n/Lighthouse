@@ -123,21 +123,19 @@
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end shadow">
                                             <li>
-                                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#modalTokenBased">
                                                     <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-token-based.png" width="40" height="40">
                                                     <div class="ms-5">
                                                         <div class="h4 mb-0">Token Based</div>
-                                                        <div class="text-success">Coming Soon!</div>
                                                     </div>
                                                 </a>
                                             </li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li>
-                                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#modalNftBased">
                                                     <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-nft-based.png" width="40" height="40">
                                                     <div class="ms-5">
                                                         <div class="h4 mb-0">NFT Based</div>
-                                                        <div class="text-success">Coming Soon!</div>
                                                     </div>
                                                 </a>
                                             </li>                                            
@@ -146,12 +144,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-xl-20">
-                            <div class="d-flex justify-content-center">
-                                <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-token-based.png" width="50" height="50" class="me-3">
-                                <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-nft-based.png" width="50" height="50">
+                        <div id="gated_access_div" class="accordion px-20 pb-10 pt-10">
+                            <div class="card-body p-xl-20 empty_gated_access_block">
+                                <div class="d-flex justify-content-center">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-token-based.png" width="50" height="50" class="me-3">
+                                    <img src="<?php echo app_cdn_path; ?>img/company-logo/icon-nft-based.png" width="50" height="50">
+                                </div>
+                                <div class="text-center h4 mb-0 mt-8 fw-medium">Setup token-gated access to contributions.</div>
                             </div>
-                            <div class="text-center h4 mb-0 mt-8 fw-medium">Setup token-gated access to contributions.</div>
                         </div>
                     </div>
                     <div class="card shadow mb-12">
@@ -280,9 +280,81 @@
         </div>
     </div>
 </div>
+<!-- Modal Add token based gated access -->
+<div class="modal fade" id="modalTokenBased" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-size-02">
+        <div class="modal-content">
+            <form id="addTokenGatedForm" method="post" action="add-token-gated_access" autocomplete="off">
+                <div class="modal-body p-10">
+                    <div class="fs-2 fw-semibold mb-22 mt-3">Add Token Based Gated Access</div>
+                    <div class="mb-12">
+                        <label for="" class="form-label">Name</label>
+                        <input type="text" name="tb_name" class="form-control form-control-lg" id="tb_name" placeholder="Checking if a user holds $myToken > 100">
+                    </div>
+                    <div class="mb-12">
+                        <label for="" class="form-label">Token contract</label>
+                        <input type="text" name="tb_contract" class="form-control form-control-lg" id="tb_contract" placeholder="CJsLwbP1iu5DuUikHEJnLfANgKy6stB2uFgvBBHoyxwz">
+                    </div>
+                    <div class="mb-12">
+                        <label for="" class="form-label">Min amount </label>
+                        <input type="number" name="tb_min_amount" id="tb_min_amount" class="form-control form-control-lg" placeholder="100">
+                    </div>
+                    <div class="mb-12">
+                        <label class="form-label">Status</label>
+                        <label class="switch">
+                            <input id="tb_status" name="tb_status" type="checkbox" checked="checked" class="tb_status form-switch-input">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer pe-10">
+                    <button id="btn_tb_cancel" type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btn_tb_add" type="submit" class="btn btn-primary">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Add token based gated access -->
+<div class="modal fade" id="modalNftBased" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-size-02">
+        <div class="modal-content">
+            <form id="addNftGatedForm" method="post" action="add-nft-gated_access" autocomplete="off">
+                <div class="modal-body p-10">
+                    <div class="fs-2 fw-semibold mb-22 mt-3">Add NFT Based Gated Access</div>
+                    <div class="mb-12">
+                        <label for="" class="form-label">Name</label>
+                        <input type="text" name="nft_name" class="form-control form-control-lg" id="nft_name" placeholder="Checking if a user holds myNFT">
+                    </div>
+                    <div class="mb-12">
+                        <label for="" class="form-label">NFT contract</label>
+                        <input type="text" name="nft_contract" class="form-control form-control-lg" id="nft_contract" placeholder="CJsLwbP1iu5DuUikHEJnLfANgKy6stB2uFgvBBHoyxwz">
+                    </div>
+                    <div class="mb-12">
+                        <label for="" class="form-label">Min amount </label>
+                        <input type="number" name="nft_min_amount" id="nft_min_amount" class="form-control form-control-lg" placeholder="1">
+                    </div>
+                    <div class="mb-12">
+                        <label class="form-label">Status</label>
+                        <label class="switch">
+                            <input id="ntf_status" name="ntf_status" type="checkbox" checked="checked" class="ntf_status form-switch-input">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer pe-10">
+                    <button id="btn_nft_cancel" type="button" class="btn btn-white" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btn_nft_add" type="submit" class="btn btn-primary">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     $(document).ready(function() {
+
+        getGatedAccess();
 
         $(document).on('change', '.cs_active', function(event) {
             event.preventDefault();
@@ -299,6 +371,14 @@
             });
         })
 
+        $('#modalTokenBased').on('hidden.bs.modal', function (e) {
+            $("#modalTokenBased").attr('action', "add-token-gated_access");
+            $('#tb_name').val('');
+            $('#tb_contract').val('');
+            $('#tb_min_amount').val('');
+            $('#tb_status').attr('checked', 'checked');
+        });
+
         $('#modalRealms').on('hidden.bs.modal', function (e) {
             $("#addRealmsForm").attr('action', "add-realms_contribution");
             $('#r_name').val('');
@@ -307,6 +387,14 @@
             $('#r_proposal_pass_points').val('');
             $('#r_proposal_create_points').val('');
             $('#r_enable').attr('checked', 'checked');
+        });
+
+        $('#modalNftBased').on('hidden.bs.modal', function (e) {
+            $("#addNftGatedForm").attr('action', "add-nft-gated_access");
+            $('#nft_name').val('');
+            $('#nft_contract').val('');
+            $('#nft_min_amount').val('');
+            $('#ntf_status').attr('checked', 'checked');
         });
 
         $(document).on('click', '.cs_edit', function(event) {
@@ -324,6 +412,36 @@
             else
                 $('#r_disable').attr('checked', 'checked');
             $('#modalRealms').modal('toggle');
+        });
+
+        $(document).on('click', '.ga_edit', function(event) {
+            event.preventDefault();
+            var element = $(this);
+
+            if(element.data('gated_type') == 'token'){
+                $("#addTokenGatedForm").attr('action', element.attr('href'));
+                $('#tb_name').val(element.data('nm'));
+                $('#tb_contract').val(element.data('contract'));
+                $('#tb_min_amount').val(element.data('min_amount'));
+
+                if(element.data('is_active') != 0)
+                    $('#tb_status').attr('checked', 'checked');
+                else
+                    $('#tb_status').attr('checked', 'checked');
+                $('#modalTokenBased').modal('toggle');
+            }
+            else {
+                $("#addNftGatedForm").attr('action', element.attr('href'));
+                $('#nft_name').val(element.data('nm'));
+                $('#nft_contract').val(element.data('contract'));
+                $('#nft_min_amount').val(element.data('min_amount'));
+
+                if(element.data('is_active') != 0)
+                    $('#ntf_status').attr('checked', 'checked');
+                else
+                    $('#ntf_status').attr('checked', 'checked');
+                $('#modalNftBased').modal('toggle');
+            }
         });
 
         $('#addRealmsForm').validate({
@@ -378,6 +496,113 @@
                 });
             }
         });
+
+        $('#addTokenGatedForm').validate({
+            rules: {
+                tb_name: {
+                    required: true
+                },
+                tb_contract: {
+                    required: true
+                },
+                tb_min_amount:{
+                    required: true
+                }
+            },
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    type: 'post',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('#btn_tb_cancel').prop('disabled', true);
+                        $('#btn_tb_add').prop('disabled', true);
+                        showMessage('success', 10000, 'Adding token based access...');
+                    },
+                    success: function (data) {
+                        $('#modalTokenBased').modal('toggle');
+                        if (data.success == true) {
+                            if(data.update == true)
+                                $("#ga_"+data.cs_id).html(data.html);
+                            else {
+                                $(".empty_gated_access_block").remove();
+                                $("#gated_access_div").append(data.html);
+                            }
+                            showMessage('success', 10000, 'Success! Token based access has been updated.');
+                        }
+                        else {
+                            if(data.element) {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            }
+                            else
+                                showMessage('danger', 10000, data.msg);
+                        }
+                        $('#btn_tb_cancel').prop('disabled', false);
+                        $('#btn_tb_add').prop('disabled', false);
+                    }
+                });
+            }
+        });
+
+        $('#addNftGatedForm').validate({
+            rules: {
+                nft_name: {
+                    required: true
+                },
+                nft_contract:{
+                    required: true
+                },
+                nft_min_amount:{
+                    required: true
+                }
+            },
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    type: 'post',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('#btn_nft_cancel').prop('disabled', true);
+                        $('#btn_nft_add').prop('disabled', true);
+                        showMessage('success', 10000, 'Adding nft based access...');
+                    },
+                    success: function (data) {
+                        $('#modalNftBased').modal('toggle');
+                        if (data.success == true) {
+                            if(data.update == true)
+                                $("#ga_"+data.cs_id).html(data.html);
+                            else {
+                                $(".empty_gated_access_block").remove();
+                                $("#gated_access_div").append(data.html);
+                            }
+                            showMessage('success', 10000, 'Success! Nft based access has been updated.');
+                        }
+                        else {
+                            if(data.element) {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            }
+                            else
+                                showMessage('danger', 10000, data.msg);
+                        }
+                        $('#btn_nft_cancel').prop('disabled', false);
+                        $('#btn_nft_add').prop('disabled', false);
+                    }
+                });
+            }
+        });
     });
+
+    function getGatedAccess() {
+        $.ajax({
+            url: 'get-gated_access',
+            dataType: 'json',
+            success: function(data) {
+                if (data.success == true) {
+                    $(".empty_gated_access_block").remove();
+                    $("#gated_access_div").html(data.html);
+                }
+            }
+        });
+    }
 
 </script>

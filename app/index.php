@@ -73,6 +73,9 @@ try {
         '/settings' => 'modules/admin/ctrl/admin-settings.php',
         '/portal-dashboard' => 'modules/portal/ctrl/portal-dashboard.php',
         '/add-realms_contribution' => 'modules/admin/ctrl/admin-integrations.php',
+        '/add-nft-gated_access' =>  'modules/admin/ctrl/admin-integrations.php',
+        '/add-token-gated_access' => 'modules/admin/ctrl/admin-integrations.php',
+        '/get-gated_access'  => 'modules/admin/ctrl/admin-integrations.php',
         '/404' => 'modules/default/ctrl/http-404.php',
         /* claim and onboard routes
         '/send-ntts' => 'modules/admin/ctrl/admin-ntts.php',

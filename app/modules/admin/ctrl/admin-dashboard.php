@@ -4,6 +4,7 @@ use lighthouse\Claim;
 use lighthouse\Community;
 use lighthouse\Contribution;
 use Core\Utils;
+use lighthouse\Approval;
 class controller extends Ctrl {
     function init() {
         $is_admin       = false;
@@ -86,9 +87,11 @@ class controller extends Ctrl {
                             array_push($tag_string, $key . ':' . $c);
                     }
 
-                    $r = $p = '-';
+                    $r   = $p = '-';
+                    $sum = 'N/A';
                     if(isset($rank_table[$wallet_adr])){
-                        $r = $rank_table[$wallet_adr]['rank'];
+                        $r   = $rank_table[$wallet_adr]['rank'];
+                        $sum = $rank_table[$wallet_adr]['sum'];
                         if($total > 0)
                             $p = number_format((($rank_table[$wallet_adr]['sum'] / $total) * 100),2).'%';
                         else
@@ -97,7 +100,7 @@ class controller extends Ctrl {
 
                     $claim_table[] = array(
                         '<a data-adr="' . $wallet_adr . '" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" href="#" class="text-decoration-none contribution_history">'.Utils::WalletAddressFormat($wallet_adr).'</a>',
-                        'N/A',
+                        $sum,
                         'N/A',
                         'N/A',
                         '<div class="text-truncate text-max-width">' . implode(', ', $tag_string) . '</div>'

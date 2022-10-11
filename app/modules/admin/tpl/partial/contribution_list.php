@@ -1,5 +1,6 @@
 <?php
 use Core\Utils;
+use lighthouse\User;
 if($claims != false && count($claims) > 0 ){
     ?>
     <ul class="list-approvals">
@@ -63,7 +64,23 @@ if($claims != false && count($claims) > 0 ){
                         }
                     }
                 }
-                ?>
+
+                if($claim['proposal_state'] == \lighthouse\Proposal::PROPOSAL_STATE_SUCCEEDED && $claim['is_executed']==\lighthouse\Proposal::PROPOSAL_EXECUTE_PENDING){
+                    $user = User::isExistUser($claim['wallet_to'],$com_id);
+
+                    if(!($user instanceof User) || ($user instanceof User && $user->ntt_consent != 1)){
+                        ?>
+                        <div class="d-flex align-items-center text-danger my-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle feather-md">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            <div class="fw-medium ms-2">Excution unavailable unit member consents to NTTs</div>
+                        </div>
+                        <?php
+                    }
+                } ?>
                 <!--<div class="fw-medium text-truncate text-muted my-1"><?php /*echo $claim['contribution_reason']; */?></div>-->
                     <ul class="select2-selection__rendered d-flex gap-3">
                         <?php

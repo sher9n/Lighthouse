@@ -3,6 +3,7 @@ const getProvider = async () => {
     if ("solana" in window) {
         await window.solana.connect();
         const provider = window.solana;
+        console.log(provider);
         return provider;
     }
     else {
@@ -127,9 +128,11 @@ async function updateWalletMenu() {
         type: 'POST',
         success: function (response) {
             if (response.success == true) {
+                sessionStorage.setItem("lh_wallet_role",response.user_role);
                 window.location = 'contribution';
             }
             else {
+                sessionStorage.removeItem('lh_wallet_role');
                 sessionStorage.removeItem('lh_sel_wallet_add');
                 sessionStorage.removeItem('lh_wallet_adds');
                 $('#whitelist_solana_error').removeClass('d-none');

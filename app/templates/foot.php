@@ -32,11 +32,32 @@
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect.solana.js"></script>
 <script>
     if(sessionStorage.getItem('lh_sel_wallet_add')) {
+
+        var APP_ID = "jr6vc5hn";
+        var current_user_email = sessionStorage.getItem('lh_sel_wallet_add');
+        var current_user_name = sessionStorage.getItem('lh_sel_wallet_add');
+        var current_user_id = sessionStorage.getItem('lh_sel_wallet_add');
+
         window.intercomSettings = {
+            app_id: APP_ID,
+            name: current_user_name, // Full name
+            email: current_user_email, // Email address
+            user_id: current_user_id // current_user_id
+        };
+
+        /*window.intercomSettings = {
             api_base: "https://api-iam.intercom.io",
             app_id: "jr6vc5hn",
-            name: sessionStorage.getItem('Visitor'),
+            name: sessionStorage.getItem('lh_sel_wallet_add'),
             created_at: "<?php echo time(); ?>" // Signup date as a Unix timestamp
+        };*/
+    }
+    else {
+        //Set your APP_ID
+        var APP_ID = "jr6vc5hn";
+
+        window.intercomSettings = {
+            app_id: APP_ID
         };
     }
 
@@ -52,7 +73,7 @@ foreach ($__page->js as $page_js) { ?>
     function showMessage(status,time,message) {
         SnackBar({
             status: status,
-            position: "br",
+            position: "tr",
             icon: "	 ",
             timeout: time,
             message: message

@@ -356,7 +356,11 @@
                 beforeSend: function () {
                     $('#btn_deny').prop('disabled', true);
                     $('#btn_approve').prop('disabled', true);
-                    showMessage('success', 10000, 'Updating...');
+                    <?php
+                    if(count($user_appproval_ids) > 0){ ?>
+                        showMessage('success', 10000, 'Adding claim on-chain...');
+                    <?php
+                    } ?>
                 },
                 success: function (data) {
                     if (data.success == true) {
@@ -425,26 +429,27 @@
                 }
             });
         });
-    });
 
-    $(document).on('click','.log_proposal_execute', function (e){
-        e.preventDefault();
-        var ele = $(this);
-        $.ajax({
-            url: 'execute-log-proposal?pid='+ele.data("pid"),
-            dataType: 'json',
-            beforeSend: function () {
-                $(".log_proposal_execute").addClass('disabled');
-                showMessage('success', 10000, 'Initializing wallet signing process...');
-            },
-            success: function(data) {
-                if (data.success == true){
-                    showMessage('success',10000,'Success! The proposal has been executed.');
-                    //reviewContrubutionHtmlChange(data,data.c_id)
+        $('.log_proposal_execute').click(function (e){
+            e.preventDefault();
+            var ele = $(this);
+
+            $.ajax({
+                url: 'execute-log-proposal?pid='+ele.data("pid"),
+                dataType: 'json',
+                beforeSend: function () {
+                    $(".log_proposal_execute").addClass('disabled');
+                    showMessage('success', 10000, 'Attesting claim...');
+                },
+                success: function(data) {
+                    if (data.success == true){
+                        showMessage('success',10000,'Success! The proposal has been executed.');
+                        //reviewContrubutionHtmlChange(data,data.c_id)
+                    }
+                    else
+                        showMessage('danger', 10000, data.msg);
                 }
-                else
-                    showMessage('danger', 10000, data.msg);
-            }
+            });
         });
     });
 

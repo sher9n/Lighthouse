@@ -8,7 +8,7 @@
     <div class="modal-dialog modal-dialog-centered modal-size-01">
         <div class="modal-content">
             <div class="modal-body p-10">
-                <div class="fs-2 fw-semibold mb-22 mt-3">Connect your wallet</div>
+                <div class="fs-2 fw-semibold mb-22 mt-3">Connect your wallet to start a Lighthouse</div>
                 <ui class="list-wallet">
                     <li class="list-wallet-item rounded border">
                         <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()"  href="#">

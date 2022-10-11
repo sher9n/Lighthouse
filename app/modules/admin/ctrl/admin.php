@@ -24,7 +24,8 @@ class controller extends Ctrl {
                     $new_user = true;
                 }
 
-                echo json_encode(array('success' => true,'new_user' => $new_user));
+                $user_role = $com->isAdmin($selected_adr)?'admin':'user';
+                echo json_encode(array('success' => true,'new_user' => $new_user,'user_role' =>$user_role ));
                 exit();
             }
             else if(__ROUTER_PATH =='/disconnect_wallet') {

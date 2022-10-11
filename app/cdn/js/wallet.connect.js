@@ -105,6 +105,7 @@ function switchNetwork(blockchain) {
 }
 
 async function onDisconnect() {
+    sessionStorage.removeItem('lh_wallet_role');
     sessionStorage.removeItem('lh_sel_wallet_add');
     sessionStorage.removeItem('lh_wallet_adds');
     localStorage.clear();

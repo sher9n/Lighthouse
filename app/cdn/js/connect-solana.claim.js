@@ -59,6 +59,7 @@ async function updateWalletMenu() {
         type: 'POST',
         success: function (response) {
             if (response.success == true) {
+                sessionStorage.setItem("lh_wallet_role",response.user_role);
                 window.location = 'contribution';
             }
         }

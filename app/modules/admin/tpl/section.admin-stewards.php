@@ -14,9 +14,11 @@
                             <div class="display-5 fw-medium">Manage stewards</div>
                             <div class="text-muted mt-1">Add or remove stewards and set multisig parameters</div>
                             <div class="fw-medium mt-16">Quorum</div>
-                            <?php if($__page->is_admin != false){ ?>
-                            <button type="button" id="percentage_change" class="btn btn-primary mt-6 <?php echo count($__page->quorumProposals) > 0 ?'disabled':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Propose new quorum</button>
-                            <?php } ?>
+                            <?php
+                            if($__page->is_admin != false){ ?>
+                                <button type="button" id="percentage_change" class="btn btn-primary mt-6 <?php echo count($__page->quorumProposals) > 0 ?'disabled':''; ?>" data-bs-toggle="modal" data-bs-target="#ModalChange">Propose new quorum</button>
+                                <?php
+                            } ?>
                             <div class="d-flex align-items-center mt-4">
                                 <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
                                     <div class="fs-1"><?php echo $__page->approval_count.'</div><div class="fs-2">/'.$__page->stewardCount; ?></div>
@@ -176,7 +178,7 @@
                                                         if($__page->is_admin != false){ ?>
                                                         <div>
                                                             <?php
-                                                            if(isset($__page->user_votes[$id])){ ?>
+                                                            if(!isset($__page->user_votes[$id])){ ?>
                                                                 <a type="button" data-pid="<?php echo $id; ?>" data-vote="NO" id="deny_<?php echo $id; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
                                                                 <a type="button" data-pid="<?php echo $id; ?>" data-vote="YES" id="approve_<?php echo $id; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
                                                                 <?php
@@ -190,7 +192,11 @@
                                                         <div class="d-flex align-items-center justify-content-end mt-2">
                                                             <div class="fw-semibold me-2" >View Proposal</div>
                                                             <a target="_blank" href="https://solscan.io/account/<?php echo $proposal->proposal_adr ; ?>?cluster=devnet" class="text-primary">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+                                                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                                                </svg>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -214,7 +220,10 @@
                                                 <div class="fs-3 fw-semibold me-6"><?php echo $steward['wallet_adr']; ?></div>
                                                 <?php if(($__page->is_admin != false) && (count($__page->stewards) > 1)){ ?>
                                                 <a class="del_steward" href="delete-stewards?id=<?php echo $steward['id'];?>&adr=<?php echo $steward['wallet_adr']; ?>" data-bs-toggle="modal" data-bs-target="#delMember">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash text-danger">
+                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                    </svg>
                                                 </a>
                                                 <?php } ?>
                                             </div>

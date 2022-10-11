@@ -239,7 +239,7 @@ class controller extends Ctrl {
 
                                     foreach ($approval as $key => $val) {
                                         $tem     += $val;
-                                        $tem_tot += 5;
+                                        $tem_tot += $tem;
                                     }
 
                                     $points = ($tem_tot > 0)? ($tem/$tem_tot) * $maxPoint :0;
@@ -338,10 +338,10 @@ class controller extends Ctrl {
                 }
 
                 $id_sql = '('.implode(",",$reviewed_ids).')';
-                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id,c.proposal_id FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE  c.is_realms=0 AND c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id' AND c.id NOT IN ".$id_sql);
+                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id,c.proposal_id,p.proposal_state,p.is_executed,c.wallet_to FROM contributions c LEFT JOIN forms f ON c.form_id=f.id LEFT JOIN proposals p ON c.proposal_id=p.id WHERE  c.is_realms=0 AND c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id' AND c.id NOT IN ".$id_sql);
             }
             else
-                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id,c.proposal_id FROM contributions c LEFT JOIN forms f ON c.form_id=f.id WHERE c.is_realms=0 AND c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id'");
+                $claim_all = Contribution::find("SELECT distinct(c.id) as c_id,c.c_at,c.status,f.form_title,c.contribution_reason,f.tags,c.form_data,c.form_id,c.proposal_id,p.proposal_state,p.is_executed,c.wallet_to  FROM contributions c LEFT JOIN forms f ON c.form_id=f.id LEFT JOIN proposals p ON c.proposal_id=p.id WHERE c.is_realms=0 AND c.status = 0 AND f.id <> 2 AND c.comunity_id='$community_id'");
 
             $claims = array();
             if($claim_all != false) {
@@ -358,6 +358,7 @@ class controller extends Ctrl {
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'is_admin' => $is_admin,
                 'claims' => $claims,
+                'com_id' => $community->id,
                 'approval_days' => $community->approval_days,
                 'logo_url' => $community->getLogoImage(),
                 'user' => \lighthouse\User::isExistUser($sel_wallet_adr,$community->id),

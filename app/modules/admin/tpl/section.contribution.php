@@ -87,6 +87,7 @@
     <?php } ?>
 
     <?php if(strlen($__page->wallet_adr) > 0){ ?>
+            sessionStorage.setItem("lh_wallet_role","admin");
             sessionStorage.setItem("lh_sel_wallet_add", '<?php echo $__page->wallet_adr; ?>');
             sessionStorage.setItem("lh_wallet_adds", JSON.stringify(['<?php echo $__page->wallet_adr; ?>']));
             <?php if(strlen($__page->view_contract) > 0) { ?>
