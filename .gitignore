@@ -8,6 +8,7 @@ app/.elasticbeanstalk/*
 
 app/cdn/node_modules
 #app/cdn/scss
+app/cdn/js/intercom-style.js
 
 app/conf/config.inc.php
 app/conf/app.constants.inc.php

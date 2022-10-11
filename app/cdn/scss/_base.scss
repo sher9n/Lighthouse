@@ -165,3 +165,9 @@ main {
 .score-block {
     min-width: 150px;
 }
+
+//consent button issue
+
+.consent-text{
+    max-width: calc(100% - 375px);
+}
