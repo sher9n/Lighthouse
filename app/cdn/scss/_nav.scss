@@ -1,0 +1,153 @@
+.nav-bar-bottom {
+    position: fixed;
+    width: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: $gray-100;
+    margin-left: 350px;
+    padding: .889rem 1.667rem;
+}
+
+.main-nav {
+    .nav-link {
+        display: flex;
+        @media (-webkit-device-pixel-ratio: 1.25) {
+            padding: 0.75rem 1rem;
+        }
+    }
+    .active {
+        font-weight: $font-weight-semibold;
+        .feather {
+            stroke: $primary;
+        }
+    }
+    .feather {
+        stroke: $gray-700;
+    }
+    .nav-sub {
+        padding-left: 4rem;
+        list-style: none;
+        .nav-link {
+            text-decoration: none;
+            padding: .5rem 0;
+        }
+    }
+    .tree-toggle {
+        .active + .tree{
+            display: block !important;
+        }
+    }
+}
+
+.user-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: .889rem 1.667rem 1.875rem;
+    .non-avator,
+    .avator {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        max-width: 40px;
+        max-height: 40px;
+        border-radius: $border-radius-pill;
+    }
+    .non-avator {        
+        border: $border-width solid $black;
+        background-color: $blue-stone;
+    }
+    .dropdown-menu {
+        min-width: 290px;
+        transform: translate(0px, -50px) !important;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem $dropdown-item-padding-x;
+        border-bottom: $border-color solid $border-width;
+        &:last-child {
+            border-color: transparent;
+        }
+    }
+    .feather {
+        stroke: $gray-700;
+    }
+}
+
+.navbar {
+    .non-avator,
+    .avator {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        max-width: 40px;
+        max-height: 40px;
+        border-radius: $border-radius-pill;
+    }
+    .non-avator {        
+        border: $border-width solid $black;
+        background-color: $royal-blue;
+    }
+}
+
+.dropdown-toggle {
+    &::after {
+        color: $gray-400;
+    }    
+}
+
+.nav-pills {
+    .nav-item {
+        padding: 1.2rem .5rem;
+        &:first-child {
+            @include media-breakpoint-down(xl) {
+                padding-left: 0;
+            }
+        }
+        @include media-breakpoint-up(xl) {
+            padding: 1.2rem 1rem;
+        }
+    }
+    .nav-link {
+        padding: 0 0 .65rem 0;
+        font-weight: $font-weight-medium;
+        font-size: $font-size-lg;
+        &.active {
+            border-bottom: $border-width solid $primary;
+            font-weight: $font-weight-semibold;
+        }
+    }
+}
+
+.nav-footer-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: $white;
+    padding: 1rem;
+}
+
+.nav-right-fixed {
+    margin-left: 270px;
+    position: fixed;
+    z-index: $zindex-fixed;
+    width: 100%;
+    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
+    background-color: $body-bg;
+    top: 0;
+    left: 0;
+    padding: 1.875rem 1.5rem 1rem 1.8rem;
+    @include media-breakpoint-up(xl) {
+        margin-left: 300px;
+    }
+}

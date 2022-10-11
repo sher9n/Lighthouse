@@ -1,0 +1,55 @@
+.card-block {
+    margin-bottom: 40px;
+    .bullet-point {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+        max-width: 30px;
+        max-height: 30px;
+        border-radius: $border-radius-pill;
+    }
+}
+
+.body-section {
+    .card-body {
+        padding: 3.4rem 3.333rem;
+    }
+}
+
+.card-image-uploads {
+    width: 100%;
+    cursor: pointer;
+    @include media-breakpoint-up(xl) {
+        width: 520px;
+    }
+    .card-body {
+        border: $border-width dashed $border-color;
+        border-radius: $border-radius;
+        background-color: $white;
+    }
+    .img-upload-logo {
+        max-height: 80px;
+        max-width: 250px;
+    }
+}
+
+.card-logo {
+    width: 60px;
+    height: 60px;
+    max-width: 60px;
+    max-height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: $border-radius;
+    background-color: $black;
+    border: $border-width solid $black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-card {
+    min-height: 227.25px;
+    max-height: 227.25px;
+}
