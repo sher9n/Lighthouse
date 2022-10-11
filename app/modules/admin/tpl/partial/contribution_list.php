@@ -30,6 +30,14 @@ if($claims != false && count($claims) > 0 ){
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                                 <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Attestation Period ends in <?php echo $date_count; ?></div>
                             </div>
+                            <div class="d-flex align-items-center text-orange my-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Execution pending</div>
+                            </div>
+                            <div class="d-flex align-items-center text-muted my-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Execution unavailable until member consents to NTTs</div>
+                            </div>
                         <?php
                         }
                         else {
