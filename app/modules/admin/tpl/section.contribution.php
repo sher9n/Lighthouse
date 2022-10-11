@@ -12,6 +12,27 @@
                         <div class="display-5 fw-medium">Contribute to <?php echo $__page->community_name; ?><img src="<?php echo app_cdn_path; ?>img/fire.png"></div>
                         <div class="text-muted mt-1">Request $rep<?php echo $__page->community->ticker; ?> for your contributions.</div>
                         <div class="row mt-12">
+                        <div class="col-12">
+                            <div class="card border  bg-lighter  rounded-3 mb-12" >
+                                <div class="card-body p-10">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-auto">
+                                            <div class="d-flex align-items-center">
+                                                <div class="fs-4 fw-semibold">To gain access, this is what you’ll need:</div>
+                                            </div>
+                                            <div class="d-flex align-items-center text-blue-stone mt-4">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                <div class="fw-semibold ms-2 end_time_5610">25,000 Grape tokens</div>
+                                            </div>
+                                            <div class="d-flex align-items-center text-muted mt-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                                                <div class="fw-semibold ms-2">2 Grape XYZ NFTs</div>
+                                            </div>                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                             <?php foreach ($__page->forms as $form){ ?>
                                 <div class="col-12">
                                     <div class="card border rounded-3 mb-12">
