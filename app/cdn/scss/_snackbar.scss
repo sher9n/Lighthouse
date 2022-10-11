@@ -1,0 +1,67 @@
+.js-snackbar-container {
+    align-items: flex-start !important;
+    z-index: $zindex-tooltip !important;
+}
+.js-snackbar {
+    border-radius: $border-radius !important;
+    min-width: 340px;
+    font-family: $font-family-sans-serif !important;
+    font-weight: $font-weight-medium !important;
+    box-shadow: none !important;
+    color: $white !important;
+    .js-snackbar__status {
+        background-color: transparent !important;
+        border-radius: $border-radius 0 0 $border-radius !important;
+    }
+    .js-snackbar__close {
+        color: $white !important;
+        font-size: $h2-font-size;
+        font-weight: $font-weight-lighter;
+        &:hover {
+            background-color: transparent !important;
+        }
+    }
+    .js-snackbar__icon {
+        border-width: 0 !important;
+        font-family: $font-family-sans-serif !important;
+        font-weight: $font-weight-lighter !important;
+        height: 22px;
+        width: 22px;
+        margin-left: 15px;
+        &::after {
+            content: "";
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 22px;
+            height: 22px;
+            display: block;
+        }
+    }
+}
+
+.js-snackbar--success--outer {
+    background-color: $royal-blue !important;
+    .js-snackbar__icon {
+        &::after {
+            background-image: url(../img/alert-checked.png);            
+        }
+    }
+}
+
+.js-snackbar--warning--outer {
+    background-color: $warning !important;
+    .js-snackbar__icon {
+        &::after {
+            background-image: url(../img/alert-triangle.png);            
+        }
+    }
+}
+
+.js-snackbar--danger--outer {
+    background-color: $danger !important;
+    .js-snackbar__icon {
+        &::after {
+            background-image: url(../img/alert-octagon.png);            
+        }
+    }
+}

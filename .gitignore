@@ -7,7 +7,7 @@ app/.elasticbeanstalk/*
 .idea/*
 
 app/cdn/node_modules
-app/cdn/scss
+#app/cdn/scss
 
 app/conf/config.inc.php
 app/conf/app.constants.inc.php

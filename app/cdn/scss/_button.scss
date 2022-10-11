@@ -1,0 +1,88 @@
+.btn {
+    min-width: 120px;
+    text-transform: uppercase;
+    color: $white;
+}
+
+.btn-primary {
+    &.disabled {
+        color: $white;
+    }
+}
+
+.btn-danger {
+    &:hover,
+    &:focus {
+        background-color: #CE4137;
+        border-color: #CE4137;
+        color: $white;
+    }
+    &.disabled {
+        color: $white;
+    }
+}
+
+.btn-white {
+    border-color: $gray-300;
+    color: $gray-900;
+    &:hover,
+    &:focus {
+        background-color: #E9EAEC;
+        border-color: #E9EAEC;
+        color: $gray-900;
+    }
+    &.dropdown-toggle {
+        &:hover,
+        &:focus {
+            background-color: $white;
+            border-color: transparent;
+            color: $gray-900;
+        }
+    }
+}
+
+.btn-light {
+    color: $gray-900;
+    &:hover,
+    &:focus {
+        background-color: #C7CACF;
+        border-color: #C7CACF;
+        color: $gray-900;
+    }
+}
+
+.btn-back {
+    position: absolute;
+    min-width: auto;
+}
+
+.btn-copy {
+    .text-dark {
+        &:hover,
+        &:focus {
+            stroke: $success;
+        }
+    }
+}
+
+.btn-trash {
+    .text-dark {
+        &:hover,
+        &:focus {
+            stroke: $danger;
+        }
+    }
+}
+
+.btn-delete {
+    background-color: rgba($orange, .1);
+    min-width: 64px;
+    margin-left: 0.75rem;
+    .feather {
+        stroke: $orange;
+    }
+}
+
+.dropdown-item {
+    cursor: pointer;
+}

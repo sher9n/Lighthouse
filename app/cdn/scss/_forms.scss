@@ -1,0 +1,186 @@
+input:where([type="checkbox"], [type="radio"]):where(:active:not(:disabled), :focus), 
+.btn-check:hover,
+.btn-check:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.form-search {
+    width: 100%;
+    padding-left: 70px;
+   background-image: url('../img/search.svg');
+   background-position: -40px center;
+   background-size: 18px 18px;
+   background-repeat: no-repeat;
+   background-origin: content-box;
+   border-radius: $btn-border-radius;
+   @include media-breakpoint-up(xl) {
+    width: 540px;
+   }
+}
+
+.form-control-calender {
+    background-image: url('../img/calendar.svg');
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+}
+
+.form-label {
+    font-size: $h5-font-size;
+    font-weight: $font-weight-medium;
+    
+}
+
+.btn-upload {
+    display: inline-block;
+    cursor: pointer;
+}
+
+label {
+    &.error {
+        width: 100%;
+        color: $danger;
+        font-weight: $font-weight-medium;
+        font-size: $font-size-sm;
+        text-align: right;
+        margin-top: .5rem;
+    }
+}
+
+.form-control {
+    &.error {
+        border-color: $danger;
+    }
+    &.error + .input-group-text {
+        border-color: $danger;
+    }    
+}
+
+.input-group-span {
+    &.error {
+        border-color: $danger;
+    } 
+}
+
+.input-group {
+    .error:has(.input-group-text) {
+        border-color: $danger;
+    }
+    .error:not(:last-child):not(.input-group-text) {
+        border-color: $danger;
+    }
+}
+
+input:read-only {
+    color: $gray-600 !important;
+}
+
+/*
+ul li:not(:first-of-type) {
+  color: red;
+}
+*/
+
+.input-group-text + .form-control.error {
+    border-color: $danger;
+}
+
+.form-check-lg {
+    padding-left: 2.5em;
+    margin-bottom: 1.5rem;
+    .form-check-input {
+        margin-left: -2.5em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+    .form-check-label {
+        font-size: $h3-font-size;
+    }
+}
+
+.form-switch {
+    .form-check-input {
+        background-color: $form-switch-color;
+        border: $border-width solid $form-switch-color;
+        &:checked,
+        &:focus  {
+            background-color: $form-switch-checked-color;
+            border: $border-width solid $form-switch-checked-color;
+        }
+    }
+}
+
+.form-length {
+    width: 100%;
+    @include media-breakpoint-up(xl) {
+        width: 270px;
+    }
+}
+
+.input-group {
+    input:nth-child(1),
+    span:nth-child(1) {
+        border-right-color: $border-color !important;
+    }    
+}
+
+.form-control-copy {
+    border: 0;
+    font-size: $font-size-lg;
+    width: 100%;
+}
+
+.list-rating-scale {
+    display: flex;
+    .btn {
+        min-width: auto;
+        flex: 1 1 auto;
+        margin: 0.2rem;
+        padding: $input-btn-padding-y 0.25rem;        
+    }
+    .btn-check:checked + .btn-light {
+        color: $white;
+        background-color: $gray-700;
+        border-color: $gray-700;        
+    }
+}
+
+.list-rating-scale-lg {
+    .btn {
+        padding: 1.094rem 1.741rem;
+        margin-top: 0;
+        margin-bottom: 0;
+        border-radius: $border-radius-lg;
+    }
+}
+
+.form-control-xxl {
+    font-size: 2.75rem;
+    border-color: transparent;
+    &:focus,
+    &:hover {
+        border-color: transparent; 
+    }
+    &::placeholder {
+        color: $gray-900;
+    }
+}
+
+.range-wrap {
+    position: relative;
+    .range {
+        width: 100%;
+        border: 1px solid $gray-600;
+        height: 16px;
+    }
+    .bubble {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: $font-weight-semibold;
+        font-size: $h3-font-size;
+    }
+}
+  

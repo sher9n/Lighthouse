@@ -1,0 +1,25 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "variables";
+@import "utilities";
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@import "base";
+@import "button";
+@import "dropdown";
+@import "forms";
+@import "nav";
+@import "wizard";
+@import "card";
+@import "modal";
+@import "table";
+@import "list";
+@import "icons";
+@import "switch";
+@import "pagination";
+@import "snackbar";
+@import "popover";
+@import "date-range-picker";
+
+@import "select2";
+
+@import "skeleton";

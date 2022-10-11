@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+*:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+html,
+body {
+    height: 100%;
+    min-height: 100%;
+    //font-size: 18px;
+    @include media-breakpoint-between(xl, xxl) {
+        font-size: 14px;
+    }
+}
+
+body {
+    overflow-y: scroll;
+}
+
+main {
+    position: relative;
+    height: 100%;
+}
+
+.min-w-auto {
+    min-width: auto !important;
+}
+
+.min-h-0 {
+    min-height: 0;
+}
+
+.fs-sm {
+    font-size: $font-size-sm;
+}
+
+.fs-lg {
+    font-size: $font-size-lg;
+}
+
+.border-dashed {
+    border: $border-width dashed $border-color;
+}
+
+.border-light {
+    border-color: $gray-300 !important;
+}
+
+.text-transform-inherit {
+    text-transform: inherit !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.left-aside {
+    position: fixed;
+    float:left;
+    width: 350px; 
+    top: 0px;
+    bottom: 0px;
+    background-color: $white;
+    height: 100%;
+    padding: 30px 16px;
+}
+
+.two-lines-wrap {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    line-height: 1.5em;
+    max-height: 3.2em;
+    height: 3.2em;
+}
+
+.body-section {
+    position: relative;
+    margin-left: 350px;
+    padding-bottom: 120px;
+}
+
+.admin-left-aside {
+    position: fixed;
+    float:left;
+    width: 270px;
+    top: 0px;
+    bottom: 0px;
+    background-color: $white;
+    height: 100%;
+    padding: 30px 16px;
+    z-index: 1;
+    @include media-breakpoint-up(xl) {
+        width: 300px;
+    }
+}
+
+.admin-body-section {
+    position: relative;
+    margin-left: 270px;
+    height: 100%;
+    padding: $grid-gutter-width ($grid-gutter-width * .5);
+    @include media-breakpoint-up(xl) {
+        margin-left: 300px;
+    }
+}
+
+.site-badge {
+    position: absolute;
+    right: 48px;
+    bottom: 30px;
+    z-index: 1;
+    &::before {
+        content: "";
+        background: $gray-200;
+        background: linear-gradient(141deg, rgba($gray-200,0) 50%, rgba(0,0,0,0.70) 100%);
+        width: 336px;
+        height: 336px;
+        position: absolute;
+        right: -48px;
+        bottom: -30px;
+        z-index: -1;
+        @include media-breakpoint-up(xl) {
+            width: 510px;
+            height: 450px;
+        }
+    }
+}
+
+.upload-logo {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    min-height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius-pill;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .feather {
+        stroke: $gray-600;
+        stroke-width: 1;
+    }
+}
+
+.bg-claim-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+}
+
+.bg-orange-peel-25 {
+    background-color: rgba($orange-peel, $alpha: .25);
+}
+
+.score-block {
+    min-width: 150px;
+}
