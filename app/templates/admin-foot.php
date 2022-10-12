@@ -175,3 +175,6 @@ foreach ($__page->js as $page_js) { ?>
         } ?>
     });
 </script>
+
+<!--intercom custom scripts-->
+<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/intercom-style.js"></script>
