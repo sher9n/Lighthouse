@@ -141,6 +141,8 @@ class controller extends Ctrl
                         $tb_min_amount = 0;
                         $active        = 0;
                         $update        = false;
+                        $tb_cluster    = 'mainnet';
+                        $tb_token_symbol = '';
 
                         if ($this->hasParam('ga_id') && strlen($this->getParam('ga_id')) > 0) {
                             $ga = GatedAccess::get($this->getParam('ga_id'));
@@ -158,10 +160,20 @@ class controller extends Ctrl
                         else
                             throw new Exception("tb_contract:Not a valid contract");
 
+                        if ($this->hasParam('tb_token_symbol') && strlen($this->getParam('tb_token_symbol')) > 0)
+                            $tb_token_symbol = $this->getParam('tb_token_symbol');
+                        else
+                            throw new Exception("tb_token_symbol:Not a valid symbol");
+
                         if ($this->hasParam('tb_min_amount') && $this->getParam('tb_min_amount') > 0)
                             $tb_min_amount = $this->getParam('tb_min_amount');
                         else
                             throw new Exception("tb_min_amount:Not a valid Min amount");
+
+                        if ($this->hasParam('tb_cluster') && $this->getParam('tb_cluster') > 0)
+                            $tb_cluster = $this->getParam('tb_cluster');
+                        else
+                            throw new Exception("tb_cluster:Not a valid cluster");
 
                         if ($this->hasParam('tb_status'))
                             $active = ($this->getParam('tb_status') == 'on') ? 1 : 0;
@@ -171,6 +183,8 @@ class controller extends Ctrl
                         $ga->min_amount  = $tb_min_amount;
                         $ga->comunity_id = $community->id;
                         $ga->is_active   = $active;
+                        $ga->cluster     = $tb_cluster;
+                        $ga->ticker      = $tb_token_symbol;
                         $ga->gated_type  = GatedAccess::TOKEN_BASED_GATED;
 
                         if ($update == true)
@@ -201,10 +215,21 @@ class controller extends Ctrl
                     $html    = '';
                     $update  = false;
                     $ga_data = GatedAccess::find("SELECT * FROM gated_access WHERE comunity_id='$com_id' AND is_delete=0", true);
-                    foreach ($ga_data as $ga){
-                        ob_start();
-                        include __DIR__ . '/../tpl/partial/gated_access.php';
-                        $html .= ob_get_clean();
+                    if(count($ga_data) > 0) {
+                        foreach ($ga_data as $ga) {
+                            ob_start();
+                            include __DIR__ . '/../tpl/partial/gated_access.php';
+                            $html .= ob_get_clean();
+                        }
+                    }
+                    else {
+                        $html.= '<div class="card-body p-xl-20 empty_gated_access_block">
+                                <div class="d-flex justify-content-center">
+                                    <img src="'.app_cdn_path.'img/company-logo/icon-token-based.png" width="50" height="50" class="me-3">
+                                    <img src="'.app_cdn_path.'img/company-logo/icon-nft-based.png" width="50" height="50">
+                                </div>
+                                <div class="text-center h4 mb-0 mt-8 fw-medium">Setup token-gated access to contributions.</div>
+                            </div>';
                     }
 
                     echo json_encode(array('success' => true, 'html' => $html));
@@ -218,6 +243,8 @@ class controller extends Ctrl
                         $tb_min_amount = 0;
                         $active        = 0;
                         $update        = false;
+                        $nft_cluster   = 'mainnet';
+                        $nft_collection = '';
 
                         if ($this->hasParam('ga_id') && strlen($this->getParam('ga_id')) > 0) {
                             $ga = GatedAccess::get($this->getParam('ga_id'));
@@ -235,10 +262,20 @@ class controller extends Ctrl
                         else
                             throw new Exception("nft_contract:Not a valid contract");
 
+                        if ($this->hasParam('nft_collection') && strlen($this->getParam('nft_collection')) > 0)
+                            $nft_collection = $this->getParam('nft_collection');
+                        else
+                            throw new Exception("nft_collection:Not a valid collection");
+
                         if ($this->hasParam('nft_min_amount') && $this->getParam('nft_min_amount') > 0)
                             $tb_min_amount = $this->getParam('nft_min_amount');
                         else
                             throw new Exception("nft_min_amount:Not a valid Min amount");
+
+                        if ($this->hasParam('nft_cluster') && $this->getParam('nft_cluster') > 0)
+                            $nft_cluster = $this->getParam('nft_cluster');
+                        else
+                            throw new Exception("nft_cluster:Not a valid cluster");
 
                         if ($this->hasParam('ntf_status'))
                             $active = ($this->getParam('ntf_status') == 'on') ? 1 : 0;
@@ -248,6 +285,8 @@ class controller extends Ctrl
                         $ga->min_amount  = $tb_min_amount;
                         $ga->comunity_id = $community->id;
                         $ga->is_active   = $active;
+                        $ga->cluster     = $nft_cluster;
+                        $ga->ticker      = $nft_collection;
                         $ga->gated_type  = GatedAccess::NFT_BASED_GATED;
 
                         if ($update == true)

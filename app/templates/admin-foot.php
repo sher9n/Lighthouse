@@ -147,7 +147,7 @@ foreach ($__page->js as $page_js) { ?>
             data: {'wallet_address':selectedAccount,'consent':consent},
             type: 'post',
             beforeSend: function () {
-                showMessage('success', 10000, 'Your consent has been recorded.');
+                showMessage('success', 10000, 'Please sign the transaction to record your consent.');
             },
             success: function(data) {
                 if (data.success == true){

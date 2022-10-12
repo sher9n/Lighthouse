@@ -22,6 +22,36 @@ class Community{
             $this->_data[$name] = $value;
     }
 
+    public function checkGatedAccess($user) {
+        $response      = array();
+        $access        = true;
+        $gated_acesses = GatedAccess::find("SELECT * FROM gated_access WHERE is_delete=0 AND is_active=1",true);
+
+        foreach ($gated_acesses as $gated_acess){
+
+            $api_response =  API::tokenGated(
+                constant(strtoupper(SOLANA) . "_API"),
+                $user,
+                $gated_acess->min_amount,
+                $gated_acess->contract,
+                strtoupper($gated_acess->gated_type),
+                $gated_acess->cluster
+            );
+
+            if (!isset($api_response->error)) {
+                if($api_response->allowed == false) {
+                    $gated_acess->gated = 0;
+                    $access = false;
+                }
+                else
+                   $gated_acess->gated = 1;
+                array_push($response,$gated_acess);
+            }
+        }
+
+        return array('access'=>$access,'gated' =>$response);
+    }
+
     public function getAdminProposals($type=null){
         $com_id    = $this->_data['id'];
         if(!is_null($type))

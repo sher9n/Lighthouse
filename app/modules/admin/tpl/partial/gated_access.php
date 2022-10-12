@@ -13,11 +13,11 @@ if($update == false){
                 </div>
                 <div class="d-flex flex-column">
                     <div class="d-flex align-items-center">
-                        <div class="fs-4 fw-semibold pe-3 cursor-pointer" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?php echo $ga->id; ?>" aria-expanded="true"><?php echo ucfirst($ga->gated_type); ?>: <?php echo $ga->ga_name; ?></div>
+                        <div class="fs-4 fw-semibold pe-3 cursor-pointer" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?php echo $ga->id; ?>" aria-expanded="true"><?php echo ($ga->gated_type==\lighthouse\GatedAccess::NFT_BASED_GATED)?'Nft':'Token'; ?>: <?php echo $ga->ga_name; ?></div>
                         <?php if($ga->gated_type == \lighthouse\GatedAccess::TOKEN_BASED_GATED){ ?>
-                            <a data-is_active="<?php echo $ga->is_active; ?>" data-nm="<?php echo $ga->ga_name; ?>" data-contract="<?php echo $ga->contract; ?>" data-min_amount="<?php echo $ga->min_amount; ?>" data-gated_type="<?php echo $ga->gated_type; ?>" class="ga_edit text-primary text-decoration-none fw-medium" href="add-token-gated_access?ga_id=<?php echo $ga->id; ?>">Edit</a>
+                            <a data-token_symbol="<?php echo $ga->ticker; ?>" data-cluster="<?php echo $ga->cluster; ?>" data-is_active="<?php echo $ga->is_active; ?>" data-nm="<?php echo $ga->ga_name; ?>" data-contract="<?php echo $ga->contract; ?>" data-min_amount="<?php echo $ga->min_amount; ?>" data-gated_type="<?php echo $ga->gated_type; ?>" class="ga_edit text-primary text-decoration-none fw-medium" href="add-token-gated_access?ga_id=<?php echo $ga->id; ?>">Edit</a>
                         <?php }else{ ?>
-                            <a data-is_active="<?php echo $ga->is_active; ?>" data-nm="<?php echo $ga->ga_name; ?>" data-contract="<?php echo $ga->contract; ?>" data-min_amount="<?php echo $ga->min_amount; ?>" data-gated_type="<?php echo $ga->gated_type; ?>" class="ga_edit text-primary text-decoration-none fw-medium" href="add-nft-gated_access?ga_id=<?php echo $ga->id; ?>">Edit</a>
+                            <a data-nft_collection="<?php echo $ga->ticker; ?>" data-cluster="<?php echo $ga->cluster; ?>" data-is_active="<?php echo $ga->is_active; ?>" data-nm="<?php echo $ga->ga_name; ?>" data-contract="<?php echo $ga->contract; ?>" data-min_amount="<?php echo $ga->min_amount; ?>" data-gated_type="<?php echo $ga->gated_type; ?>" class="ga_edit text-primary text-decoration-none fw-medium" href="add-nft-gated_access?ga_id=<?php echo $ga->id; ?>">Edit</a>
                         <?php } ?>
                     </div>
                     <?php if($ga->is_active == 1){ ?>
@@ -37,9 +37,17 @@ if($update == false){
                     <div class="fw-semibold fs-lg"><?php echo $ga->contract; ?></div>
                 </li>
                 <li class="list-card-tokan-item">
+                    <div class="fw-medium lh-lg text-gray-700"><?php echo ($ga->gated_type == \lighthouse\GatedAccess::TOKEN_BASED_GATED)?'Token Symbol':'NFT Collection'; ?></div>
+                    <div class="fw-semibold fs-lg"><?php echo  ucfirst($ga->ticker); ?></div>
+                </li>
+                <li class="list-card-tokan-item">
                     <div class="fw-medium lh-lg text-gray-700">Min amount</div>
                     <div class="fw-semibold fs-lg"><?php echo $ga->min_amount; ?></div>
                 </li>
+                    <li class="list-card-tokan-item">
+                        <div class="fw-medium lh-lg text-gray-700">Cluster</div>
+                        <div class="fw-semibold fs-lg"><?php echo ucfirst($ga->cluster); ?></div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -60,11 +68,11 @@ else{
             </div>
             <div class="d-flex flex-column">
                 <div class="d-flex align-items-center">
-                    <div class="fs-4 fw-semibold pe-3 cursor-pointer" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?php echo $ga->id; ?>" aria-expanded="true"><?php echo ucfirst($ga->gated_type); ?>: <?php echo $ga->ga_name; ?></div>
+                    <div class="fs-4 fw-semibold pe-3 cursor-pointer" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?php echo $ga->id; ?>" aria-expanded="true"><?php echo ($ga->gated_type==\lighthouse\GatedAccess::NFT_BASED_GATED)?'Nft':'Token'; ?>: <?php echo $ga->ga_name; ?></div>
                     <?php if($ga->gated_type == \lighthouse\GatedAccess::TOKEN_BASED_GATED){ ?>
-                        <a data-is_active="<?php echo $ga->is_active; ?>" data-nm="<?php echo $ga->ga_name; ?>" data-contract="<?php echo $ga->contract; ?>" data-min_amount="<?php echo $ga->min_amount; ?>" data-gated_type="<?php echo $ga->gated_type; ?>" class="ga_edit text-primary text-decoration-none fw-medium" href="add-token-gated_access?ga_id=<?php echo $ga->id; ?>">Edit</a>
+                        <a data-token_symbol="<?php echo $ga->ticker; ?>" data-cluster="<?php echo $ga->cluster; ?>" data-is_active="<?php echo $ga->is_active; ?>" data-nm="<?php echo $ga->ga_name; ?>" data-contract="<?php echo $ga->contract; ?>" data-min_amount="<?php echo $ga->min_amount; ?>" data-gated_type="<?php echo $ga->gated_type; ?>" class="ga_edit text-primary text-decoration-none fw-medium" href="add-token-gated_access?ga_id=<?php echo $ga->id; ?>">Edit</a>
                     <?php }else{ ?>
-                        <a data-is_active="<?php echo $ga->is_active; ?>" data-nm="<?php echo $ga->ga_name; ?>" data-contract="<?php echo $ga->contract; ?>" data-min_amount="<?php echo $ga->min_amount; ?>" data-gated_type="<?php echo $ga->gated_type; ?>" class="ga_edit text-primary text-decoration-none fw-medium" href="add-nft-gated_access?ga_id=<?php echo $ga->id; ?>">Edit</a>
+                        <a data-nft_collection="<?php echo $ga->ticker; ?>" data-cluster="<?php echo $ga->cluster; ?>" data-is_active="<?php echo $ga->is_active; ?>" data-nm="<?php echo $ga->ga_name; ?>" data-contract="<?php echo $ga->contract; ?>" data-min_amount="<?php echo $ga->min_amount; ?>" data-gated_type="<?php echo $ga->gated_type; ?>" class="ga_edit text-primary text-decoration-none fw-medium" href="add-nft-gated_access?ga_id=<?php echo $ga->id; ?>">Edit</a>
                     <?php } ?>
                 </div>
                 <?php if($ga->is_active == 1){ ?>
@@ -84,8 +92,16 @@ else{
                     <div class="fw-semibold fs-lg"><?php echo $ga->contract; ?></div>
                 </li>
                 <li class="list-card-tokan-item">
+                    <div class="fw-medium lh-lg text-gray-700"><?php echo ($ga->gated_type == \lighthouse\GatedAccess::TOKEN_BASED_GATED)?'Token Symbol':'NFT Collection'; ?></div>
+                    <div class="fw-semibold fs-lg"><?php echo  ucfirst($ga->ticker); ?></div>
+                </li>
+                <li class="list-card-tokan-item">
                     <div class="fw-medium lh-lg text-gray-700">Min amount</div>
                     <div class="fw-semibold fs-lg"><?php echo $ga->min_amount; ?></div>
+                </li>
+                <li class="list-card-tokan-item">
+                    <div class="fw-medium lh-lg text-gray-700">Cluster</div>
+                    <div class="fw-semibold fs-lg"><?php echo  ucfirst($ga->cluster); ?></div>
                 </li>
             </ul>
         </div>

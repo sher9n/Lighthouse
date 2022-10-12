@@ -14,7 +14,7 @@
                         }
                         else {
                             ?>
-                            <div><?php echo $contribution['score']; ?> Points • Claimed <?php echo $contribution['form_title']; ?></div>
+                            <div><?php echo $contribution['score']; ?> Points • <?php echo $contribution['form_title']; ?></div>
                             <?php
                         }
                     }

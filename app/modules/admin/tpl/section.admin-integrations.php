@@ -296,8 +296,19 @@
                         <input type="text" name="tb_contract" class="form-control form-control-lg" id="tb_contract" placeholder="CJsLwbP1iu5DuUikHEJnLfANgKy6stB2uFgvBBHoyxwz">
                     </div>
                     <div class="mb-12">
+                        <label for="" class="form-label">Token Symbol </label>
+                        <input type="text" name="tb_token_symbol" id="tb_token_symbol" class="form-control form-control-lg" placeholder="$LHT">
+                    </div>
+                    <div class="mb-12">
                         <label for="" class="form-label">Min amount </label>
                         <input type="number" name="tb_min_amount" id="tb_min_amount" class="form-control form-control-lg" placeholder="100">
+                    </div>
+                    <div class="mb-12">
+                        <label for="" class="form-label">Cluster </label>
+                        <select class="form-control form-control-lg form-select form-select-lg fs-3" name="tb_cluster" id="tb_cluster">
+                            <option value="mainnet">Mainnet</option>
+                            <option value="devnet">Devnet</option>
+                        </select>
                     </div>
                     <div class="mb-12">
                         <label class="form-label">Status</label>
@@ -331,8 +342,19 @@
                         <input type="text" name="nft_contract" class="form-control form-control-lg" id="nft_contract" placeholder="CJsLwbP1iu5DuUikHEJnLfANgKy6stB2uFgvBBHoyxwz">
                     </div>
                     <div class="mb-12">
+                        <label for="" class="form-label">NFT Collection </label>
+                        <input type="text" name="nft_collection" id="nft_collection" class="form-control form-control-lg" placeholder="DeGods">
+                    </div>
+                    <div class="mb-12">
                         <label for="" class="form-label">Min amount </label>
                         <input type="number" name="nft_min_amount" id="nft_min_amount" class="form-control form-control-lg" placeholder="1">
+                    </div>
+                    <div class="mb-12">
+                        <label for="" class="form-label">Cluster </label>
+                        <select class="form-control form-control-lg form-select form-select-lg fs-3" name="nft_cluster" id="nft_cluster">
+                            <option value="mainnet">Mainnet</option>
+                            <option value="devnet">Devnet</option>
+                        </select>
                     </div>
                     <div class="mb-12">
                         <label class="form-label">Status</label>
@@ -375,6 +397,7 @@
             $("#modalTokenBased").attr('action', "add-token-gated_access");
             $('#tb_name').val('');
             $('#tb_contract').val('');
+            $('#tb_token_symbol').val('');
             $('#tb_min_amount').val('');
             $('#tb_status').attr('checked', 'checked');
         });
@@ -393,11 +416,12 @@
             $("#addNftGatedForm").attr('action', "add-nft-gated_access");
             $('#nft_name').val('');
             $('#nft_contract').val('');
+            $('#nft_collection').val('');
             $('#nft_min_amount').val('');
             $('#ntf_status').attr('checked', 'checked');
         });
 
-        $(document).on('click', '.cs_edit', function(event) {
+        $(document).on('click','.cs_edit', function(event) {
             event.preventDefault();
             var element = $(this);
             $("#addRealmsForm").attr('action', element.attr('href'));
@@ -414,20 +438,22 @@
             $('#modalRealms').modal('toggle');
         });
 
-        $(document).on('click', '.ga_edit', function(event) {
+        $(document).on('click','.ga_edit', function(event) {
             event.preventDefault();
             var element = $(this);
 
-            if(element.data('gated_type') == 'token'){
+            if(element.data('gated_type') != 'nft'){
                 $("#addTokenGatedForm").attr('action', element.attr('href'));
                 $('#tb_name').val(element.data('nm'));
                 $('#tb_contract').val(element.data('contract'));
                 $('#tb_min_amount').val(element.data('min_amount'));
+                $('#tb_token_symbol').val(element.data('token_symbol'));
 
                 if(element.data('is_active') != 0)
                     $('#tb_status').attr('checked', 'checked');
                 else
                     $('#tb_status').attr('checked', 'checked');
+                $('#tb_cluster').val(element.data('cluster')).trigger('change');
                 $('#modalTokenBased').modal('toggle');
             }
             else {
@@ -435,11 +461,13 @@
                 $('#nft_name').val(element.data('nm'));
                 $('#nft_contract').val(element.data('contract'));
                 $('#nft_min_amount').val(element.data('min_amount'));
+                $('#nft_collection').val(element.data('nft_collection'));
 
                 if(element.data('is_active') != 0)
                     $('#ntf_status').attr('checked', 'checked');
                 else
                     $('#ntf_status').attr('checked', 'checked');
+                $('#nft_cluster').val(element.data('cluster')).trigger('change');
                 $('#modalNftBased').modal('toggle');
             }
         });
@@ -507,6 +535,9 @@
                 },
                 tb_min_amount:{
                     required: true
+                },
+                tb_token_symbol:{
+                    required: true
                 }
             },
             submitHandler: function (form) {
@@ -516,7 +547,6 @@
                     beforeSend: function () {
                         $('#btn_tb_cancel').prop('disabled', true);
                         $('#btn_tb_add').prop('disabled', true);
-                        showMessage('success', 10000, 'Adding token based access...');
                     },
                     success: function (data) {
                         $('#modalTokenBased').modal('toggle');
@@ -527,7 +557,7 @@
                                 $(".empty_gated_access_block").remove();
                                 $("#gated_access_div").append(data.html);
                             }
-                            showMessage('success', 10000, 'Success! Token based access has been updated.');
+                            showMessage('success', 10000, 'Success! The token gating condition has been added.');
                         }
                         else {
                             if(data.element) {
@@ -554,6 +584,9 @@
                 },
                 nft_min_amount:{
                     required: true
+                },
+                nft_collection:{
+                    required: true
                 }
             },
             submitHandler: function (form) {
@@ -563,7 +596,6 @@
                     beforeSend: function () {
                         $('#btn_nft_cancel').prop('disabled', true);
                         $('#btn_nft_add').prop('disabled', true);
-                        showMessage('success', 10000, 'Adding nft based access...');
                     },
                     success: function (data) {
                         $('#modalNftBased').modal('toggle');
@@ -574,7 +606,7 @@
                                 $(".empty_gated_access_block").remove();
                                 $("#gated_access_div").append(data.html);
                             }
-                            showMessage('success', 10000, 'Success! Nft based access has been updated.');
+                            showMessage('success', 10000, 'Success! The NFT gating condition has been added.');
                         }
                         else {
                             if(data.element) {

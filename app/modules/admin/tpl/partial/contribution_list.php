@@ -30,14 +30,6 @@ if($claims != false && count($claims) > 0 ){
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                                 <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Attestation Period ends in <?php echo $date_count; ?></div>
                             </div>
-                            <div class="d-flex align-items-center text-orange my-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                                <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Execution pending</div>
-                            </div>
-                            <div class="d-flex align-items-center text-muted my-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-                                <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Execution unavailable until member consents to NTTs</div>
-                            </div>
                         <?php
                         }
                         else {
@@ -76,19 +68,37 @@ if($claims != false && count($claims) > 0 ){
                 if($claim['proposal_state'] == \lighthouse\Proposal::PROPOSAL_STATE_SUCCEEDED && $claim['is_executed']==\lighthouse\Proposal::PROPOSAL_EXECUTE_PENDING){
                     $user = User::isExistUser($claim['wallet_to'],$com_id);
 
-                    if(!($user instanceof User) || ($user instanceof User && $user->ntt_consent != 1)){
+                    if($user instanceof User && $user->ntt_consent == 1){
                         ?>
-                        <div class="d-flex align-items-center text-danger my-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle feather-md">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                            <div class="fw-medium ms-2">Excution unavailable unit member consents to NTTs</div>
+                        <div class="d-flex align-items-center text-orange my-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            <div class="fw-medium ms-2">Execution pending</div>
                         </div>
                         <?php
                     }
-                } ?>
+                    else {
+                        ?>
+                        <div class="d-flex align-items-center text-muted my-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                            <div class="fw-medium ms-2">Execution unavailable until member consents to NTTs</div>
+                        </div>
+                        <?php
+                    }
+                }
+                elseif ( $claim['proposal_state'] == \lighthouse\Proposal::PROPOSAL_STATE_EXECUTED && $claim['is_executed']==\lighthouse\Proposal::PROPOSAL_EXECUTED) {
+                    ?>
+                    <div class="d-flex align-items-center text-blue-stone my-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 22 22">
+                            <g id="Group_5834" data-name="Group 5834" transform="translate(-807 -400)">
+                                <circle id="Ellipse_383" data-name="Ellipse 383" cx="10" cy="10" r="10" transform="translate(808 401)" fill="none" stroke="#006064" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                <path id="Path_6496" data-name="Path 6496" d="M15.662,4,10.537,9.13,7.828,6.666" transform="translate(806.669 404.436)" fill="none" stroke="#006064" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                            </g>
+                        </svg>
+                        <div class="fw-medium ms-2">Executed</div>
+                    </div>
+                    <?php
+                }
+                ?>
                 <!--<div class="fw-medium text-truncate text-muted my-1"><?php /*echo $claim['contribution_reason']; */?></div>-->
                     <ul class="select2-selection__rendered d-flex gap-3">
                         <?php

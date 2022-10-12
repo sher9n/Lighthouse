@@ -387,7 +387,7 @@ class Api{
         return json_decode($response);
     }
 
-    public static function tokenGated($url,$user,$mount,$mint,$type="NFT") {
+    public static function tokenGated($url,$user,$mount,$mint,$type="NFT",$cluster) {
         $url = $url."api/tokenGated?key=".API_KEY;
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -402,7 +402,8 @@ class Api{
           "user": "'.$user.'",
           "thresholdAmt": '.$mount.',
           "mintOrCollectionAddress": "'.$mint.'",
-          "type": "'.$type.'"
+          "type": "'.$type.'",
+          "cluster": "'.$cluster.'"
         }';
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);

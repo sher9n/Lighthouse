@@ -3,7 +3,7 @@ namespace lighthouse;
 use Core\Ds;
 class GatedAccess{
 
-    const TOKEN_BASED_GATED  = 'token';
+    const TOKEN_BASED_GATED  = 'spl';
     const NFT_BASED_GATED    = 'nft';
 
     private $_data = array();

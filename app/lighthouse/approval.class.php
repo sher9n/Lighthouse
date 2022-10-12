@@ -71,7 +71,7 @@ class Approval{
                 }
 
                 foreach ($tem as $c => $v)
-                    $results[$c] = round($v / $x);
+                    $results[$c] = ($v / $x);
             }
             else {
                 while ($row = $items->fetch_array(MYSQLI_ASSOC)) {

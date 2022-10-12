@@ -66,7 +66,7 @@ if(app_site == 'app') {
 
                             foreach ($approval as $key => $val) {
                                 $tem     += $val;
-                                $tem_tot += $tem;
+                                $tem_tot += 4;
                             }
 
                             $points = ($tem_tot > 0)? ($tem/$tem_tot) * $maxPoint :0;

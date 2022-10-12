@@ -93,7 +93,7 @@ class controller extends Ctrl {
                         $r   = $rank_table[$wallet_adr]['rank'];
                         $sum = $rank_table[$wallet_adr]['sum'];
                         if($total > 0)
-                            $p = number_format((($rank_table[$wallet_adr]['sum'] / $total) * 100),2).'%';
+                            $p = number_format((($rank_table[$wallet_adr]['sum'] / $total) * 100)).'%';
                         else
                             $p = 0;
                     }
@@ -114,7 +114,7 @@ class controller extends Ctrl {
             elseif (__ROUTER_PATH =='/contribution-history') {
                 $wallet = $this->getParam('wallet');
                 $com_id = $community->id;
-                $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at,c.score,c.is_realms,c.realms_status,c.form_id,f.form_title,c.tags FROM contributions c LEFT JOIN forms f ON c.form_id=f.id where c.comunity_id='$com_id' AND c.status=1 AND c.wallet_to='$wallet'");
+                $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at,c.score,c.is_realms,c.realms_status,c.form_id,f.form_title,c.tags FROM contributions c LEFT JOIN forms f ON c.form_id=f.id LEFT JOIN proposals p ON c.proposal_id=p.id where c.comunity_id='$com_id' AND c.status=1 AND p.is_executed=1 AND c.wallet_to='$wallet'");
                 include __DIR__ . '/../tpl/partial/contribution_history.php';
                 $html = ob_get_clean();
                 echo json_encode(array('success' => true,'html'=>$html));

@@ -44,8 +44,6 @@
                                 <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="4" disabled <?php /*echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; */?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==4)?'checked':'';?> id="<?php echo $category; ?>4" autocomplete="off">
                                 <label class="btn btn-light" for="<?php echo $category; ?>4">4</label>
 
-                                <input type="radio" class="btn-check" name="<?php echo $category; ?>" data-name="<?php echo $category; ?>" data-val="5" disabled <?php /*echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; */?> <?php echo (isset($user_arrovals[$category]) && $user_arrovals[$category]==5)?'checked':'';?> id="<?php echo $category; ?>5" autocomplete="off">
-                                <label class="btn btn-light me-0" for="<?php echo $category; ?>5">5</label>
                             </div>
                         </div>
                     </div>
@@ -88,8 +86,6 @@
                                     <input type="radio" class="btn-check" name="<?php echo $category; ?>" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> data-name="<?php echo $category; ?>" data-val="4" id="<?php echo $category; ?>4" autocomplete="off">
                                     <label class="btn btn-light" for="<?php echo $category; ?>4">4</label>
 
-                                    <input type="radio" class="btn-check" name="<?php echo $category; ?>" <?php echo ($contribution->status == 1 || $contribution->status == 2 )?'disabled':''; ?> data-name="<?php echo $category; ?>" data-val="5" id="<?php echo $category; ?>5" autocomplete="off">
-                                    <label class="btn btn-light me-0" for="<?php echo $category; ?>5">5</label>
                                 </div>
                             </div>
                         </div>
@@ -393,8 +389,8 @@
                             $('#btn_deny').prop('disabled', true);
                             $('#btn_approve').prop('disabled', true);
                             <?php
-                            if(count($user_appproval_ids) > 0){ ?>
-                            showMessage('success', 10000, 'Adding claim on-chain...');
+                            if(count($user_appproval_ids) == 0){ ?>
+                                showMessage('success', 10000, 'Adding this claim as an on-chain record..');
                             <?php
                             } ?>
                         },
@@ -425,7 +421,7 @@
                     });
                 }
                 else
-                    showMessage('danger', 10000, "you must add points for every category");
+                    showMessage('danger', 10000, "Error! Please score all categories to attest this contribution.");
             });
 
         });
@@ -515,7 +511,7 @@
             url: 'vote-log-proposal?pid='+pid+'&aid='+aid,
             dataType: 'json',
             beforeSend: function () {
-                showMessage('success', 10000, 'Initializing wallet signing process...');
+                showMessage('success', 10000, 'Attesting claim on-chain..');
             },
             success: function(data) {
                 if (data.success == true){
@@ -523,7 +519,7 @@
                     const r_data   = data;
                     response.then(function (data){
                         $('.prop-'+r_data.pid).html(r_data.html);
-                        showMessage('success', 10000, 'Success! The vote has been submitted.');
+                        showMessage('success', 10000, 'Success! Your attestation has been submitted.');
                         checkProposalState(r_data.pid);
                     });
                 }

@@ -7,6 +7,8 @@ use Core\AmazonS3;
 use Core\Utils;
 use lighthouse\Form;
 use lighthouse\User;
+use lighthouse\Approval;
+
 class controller extends Ctrl {
     function init() {
         $is_admin       = false;
@@ -56,6 +58,8 @@ class controller extends Ctrl {
             header("Location: " . app_url.'admin');
             die();
         }
+
+        $ga_response = $community->checkGatedAccess($sel_wallet_adr);
 
         if($this->__lh_request->is_xmlHttpRequest) {
 
@@ -288,6 +292,8 @@ class controller extends Ctrl {
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'user' => $user,
                 'new_user' => $new_user,
+                'gated_access' => $ga_response['access'],
+                'gated_data' => $ga_response['gated'],
                 'sections' => array(
                     __DIR__ . $template
                 ),
