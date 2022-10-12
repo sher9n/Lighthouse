@@ -230,12 +230,6 @@
         }
     });
 
-    $(document).on("click", '.btn-check', function(event) {
-        val = $(this).data('val');
-        name = $(this).data('name');
-        review_data[name] = val;
-    });
-
     $(document).ready(function() {
 
         $(document).on("click", '.c_items', function(event) {

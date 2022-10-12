@@ -7,7 +7,8 @@ const getProvider = async () => {
     } else {
         console.log("No Solana wallet detected. Redirecting to Phantom.");
         window.open("https://www.phantom.app/", "_blank");
-}};
+    }
+};
 
 function changeSolanaAccount() {
     getProvider().then(provider => {

@@ -57,7 +57,7 @@ class controller extends Ctrl {
                 if(count($wallets) > 0) {
                     $wallets_sql = implode("','",$wallets);
                     $wallets_sql = "('".$wallets_sql."')";
-                    $tags_data = Claim::find("SELECT tags,wallet_to FROM contributions WHERE status=1 AND comunity_id='1' AND wallet_to IN ".$wallets_sql);
+                    $tags_data = Claim::find("SELECT tags,wallet_to FROM contributions WHERE status=1 AND comunity_id='$com_id' AND wallet_to IN ".$wallets_sql);
                     foreach ($tags_data as $data){
                         $tag = $data['tags'];
                         $wal = $data['wallet_to'];
@@ -101,8 +101,8 @@ class controller extends Ctrl {
                     $claim_table[] = array(
                         '<a data-adr="' . $wallet_adr . '" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" href="#" class="text-decoration-none contribution_history">'.Utils::WalletAddressFormat($wallet_adr).'</a>',
                         $sum,
-                        'N/A',
-                        'N/A',
+                        $r,
+                        $p,
                         '<div class="text-truncate text-max-width">' . implode(', ', $tag_string) . '</div>'
                     );
                 }
@@ -114,7 +114,7 @@ class controller extends Ctrl {
             elseif (__ROUTER_PATH =='/contribution-history') {
                 $wallet = $this->getParam('wallet');
                 $com_id = $community->id;
-                $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at,c.score,c.is_realms,c.realms_status,c.form_id,f.form_title FROM contributions c LEFT JOIN forms f ON c.form_id=f.id where c.comunity_id='$com_id' AND c.status=1 AND c.wallet_to='$wallet'");
+                $contributions = Contribution::find("SELECT c.contribution_reason,c.c_at,c.score,c.is_realms,c.realms_status,c.form_id,f.form_title,c.tags FROM contributions c LEFT JOIN forms f ON c.form_id=f.id where c.comunity_id='$com_id' AND c.status=1 AND c.wallet_to='$wallet'");
                 include __DIR__ . '/../tpl/partial/contribution_history.php';
                 $html = ob_get_clean();
                 echo json_encode(array('success' => true,'html'=>$html));
