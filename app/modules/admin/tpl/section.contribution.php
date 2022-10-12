@@ -21,7 +21,12 @@
                                                 <div class="fs-4 fw-semibold">To gain access, this is what you’ll need:</div>
                                             </div>
                                             <div class="d-flex align-items-center text-blue-stone mt-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 22 22">
+                                                <g id="Group_5834" data-name="Group 5834" transform="translate(-807 -400)">
+                                                    <circle id="Ellipse_383" data-name="Ellipse 383" cx="10" cy="10" r="10" transform="translate(808 401)" fill="none" stroke="#006064" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                    <path id="Path_6496" data-name="Path 6496" d="M15.662,4,10.537,9.13,7.828,6.666" transform="translate(806.669 404.436)" fill="none" stroke="#006064" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                </g>
+                                                </svg>
                                                 <div class="fw-semibold ms-2 end_time_5610">25,000 Grape tokens</div>
                                             </div>
                                             <div class="d-flex align-items-center text-muted mt-2">
