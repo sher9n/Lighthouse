@@ -122,6 +122,7 @@
     });
 
     $(document).ready(function() {
+
     <?php if($__page->new_user != 0){ ?>
         //$("#WelcomeModal").modal('show');
     <?php } ?>

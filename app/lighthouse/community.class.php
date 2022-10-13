@@ -25,7 +25,8 @@ class Community{
     public function checkGatedAccess($user) {
         $response      = array();
         $access        = true;
-        $gated_acesses = GatedAccess::find("SELECT * FROM gated_access WHERE is_delete=0 AND is_active=1",true);
+        $com_id        = $this->_data['id'];
+        $gated_acesses = GatedAccess::find("SELECT * FROM gated_access WHERE comunity_id=$com_id AND is_delete=0 AND is_active=1",true);
 
         foreach ($gated_acesses as $gated_acess){
 
