@@ -371,11 +371,6 @@
             var c_id = '<?php echo $contribution->id; ?>';
             review_data['con_id'] = c_id;
             review_data['status'] = 1;
-            <?php
-            if(count($user_appproval_ids) > 0){ ?>
-                review_data['approval_id'] = '<?php echo array_pop($user_appproval_ids); ?>';
-                <?php
-            } ?>
 
             CheckValidation().then(validate => {
 
@@ -401,11 +396,12 @@
                                     if(data.api_response)
                                     {
                                         solanaProposalTransaction(data.api_response).then((result) => {
-                                            vote(data.p_id,data.approval_id);
+                                            console.log(result);
+                                            //vote(data.p_id);
                                         });
                                     }
                                     else
-                                        vote(data.p_id,data.approval_id);
+                                        vote(data.p_id);
 
                                     reviewContrubutionHtmlChange(data,c_id);
                                 }
@@ -506,9 +502,9 @@
         $('#btn_approve').prop('disabled', false);
     }
 
-    function vote(pid,aid) {
+    function vote(pid) {
         $.ajax({
-            url: 'vote-log-proposal?pid='+pid+'&aid='+aid,
+            url: 'vote-log-proposal?pid='+pid,
             dataType: 'json',
             beforeSend: function () {
                 showMessage('success', 10000, 'Attesting claim on-chain..');

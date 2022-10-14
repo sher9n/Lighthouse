@@ -48,7 +48,6 @@ class controller extends Ctrl {
                         $api_response = false;
 
                         if($this->getParam('status') == Contribution::CONTRIBUTION_STATUS_DENIED){
-                            $contribution->refusal += 1;
                             $app_status = 0;
                             $action     = 'rejected';
                             $approve    = false;
@@ -56,7 +55,6 @@ class controller extends Ctrl {
                         }
                         else
                         {
-                            $contribution->approvals += 1;
                             $action  = 'approved';
                         }
 
@@ -78,103 +76,79 @@ class controller extends Ctrl {
                             }
                         }
 
-                        if($this->hasParam('approval_id') && strlen($this->getParam('approval_id')) > 0){
-                            unset($post['approval_id']);
-                            $update      = true;
-                            $action      = 'approved-update';
-                            $approval_id = $this->getParam('approval_id');
-                            $approval    = Approval::get($approval_id);
-                            if($approval->approval_status == 1)
-                                $contribution->approvals -= 1;
-                            else
-                                $contribution->refusal -= 1;
 
-                            $approval->approval        = json_encode($post);
-                            $approval->approval_status = $app_status;
-                            $approval->update();
-                        }
-                        else {
+                        if ($community->blockchain == SOLANA && $contribution->proposal_id == 0) {
 
-                            if ($community->blockchain == SOLANA && $contribution->proposal_id == 0) {
-
-                                if($contribution->approval_type == Form::APPROVAL_TYPE_BINARY) {
-                                    $api_response = Api::createLogProposal(
-                                        constant(strtoupper(SOLANA) . "_API"),
-                                        $community->contract_name,
-                                        $contribution->wallet_to,
-                                        $contribution->max_point,
-                                        $contribution->contribution_reason,
-                                        $contribution->tags,
-                                        \lighthouse\Proposal::PROPOSAL_TYPE_BINARY,
-                                        $sel_wallet_adr
-                                    );
-                                }
-                                else {
-                                    $api_response = Api::createLogProposal(
-                                        constant(strtoupper(SOLANA) . "_API"),
-                                        $community->contract_name,
-                                        $contribution->wallet_to,
-                                        $contribution->max_point,
-                                        $contribution->contribution_reason,
-                                        $contribution->tags,
-                                        \lighthouse\Proposal::PROPOSAL_TYPE_SUBJECTIVE,
-                                        $sel_wallet_adr,
-                                        array_keys($post)
-                                    );
-                                }
-
-                                if (isset($api_response->error)) {
-                                    $log = new Log();
-                                    $log->type   = 'Log-Proposal';
-                                    $log->log    = serialize($api_response->error);
-                                    $log->action = 'create-failed';
-                                    $log->c_by   = $sel_wallet_adr;
-                                    $log->insert();
-
-                                    echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add the proposal, please retry again.'));
-                                    exit();
-                                } else {
-                                    $proposal = new Proposal();
-                                    $proposal->proposal_adr  = $api_response->proposalAddress;
-                                    $proposal->proposal_id   = $api_response->proposalId;
-                                    $proposal->proposal_type = 'ADD';
-                                    $proposal->object_name   = Vote::V_TYPE_LOG_PROPOSAL;
-                                    $proposal->object_id     = $contribution->id;
-                                    $proposal->wallet_adr    = $sel_wallet_adr;
-                                    $proposal->comunity_id   = $community->id;
-                                    $proposal->proposal_data = json_encode(array('maxPoint',$contribution->max_point));
-                                    $pid = $proposal->insert();
-
-                                    $contribution->proposal_id = $pid;
-                                }
+                            if($contribution->approval_type == Form::APPROVAL_TYPE_BINARY) {
+                                $api_response = Api::createLogProposal(
+                                    constant(strtoupper(SOLANA) . "_API"),
+                                    $community->contract_name,
+                                    $contribution->wallet_to,
+                                    $contribution->max_point,
+                                    $contribution->contribution_reason,
+                                    $contribution->tags,
+                                    \lighthouse\Proposal::PROPOSAL_TYPE_BINARY,
+                                    $sel_wallet_adr
+                                );
+                            }
+                            else {
+                                $api_response = Api::createLogProposal(
+                                    constant(strtoupper(SOLANA) . "_API"),
+                                    $community->contract_name,
+                                    $contribution->wallet_to,
+                                    $contribution->max_point,
+                                    $contribution->contribution_reason,
+                                    $contribution->tags,
+                                    \lighthouse\Proposal::PROPOSAL_TYPE_SUBJECTIVE,
+                                    $sel_wallet_adr,
+                                    array_keys($post)
+                                );
                             }
 
-                            $approval = new Approval();
-                            $approval->approval_by      = $sel_wallet_adr;
-                            $approval->contribution_id  = $contribution->id;
-                            $approval->approval         = json_encode($post);
-                            $approval->approval_type    = $contribution->approval_type;
-                            $approval->comunity_id      = $contribution->comunity_id;
-                            $approval->approval_status  = $app_status;
-                            $approval_id = $approval->insert();
+                            if (isset($api_response->error)) {
+                                $log = new Log();
+                                $log->type   = 'Log-Proposal';
+                                $log->log    = serialize($api_response->error);
+                                $log->action = 'create-failed';
+                                $log->c_by   = $sel_wallet_adr;
+                                $log->insert();
+
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add the proposal, please retry again.'));
+                                exit();
+                            }
+                            else
+                            {
+                                $proposal = new Proposal();
+                                $proposal->proposal_adr  = $api_response->proposalAddress;
+                                $proposal->proposal_id   = $api_response->proposalId;
+                                $proposal->proposal_type = 'ADD';
+                                $proposal->object_name   = Vote::V_TYPE_LOG_PROPOSAL;
+                                $proposal->object_id     = $contribution->id;
+                                $proposal->wallet_adr    = $sel_wallet_adr;
+                                $proposal->comunity_id   = $community->id;
+                                $proposal->proposal_data = json_encode(array('maxPoint',$contribution->max_point));
+                                $pid = $proposal->insert();
+
+                                $contribution->proposal_id = $pid;
+                                $contribution->update();
+                            }
                         }
 
-                        $contribution->update();
-
-                        $log = new Log();
-                        $log->type      = 'Contribution';
-                        $log->type_id   = $contribution->id;
-                        $log->action    = $action;
-                        $log->c_by      = $sel_wallet_adr;
-                        $log->insert();
+                        /*$approval = new Approval();
+                        $approval->approval_by      = $sel_wallet_adr;
+                        $approval->contribution_id  = $contribution->id;
+                        $approval->approval         = json_encode($post);
+                        $approval->approval_type    = $contribution->approval_type;
+                        $approval->comunity_id      = $contribution->comunity_id;
+                        $approval->approval_status  = $app_status;
+                        $approval_id = $approval->insert();*/
 
                         echo json_encode(array('success' => true,
-                                'update'  => $update,
-                                'c_id'    => $contribution->id,
+                                'update' => $update,
+                                'c_id' => $contribution->id,
                                 'p_id' => $contribution->proposal_id,
                                 'api_response' => $api_response,
                                 'blockchain' => $community->blockchain,
-                                'approval_id' => $approval_id,
                                 'message' => 'Success! Your attestation has been updated.')
                         );
                         exit();
