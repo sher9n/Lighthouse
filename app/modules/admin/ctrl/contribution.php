@@ -59,8 +59,6 @@ class controller extends Ctrl {
             die();
         }
 
-        $ga_response = $community->checkGatedAccess($sel_wallet_adr);
-
         if($this->__lh_request->is_xmlHttpRequest) {
 
             if($this->__lh_request->is_post) {
@@ -248,6 +246,13 @@ class controller extends Ctrl {
             $form           = null;
             $template       = '/../tpl/section.contribution.php';
             $view_contract  = '';
+            $g_access       = true;
+            $g_gated        = array();
+            if(empty($wallet_adr)) {
+                $ga_response = $community->checkGatedAccess($sel_wallet_adr);
+                $g_access    = $ga_response['access'];
+                $g_gated     = $ga_response['gated'];
+            }
 
             if($community->blockchain == SOLANA)
                 $view_contract = SOLANA_VIEW_LINK.'account/'.$community->community_address;
@@ -292,8 +297,8 @@ class controller extends Ctrl {
                 'sel_wallet_adr' => $sel_wallet_adr,
                 'user' => $user,
                 'new_user' => $new_user,
-                'gated_access' => $ga_response['access'],
-                'gated_data' => $ga_response['gated'],
+                'gated_access' => $g_access,
+                'gated_data' => $g_gated,
                 'sections' => array(
                     __DIR__ . $template
                 ),
