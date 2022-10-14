@@ -52,6 +52,8 @@
 <script src="<?php echo local_cdn_path; ?>js/web3/web3.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/wallet.connect.admin.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solana.admin.js"></script>
+<!--intercom custom scripts-->
+<!--<script type="text/javascript" src="<?php /*echo local_cdn_path; */?>js/intercom-style.js"></script>-->
 <script>
 
     if(sessionStorage.getItem('lh_sel_wallet_add')) {
@@ -175,6 +177,3 @@ foreach ($__page->js as $page_js) { ?>
         } ?>
     });
 </script>
-
-<!--intercom custom scripts-->
-<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/intercom-style.js"></script>
