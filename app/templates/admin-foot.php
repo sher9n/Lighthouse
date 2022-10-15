@@ -159,7 +159,7 @@ foreach ($__page->js as $page_js) { ?>
                         const response = solanaProposalTransaction(data.api_response);
                         response.then(function (data) {
                             $("#li_ntt_consent").remove();
-                            showMessage('success', 10000, 'Success! You will now start receiving NTTs to your wallet.');
+                            showMessage('success', 10000, 'Success! You will start receiving NTTs to your wallet.');
                         });
                     }
                 }
