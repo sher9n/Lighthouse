@@ -6,6 +6,7 @@ use lighthouse\Log;
 use lighthouse\Api;
 use lighthouse\Proposal;
 use lighthouse\Vote;
+use lighthouse\Approval;
 use lighthouse\Contribution;
 class controller extends Ctrl {
     function init() {
@@ -365,6 +366,17 @@ class controller extends Ctrl {
                     $proposal = $this->hasParam('pid') ? Proposal::get($this->getParam('pid')) : null;
 
                     if ($proposal instanceof Proposal) {
+
+                        if($this->hasParam('aid') && $this->getParam('aid') != 0) {
+                            $approval = Approval::get($this->getParam('aid'));
+                            $approval->confirmed = 1;
+                            $approval->update();
+
+                            $c = Contribution::get($proposal->object_id);
+                            $c->proposal_state = Proposal::PROPOSAL_STATE_CONFIRMED;
+                            $c->update();
+                        }
+
                         $api_response =  API::getSolanaProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id);
                         $response     = array();
 
@@ -378,17 +390,11 @@ class controller extends Ctrl {
                                 $c->status = 1;
                                 $c->update();
                             }
+
                             $proposal->update();
-
-          /*                  $response['create_at']    = $api_response->createdAt;
-                            $response['state']        = $api_response->state;
-                            $response['voting_closes_at']     = $api_response->votingClosesAt;
-                            $response['min_votes_to_succeed'] = $api_response->minVotesToSucceed;*/
-
-                            echo json_encode(array('success' => true));
                         }
-                        /*else
-                            echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));*/
+
+                        echo json_encode(array('success' => true));
 
                     }
 

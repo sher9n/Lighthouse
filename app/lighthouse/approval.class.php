@@ -2,8 +2,11 @@
 namespace lighthouse;
 use Core\Ds;
 class Approval{
-    const APPROVAL_TYPE_YES_NO=1;
-    const APPROVAL_TYPE_RATING=2;
+    const APPROVAL_TYPE_YES_NO = 1;
+    const APPROVAL_TYPE_RATING = 2;
+
+    const APPROVAL_STATE_DENY = 0;
+    const APPROVAL_STATE_ATTEST = 1;
 
     private $_data = array();
 
@@ -44,9 +47,9 @@ class Approval{
     public static function getUserApprovals($contribution_type,$contribution_id,$user=null){
         $connect = Ds::connect();
         if(is_null($user))
-            $items   = $connect->query("select id,approval,approval_type,approval_status from approvals where contribution_id='$contribution_id'");
+            $items   = $connect->query("select id,approval,approval_type,approval_status from approvals where contribution_id='$contribution_id' AND confirmed=1");
         else
-            $items   = $connect->query("select id,approval,approval_type,approval_status from approvals where contribution_id='$contribution_id' AND approval_by='$user'");
+            $items   = $connect->query("select id,approval,approval_type,approval_status from approvals where contribution_id='$contribution_id' AND approval_by='$user' AND confirmed=1");
 
         $results = array();
         $tem     = array();
@@ -104,7 +107,7 @@ class Approval{
     public static function getApprovals($contribution_id) {
         $stewards = array();
         $connect = Ds::connect();
-        $results = $connect->query("SELECT approval_by FROM lighthouse.approvals where contribution_id='$contribution_id'");
+        $results = $connect->query("SELECT approval_by FROM lighthouse.approvals where contribution_id='$contribution_id' AND confirmed=1");
 
         if($results != false){
             while ($row = $results->fetch_array(MYSQLI_ASSOC)) {

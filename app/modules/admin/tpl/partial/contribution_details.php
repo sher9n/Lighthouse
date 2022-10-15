@@ -375,46 +375,55 @@
             CheckValidation().then(validate => {
 
                 if(validate == true) {
-                    $.ajax({
-                        url: 'contribution-status',
-                        dataType: 'json',
-                        data: review_data,
-                        type: 'POST',
-                        beforeSend: function () {
-                            $('#btn_deny').prop('disabled', true);
-                            $('#btn_approve').prop('disabled', true);
-                            <?php
-                            if(count($user_appproval_ids) == 0){ ?>
-                                showMessage('success', 10000, 'Adding this claim as an on-chain record..');
-                            <?php
-                            } ?>
-                        },
-                        success: function (data) {
-                            if (data.success == true) {
-                                if(data.blockchain == 'solana')
-                                {
-                                    if(data.api_response)
+
+                    <?php if(strlen($contribution->proposal_state) < 1){ ?>
+                        console.log("create proposal");
+                        $.ajax({
+                            url: 'contribution-status',
+                            dataType: 'json',
+                            data: review_data,
+                            type: 'POST',
+                            beforeSend: function () {
+                                $('#btn_deny').prop('disabled', true);
+                                $('#btn_approve').prop('disabled', true);
+                                <?php
+                                if(count($user_appproval_ids) == 0){ ?>
+                                    showMessage('success', 10000, 'Adding this claim as an on-chain record..');
+                                <?php
+                                } ?>
+                            },
+                            success: function (data) {
+                                if (data.success == true) {
+                                    if(data.blockchain == 'solana')
                                     {
-                                        solanaProposalTransaction(data.api_response).then((result) => {
-                                            console.log(result);
-                                            //vote(data.p_id);
-                                        });
+                                        if(data.api_response)
+                                        {
+                                            showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+
+                                            solanaProposalTransaction(data.api_response).then((result) => {
+
+                                                review_data['p_id'] = data.p_id;
+                                                review_data['proposal'] = 1;
+                                                vote(review_data,c_id);
+
+                                            });
+                                        }
                                     }
                                     else
-                                        vote(data.p_id);
-
-                                    reviewContrubutionHtmlChange(data,c_id);
+                                    {
+                                        reviewContrubutionHtmlChange(data,c_id)
+                                        showMessage('success', 10000, data.message);
+                                    }
                                 }
                                 else
-                                {
-                                    reviewContrubutionHtmlChange(data,c_id)
-                                    showMessage('success', 10000, data.message);
-                                }
+                                    showMessage('danger', 10000, data.msg);
                             }
-                            else
-                                showMessage('danger', 10000, data.msg);
-                        }
-                    });
+                        });
+                    <?php }else{ ?>
+                        console.log("create vote");
+                        review_data['p_id'] = '<?php echo $proposal_id; ?>';
+                        vote(review_data,c_id);
+                    <?php } ?>
                 }
                 else
                     showMessage('danger', 10000, "Error! Please score all categories to attest this contribution.");
@@ -502,30 +511,34 @@
         $('#btn_approve').prop('disabled', false);
     }
 
-    function vote(pid) {
+    function vote(data,cid) {
         $.ajax({
-            url: 'vote-log-proposal?pid='+pid,
+            url: 'vote-log-proposal',
             dataType: 'json',
+            data: data,
+            type: 'POST',
             beforeSend: function () {
                 showMessage('success', 10000, 'Attesting claim on-chain..');
             },
-            success: function(data) {
-                if (data.success == true){
-                    const response =  solanaProposalTransaction(data.api_response);
-                    const r_data   = data;
-                    response.then(function (data){
+            success: function(response) {
+                if (response.success == true){
+                    showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+                    const sol_response =  solanaProposalTransaction(response.api_response);
+                    const r_data       = response;
+                    sol_response.then(function (data){
+                        reviewContrubutionHtmlChange(data,cid);
                         $('.prop-'+r_data.pid).html(r_data.html);
                         showMessage('success', 10000, 'Success! Your attestation has been submitted.');
-                        checkProposalState(r_data.pid);
+                        checkProposalState(r_data.pid,r_data.aid);
                     });
                 }
                 else {
-                    if(data.element) {
-                        $('#' + data.element).addClass('form-control-lg error');
-                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                    if(response.element) {
+                        $('#' + response.element).addClass('form-control-lg error');
+                        $('<label class="error">' + response.msg + '</label>').insertAfter('#' + response.element);
                     }
                     else
-                        showMessage('danger', 10000, data.msg);
+                        showMessage('danger', 10000, response.msg);
                 }
             }
         });

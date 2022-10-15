@@ -28,7 +28,7 @@ class Contribution{
     public static function get($id,$withProposal=false){
         $connect = Ds::connect();
         if($withProposal != false) {
-            $items = $connect->query("select c.*,p.proposal_adr from contributions c LEFT JOIN proposals p ON c.proposal_id=p.id where c.id='$id' limit 1");
+            $items = $connect->query("select c.*,p.proposal_adr,p.proposal_state,p.id as pid from contributions c LEFT JOIN proposals p ON c.proposal_id=p.id where c.id='$id' limit 1");
         }
         else
             $items   = $connect->query("select * from contributions where id='$id' limit 1");

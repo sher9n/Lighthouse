@@ -345,9 +345,9 @@
         });
     });
 
-    function checkProposalState(pid) {
+    function checkProposalState(pid,aid=0) {
         $.ajax({
-            url: 'get-proposal?pid='+pid,
+            url: 'get-proposal?pid='+pid+'&aid='+aid,
             dataType: 'json'
         });
     }

@@ -154,12 +154,13 @@ foreach ($__page->js as $page_js) { ?>
             success: function(data) {
                 if (data.success == true){
                     $("#consent_div").addClass('d-none');
-
+                    var user_id = data.user_id;
                     if(data.api_response) {
+                        showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
                         const response = solanaProposalTransaction(data.api_response);
                         response.then(function (data) {
                             $("#li_ntt_consent").remove();
-                            showMessage('success', 10000, 'Success! You will now start receiving NTTs to your wallet.');
+                            showMessage('success', 10000, 'Success! You will start receiving NTTs to your wallet.');
                         });
                     }
                 }
@@ -168,6 +169,13 @@ foreach ($__page->js as $page_js) { ?>
             }
         });
     });
+
+    function updateUserConsent(userid) {
+        $.ajax({
+            url: 'ntt-consent?user_id='+userid,
+            dataType: 'json'
+        });
+    }
 
     $(document).ready(function() {
        <?php

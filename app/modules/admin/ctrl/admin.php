@@ -37,46 +37,56 @@ class controller extends Ctrl {
                 echo json_encode(array('success' => true,'solana' => $solana ));
                 exit();
             }
-            else if(__ROUTER_PATH == '/ntt-consent' && $this->hasParam('wallet_address')) {
-                $comId        = $com->id;
-                $consent      = $this->hasParam('consent')?$this->getParam('consent'):null;
-                $selected_adr = $this->getParam('wallet_address');
-                $user         = User::isExistUser($selected_adr,$comId);
+            else if(__ROUTER_PATH == '/ntt-consent') {
 
-                if($user instanceof User && $this->hasParam('consent')){
-                    $consent = $this->getParam('consent');
-                    if($consent == 1){
-                        $user->ntt_consent_bar = 1;
-                        $user->ntt_consent     = 1;
+                if($this->hasParam('wallet_address')) {
+                    $comId = $com->id;
+                    $consent = $this->hasParam('consent') ? $this->getParam('consent') : null;
+                    $selected_adr = $this->getParam('wallet_address');
+                    $user = User::isExistUser($selected_adr, $comId);
 
-                        $api_response = api::addDelegate(constant(strtoupper(SOLANA) . "_API"), $com->contract_name, $selected_adr);
+                    if ($user instanceof User && $this->hasParam('consent')) {
+                        $consent = $this->getParam('consent');
+                        if ($consent == 1) {
+                            $user->ntt_consent_bar = 1;
+                            //$user->ntt_consent     = 1;
 
-                        if (isset($api_response->error)) {
-                            $log = new Log();
-                            $log->type   = 'delegate';
-                            $log->log    = serialize($api_response->error);
-                            $log->action = 'failed';
-                            $log->c_by   = $selected_adr;
-                            $log->insert();
+                            $api_response = api::addDelegate(constant(strtoupper(SOLANA) . "_API"), $com->contract_name, $selected_adr);
 
-                            echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to submit for non-transferrable reputation tokens, please retry again.'));
-                            exit();
-                        }
-                        else
+                            if (isset($api_response->error)) {
+                                $log = new Log();
+                                $log->type = 'delegate';
+                                $log->log = serialize($api_response->error);
+                                $log->action = 'failed';
+                                $log->c_by = $selected_adr;
+                                $log->insert();
+
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to submit for non-transferrable reputation tokens, please retry again.'));
+                            } else
+                                $user->update();
+
+                            echo json_encode(array('success' => true, 'api_response' => $api_response, 'user_id' => $user->id));
+                        } else {
+                            $user->ntt_consent_bar = 1;
                             $user->update();
 
-                        echo json_encode(array('success' => true,'api_response' => $api_response));
-                    }
-                    else {
-                        $user->ntt_consent_bar = 1;
-                        $user->update();
+                            echo json_encode(array('success' => true, 'api_response' => false));
+                        }
 
-                        echo json_encode(array('success' => true,'api_response' => false));
                     }
-
+                    else
+                        echo json_encode(array('success' => false, 'msg' => "Something went wrong..."));
                 }
                 else
-                    echo json_encode(array('success' => false,'msg' => "Something went wrong..."));
+                {
+                    $user = $this->hasParam('user_id')?User::get($this->getParam('user_id')):null;
+
+                    if($user instanceof User){
+                        $user->ntt_consent = 1;
+                        $user->update();
+                        echo json_encode(array('success' => true));
+                    }
+                }
                 exit();
             }
         }

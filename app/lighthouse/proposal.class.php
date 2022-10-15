@@ -3,7 +3,7 @@ namespace lighthouse;
 use Core\Ds;
 
 class Proposal{
-
+    const PROPOSAL_STATE_CONFIRMED  = 'confirmed';
     const PROPOSAL_STATE_DEFEATED  = 'defeated';
     const PROPOSAL_STATE_VOTING    = 'voting';
     const PROPOSAL_STATE_EXECUTED  = 'executed';
