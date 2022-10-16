@@ -67,17 +67,19 @@ class Community{
     }
 
     public function isAdmin($adr,$withProposal = false) {
+        $adr = strtolower($adr);
         $connect = Ds::connect();
         $com_id  = $this->_data['id'];
         if($withProposal == false) {
-            $items = $connect->query("select id from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND is_delete=0 AND active=1");
+            $items = $connect->query("select id from stewards where comunity_id='$com_id' AND lower(wallet_adr)='$adr' AND is_delete=0 AND active=1");
             if ($items->num_rows > 0)
                 return true;
             else
                 return false;
         }
         else {
-            $items = $connect->query("select id,active from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND is_delete=0");
+
+            $items = $connect->query("select id,active from stewards where comunity_id='$com_id' AND lower(wallet_adr)='$adr' AND is_delete=0");
 
             if ($items->num_rows > 0) {
                 $sids  = array();
@@ -93,6 +95,7 @@ class Community{
 
                 if($retun == false) {
                     $str = implode("','",$sids);
+
                     $proposals = $connect->query("SELECT id FROM proposals where comunity_id=212 AND object_id IN ('".$str."') AND proposal_type='ADD' AND object_name='admin' AND proposal_state<>'' AND is_delete=0");
                     if ($proposals->num_rows > 0)
                         return true;

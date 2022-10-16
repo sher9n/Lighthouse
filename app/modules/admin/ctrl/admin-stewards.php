@@ -49,7 +49,7 @@ class controller extends Ctrl {
                         else
                             throw new Exception("wallet_address:Please connect the wallet");
 
-                        if($community->isAdmin($wallet_address) != false)
+                        if($community->isAdmin($wallet_address,true) != false)
                             throw new Exception("wallet_address:Error! Wallet address is already exists");
 
                         $steward      = new Steward();
