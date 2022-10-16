@@ -101,13 +101,13 @@ class controller extends Ctrl {
                             $steward->comunity_id  = $community->id;
                             $steward->wallet_adr   = $wallet_address;
                             $steward->display_name = $display_name;
-                            $id = $steward->insert();
+                            $sid = $steward->insert();
 
                             $html = '<div class="mb-8">
-                                    <div class="stew-'.$id.' fw-medium text-muted"><span>'.$display_name.'</span>
-                                        <a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="'.$wallet_address.'" data-sid="'.$id.'" data-sname="'.$display_name.'" data-bs-toggle="modal" data-bs-target="#editSteward" href="#">Edit > </a>
+                                    <div class="stew-'.$sid.' fw-medium text-muted"><span>'.$display_name.'</span>
+                                        <a class="fw-medium text-decoration-none text-primary ms-3 edit_steward" data-sadr="'.$wallet_address.'" data-sid="'.$sid.'" data-sname="'.$display_name.'" data-bs-toggle="modal" data-bs-target="#editSteward" href="#">Edit > </a>
                                     </div>
-                                    <div class="stew-'.$id.' d-flex align-items-center">
+                                    <div class="stew-'.$sid.' d-flex align-items-center">
                                         <div class="fs-3 fw-semibold me-6">'.$wallet_address.'</div>                                                                              
                                     </div>
                                 </div>';
@@ -115,7 +115,7 @@ class controller extends Ctrl {
 
                         $log = new Log();
                         $log->type      = 'Steward';
-                        $log->type_id   = $id;
+                        $log->type_id   = $sid;
                         $log->action    = 'create';
                         $log->c_by      = $wallet_address;
                         $log->insert();
