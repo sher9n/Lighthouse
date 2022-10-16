@@ -14,7 +14,7 @@
              ?>
              <div class="d-flex align-items-center text-blue-stone">
                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                 <div class="fw-medium ms-2 end_time_<?php echo $id; ?>">Approval period ends in <?php echo $date_count; ?></div>
+                 <div class="fw-medium ms-2 end_time_<?php echo $qid; ?>">Approval period ends in <?php echo $date_count; ?></div>
              </div>
              <?php
          }
@@ -54,18 +54,7 @@
         <div class="fw-medium text-muted mb-1"><?php echo (int)$proposal->proposal_yes_count; ?> of <?php echo $stewardCount; ?> Approved</div>
         <div>
             <?php
-            if(!isset($user_votes[$qid])){
-                /*$vote = $user_votes[$qid];
-                if($vote == 'NO'){*/?><!--
-                    <a type="button" data-pid="<?php /*echo $qid; */?>" data-vote="NO" id="deny_<?php /*echo $qid; */?>" class="admin_proposal_vote btn btn-secondary me-2 disabled">Deny</a>
-                    <?php
-/*                }
-                if($vote == 'YES'){*/?>
-                    <a type="button" data-pid="<?php /*echo $qid; */?>" data-vote="YES" id="approve_<?php /*echo $qid; */?>" class="admin_proposal_vote btn btn-blue-stone me-2 disabled">Approve</a>
-                    --><?php
-/*                }
-            }
-            else{*/ ?>
+            if(!isset($user_votes[$qid])){?>
                 <a type="button" data-pid="<?php echo $qid; ?>" data-vote="NO" id="deny_<?php echo $qid; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
                 <a type="button" data-pid="<?php echo $qid; ?>" data-vote="YES" id="approve_<?php echo $qid; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
                 <?php

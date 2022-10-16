@@ -185,7 +185,7 @@ class controller extends Ctrl {
             }
         } else {
             $__page = (object)array(
-                'title' => 'Create NTTs',
+                'title' => 'Start a Lighthouse',
                 'blockchain' => GNOSIS_CHAIN,
                  'sections' => array(
                     __DIR__ . '/../tpl/section.onboard.php'

@@ -48,7 +48,7 @@ class controller extends Ctrl {
                     if ($user instanceof User && $this->hasParam('consent')) {
                         $consent = $this->getParam('consent');
                         if ($consent == 1) {
-                            $user->ntt_consent_bar = 1;
+                            //$user->ntt_consent_bar = 1;
                             //$user->ntt_consent     = 1;
 
                             $api_response = api::addDelegate(constant(strtoupper(SOLANA) . "_API"), $com->contract_name, $selected_adr);
@@ -62,8 +62,8 @@ class controller extends Ctrl {
                                 $log->insert();
 
                                 echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to submit for non-transferrable reputation tokens, please retry again.'));
-                            } else
-                                $user->update();
+                                exit();
+                            }
 
                             echo json_encode(array('success' => true, 'api_response' => $api_response, 'user_id' => $user->id));
                         } else {
@@ -82,6 +82,7 @@ class controller extends Ctrl {
                     $user = $this->hasParam('user_id')?User::get($this->getParam('user_id')):null;
 
                     if($user instanceof User){
+                        $user->ntt_consent_bar = 1;
                         $user->ntt_consent = 1;
                         $user->update();
                         echo json_encode(array('success' => true));

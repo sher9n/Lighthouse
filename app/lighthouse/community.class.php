@@ -56,9 +56,9 @@ class Community{
     public function getAdminProposals($type=null){
         $com_id    = $this->_data['id'];
         if(!is_null($type))
-            return Proposal::find("SELECT p.*,s.display_name,s.wallet_adr as modified_admin,s.c_at FROM proposals p LEFT JOIN stewards s ON p.object_id = s.id WHERE p.proposal_type='$type' AND p.is_executed=0 AND p.comunity_id=$com_id AND p.object_name='admin'",true);
+            return Proposal::find("SELECT p.*,s.display_name,s.wallet_adr as modified_admin,s.c_at FROM proposals p LEFT JOIN stewards s ON p.object_id = s.id WHERE p.proposal_state<>'' AND p.proposal_type='$type' AND p.is_executed=0 AND p.comunity_id=$com_id AND p.object_name='admin'",true);
         else
-            return Proposal::find("SELECT p.*,s.display_name,s.wallet_adr as modified_admin,s.c_at FROM proposals p LEFT JOIN stewards s ON p.object_id = s.id WHERE p.is_executed=0 AND p.comunity_id=$com_id AND p.object_name='admin'",true);
+            return Proposal::find("SELECT p.*,s.display_name,s.wallet_adr as modified_admin,s.c_at FROM proposals p LEFT JOIN stewards s ON p.object_id = s.id WHERE p.proposal_state<>'' AND p.is_executed=0 AND p.comunity_id=$com_id AND p.object_name='admin'",true);
     }
 
     public function getQuorumProposals(){
@@ -66,18 +66,48 @@ class Community{
         return Proposal::find("SELECT * FROM proposals WHERE is_executed=0 AND comunity_id=$com_id AND object_name='quorum'",true);
     }
 
-    public function isAdmin($adr) {
+    public function isAdmin($adr,$withProposal = false) {
         $connect = Ds::connect();
         $com_id  = $this->_data['id'];
-        $items   = $connect->query("select id from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND is_delete=0 AND active=1");
-        if ($items->num_rows > 0)
-            return true;
-        else
-            return false;
+        if($withProposal == false) {
+            $items = $connect->query("select id from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND is_delete=0 AND active=1");
+            if ($items->num_rows > 0)
+                return true;
+            else
+                return false;
+        }
+        else {
+            $items = $connect->query("select id,active from stewards where comunity_id='$com_id' AND wallet_adr='$adr' AND is_delete=0");
 
+            if ($items->num_rows > 0) {
+                $sids  = array();
+                $retun = false;
+                foreach ($items as $item) {
+                    if ($item['active'] == 1){
+                        $retun =  true;
+                        break;
+                    }
+                    else
+                        array_push($sids, $item['id']);
+                }
+
+                if($retun == false) {
+                    $str = implode("','",$sids);
+                    $proposals = $connect->query("SELECT id FROM proposals where comunity_id=212 AND object_id IN ('".$str."') AND proposal_type='ADD' AND object_name='admin' AND proposal_state<>'' AND is_delete=0");
+                    if ($proposals->num_rows > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                    return true;
+            }
+            else
+                return false;
+        }
     }
 
-    public function getAdmin($sel_adr) {
+    public function getAdmin() {
         $comId = $this->_data['comunity_id'];
         $items = Steward::find("SELECT * FROM stewards WHERE comunity_id = '$comId' AND is_delete=0 AND active=1 LIMIT 1",true);
         if(count($items) > 0)

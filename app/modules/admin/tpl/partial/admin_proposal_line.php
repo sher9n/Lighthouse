@@ -55,17 +55,7 @@
     <div>
         <?php
         if(!isset($user_votes[$pid])){
-            /*$vote = $user_votes[$pid];
-            if($vote == 'NO'){*/?><!--
-                <a type="button" data-pid="<?php /*echo $pid; */?>" data-vote="NO" id="deny_<?php /*echo $pid; */?>" class="admin_proposal_vote btn btn-secondary me-2 disabled">Deny</a>
-                <?php
-/*            }
-            if($vote == 'YES'){*/?>
-                <a type="button" data-pid="<?php /*echo $pid; */?>" data-vote="YES" id="approve_<?php /*echo $pid; */?>" class="admin_proposal_vote btn btn-blue-stone me-2 disabled">Approve</a>
-                --><?php
-/*            }
-        }
-        else{*/ ?>
+            ?>
             <a type="button" data-pid="<?php echo $pid; ?>" data-vote="NO" id="deny_<?php echo $pid; ?>" class="admin_proposal_vote btn btn-secondary me-2">Deny</a>
             <a type="button" data-pid="<?php echo $pid; ?>" data-vote="YES" id="approve_<?php echo $pid; ?>" class="admin_proposal_vote btn btn-blue-stone">Approve</a>
             <?php

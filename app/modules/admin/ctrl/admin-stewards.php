@@ -36,6 +36,7 @@ class controller extends Ctrl {
                 case '/add-stewards':
 
                     try {
+                        $pid = null;
                         $display_name = $wallet_address = '';
 
                         if ($this->hasParam('nickname') && strlen($this->getParam('nickname')) > 0)
@@ -46,7 +47,10 @@ class controller extends Ctrl {
                         if ($this->hasParam('wallet_address') && strlen($this->getParam('wallet_address')) > 0)
                             $wallet_address = $this->getParam('wallet_address');
                         else
-                            throw new Exception("display_name:Please connect the wallet");
+                            throw new Exception("wallet_address:Please connect the wallet");
+
+                        if($community->isAdmin($wallet_address) != false)
+                            throw new Exception("wallet_address:Error! Wallet address is already exists");
 
                         $steward      = new Steward();
                         $api_response = null;
@@ -67,7 +71,6 @@ class controller extends Ctrl {
                                 exit();
                             }
                             else {
-
                                 $steward->comunity_id   = $community->id;
                                 $steward->wallet_adr    = $wallet_address;
                                 $steward->display_name  = $display_name;
@@ -120,7 +123,7 @@ class controller extends Ctrl {
                         $c = $community->getStewards(true);
                         $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
 
-                        echo json_encode(array('success' => true,'api_response' => $api_response,'blockchain' => $community->blockchain,'html' => $html,'percentage' => $percentage,'max' => $c));
+                        echo json_encode(array('success' => true,'api_response' => $api_response,'pid'=>$pid,'blockchain' => $community->blockchain,'html' => $html,'percentage' => $percentage,'max' => $c));
 
                     } catch (Exception $e) {
                         $msg = explode(':', $e->getMessage());
@@ -224,7 +227,7 @@ class controller extends Ctrl {
                                 $html.= ob_get_clean();
                                 $html.= '</div></div>';
 
-                                echo json_encode(array('success' => true, 'stew_id' => $steward->id, 'api_response' => $api_response, 'blockchain' => $community->blockchain, 'html' => $html));
+                                echo json_encode(array('success' => true,'pid'=>$pid,'stew_id' => $steward->id, 'api_response' => $api_response, 'blockchain' => $community->blockchain, 'html' => $html));
                                 exit();
                             }
                         }
@@ -302,6 +305,7 @@ class controller extends Ctrl {
 
                         if ($proposal instanceof Proposal) {
                             $pid  = $proposal->id;
+
                             $api_response = api::solanaProposalVote(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $sel_wallet_adr, $proposal->proposal_id, $vote);
 
                             if (isset($api_response->error)) {
@@ -316,22 +320,23 @@ class controller extends Ctrl {
                                 exit();
                             }
                             else {
-                                $v = new Vote();
+       /*                         $v = new Vote();
                                 $v->wallet_adr   = $sel_wallet_adr;
                                 $v->comunity_id  = $community->id;
                                 $v->vote         = $vote;
                                 $v->proposal_id  = $proposal->id;
-                                $v->insert();
+                                $v->confirmed    = 0;
+                                $vid = $v->insert();*/
 
                                 if($vote =='YES')
                                     $proposal->proposal_yes_count = (int)$proposal->proposal_yes_count + 1;
                                 else
                                     $proposal->proposal_no_count = (int)$proposal->proposal_no_count + 1;
 
-                                $proposal->update();
+                                //$proposal->update();
                             }
 
-                            $user_votes     = Vote::getUserVotes($sel_wallet_adr,$community->id);
+                            $user_votes     = array($pid => $vote);//Vote::getUserVotes($sel_wallet_adr,$community->id);
                             $stewardCount   = $community->getStewards(true);
                             $approval_count = $community->approval_count;
                             $qdata          = json_decode($proposal->proposal_data);
@@ -347,7 +352,7 @@ class controller extends Ctrl {
                                 $html    = ob_get_clean();
                             }
 
-                            echo json_encode(array('success' => true,'api_response' => $api_response,'pid' => $proposal->id,'html' => $html));
+                            echo json_encode(array('success' => true,'api_response' => $api_response,'pid' => $proposal->id,'html' => $html,'vote'=>$vote));
                         }
                     } catch (Exception $e) {
                         $msg = explode(':', $e->getMessage());
@@ -377,14 +382,38 @@ class controller extends Ctrl {
                             $c->update();
                         }
 
+                        if($this->hasParam('vote')){
+                            $vote = $this->getParam('vote');
+                            if($vote == 'YES' || $vote == 'NO'){
+                                if($vote =='YES')
+                                    $proposal->proposal_yes_count = (int)$proposal->proposal_yes_count + 1;
+                                else
+                                    $proposal->proposal_no_count = (int)$proposal->proposal_no_count + 1;
+
+                                $v = new Vote();
+                                $v->wallet_adr   = $sel_wallet_adr;
+                                $v->comunity_id  = $community->id;
+                                $v->vote         = $vote;
+                                $v->proposal_id  = $proposal->id;
+                                $v->insert();
+
+                                $proposal->update();
+                            }
+                        }
+
                         $api_response =  API::getSolanaProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id);
                         $response     = array();
 
                         if (!isset($api_response->error)) {
 
                             $proposal->proposal_state = $api_response->state;
-                            if($api_response->state == Proposal::PROPOSAL_STATE_DEFEATED)
+
+                            if($api_response->state == Proposal::PROPOSAL_STATE_DEFEATED) {
                                 $proposal->is_executed = Proposal::PROPOSAL_EXECUTE_DEFEATED;
+                                $c = Contribution::get($proposal->object_id);
+                                $c->status = 2;
+                                $c->update();
+                            }
                             elseif ($api_response->state == Proposal::PROPOSAL_STATE_SUCCEEDED && $proposal->object_name == 'contribution') {
                                 $c = Contribution::get($proposal->object_id);
                                 $c->status = 1;
@@ -425,6 +454,7 @@ class controller extends Ctrl {
                                 echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
                         }
                         else {
+
                             $api_response = API::executeAdminProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $proposal->proposal_id, $steward->wallet_adr,'REMOVE');
 
                             if (!isset($api_response->error)) {

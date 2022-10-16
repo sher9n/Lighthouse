@@ -54,7 +54,7 @@ class Vote{
 
     public static function getUserVotes($adr,$com_id) {
         $results = array();
-        $votes   = Vote::find("SELECT v.proposal_id, v.vote FROM votes v LEFT JOIN proposals p ON v.proposal_id=p.id WHERE p.is_executed=0 AND v.comunity_id=$com_id AND v.wallet_adr='$adr'");
+        $votes   = Vote::find("SELECT v.proposal_id, v.vote FROM votes v LEFT JOIN proposals p ON v.proposal_id=p.id WHERE p.proposal_state<>'' AND p.is_executed=0 AND v.comunity_id=$com_id AND v.wallet_adr='$adr'");
 
         if($votes != false){
             foreach ($votes as $vote) {

@@ -26,7 +26,7 @@ if($claims != false && count($claims) > 0 ){
                         $date_count = Utils::expire_date_count(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($claim['c_at'] .' +'.$approval_days.' days')));
                         if(!is_null($date_count)) {
                             ?>
-                            <div class="d-flex align-items-center text-blue-stone my-1">
+                            <div class="d-flex align-items-center text-blue-stone my-1 msg-<?php echo $claim['c_id']; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                                 <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>">Attestation Period ends in <?php echo $date_count; ?></div>
                             </div>
@@ -34,7 +34,7 @@ if($claims != false && count($claims) > 0 ){
                         }
                         else {
                         ?>
-                            <div class="d-flex align-items-center text-blue-stone my-1">
+                            <div class="d-flex align-items-center text-blue-stone my-1 msg-<?php echo $claim['c_id']; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock feather-md"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                                 <div class="fw-medium ms-2 end_time_<?php echo $claim['c_id']; ?>"></div>
                             </div>
@@ -70,7 +70,7 @@ if($claims != false && count($claims) > 0 ){
 
                     if($user instanceof User && $user->ntt_consent == 1){
                         ?>
-                        <div class="d-flex align-items-center text-orange my-1">
+                        <div class="d-flex align-items-center text-orange my-1 msg-<?php echo $claim['c_id']; ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                             <div class="fw-medium ms-2">Execution pending</div>
                         </div>
@@ -78,7 +78,7 @@ if($claims != false && count($claims) > 0 ){
                     }
                     else {
                         ?>
-                        <div class="d-flex align-items-center text-muted my-1">
+                        <div class="d-flex align-items-center text-muted my-1 msg-<?php echo $claim['c_id']; ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle feather-md"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
                             <div class="fw-medium ms-2">Execution unavailable until member consents to NTTs</div>
                         </div>
@@ -87,7 +87,7 @@ if($claims != false && count($claims) > 0 ){
                 }
                 elseif ( $claim['proposal_state'] == \lighthouse\Proposal::PROPOSAL_STATE_EXECUTED && $claim['is_executed']==\lighthouse\Proposal::PROPOSAL_EXECUTED) {
                     ?>
-                    <div class="d-flex align-items-center text-blue-stone my-1">
+                    <div class="d-flex align-items-center text-blue-stone my-1 msg-<?php echo $claim['c_id']; ?>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 22 22">
                             <g id="Group_5834" data-name="Group 5834" transform="translate(-807 -400)">
                                 <circle id="Ellipse_383" data-name="Ellipse 383" cx="10" cy="10" r="10" transform="translate(808 401)" fill="none" stroke="#006064" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>

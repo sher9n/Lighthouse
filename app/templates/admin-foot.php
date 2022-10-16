@@ -153,12 +153,13 @@ foreach ($__page->js as $page_js) { ?>
             },
             success: function(data) {
                 if (data.success == true){
-                    $("#consent_div").addClass('d-none');
                     var user_id = data.user_id;
                     if(data.api_response) {
                         showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
                         const response = solanaProposalTransaction(data.api_response);
-                        response.then(function (data) {
+                        response.then(function (d) {
+                            updateUserConsent(data.user_id);
+                            $("#consent_div").addClass('d-none');
                             $("#li_ntt_consent").remove();
                             showMessage('success', 10000, 'Success! You will start receiving NTTs to your wallet.');
                         });
