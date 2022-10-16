@@ -95,8 +95,7 @@ class Community{
 
                 if($retun == false) {
                     $str = implode("','",$sids);
-
-                    $proposals = $connect->query("SELECT id FROM proposals where comunity_id=212 AND object_id IN ('".$str."') AND proposal_type='ADD' AND object_name='admin' AND proposal_state<>'' AND is_delete=0");
+                    $proposals = $connect->query("SELECT id FROM proposals where comunity_id=$com_id AND object_id IN ('".$str."') AND proposal_type='ADD' AND object_name='admin' AND proposal_state<>'' AND is_delete=0");
                     if ($proposals->num_rows > 0)
                         return true;
                     else
