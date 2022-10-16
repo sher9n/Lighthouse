@@ -501,6 +501,8 @@
                 success: function(data) {
                     if (data.success == true){
                         $('.msg-'+data.c_id).remove();
+                        $(data.html).insertAfter("#cq_item_title_"+data.c_id);
+
                         showMessage('success',10000,'Success! The proposal has been executed.');
                         //reviewContrubutionHtmlChange(data,data.c_id)
                     }

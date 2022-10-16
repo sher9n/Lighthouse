@@ -235,7 +235,17 @@ class controller extends Ctrl {
                             }
                             $contribution->update();
 
-                            echo json_encode(array('success' => true,'c_id' => $contribution->id,'update' => false));
+                            $html = '<div class="d-flex align-items-center text-blue-stone my-1 msg-'.$contribution->id.' ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 22 22">
+                                    <g id="Group_5834" data-name="Group 5834" transform="translate(-807 -400)">
+                                        <circle id="Ellipse_383" data-name="Ellipse 383" cx="10" cy="10" r="10" transform="translate(808 401)" fill="none" stroke="#006064" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                        <path id="Path_6496" data-name="Path 6496" d="M15.662,4,10.537,9.13,7.828,6.666" transform="translate(806.669 404.436)" fill="none" stroke="#006064" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                    </g>
+                                </svg>
+                                <div class="fw-medium ms-2">Executed</div>
+                            </div>';
+
+                            echo json_encode(array('success' => true,'html' => $html ,'c_id' => $contribution->id,'update' => false));
                         }
                         else
                             echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
