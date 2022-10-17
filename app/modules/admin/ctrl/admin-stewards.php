@@ -67,7 +67,7 @@ class controller extends Ctrl {
                                 $log->action = 'create-failed';
                                 $log->insert();
 
-                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add amin proposal, please retry again.'));
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add admin proposal, please retry again.'));
                                 exit();
                             }
                             else {
