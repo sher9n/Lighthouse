@@ -63,7 +63,7 @@ class Community{
 
     public function getQuorumProposals(){
         $com_id    = $this->_data['id'];
-        return Proposal::find("SELECT * FROM proposals WHERE is_executed=0 AND comunity_id=$com_id AND object_name='quorum'",true);
+        return Proposal::find("SELECT * FROM proposals WHERE is_executed=0 AND p.proposal_state<>'' AND comunity_id=$com_id AND object_name='quorum'",true);
     }
 
     public function isAdmin($adr,$withProposal = false) {

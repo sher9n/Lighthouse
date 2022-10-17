@@ -496,7 +496,7 @@
                 beforeSend: function () {
                     $('#btn_q_cancel').prop('disabled', true);
                     $('#btn_q_save').prop('disabled', true);
-                    showMessage('success', 10000, 'Updating...');
+                    showMessage('success', 10000, 'Creating a new proposal...');
                 },
                 success: function(data) {
                     $('#ModalChange').modal('toggle');
@@ -505,9 +505,11 @@
 
                     if (data.success == true) {
                         if(data.blockchain == 'solana') {
+                            showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
                             const response =  solanaProposalTransaction(data.api_response);
                             const r_data   = data;
                             response.then(function (data){
+                                checkProposalState(r_data.pid);
                                 $("#quorum_list").append(r_data.html);
                                 $("#quorum_list").removeClass('d-none');
                                 showMessage('success', 10000, 'Success! A proposal for a new quorum has been added.');
