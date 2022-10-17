@@ -67,7 +67,7 @@ class controller extends Ctrl {
                                 $log->action = 'create-failed';
                                 $log->insert();
 
-                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add amin proposal, please retry again.'));
+                                echo json_encode(array('success' => false, 'msg' => 'Fail! Unable to add admin proposal, please retry again.'));
                                 exit();
                             }
                             else {
@@ -287,7 +287,7 @@ class controller extends Ctrl {
                                 include __DIR__ . '/../tpl/partial/quorum_proposal_line.php';
                                 $html .= ob_get_clean();
                                 $html .= '</div>';
-                                echo json_encode(array('success' => true,'api_response' => $api_response,'blockchain' => $community->blockchain,'html' => $html));
+                                echo json_encode(array('success' => true,'api_response' => $api_response,'pid'=>$pid,'blockchain' => $community->blockchain,'html' => $html));
                             }
                         }
                     }
