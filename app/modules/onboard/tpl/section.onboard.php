@@ -16,6 +16,12 @@
                             <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg"  width="40" height="40" class="">
                         </a>
                     </li>
+                    <li class="list-wallet-item rounded border">
+                        <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()"  href="#">
+                            <span class="fs-3">Phantom</span>
+                            <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg"  width="40" height="40" class="">
+                        </a>
+                    </li>
                 </ui>
             </div>
         </div>
