@@ -11,15 +11,15 @@
                 <div class="fs-2 fw-semibold mb-22 mt-3">Connect your wallet to start a Lighthouse</div>
                 <ui class="list-wallet">
                     <li class="list-wallet-item rounded border">
-                        <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()"  href="#">
+                        <a data-bc="solana" class="wallet_connect list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()"  href="#">
                             <span class="fs-3">Phantom</span>
                             <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg"  width="40" height="40" class="">
                         </a>
                     </li>
                     <li class="list-wallet-item rounded border">
-                        <a class="list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()"  href="#">
-                            <span class="fs-3">Phantom</span>
-                            <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg"  width="40" height="40" class="">
+                        <a data-bc="solflare" class="wallet_connect list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount(true)"  href="#">
+                            <span class="fs-3">Solflare</span>
+                            <img src="<?php echo app_cdn_path; ?>img/solflare-logo.svg"  width="40" height="40" class="">
                         </a>
                     </li>
                 </ui>
@@ -27,23 +27,6 @@
         </div>
     </div>
 </div>
-<!--<div class="modal fade" id="wallet" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content p-2">
-            <a class="text-center link-modal" id="meta_click" href="#">
-                <img src="<?php /*echo app_cdn_path; */?>img/metamast-logo.svg" height="42">
-                <div class="modal-provider-name">MetaMask</div>
-                <div type="button" class="modal-provider-description">Connect to your MetaMask Wallet</div>
-            </a>
-            <hr class="dropdown-divider">
-            <a class="text-center link-modal" id="wallet_click" href="#">
-                <img src="<?php /*echo app_cdn_path; */?>img/walletconnect-logo.svg" height="42">
-                <div class="modal-provider-name">WalletConnect</div>
-                <div type="button" class="modal-provider-description">Scan with WalletConnect to connect</div>
-            </a>
-        </div>
-    </div>
-</div>-->
 <div class="modal fade" id="setupCommunity" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-size-02">
         <div class="modal-content">
@@ -107,6 +90,10 @@
             }
         });
     },400));
+
+    $(document).on("click",'.wallet_connect',function (e){
+        $('#blockchain_hidden').val($(this).data('bc'));
+    });
 
     $(document).on("keyup", '#dao_name', delay(function(event) {
         var dao_name = $(this).val();

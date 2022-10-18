@@ -92,40 +92,10 @@
         </div>
     </section>
 </main>
-<div class="modal fade" id="NttsGetting" data-bs-backdrop="static" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content pb-16 text-center">
-            <img src="<?php echo app_cdn_path; ?>img/anim-delivery.gif"  width="180" height="180" class="align-self-center">
-            <div class="fs-2 fw-semibold text-center">Sending your NTTs...</div>
-        </div>
-    </div>
-</div>
-<!-- Welcome Modal -->
-<div class="modal show" id="WelcomeModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-size-02">
-      <div class="modal-content">
-        <div class="modal-body px-25 py-16 text-center">
-          <img src="<?php echo app_cdn_path; ?>img/icon-logo.png"  width="80" height="80" class="">
-          <div class="fs-2 fw-semibold mb-12 mt-3 text-center mt-12">Welcome to Lighthouse!</div>
-          <div class="fs-4 fw-medium text-center"><?php echo $__page->community_name; ?> uses Lighthouse to capture contributions like governance, bounties, work and participation across your community. </div>
-          <button data-bs-dismiss="modal" type="button" class="btn btn-primary mt-12">Let’s go!</button>
-        </div>
-      </div>
-    </div>
-</div>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
 
-    $(document).on("click", '.add_wallet', function(event) {
-        $("#sendNewNttPop").modal('hide');
-        $('#admin_wallet').modal('show');
-    });
-
     $(document).ready(function() {
-
-    <?php if($__page->new_user != 0){ ?>
-        //$("#WelcomeModal").modal('show');
-    <?php } ?>
 
     <?php if(strlen($__page->wallet_adr) > 0){ ?>
             sessionStorage.setItem("lh_wallet_role","admin");

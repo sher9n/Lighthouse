@@ -2,12 +2,10 @@
 use lighthouse\Auth;
 use lighthouse\Community;
 use lighthouse\Contribution;
-use lighthouse\Log;
 use Core\AmazonS3;
 use Core\Utils;
 use lighthouse\Form;
 use lighthouse\User;
-use lighthouse\Approval;
 
 class controller extends Ctrl {
     function init() {

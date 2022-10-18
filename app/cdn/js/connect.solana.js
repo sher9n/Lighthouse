@@ -1,20 +1,29 @@
 
-const getProvider = async () => {
-    if ("solana" in window) {
-        await window.solana.connect();
-        const provider = window.solana;
-        console.log(provider);
-        return provider;
+const getProvider = async (solflare) => {
+    if(solflare==true){
+        if ("solflare" in window) {
+            await window.solflare.connect();
+            const provider = window.solflare;
+            return provider;
+        }
+        else
+            window.open("https://solflare.com/", "_blank");
     }
-    else {
-        console.log("No Solana wallet detected. Redirecting to Phantom.");
-        window.open("https://www.phantom.app/", "_blank");
+    else
+    {
+        if ("solana" in window) {
+            await window.solana.connect();
+            const provider = window.solana;
+            return provider;
+        }
+        else
+            window.open("https://www.phantom.app/", "_blank");
     }
 };
 
-function getSolanaAccount() {
+function getSolanaAccount(solflare=false) {
 
-    getProvider().then(provider => {
+    getProvider(solflare).then(provider => {
         if(provider) {
             selectedAccount = provider.publicKey.toString();
             sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
@@ -35,22 +44,6 @@ function getSolanaAccount() {
         }
     }).catch(function(error) {
             console.log(error)
-    });
-}
-
-async function addSolanaWallet() {
-    $("#AdminCenter").modal('hide');
-    $('#AdminPhantom').modal('show');
-}
-
-function disconnectAccount() {
-
-    window.solana.request({
-        method: "disconnect"
-    });
-
-    window.solana.on('disconnect', () => {
-        console.log("Solana Wallet Disconnected!");
     });
 }
 
@@ -115,28 +108,3 @@ const getConnection = () => {
     return connection;
 };
 /*** ------------END REALMS TRANSACTIONS JS-----------------*/
-
-async function updateWalletMenu() {
-    var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
-    var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
-    var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
-
-    $.ajax({
-        url: 'wallet-menu',
-        dataType: 'json',
-        data: data,
-        type: 'POST',
-        success: function (response) {
-            if (response.success == true) {
-                sessionStorage.setItem("lh_wallet_role",response.user_role);
-                window.location = 'contribution';
-            }
-            else {
-                sessionStorage.removeItem('lh_wallet_role');
-                sessionStorage.removeItem('lh_sel_wallet_add');
-                sessionStorage.removeItem('lh_wallet_adds');
-                $('#whitelist_solana_error').removeClass('d-none');
-            }
-        }
-    });
-}

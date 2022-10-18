@@ -334,11 +334,13 @@
         <form id="quorumForm" method="post" action="steward-percentage" autocomplete="off">
           <div class="modal-body">
             <div class="fs-2 fw-semibold mb-15">Select quorum</div>            
-            <label for="basic-url" class="form-label">Quorum</label>
-            <div class="col-6">
-                <div class="input-group">
-                    <input type="text" id="steward_range" name="range" class="form-control form-control-lg" value="<?php echo $__page->approval_count; ?>" aria-describedby="max_label" max="<?php echo $__page->stewardCount; ?>">
-                    <span class="input-group-text" id="max_label">of <?php echo $__page->stewardCount; ?></span>
+            <label for="basic-url" class="form-label d-none">Quorum</label>
+            <div class="col-12 pt-20">
+                <div class="input-group position-relative">
+                    <!--<input type="text" id="steward_range" name="range" class="form-control form-control-lg" value="<?php echo $__page->approval_count; ?>" aria-describedby="max_label" max="<?php echo $__page->stewardCount; ?>">
+                    <span class="input-group-text" id="max_label">of <//?php echo $__page->stewardCount; ?></span>-->
+                    <output class="rangeLabel text-primary fs-4 fw-bold position-absolute text-center w-100" id="contributeRangeValue"></output>
+                    <input type="range" class="form-range rounded-1" min="0" max="100" step="10" value="0" id="contributeRange" aria-label="Contribution percentage" >
                 </div>
                 <label id="steward_range-error" class="error" style="display: none;" for="steward_range"></label>
             </div>

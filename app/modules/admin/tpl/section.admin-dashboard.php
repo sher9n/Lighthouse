@@ -168,57 +168,10 @@
             </ul>
         </div>
     </div>
-    <!-- Modal Send some NTTs -->
-    <div class="modal fade" id="sendNewNttPop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <form id="nttsNewForm" method="post" action="send-ntts" autocomplete="off">
-                    <div class="modal-body">
-                        <div class="display-5 fw-medium">Send some NTTs</div>
-                        <div class="fs-5 fw-medium mt-20">Which wallet do you want to distribute NTTs to?</div>
-                        <input type="text" name="wallet_address" id="wallet_address" class="form-control form-control-lg">
-                        <div class="fs-3 fw-semibold mb-3 text-break"></div>
-                        <?php if($__page->blockchain == SOLANA){ ?>
-                            <a role="button" id="add_wallet" onclick="changeSolanaAccount()" class="btn btn-light" href="#">Add Wallet</a>
-                        <?php }else{ ?>
-                            <a role="button" id="add_wallet" class="add_wallet btn btn-light" href="#">Change Wallet</a>
-                        <?php } ?>
-                        <div class="fs-5 fw-medium mt-18 mb-3">How many NTTs do you want to send?</div>
-                        <div class="container-fluid">
-                            <div class="row gap-3">
-                                <input type="text" class="form-control form-control-lg mb-6 fs-3" name="ntts" id="ntts"  placeholder="100">
-                                <div class="col bg-light rounded-3 py-3 px-7">
-                                    <div class="fs-3">4.5K</div>
-                                    <div class="d-flex align-items-center">Score Impact: <span class="text-success ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-up.png"></div>
-                                </div>
-                                <div class="col bg-light rounded-3 py-3 px-7">
-                                    <div class="fs-3">2.32K</div>
-                                    <div class="d-flex align-items-center">Rank Impact: <span class="text-danger ms-2">N/A</span><img src="<?php echo app_cdn_path; ?>img/arrow-bottom.png"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fs-5 fw-medium mt-18 mb-3">What's the reason for this distribution?</div>
-                        <textarea class="form-control form-control-lg fs-3" name="claim_reason" id="claim_reason" rows="2" placeholder="Helpful discussion on Discourse, URL tweet etc..."></textarea>
-                        <div class="fs-5 fw-medium mt-18 mb-3">Tag this distribution to query it later.</div>
-                        <select style=" width: 100% !important;" class="form-control form-control-lg" multiple="multiple" name="claim_tags[]" id="claim_tags" placeholder="Marketing, Development, Strategy"></select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-white" data-bs-dismiss="modal">CANCEL</button>
-                        <button type="submit" class="btn btn-primary">Send</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </main>
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     var dashboard_table ;
-
-    $(document).on("click", '.add_wallet', function(event) {
-        $("#sendNewNttPop").modal('hide');
-        $('#admin_wallet').modal('show');
-    });
 
     $(document).ready(function() {
 
@@ -243,16 +196,6 @@
         $(document).on("click", '#sendNewNtt, #startSendNewNtt, #retryNewNtt', function(event) {
             event.preventDefault();
             window.location.replace("contribution");
-        });
-
-        $(document).on("click", '.send_ntt', function(event) {
-            event.preventDefault();
-            var adr = $(this).data('adr');
-            $('#wallet_address').val(adr);
-            $('#ntts').val('');
-            $('#claim_reason').val('');
-            $("#claim_tags").val(null).trigger('change');
-            $('#sendNewNttPop').modal('show');
         });
 
         $(document).on("click", '.contribution_history', function(event) {
@@ -334,43 +277,6 @@
                     $('#list_history').html(response.html);
                 }
             });
-        });
-
-        $('#nttsNewForm').validate({
-            rules: {
-                ntts:{
-                    required: true
-                },
-                wallet_address:{
-                    required: true
-                }
-            },
-            submitHandler: function(form){
-                $(form).ajaxSubmit({
-                    type:'post',
-                    dataType:'json',
-                    beforeSend: function() {
-                        showMessage('success',10000,'Your NTTs are being sent.');
-                    },
-                    success: function(data){
-                        if(data.success == true){
-                            dashboard_table.ajax.reload();
-                            $('#sendNewNttPop').modal('hide');
-                            showMessage('success', 10000, data.message);
-                        }
-                        else{
-                            if(data.message) {
-                                $('#sendNewNttPop').modal('hide');
-                                showMessage('danger', 10000, data.message);
-                            }
-                            else {
-                                $('#' + data.element).addClass('form-control-lg error');
-                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
-                            }
-                        }
-                    }
-                });
-            }
         });
 
         $('#dashboard_table_prev').click(function(){

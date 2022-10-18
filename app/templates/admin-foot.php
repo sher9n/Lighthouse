@@ -44,16 +44,30 @@
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/moment.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/daterangepicker.min.js"></script>
+<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/quorum-range.js"></script>
 
 <!--Wallet connect JS-->
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.iife.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.min.js"></script>
 <script type="application/javascript" src="<?php echo local_cdn_path; ?>js/web3/ethers-5.2.umd.min.js" ></script>
 <script src="<?php echo local_cdn_path; ?>js/web3/web3.min.js"></script>
-<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/wallet.connect.admin.js"></script>
-<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solana.admin.js"></script>
+<?php if($__page->blockchain == SOLANA){ ?>
+    <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solana.admin.js"></script>
+<?php }elseif($__page->blockchain == SOLFLARE){ ?>
+    <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solfare.admin.js"></script>
+<?php }else{ ?>
+    <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/wallet.connect.admin.js"></script>
+<?php } ?>
+
+
 <!--intercom custom scripts-->
 <!--<script type="text/javascript" src="<?php /*echo local_cdn_path; */?>js/intercom-style.js"></script>-->
+<?php
+    foreach ($__page->js as $page_js) { ?>
+        <script type="text/javascript" src="<?php echo $page_js; ?>"></script>
+        <?php
+    }
+?>
 <script>
 
     if(sessionStorage.getItem('lh_sel_wallet_add')) {
@@ -72,12 +86,6 @@
             role: user_role
         };
 
-        /*window.intercomSettings = {
-            api_base: "https://api-iam.intercom.io",
-            app_id: "jr6vc5hn",
-            name: sessionStorage.getItem('lh_sel_wallet_add'),
-            created_at: "<?php echo time(); ?>" // Signup date as a Unix timestamp
-        };*/
     }
     else {
         //Set your APP_ID
@@ -89,14 +97,6 @@
     }
 
     (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/jr6vc5hn';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
-</script>
-<?php
-foreach ($__page->js as $page_js) { ?>
-    <script type="text/javascript" src="<?php echo $page_js; ?>"></script>
-    <?php
-}
-?>
-<script>
 
     function showMessage(status,time,message) {
         SnackBar({
