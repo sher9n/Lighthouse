@@ -55,7 +55,7 @@ class controller extends Ctrl {
                         $steward      = new Steward();
                         $api_response = null;
 
-                        if($community->blockchain == SOLANA) {
+                        if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE) {
 
                             $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_API"),$community->contract_name,$wallet_address,$sel_wallet_adr);
 
@@ -192,7 +192,7 @@ class controller extends Ctrl {
                             exit();
                         }
 
-                        if ($community->blockchain == SOLANA ) {
+                        if ($community->blockchain == SOLANA || $community->blockchain == SOLFLARE) {
 
                             $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $wallet_address, $sel_wallet_adr, 'REMOVE');
 
@@ -236,11 +236,12 @@ class controller extends Ctrl {
                     break;
 
                 case '/steward-percentage':
-                    if($this->hasParam('range') && $this->getParam('range') > 0) {
-                        $approval_count = $this->getParam('range');
 
-                        if ($community->blockchain != SOLANA) {
-                            $community->approval_count = $approval_count;
+                    if($this->hasParam('range') && $this->getParam('range') > 0) {
+                        $quorum_percent = $this->getParam('range');
+
+                        if ($community->blockchain != SOLANA && $community->blockchain != SOLFLARE) {
+                            $community->quorum_percent = $quorum_percent;
                             $community->update();
                             $c = $community->getStewards(true);
                             $percentage = '<div class="fs-1"><?php echo $__page->' . $community->approval_count . '</div><div class="fs-2">/' . $c . '</div>';
@@ -253,9 +254,7 @@ class controller extends Ctrl {
                                 exit();
                             }
 
-                            $stewardCount  = $community->getStewards(true);
-                            $percentage    =  round((($approval_count/$stewardCount) * 100),0,PHP_ROUND_HALF_DOWN);
-                            $api_response  = api::addSolanaQuorumProposal(constant(strtoupper(SOLANA) . "_API"),$community->contract_name,$sel_wallet_adr,$percentage);
+                            $api_response  = api::addSolanaQuorumProposal(constant(strtoupper(SOLANA) . "_API"),$community->contract_name,$sel_wallet_adr,$quorum_percent);
 
                             if (isset($api_response->error)) {
                                 $log = new Log();
@@ -277,11 +276,10 @@ class controller extends Ctrl {
                                 $proposal->object_name   = Vote::V_TYPE_QUORUM;
                                 $proposal->wallet_adr    = $sel_wallet_adr;
                                 $proposal->comunity_id   = $community->id;
-                                $proposal->proposal_data = json_encode(array('c'=>$approval_count,'p' => $percentage));
+                                $proposal->proposal_data = json_encode(array('p' => $quorum_percent));
                                 $pid = $proposal->insert();
 
                                 $user_votes     = array();
-                                $approval_count = $community->approval_count;
                                 $html  = '<div class="prop-<?php echo $qid; ?>  d-flex align-items-center justify-content-between mt-4">';
                                 $qdata = json_decode($proposal->proposal_data);
                                 include __DIR__ . '/../tpl/partial/quorum_proposal_line.php';
@@ -340,6 +338,7 @@ class controller extends Ctrl {
                             $stewardCount   = $community->getStewards(true);
                             $approval_count = $community->approval_count;
                             $qdata          = json_decode($proposal->proposal_data);
+                            $quorum_percent = $community->quorum_percent;
 
                             if($proposal->object_name == Vote::V_TYPE_QUORUM) {
                                 $qid  = $pid;
@@ -506,12 +505,12 @@ class controller extends Ctrl {
         }
         else {
 
-            $site           = Auth::getSite();
-            $approval_count = 0;
-            $maxVotingTime  = $community->max_voting_time;
-            $user_votes     = Vote::getUserVotes($sel_wallet_adr,$community->id);
-            $adminProposals = $community->getAdminProposals();
-            $quorumProposals= $community->getQuorumProposals();
+            $site             = Auth::getSite();
+            $quorumPercentage = $community->quorum_percent;
+            $maxVotingTime    = $community->max_voting_time;
+            $user_votes       = Vote::getUserVotes($sel_wallet_adr,$community->id);
+            $adminProposals   = $community->getAdminProposals();
+            $quorumProposals  = $community->getQuorumProposals();
 
             if($site === false) {
                 header("Location: https://lighthouse.xyz");
@@ -521,20 +520,17 @@ class controller extends Ctrl {
             $allStewards  = $community->getStewards();
             $stewardCount = count($allStewards);
 
-            if($community->blockchain == SOLANA) {
+            if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE) {
                 $api_response = api::getSolanaCommunity(constant(strtoupper(SOLANA) . "_API"), $community->contract_name);
+
                 if (!isset($api_response->error)) {
                     $maxVotingTime    = $api_response->votingDuration;
                     $quorumPercentage = $api_response->quorumPercent;
-                    $approval_count   = ($quorumPercentage/100) * $stewardCount;
-                    $approval_count   = round($approval_count,0,PHP_ROUND_HALF_UP);
-                    $community->approval_count  = $approval_count;
+                    $community->quorum_percent  = $quorumPercentage;
                     $community->max_voting_time = $maxVotingTime;
                     $community->update();
                 }
             }
-            else
-                $approval_count = $community->approval_count;
 
             $__page = (object)array(
                 'title' => $site['site_name'],
@@ -545,7 +541,7 @@ class controller extends Ctrl {
                 'blockchain' => $community->blockchain,
                 'stewards' => $allStewards,
                 'stewardCount' => $stewardCount,
-                'approval_count' => $approval_count,
+                'quorumPercentage' => $quorumPercentage,
                 'maxVotingTime' => $maxVotingTime,
                 'user_votes' => $user_votes,
                 'admin_Proposals' => $adminProposals,
@@ -556,7 +552,7 @@ class controller extends Ctrl {
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-stewards.php'
                 ),
-                'js' => array()
+                'js' => array('js/quorum-range.js')
             );
             require_once app_template_path . '/admin-base.php';
             exit();

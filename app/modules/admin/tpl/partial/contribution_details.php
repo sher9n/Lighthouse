@@ -99,7 +99,7 @@
                 <div id="btn_row" class="col-12 text-end">
                     <?php
 
-                    if($community->blockchain == SOLANA){
+                    if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE){
                         $p = \lighthouse\Proposal::get($contribution->proposal_id);
 
                         if($p instanceof \lighthouse\Proposal && ($p->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_SUCCEEDED || $p->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_EXECUTED)){
@@ -394,7 +394,7 @@
                             },
                             success: function (data) {
                                 if (data.success == true) {
-                                    if(data.blockchain == 'solana')
+                                    if(data.blockchain == 'solana' || data.blockchain =='solflare')
                                     {
                                         if(data.api_response)
                                         {
@@ -454,7 +454,7 @@
                     },
                     success: function (data) {
                         if (data.success == true) {
-                            if(data.blockchain == 'solana')
+                            if(data.blockchain == 'solana' || data.blockchain == 'solflare')
                             {
                                 if(data.api_response)
                                 {

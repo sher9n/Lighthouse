@@ -42,10 +42,10 @@
 <?php include_once app_root . '/templates/admin-foot.php'; ?>
 <script>
     $(window).on('load', function() {
-        <?php if($__page->blockchain != SOLANA){ ?>
-            $('#wallet').modal('show');
-        <?php }else{ ?>
+        <?php if($__page->blockchain == SOLANA || $__page->blockchain == SOLFLARE){ ?>
             addSolanaWallet();
+        <?php }else{ ?>
+            $('#wallet').modal('show');
         <?php } ?>
     });
 </script>

@@ -5,8 +5,7 @@
             <div class="text-muted">Quorum</div>
         </div>
         <div class="d-flex align-items-center fw-medium text-gray-700">
-            <div class="fs-2"><?php echo $qdata->c; ?></div>
-            <div class="fs-3">/<?php echo $stewardCount; ?></div>
+            <div class="fs-2"><?php echo $quorum_percent; ?>%</div>
         </div>
          <?php
          $date_count = Utils::expire_date_count(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($proposal->c_at .' +'.($community->max_voting_time/86400).' days')));

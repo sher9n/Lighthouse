@@ -44,7 +44,7 @@ class controller extends Ctrl {
                 else
                     throw new Exception("ntts:Not a valid NTTs");
 
-                if($community->blockchain == SOLANA)
+                if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE)
                     $api_response = api::addSolanaPoints($community->contract_name,$wallet_address,$ntts);
                 else
                     $api_response = api::addPoints(constant(strtoupper($community->blockchain).'_API'),app_site,$wallet_address,$ntts);
@@ -69,7 +69,7 @@ class controller extends Ctrl {
                     $claim->comunity_id = $community->id;
 
                     $claim->txHash = $api_response->txHash;
-                    if($community->blockchain != SOLANA)
+                    if($community->blockchain != SOLFLARE && $community->blockchain != SOLANA)
                         $claim->chainId = $api_response->chainId;
 
                     $id = $claim->insert();
@@ -81,7 +81,7 @@ class controller extends Ctrl {
                     $log->c_by = $sel_wallet_adr;
                     $log->insert();
 
-                    if($community->blockchain == SOLANA)
+                    if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE)
                         echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($community->blockchain).'_TX_LINK').$claim->txHash.'?cluster=devnet"> VIEW TRANSACTION</a>'));
                     else
                         echo json_encode(array('success' => true, 'message' => 'Success! Your NTTs have been sent. <a class="text-white ms-1" target="_blank" href="'.constant(strtoupper($community->blockchain).'_TX_LINK').$claim->txHash.'"> VIEW TRANSACTION</a>'));
@@ -102,7 +102,7 @@ class controller extends Ctrl {
         else {
 
             $solana = false;
-            if($community->blockchain == 'solana')
+            if($community->blockchain == 'solana' || $community->blockchain == 'solflare')
                 $solana = true;
 
             $__page = (object)array(

@@ -49,7 +49,7 @@ class controller extends Ctrl {
                 if ($domain_check === FALSE) {
                     $block_chain = $_SESSION['lhc']['b'];
 
-                    if($block_chain != SOLANA)
+                    if($block_chain != SOLANA && $block_chain != SOLFLARE)
                         $api_response = api::addCommunity(constant(strtoupper($block_chain) . "_API"), $_SESSION['lhc']['d'], $_SESSION['lhc']['d'], $_SESSION['lhc']['t'], 18, 0.0008);
                     else
                         $api_response = api::addSolanaCommunity($_SESSION['lhc']['d'],$_SESSION['lhc']['d'],$_SESSION['lhc']['t'], 18);
@@ -80,7 +80,7 @@ class controller extends Ctrl {
                         $community->gas_address = $api_response->gasTankInfo->gasTankAddress;
                         $community->gas_private_key = $api_response->gasTankInfo->gasTankPrivateKey;
 
-                        if($block_chain == SOLANA) {
+                        if($block_chain == SOLANA || $block_chain == SOLFLARE) {
                             $community->txHash = $api_response->txHash;
                             $community->community_address = $api_response->communityAddress;
                         }

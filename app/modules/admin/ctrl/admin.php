@@ -31,7 +31,7 @@ class controller extends Ctrl {
             else if(__ROUTER_PATH =='/disconnect_wallet') {
                 Auth::clearCookieWallet();
                 $solana = false;
-                if($com->blockchain == 'solana')
+                if($com->blockchain == 'solana' || $com->blockchain == 'solflare')
                     $solana = true;
 
                 echo json_encode(array('success' => true,'solana' => $solana ));

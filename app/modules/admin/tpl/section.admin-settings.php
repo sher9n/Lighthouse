@@ -26,6 +26,9 @@
                                             <?php if($__page->community->blockchain == SOLANA){ ?>
                                                 <img src="<?php echo app_cdn_path; ?>img/solana-sol-logo.png" class="mx-3" width="40">
                                                 <div class="fs-3">Solana</div>
+                                            <?php }else if($__page->community->blockchain == SOLFLARE){ ?>
+                                                <img src="<?php echo app_cdn_path; ?>img/solflare-logo.png" class="mx-3" width="40">
+                                                <div class="fs-3">Solflare</div>
                                             <?php }else if($__page->community->blockchain == GNOSIS_CHAIN){ ?>
                                                 <img src="<?php echo app_cdn_path; ?>img/gnosis-chain-logo.png" class="me-3">
                                                 <div class="fs-3">Gnosis Chain</div>
@@ -107,6 +110,8 @@
                             <div class="display-5 fw-medium">Gas tank</div>
                             <?php if($__page->community->blockchain == SOLANA){ ?>
                             <div class="text-muted mt-1">Send SOL on Solana Mainnet to run Lighthouse gas-free for your community</div>
+                            <?php }else if($__page->community->blockchain == SOLFLARE){ ?>
+                                <div class="text-muted mt-1">Send SOL on Solflare Mainnet to run Lighthouse gas-free for your community</div>
                             <?php }else if($__page->community->blockchain == GNOSIS_CHAIN){ ?>
                                 <div class="text-muted mt-1">Send Eth on Gnosis Mainnet to run Lighthouse gas-free for your community</div>
                             <?php }else{ ?>

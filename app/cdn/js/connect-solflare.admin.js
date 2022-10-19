@@ -1,13 +1,27 @@
 
 const getProvider = async () => {
+
     if ("solflare" in window) {
-        await window.solflare.connect();
+
         const provider = window.solflare;
-        return provider;
+
+        if (provider.isSolFlare)
+            return provider;
+        else
+        {
+            await window.solflare.connect();
+            const provider = window.solflare;
+            return provider;
+        }
     }
-    else
-        window.open("https://solflare.com/", "_blank");
+    window.open("https://solflare.com/", "_blank");
 };
+
+window.solflare.on("connect", () => console.log("connected!"));
+
+window.solflare.on("accountChanged", () => console.log("connect change!"));
+
+window.solflare.on("disconnect", () => console.log("connect change!"));
 
 function changeSolanaAccount() {
     getProvider().then(provider => {
@@ -44,6 +58,7 @@ window.solflare.on('accountChanged', (publicKey) => {
 });
 
 function getSolanaAccount(update=true) {
+
     getProvider().then(provider => {
         if(provider) {
             selectedAccount = provider.publicKey.toString();
@@ -128,7 +143,7 @@ async function updateWalletMenu() {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
-
+console.log(data);
     $.ajax({
         url: 'wallet-menu',
         dataType: 'json',

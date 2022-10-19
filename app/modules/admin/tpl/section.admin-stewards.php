@@ -21,12 +21,12 @@
                             } ?>
                             <div class="d-flex align-items-center mt-4">
                                 <div id="steward_percentage" class="d-flex align-items-center fw-medium text-gray-700">
-                                    <div class="fs-1"><?php echo $__page->approval_count.'</div><div class="fs-2">/'.$__page->stewardCount; ?></div>
+                                    <div class="fs-1"><?php echo $__page->quorumPercentage; ?>%</div>
                                 </div>
                             </div>
                             <div class="mt-26 <?php echo count($__page->quorumProposals) < 1?'d-none':''; ?>" id="quorum_list">
                             <?php
-                            if($__page->blockchain == SOLANA){
+                            if($__page->blockchain == SOLANA || $__page->blockchain == SOLFLARE){
 
                                 foreach ($__page->quorumProposals as $qid => $proposal){
 
@@ -122,7 +122,7 @@
                             <?php if($__page->is_admin != false){ ?>
                             <a type="button" class="btn btn-primary mt-6 mb-26" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Propose new steward</a>
                             <?php } ?>
-                            <?php if($__page->blockchain == SOLANA){ ?>
+                            <?php if($__page->blockchain == SOLANA || $__page->blockchain == SOLFLARE){ ?>
                                 <div id="pending_steward_list">
                                     <?php
                                     foreach ($__page->admin_Proposals as $id => $proposal){
@@ -340,7 +340,7 @@
                     <!--<input type="text" id="steward_range" name="range" class="form-control form-control-lg" value="<?php echo $__page->approval_count; ?>" aria-describedby="max_label" max="<?php echo $__page->stewardCount; ?>">
                     <span class="input-group-text" id="max_label">of <//?php echo $__page->stewardCount; ?></span>-->
                     <output class="rangeLabel text-primary fs-4 fw-bold position-absolute text-center w-100" id="contributeRangeValue"></output>
-                    <input type="range" class="form-range rounded-1" min="0" max="100" step="10" value="0" id="contributeRange" aria-label="Contribution percentage" >
+                    <input type="range" class="form-range rounded-1" min="0" max="100" step="10" value="<?php echo $__page->quorumPercentage; ?>" name="range" id="contributeRange" aria-label="Contribution percentage" >
                 </div>
                 <label id="steward_range-error" class="error" style="display: none;" for="steward_range"></label>
             </div>
@@ -513,7 +513,7 @@
                     $('#btn_q_save').prop('disabled', false);
 
                     if (data.success == true) {
-                        if(data.blockchain == 'solana') {
+                        if(data.blockchain == 'solana' || data.blockchain == 'solflare') {
                             showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
                             const response =  solanaProposalTransaction(data.api_response);
                             const r_data   = data;

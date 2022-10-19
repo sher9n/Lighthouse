@@ -44,8 +44,6 @@
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/moment.min.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/daterangepicker.min.js"></script>
-<script type="text/javascript" src="<?php echo local_cdn_path; ?>js/quorum-range.js"></script>
-
 <!--Wallet connect JS-->
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.iife.js"></script>
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.min.js"></script>
@@ -54,7 +52,7 @@
 <?php if($__page->blockchain == SOLANA){ ?>
     <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solana.admin.js"></script>
 <?php }elseif($__page->blockchain == SOLFLARE){ ?>
-    <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solfare.admin.js"></script>
+    <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solflare.admin.js"></script>
 <?php }else{ ?>
     <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/wallet.connect.admin.js"></script>
 <?php } ?>
@@ -178,11 +176,4 @@
         });
     }
 
-    $(document).ready(function() {
-       <?php
-        if(__ROUTER_PATH != '/admin'){ ?>
-            getSolanaAccount(false);
-            <?php
-        } ?>
-    });
 </script>
