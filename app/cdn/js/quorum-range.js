@@ -18,13 +18,19 @@ myModalEl.addEventListener('shown.bs.modal', function (event) {
       myValue.innerHTML = `${contributeRange.value}%`;
       myValue.style.left = px + 'px';
     };
+
+    rangeTrackColor(contributeRange);
     
 });
 
 
 $("#contributeRange").on('input', function(e){
-var valPercent = (this.valueAsNumber  - parseInt(this.min)) / 
-                    (parseInt(this.max) - parseInt(this.min));
-    var style = 'background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop('+ valPercent+', #3F16AE), color-stop('+ valPercent+', #3e16ae12));';
-    this.style = style;
+    rangeTrackColor(this);
 })
+
+function rangeTrackColor(sel){
+    var valPercent = (sel.valueAsNumber  - parseInt(sel.min)) / 
+                    (parseInt(sel.max) - parseInt(sel.min));
+    var style = 'background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop('+ valPercent+', #3F16AE), color-stop('+ valPercent+', #3e16ae12));';
+    sel.style = style;
+}
