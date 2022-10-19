@@ -552,7 +552,7 @@ class controller extends Ctrl {
                 'sections' => array(
                     __DIR__ . '/../tpl/section.admin-stewards.php'
                 ),
-                'js' => array('js/quorum-range.js')
+                'js' => array(local_cdn_path.'js/quorum-range.js')
             );
             require_once app_template_path . '/admin-base.php';
             exit();

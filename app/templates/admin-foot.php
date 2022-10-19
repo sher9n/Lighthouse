@@ -176,4 +176,11 @@
         });
     }
 
+    $(document).ready(function() {
+       <?php
+        if(__ROUTER_PATH != '/admin'){ ?>
+            getSolanaAccount(false);
+            <?php
+        } ?>
+    });
 </script>

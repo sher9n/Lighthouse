@@ -58,7 +58,6 @@ window.solflare.on('accountChanged', (publicKey) => {
 });
 
 function getSolanaAccount(update=true) {
-
     getProvider().then(provider => {
         if(provider) {
             selectedAccount = provider.publicKey.toString();
