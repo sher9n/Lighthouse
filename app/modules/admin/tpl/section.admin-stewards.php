@@ -26,7 +26,7 @@
                             </div>
                             <div class="mt-26 <?php echo count($__page->quorumProposals) < 1?'d-none':''; ?>" id="quorum_list">
                             <?php
-                            if($__page->blockchain == SOLANA || $__page->blockchain == SOLFLARE){
+                            if($__page->blockchain == SOLANA ){
 
                                 foreach ($__page->quorumProposals as $qid => $proposal){
 
@@ -41,8 +41,7 @@
                                                     <div class="text-muted">Quorum</div>
                                                 </div>
                                                 <div class="d-flex align-items-center fw-medium text-gray-700">
-                                                    <div class="fs-2"><?php echo $qdata->c; ?></div>
-                                                    <div class="fs-3">/<?php echo $__page->stewardCount; ?></div>
+                                                    <div class="fs-2"><?php echo $qdata->p; ?>%</div>
                                                 </div>
                                                 <?php
                                                 $date_count = Utils::expire_date_count(date("Y-m-d H:i:s"),date('Y-m-d H:i:s',strtotime($proposal->c_at .' +'.($__page->maxVotingTime/86400).' days')));
@@ -122,7 +121,7 @@
                             <?php if($__page->is_admin != false){ ?>
                             <a type="button" class="btn btn-primary mt-6 mb-26" href="#" data-bs-toggle="modal" data-bs-target="#addMember">Propose new steward</a>
                             <?php } ?>
-                            <?php if($__page->blockchain == SOLANA || $__page->blockchain == SOLFLARE){ ?>
+                            <?php if($__page->blockchain == SOLANA){ ?>
                                 <div id="pending_steward_list">
                                     <?php
                                     foreach ($__page->admin_Proposals as $id => $proposal){
@@ -337,12 +336,9 @@
             <label for="basic-url" class="form-label d-none">Quorum</label>
             <div class="col-12 pt-20">
                 <div class="input-group position-relative">
-                    <!--<input type="text" id="steward_range" name="range" class="form-control form-control-lg" value="<?php echo $__page->approval_count; ?>" aria-describedby="max_label" max="<?php echo $__page->stewardCount; ?>">
-                    <span class="input-group-text" id="max_label">of <//?php echo $__page->stewardCount; ?></span>-->
                     <output class="rangeLabel text-primary fs-4 fw-bold position-absolute text-center w-100" id="contributeRangeValue"></output>
                     <input type="range" class="form-range rounded-1" min="0" max="100" step="10" value="<?php echo $__page->quorumPercentage; ?>" name="range" id="contributeRange" aria-label="Contribution percentage" >
                 </div>
-                <label id="steward_range-error" class="error" style="display: none;" for="steward_range"></label>
             </div>
           </div>
           <div class="modal-footer">
@@ -384,25 +380,28 @@
     $(document).on('click','.admin_proposal_execute',function (e){
         e.preventDefault();
         var ele = $(this);
-        $.ajax({
-            url: 'execute-admin-proposal?pid='+ele.data("pid"),
-            dataType: 'json',
-            beforeSend: function () {
-                showMessage('success', 10000, 'Initializing wallet signing process...');
-            },
-            success: function(data) {
-                if (data.success == true){
-                    showMessage('success',10000,'Success! The proposal has been executed.');
-                    window.location.replace('stewards');
-                }
-                else {
-                    if(data.element) {
-                        $('#' + data.element).addClass('form-control-lg error');
-                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+        checkSolanaAccount().then(function (response) {
+            if (response == true) {
+
+                $.ajax({
+                    url: 'execute-admin-proposal?pid=' + ele.data("pid"),
+                    dataType: 'json',
+                    beforeSend: function () {
+                        showMessage('success', 10000, 'Initializing wallet signing process...');
+                    },
+                    success: function (data) {
+                        if (data.success == true) {
+                            showMessage('success', 10000, 'Success! The proposal has been executed.');
+                            window.location.replace('stewards');
+                        } else {
+                            if (data.element) {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            } else
+                                showMessage('danger', 10000, data.msg);
+                        }
                     }
-                    else
-                        showMessage('danger', 10000, data.msg);
-                }
+                });
             }
         });
     });
@@ -410,25 +409,27 @@
     $(document).on('click','.quorum_proposal_execute', function (e){
         e.preventDefault();
         var ele = $(this);
-        $.ajax({
-            url: 'execute-quorum-proposal?pid='+ele.data("pid"),
-            dataType: 'json',
-            beforeSend: function () {
-                showMessage('success', 10000, 'Initializing wallet signing process...');
-            },
-            success: function(data) {
-                if (data.success == true){
-                    showMessage('success',10000,'Success! The proposal has been executed.');
-                    window.location.replace('stewards');
-                }
-                else {
-                    if(data.element) {
-                        $('#' + data.element).addClass('form-control-lg error');
-                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+        checkSolanaAccount().then(function (response) {
+            if (response == true) {
+                $.ajax({
+                    url: 'execute-quorum-proposal?pid=' + ele.data("pid"),
+                    dataType: 'json',
+                    beforeSend: function () {
+                        showMessage('success', 10000, 'Initializing wallet signing process...');
+                    },
+                    success: function (data) {
+                        if (data.success == true) {
+                            showMessage('success', 10000, 'Success! The proposal has been executed.');
+                            window.location.replace('stewards');
+                        } else {
+                            if (data.element) {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            } else
+                                showMessage('danger', 10000, data.msg);
+                        }
                     }
-                    else
-                        showMessage('danger', 10000, data.msg);
-                }
+                });
             }
         });
     });
@@ -436,31 +437,34 @@
     $(document).on('click', '.admin_proposal_vote,quorum_proposal_vote', function (e){
         e.preventDefault();
         var ele = $(this);
-        $.ajax({
-            url: 'vote-proposal?pid='+ele.data("pid")+'&vote='+ele.data("vote"),
-            dataType: 'json',
-            beforeSend: function () {
-                showMessage('success', 10000, 'Initializing wallet signing process...');
-            },
-            success: function(data) {
-                if (data.success == true){
-                    showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
-                    const response =  solanaProposalTransaction(data.api_response);
-                    const r_data   = data;
-                    response.then(function (data){
-                        $('.prop-'+r_data.pid).html(r_data.html);
-                        showMessage('success', 10000, 'Success! The vote has been submitted.');
-                        checkProposalState(r_data.pid,r_data.vote);
-                    });
-                }
-                else {
-                    if(data.element) {
-                        $('#' + data.element).addClass('form-control-lg error');
-                        $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+        checkSolanaAccount().then(function (response) {
+            if (response == true) {
+
+                $.ajax({
+                    url: 'vote-proposal?pid=' + ele.data("pid") + '&vote=' + ele.data("vote"),
+                    dataType: 'json',
+                    beforeSend: function () {
+                        showMessage('success', 10000, 'Initializing wallet signing process...');
+                    },
+                    success: function (data) {
+                        if (data.success == true) {
+                            showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+                            const response = solanaProposalTransaction(data.api_response);
+                            const r_data = data;
+                            response.then(function (data) {
+                                $('.prop-' + r_data.pid).html(r_data.html);
+                                showMessage('success', 10000, 'Success! The vote has been submitted.');
+                                checkProposalState(r_data.pid, r_data.vote);
+                            });
+                        } else {
+                            if (data.element) {
+                                $('#' + data.element).addClass('form-control-lg error');
+                                $('<label class="error">' + data.msg + '</label>').insertAfter('#' + data.element);
+                            } else
+                                showMessage('danger', 10000, data.msg);
+                        }
                     }
-                    else
-                        showMessage('danger', 10000, data.msg);
-                }
+                });
             }
         });
     });
@@ -472,25 +476,28 @@
             }
         },
         submitHandler: function(form) {
-            $(form).ajaxSubmit({
-                type: 'post',
-                dataType: 'json',
-                beforeSend: function () {
-                    $('#e_btn_cancel').prop('disabled', true);
-                    $('#e_btn_save').prop('disabled', true);
-                    showMessage('success', 10000, 'Updating...');
-                },
-                success: function(data) {
-                    $('#editSteward').modal('toggle');
-                    if (data.success == true) {
-                        $('#e_btn_cancel').prop('disabled', false);
-                        $('#e_btn_save').prop('disabled', false);
-                        $('.stew-'+data.e_steward_id+' a').data('sname',data.e_display_name);
-                        $('.stew-'+data.e_steward_id+' span').text(data.e_display_name);
-                        showMessage('success',10000,'Success! Steward has been updated.');
-                    }
-                    else
-                        showMessage('danger',10000,'Error! Could not update the quorum, please try again later.');
+            checkSolanaAccount().then(function (response) {
+                if (response == true) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('#e_btn_cancel').prop('disabled', true);
+                            $('#e_btn_save').prop('disabled', true);
+                            showMessage('success', 10000, 'Updating...');
+                        },
+                        success: function (data) {
+                            $('#editSteward').modal('toggle');
+                            if (data.success == true) {
+                                $('#e_btn_cancel').prop('disabled', false);
+                                $('#e_btn_save').prop('disabled', false);
+                                $('.stew-' + data.e_steward_id + ' a').data('sname', data.e_display_name);
+                                $('.stew-' + data.e_steward_id + ' span').text(data.e_display_name);
+                                showMessage('success', 10000, 'Success! Steward has been updated.');
+                            } else
+                                showMessage('danger', 10000, 'Error! Could not update the quorum, please try again later.');
+                        }
+                    });
                 }
             });
         }
@@ -499,41 +506,42 @@
     $('#quorumForm').validate({
         rules: {},
         submitHandler: function(form) {
-            $(form).ajaxSubmit({
-                type: 'post',
-                dataType: 'json',
-                beforeSend: function () {
-                    $('#btn_q_cancel').prop('disabled', true);
-                    $('#btn_q_save').prop('disabled', true);
-                    showMessage('success', 10000, 'Creating a new proposal...');
-                },
-                success: function(data) {
-                    $('#ModalChange').modal('toggle');
-                    $('#btn_q_cancel').prop('disabled', false);
-                    $('#btn_q_save').prop('disabled', false);
+            checkSolanaAccount().then(function (response) {
+                if (response == true) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('#btn_q_cancel').prop('disabled', true);
+                            $('#btn_q_save').prop('disabled', true);
+                            showMessage('success', 10000, 'Creating a new proposal...');
+                        },
+                        success: function (data) {
+                            $('#ModalChange').modal('toggle');
+                            $('#btn_q_cancel').prop('disabled', false);
+                            $('#btn_q_save').prop('disabled', false);
 
-                    if (data.success == true) {
-                        if(data.blockchain == 'solana' || data.blockchain == 'solflare') {
-                            showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
-                            const response =  solanaProposalTransaction(data.api_response);
-                            const r_data   = data;
-                            response.then(function (data){
-                                checkProposalState(r_data.pid);
-                                $("#quorum_list").append(r_data.html);
-                                $("#quorum_list").removeClass('d-none');
-                                showMessage('success', 10000, 'Success! A proposal for a new quorum has been added.');
-                            });
-                        }
-                        else {
-                            $('#steward_percentage').html(data.percentage);
-                            $("#steward_range").attr({"max": data.max});
-                            $("#max_label").html(data.max);
+                            if (data.success == true) {
+                                if (data.blockchain == 'solana' ) {
+                                    showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+                                    const response = solanaProposalTransaction(data.api_response);
+                                    const r_data = data;
+                                    response.then(function (data) {
+                                        checkProposalState(r_data.pid);
+                                        $("#quorum_list").append(r_data.html);
+                                        $("#quorum_list").removeClass('d-none');
+                                        showMessage('success', 10000, 'Success! A proposal for a new quorum has been added.');
+                                    });
+                                } else {
+                                    $('#steward_percentage').html(data.percentage);
+                                    $("#max_label").html(data.max);
 
-                            showMessage('success', 10000, 'Success! The quorum has been updated.');
+                                    showMessage('success', 10000, 'Success! The quorum has been updated.');
+                                }
+                            } else
+                                showMessage('danger', 10000, data.msg);
                         }
-                    }
-                    else
-                        showMessage('danger',10000,data.msg);
+                    });
                 }
             });
         }
@@ -542,34 +550,36 @@
     $('#user-deleteForm').validate({
         rules: {},
         submitHandler: function(form) {
-            $(form).ajaxSubmit({
-                type: 'post',
-                dataType: 'json',
-                beforeSend: function () {
-                    //showMessage('success', 10000, 'Initializing wallet signing process...');
-                    showMessage('success', 10000, 'Creating a new proposal...');
-                },
-                success: function(data) {
-                    $('#delMember').modal('toggle');
-                    if (data.success == true) {
+            checkSolanaAccount().then(function (response) {
+                if (response == true) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            //showMessage('success', 10000, 'Initializing wallet signing process...');
+                            showMessage('success', 10000, 'Creating a new proposal...');
+                        },
+                        success: function (data) {
+                            $('#delMember').modal('toggle');
+                            if (data.success == true) {
 
-                        if(data.blockchain == 'solana') {
-                            showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
-                            const response =  solanaProposalTransaction(data.api_response);
-                            const r_data   = data;
-                            response.then(function (data){
-                                checkProposalState(r_data.pid);
-                                $('#pending_steward_list').append(r_data.html);
-                                showMessage('success',10000,'Success! The remove steward proposal has been added.');
-                            });
+                                if (data.blockchain == 'solana' ) {
+                                    showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+                                    const response = solanaProposalTransaction(data.api_response);
+                                    const r_data = data;
+                                    response.then(function (data) {
+                                        checkProposalState(r_data.pid);
+                                        $('#pending_steward_list').append(r_data.html);
+                                        showMessage('success', 10000, 'Success! The remove steward proposal has been added.');
+                                    });
+                                } else {
+                                    $('.stew-' + data.stew_id).remove();
+                                    showMessage('success', 10000, 'Success! The selected steward has been removed.');
+                                }
+                            } else
+                                showMessage('danger', 10000, data.msg);
                         }
-                        else {
-                            $('.stew-' + data.stew_id).remove();
-                            showMessage('success',10000,'Success! The selected steward has been removed.');
-                        }
-                    }
-                    else
-                        showMessage('danger',10000,data.msg);
+                    });
                 }
             });
         }
@@ -585,56 +595,58 @@
             }
         },
         submitHandler: function(form) {
-            $(form).ajaxSubmit({
-                type: 'post',
-                dataType: 'json',
-                beforeSend: function () {
-                    $('#btn_cancel').prop('disabled', true);
-                    $('#btn_save').prop('disabled', true);
-                    $('#nickname').prop('disabled', true);
-                    $('#wallet_address').prop('disabled', true);
-                    /*showMessage('success', 10000, 'Initializing wallet signing process...');*/
-                    showMessage('success', 10000, 'Creating a new proposal...');
-                },
-                success: function(data) {
-                    $('#addMember').modal('toggle');
-                    $('#btn_cancel').prop('disabled', false);
-                    $('#btn_save').prop('disabled', false);
-                    $('#nickname').prop('disabled', false);
-                    $('#wallet_address').prop('disabled', false);
-                    if (data.success == true) {
-                        if(data.blockchain == 'solana') {
-                            showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
-                            const response =  solanaProposalTransaction(data.api_response);
-                            const r_data   = data;
-                            response.then(function (data){
-                                checkProposalState(r_data.pid);
-                                $('#pending_steward_list').append(r_data.html);
-                                $('#nickname').val('');
-                                $('#wallet_address').val('');
-                                $('#percentage_change').addClass('disabled');
-                                showMessage('success', 10000, 'Success! A proposal for a new steward has been added.');
-                            });
-                        }
-                        else {
-                            $('#steward_list').append(data.html);
-                            $('#steward_percentage').html(data.percentage);
-                            $("#steward_range").attr({"max": data.max});
-                            $("#max_label").html(data.max);
-                            if (data.max > 1)
-                                $('#percentage_change').removeClass('d-none');
-                            else
-                                $('#percentage_change').addClass('d-none');
+            checkSolanaAccount().then(function (response){
+                if(response == true) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            checkSolanaAccount();
+                            $('#btn_cancel').prop('disabled', true);
+                            $('#btn_save').prop('disabled', true);
+                            $('#nickname').prop('disabled', true);
+                            $('#wallet_address').prop('disabled', true);
+                            /*showMessage('success', 10000, 'Initializing wallet signing process...');*/
+                            showMessage('success', 10000, 'Creating a new proposal...');
+                        },
+                        success: function (data) {
+                            $('#addMember').modal('toggle');
+                            $('#btn_cancel').prop('disabled', false);
+                            $('#btn_save').prop('disabled', false);
+                            $('#nickname').prop('disabled', false);
+                            $('#wallet_address').prop('disabled', false);
+                            if (data.success == true) {
+                                if (data.blockchain == 'solana' ) {
+                                    showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+                                    const response = solanaProposalTransaction(data.api_response);
+                                    const r_data = data;
+                                    response.then(function (data) {
+                                        checkProposalState(r_data.pid);
+                                        $('#pending_steward_list').append(r_data.html);
+                                        $('#nickname').val('');
+                                        $('#wallet_address').val('');
+                                        $('#percentage_change').addClass('disabled');
+                                        showMessage('success', 10000, 'Success! A proposal for a new steward has been added.');
+                                    });
+                                } else {
+                                    $('#steward_list').append(data.html);
+                                    $("#max_label").html(data.max);
+                                    if (data.max > 1)
+                                        $('#percentage_change').removeClass('d-none');
+                                    else
+                                        $('#percentage_change').addClass('d-none');
 
-                            $('#nickname').val('');
-                            $('#wallet_address').val('');
-                            showMessage('success', 10000, 'Success! A steward has been added to your community.');
+                                    $('#nickname').val('');
+                                    $('#wallet_address').val('');
+                                    showMessage('success', 10000, 'Success! A steward has been added to your community.');
+                                }
+                            } else
+                                showMessage('danger', 10000, data.msg);
                         }
-                    }
-                    else
-                        showMessage('danger',10000,data.msg);
+                    });
                 }
             });
+
         }
     });
 

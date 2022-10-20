@@ -11,13 +11,13 @@
                 <div class="fs-2 fw-semibold mb-22 mt-3">Connect your wallet to start a Lighthouse</div>
                 <ui class="list-wallet">
                     <li class="list-wallet-item rounded border">
-                        <a data-bc="solana" class="wallet_connect list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()"  href="#">
+                        <a class="wallet_connect list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount()"  href="#">
                             <span class="fs-3">Phantom</span>
                             <img src="<?php echo app_cdn_path; ?>img/phantom-logo.svg"  width="40" height="40" class="">
                         </a>
                     </li>
                     <li class="list-wallet-item rounded border">
-                        <a data-bc="solflare" class="wallet_connect list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount(true)"  href="#">
+                        <a class="wallet_connect list-wallet-item-link d-flex justify-content-between align-items-center text-decoration-none" onclick="getSolanaAccount(true)"  href="#">
                             <span class="fs-3">Solflare</span>
                             <img src="<?php echo app_cdn_path; ?>img/solflare-logo.svg"  width="40" height="40" class="">
                         </a>
@@ -90,10 +90,6 @@
             }
         });
     },400));
-
-    $(document).on("click",'.wallet_connect',function (e){
-        $('#blockchain_hidden').val($(this).data('bc'));
-    });
 
     $(document).on("keyup", '#dao_name', delay(function(event) {
         var dao_name = $(this).val();

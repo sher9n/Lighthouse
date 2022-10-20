@@ -47,7 +47,7 @@ class controller extends Ctrl {
                 $tags  = $this->hasParam('claim_tags')?$this->getParam('claim_tags'):'';
                 $tags  = is_array($tags)?implode(',',$tags):'';
 
-                if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE)
+                if($community->blockchain == SOLANA)
                     $api_response = api::addSolanaPoints($community->contract_name,$wallet_address,$ntts);
                 else
                     $api_response = api::addPoints(constant(strtoupper($community->blockchain).'_API'),$community->contract_name,$wallet_address,$ntts);
@@ -66,7 +66,7 @@ class controller extends Ctrl {
                     $claim->comunity_id = $community->id;
                     $claim->status = 1;
                     $claim->txHash = $api_response->txHash;
-                    if($community->blockchain != SOLANA && $community->blockchain != SOLFLARE)
+                    if($community->blockchain != SOLANA )
                         $claim->chainId = $api_response->chainId;
 
                     $id = $claim->insert();

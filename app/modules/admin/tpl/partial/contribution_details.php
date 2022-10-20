@@ -99,7 +99,7 @@
                 <div id="btn_row" class="col-12 text-end">
                     <?php
 
-                    if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE){
+                    if($community->blockchain == SOLANA ){
                         $p = \lighthouse\Proposal::get($contribution->proposal_id);
 
                         if($p instanceof \lighthouse\Proposal && ($p->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_SUCCEEDED || $p->proposal_state == \lighthouse\Proposal::PROPOSAL_STATE_EXECUTED)){
@@ -378,45 +378,49 @@
 
                     <?php if(strlen($contribution->proposal_state) < 1){ ?>
                         console.log("create proposal");
-                        $.ajax({
-                            url: 'contribution-status',
-                            dataType: 'json',
-                            data: review_data,
-                            type: 'POST',
-                            beforeSend: function () {
-                                $('#btn_deny').prop('disabled', true);
-                                $('#btn_approve').prop('disabled', true);
-                                <?php
-                                if(count($user_appproval_ids) == 0){ ?>
-                                    showMessage('success', 10000, 'Adding this claim as an on-chain record..');
-                                <?php
-                                } ?>
-                            },
-                            success: function (data) {
-                                if (data.success == true) {
-                                    if(data.blockchain == 'solana' || data.blockchain =='solflare')
-                                    {
-                                        if(data.api_response)
+                        checkSolanaAccount().then(function (response) {
+                            if (response == true) {
+                                $.ajax({
+                                url: 'contribution-status',
+                                dataType: 'json',
+                                data: review_data,
+                                type: 'POST',
+                                beforeSend: function () {
+                                    $('#btn_deny').prop('disabled', true);
+                                    $('#btn_approve').prop('disabled', true);
+                                    <?php
+                                    if(count($user_appproval_ids) == 0){ ?>
+                                        showMessage('success', 10000, 'Adding this claim as an on-chain record..');
+                                    <?php
+                                    } ?>
+                                },
+                                success: function (data) {
+                                    if (data.success == true) {
+                                        if(data.blockchain == 'solana' )
                                         {
-                                            showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+                                            if(data.api_response)
+                                            {
+                                                showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
 
-                                            solanaProposalTransaction(data.api_response).then((result) => {
+                                                solanaProposalTransaction(data.api_response).then((result) => {
 
-                                                review_data['p_id'] = data.p_id;
-                                                review_data['proposal'] = 1;
-                                                vote(review_data,c_id);
+                                                    review_data['p_id'] = data.p_id;
+                                                    review_data['proposal'] = 1;
+                                                    vote(review_data,c_id);
 
-                                            });
+                                                });
+                                            }
+                                        }
+                                        else
+                                        {
+                                            reviewContrubutionHtmlChange(data,c_id)
+                                            showMessage('success', 10000, data.message);
                                         }
                                     }
                                     else
-                                    {
-                                        reviewContrubutionHtmlChange(data,c_id)
-                                        showMessage('success', 10000, data.message);
-                                    }
+                                        showMessage('danger', 10000, data.msg);
                                 }
-                                else
-                                    showMessage('danger', 10000, data.msg);
+                            });
                             }
                         });
                     <?php }else{ ?>
@@ -424,7 +428,11 @@
                         review_data['p_id'] = '<?php echo $proposal_id; ?>';
                         $('#btn_deny').prop('disabled', true);
                         $('#btn_approve').prop('disabled', true);
-                        vote(review_data,c_id);
+                        checkSolanaAccount().then(function (response) {
+                            if (response == true) {
+                                vote(review_data, c_id);
+                            }
+                        });
                     <?php } ?>
                 }
                 else
@@ -438,76 +446,86 @@
             var review_data = {'con_id': c_id,'status':2};
 
             <?php if(strlen($contribution->proposal_state) < 1){ ?>
-                $.ajax({
-                    url: 'contribution-status',
-                    dataType: 'json',
-                    data: review_data,
-                    type: 'POST',
-                    beforeSend: function () {
-                        $('#btn_deny').prop('disabled', true);
-                        $('#btn_approve').prop('disabled', true);
-                        <?php
-                        if(count($user_appproval_ids) == 0){ ?>
-                        showMessage('success', 10000, 'Adding this claim as an on-chain record..');
-                        <?php
-                        } ?>
-                    },
-                    success: function (data) {
-                        if (data.success == true) {
-                            if(data.blockchain == 'solana' || data.blockchain == 'solflare')
-                            {
-                                if(data.api_response)
+                checkSolanaAccount().then(function (response) {
+                    if (response == true) {
+                        $.ajax({
+                        url: 'contribution-status',
+                        dataType: 'json',
+                        data: review_data,
+                        type: 'POST',
+                        beforeSend: function () {
+                            $('#btn_deny').prop('disabled', true);
+                            $('#btn_approve').prop('disabled', true);
+                            <?php
+                            if(count($user_appproval_ids) == 0){ ?>
+                            showMessage('success', 10000, 'Adding this claim as an on-chain record..');
+                            <?php
+                            } ?>
+                        },
+                        success: function (data) {
+                            if (data.success == true) {
+                                if(data.blockchain == 'solana' )
                                 {
-                                    showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+                                    if(data.api_response)
+                                    {
+                                        showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
 
-                                    solanaProposalTransaction(data.api_response).then((result) => {
+                                        solanaProposalTransaction(data.api_response).then((result) => {
 
-                                        review_data['p_id'] = data.p_id;
-                                        review_data['proposal'] = 1;
-                                        vote(review_data,c_id);
+                                            review_data['p_id'] = data.p_id;
+                                            review_data['proposal'] = 1;
+                                            vote(review_data,c_id);
 
-                                    });
+                                        });
+                                    }
+                                }
+                                else
+                                {
+                                    reviewContrubutionHtmlChange(data,c_id)
+                                    showMessage('success', 10000, data.message);
                                 }
                             }
                             else
-                            {
-                                reviewContrubutionHtmlChange(data,c_id)
-                                showMessage('success', 10000, data.message);
-                            }
+                                showMessage('danger', 10000, data.msg);
                         }
-                        else
-                            showMessage('danger', 10000, data.msg);
+                    });
                     }
                 });
             <?php }else{ ?>
                 review_data['p_id'] = '<?php echo $proposal_id; ?>';
                 $('#btn_deny').prop('disabled', true);
                 $('#btn_approve').prop('disabled', true);
-                vote(review_data,c_id);
+                checkSolanaAccount().then(function (response) {
+                    if (response == true) {
+                        vote(review_data, c_id);
+                    }
+                });
             <?php } ?>
         });
 
         $('.log_proposal_execute').click(function (e){
             e.preventDefault();
             var ele = $(this);
+            checkSolanaAccount().then(function (response) {
+                if (response == true) {
+                    $.ajax({
+                        url: 'execute-log-proposal?pid=' + ele.data("pid"),
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $(".log_proposal_execute").addClass('disabled');
+                            showMessage('success', 10000, 'Attesting claim...');
+                        },
+                        success: function (data) {
+                            if (data.success == true) {
+                                $('.msg-' + data.c_id).remove();
+                                $(data.html).insertAfter("#cq_item_title_" + data.c_id);
 
-            $.ajax({
-                url: 'execute-log-proposal?pid='+ele.data("pid"),
-                dataType: 'json',
-                beforeSend: function () {
-                    $(".log_proposal_execute").addClass('disabled');
-                    showMessage('success', 10000, 'Attesting claim...');
-                },
-                success: function(data) {
-                    if (data.success == true){
-                        $('.msg-'+data.c_id).remove();
-                        $(data.html).insertAfter("#cq_item_title_"+data.c_id);
-
-                        showMessage('success',10000,'Success! The proposal has been executed.');
-                        //reviewContrubutionHtmlChange(data,data.c_id)
-                    }
-                    else
-                        showMessage('danger', 10000, data.msg);
+                                showMessage('success', 10000, 'Success! The proposal has been executed.');
+                                //reviewContrubutionHtmlChange(data,data.c_id)
+                            } else
+                                showMessage('danger', 10000, data.msg);
+                        }
+                    });
                 }
             });
         });

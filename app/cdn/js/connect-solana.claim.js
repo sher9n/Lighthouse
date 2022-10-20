@@ -14,8 +14,10 @@ function getSolanaAccount() {
     getProvider().then(provider => {
         if(provider) {
             selectedAccount = provider.publicKey.toString();
+
             sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
             document.querySelector("#wallet_address").value = selectedAccount;
+
             if (sessionStorage.getItem('lh_wallet_adds')) {
                 var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
                 if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {

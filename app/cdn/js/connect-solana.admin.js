@@ -1,12 +1,24 @@
 
 const getProvider = async () => {
-    if ("solana" in window) {
-        await window.solana.connect(); // opens wallet to connect to
-        const provider = window.solana;
-        return provider;
-    } else {
-        console.log("No Solana wallet detected. Redirecting to Phantom.");
-        window.open("https://www.phantom.app/", "_blank");
+
+    if(sessionStorage.getItem('lh_wallet') && sessionStorage.getItem('lh_wallet')=='solflare'){
+        if ("solflare" in window) {
+            await window.solflare.connect();
+            const provider = window.solflare;
+            return provider;
+        }
+        else
+            window.open("https://solflare.com/", "_blank");
+    }
+    else
+    {
+        if ("solana" in window) {
+            await window.solana.connect();
+            const provider = window.solana;
+            return provider;
+        }
+        else
+            window.open("https://www.phantom.app/", "_blank");
     }
 };
 
@@ -44,7 +56,15 @@ window.solana.on('accountChanged', (publicKey) => {
     }
 });
 
-function getSolanaAccount(update=true) {
+async function getSolanaAccount (solflare=false){
+
+    update = false;
+
+    if(solflare==true)
+        sessionStorage.setItem("lh_wallet",'solflare');
+    else
+        sessionStorage.setItem("lh_wallet",'phantom');
+
     getProvider().then(provider => {
         if(provider) {
             selectedAccount = provider.publicKey.toString();
@@ -60,12 +80,47 @@ function getSolanaAccount(update=true) {
             else
                 sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
 
-            if(update == true)
-                updateWalletMenu();
+            updateWalletMenu();
+
+            return true;
         }
-    }).catch(function(error) {
-        console.log(error)
     });
+}
+
+const checkSolanaAccount = async () => {
+
+    update = false;
+
+    var provider = await getProvider();
+
+    if(provider) {
+        selectedAccount = provider.publicKey.toString();
+
+        if(sessionStorage.getItem('lh_sel_wallet_add') != selectedAccount) {
+            update = true;
+            showMessage('warning', 10000, 'Changing the wallet...');
+            sessionStorage.removeItem('lh_wallet_adds');
+            sessionStorage.setItem("lh_sel_wallet_add", selectedAccount);
+        }
+
+        if (sessionStorage.getItem('lh_wallet_adds')) {
+            var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
+            if (jQuery.inArray(selectedAccount, lh_wallet_adds) == -1) {
+                lh_wallet_adds.push(selectedAccount);
+                sessionStorage.setItem("lh_wallet_adds", JSON.stringify(lh_wallet_adds));
+            }
+        }
+        else
+            sessionStorage.setItem("lh_wallet_adds", JSON.stringify([selectedAccount]));
+
+        if(update == true)
+            updateWalletMenu(false);
+
+        if(update == false)
+            return true;
+        else
+            return false;
+    }
 }
 
 async function addSolanaWallet() {
@@ -92,7 +147,7 @@ async function solanaProposalTransaction(proposalResponse) {
     var provider     = await getProvider();
     var connection   = getConnection();
     const signedTxn  = await provider.signTransaction(txn);
-    const sig = await solanaWeb3.sendAndConfirmRawTransaction(connection,signedTxn.serialize());
+    const sig        = await solanaWeb3.sendAndConfirmRawTransaction(connection,signedTxn.serialize());
     return sig;
 }
 
@@ -125,7 +180,7 @@ const getConnection = () => {
     return connection;
 };
 
-async function updateWalletMenu() {
+async function updateWalletMenu(login=true) {
     var lh_wallet_adds = JSON.parse(sessionStorage.getItem('lh_wallet_adds'));
     var sel_wallet_add = sessionStorage.getItem('lh_sel_wallet_add');
     var data = {'adds': lh_wallet_adds, 'sel_add': sel_wallet_add};
@@ -138,7 +193,10 @@ async function updateWalletMenu() {
         success: function (response) {
             if (response.success == true) {
                 sessionStorage.setItem("lh_wallet_role",response.user_role);
-                window.location = 'contribution';
+                if(login != true)
+                    location.reload();
+                else
+                    window.location = 'contribution';
             }
             else {
                 sessionStorage.removeItem('lh_wallet_role');

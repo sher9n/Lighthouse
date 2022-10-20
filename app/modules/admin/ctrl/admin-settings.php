@@ -41,7 +41,7 @@ class controller extends Ctrl {
                 exit();
             }
             elseif (__ROUTER_PATH == '/gas_tank_balance' ) {
-                if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE) {
+                if($community->blockchain == SOLANA) {
                     $balance = Api::getSolanaGasTankBalance(constant(strtoupper($community->blockchain) . '_API'), $community->contract_name);
                     if(is_null($balance))
                         $balance = 0;

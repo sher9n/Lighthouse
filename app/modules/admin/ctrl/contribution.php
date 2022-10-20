@@ -121,7 +121,7 @@ class controller extends Ctrl {
                     $contribusion->max_point   = $form->max_point;
                     $contribusion->scoring     = $form->scoring;
                     $contribusion->approval_type       = $form->approval_type;
-                    $contribusion->approval_count      = $community->approval_count;
+                    $contribusion->quorum_percent      = $community->quorum_percent;
                     $contribusion->contribution_reason = current($post);
 
                     if($form->approval_type == 2)

@@ -49,15 +49,11 @@
 <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/web3/index.min.js"></script>
 <script type="application/javascript" src="<?php echo local_cdn_path; ?>js/web3/ethers-5.2.umd.min.js" ></script>
 <script src="<?php echo local_cdn_path; ?>js/web3/web3.min.js"></script>
-<?php if($__page->blockchain == SOLANA){ ?>
+<?php if($__page->blockchain == SOLANA ){ ?>
     <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solana.admin.js"></script>
-<?php }elseif($__page->blockchain == SOLFLARE){ ?>
-    <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/connect-solflare.admin.js"></script>
 <?php }else{ ?>
     <script type="text/javascript" src="<?php echo local_cdn_path; ?>js/wallet.connect.admin.js"></script>
 <?php } ?>
-
-
 <!--intercom custom scripts-->
 <!--<script type="text/javascript" src="<?php /*echo local_cdn_path; */?>js/intercom-style.js"></script>-->
 <?php
@@ -141,30 +137,34 @@
         e.preventDefault();
         var ele = $(this);
         var consent = ele.data('consent');
-        $.ajax({
-            url: 'ntt-consent',
-            dataType: 'json',
-            data: {'wallet_address':selectedAccount,'consent':consent},
-            type: 'post',
-            beforeSend: function () {
-                showMessage('success', 10000, 'Please sign the transaction to record your consent.');
-            },
-            success: function(data) {
-                if (data.success == true){
-                    var user_id = data.user_id;
-                    if(data.api_response) {
-                        showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
-                        const response = solanaProposalTransaction(data.api_response);
-                        response.then(function (d) {
-                            updateUserConsent(data.user_id);
-                            $("#consent_div").addClass('d-none');
-                            $("#li_ntt_consent").remove();
-                            showMessage('success', 10000, 'Success! You will start receiving NTTs to your wallet.');
-                        });
+
+        checkSolanaAccount().then(function (response) {
+            if (response == true) {
+                $.ajax({
+                    url: 'ntt-consent',
+                    dataType: 'json',
+                    data: {'wallet_address': selectedAccount, 'consent': consent},
+                    type: 'post',
+                    beforeSend: function () {
+                        showMessage('success', 10000, 'Please sign the transaction to record your consent.');
+                    },
+                    success: function (data) {
+                        if (data.success == true) {
+                            var user_id = data.user_id;
+                            if (data.api_response) {
+                                showMessage('warning', 10000, 'Waiting for on-chain confirmation...');
+                                const response = solanaProposalTransaction(data.api_response);
+                                response.then(function (d) {
+                                    updateUserConsent(data.user_id);
+                                    $("#consent_div").addClass('d-none');
+                                    $("#li_ntt_consent").remove();
+                                    showMessage('success', 10000, 'Success! You will start receiving NTTs to your wallet.');
+                                });
+                            }
+                        } else
+                            showMessage('danger', 10000, data.msg);
                     }
-                }
-                else
-                    showMessage('danger', 10000, data.msg);
+                });
             }
         });
     });
@@ -176,11 +176,4 @@
         });
     }
 
-    $(document).ready(function() {
-       <?php
-        if(__ROUTER_PATH != '/admin'){ ?>
-            getSolanaAccount(false);
-            <?php
-        } ?>
-    });
 </script>

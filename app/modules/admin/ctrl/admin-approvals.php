@@ -130,16 +130,6 @@ class controller extends Ctrl {
                             $contribution->update();
                         }
 
-
-                        /*$approval = new Approval();
-                        $approval->approval_by      = $sel_wallet_adr;
-                        $approval->contribution_id  = $contribution->id;
-                        $approval->approval         = json_encode($post);
-                        $approval->approval_type    = $contribution->approval_type;
-                        $approval->comunity_id      = $contribution->comunity_id;
-                        $approval->approval_status  = $app_status;
-                        $approval_id = $approval->insert();*/
-
                         echo json_encode(array('success' => true,
                             'update' => $update,
                             'c_id' => $contribution->id,
@@ -318,12 +308,6 @@ class controller extends Ctrl {
                                 $v->vote         = $vote;
                                 $v->proposal_id  = $proposal->id;
                                 $v->insert();
-                                /*if($vote =='YES')
-                                    $proposal->proposal_yes_count = (int)$proposal->proposal_yes_count + 1;
-                                else
-                                    $proposal->proposal_no_count = (int)$proposal->proposal_no_count + 1;
-
-                                $proposal->update();*/
                             }
 
                             echo json_encode(array('success' => true,'api_response' => $api_response,'pid' => $proposal->id,'aid' => $approval_id,'msg' => 'Attesting contribution...'));

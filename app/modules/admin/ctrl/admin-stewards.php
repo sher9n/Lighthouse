@@ -55,7 +55,7 @@ class controller extends Ctrl {
                         $steward      = new Steward();
                         $api_response = null;
 
-                        if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE) {
+                        if($community->blockchain == SOLANA) {
 
                             $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_API"),$community->contract_name,$wallet_address,$sel_wallet_adr);
 
@@ -88,7 +88,6 @@ class controller extends Ctrl {
 
                                 $user_votes     = array();
                                 $stewardCount   = $community->getStewards(true);
-                                $approval_count = $community->approval_count;
                                 $html = '<div class="mb-8"><div class="prop-'.$pid.' d-flex align-items-center justify-content-between">';
                                 include __DIR__ . '/../tpl/partial/admin_proposal_line.php';
                                 $html.= ob_get_clean();
@@ -121,9 +120,15 @@ class controller extends Ctrl {
                         $log->insert();
 
                         $c = $community->getStewards(true);
-                        $percentage = '<div class="fs-1"><?php echo $__page->'.$community->approval_count.'</div><div class="fs-2">/'.$c.'</div>';
 
-                        echo json_encode(array('success' => true,'api_response' => $api_response,'pid'=>$pid,'blockchain' => $community->blockchain,'html' => $html,'percentage' => $percentage,'max' => $c));
+                        echo json_encode(array(
+                            'success' => true,
+                            'api_response' => $api_response,
+                            'pid'=>$pid,
+                            'blockchain' => $community->blockchain,
+                            'html' => $html,
+                            'max' => $c)
+                        );
 
                     } catch (Exception $e) {
                         $msg = explode(':', $e->getMessage());
@@ -192,7 +197,7 @@ class controller extends Ctrl {
                             exit();
                         }
 
-                        if ($community->blockchain == SOLANA || $community->blockchain == SOLFLARE) {
+                        if ($community->blockchain == SOLANA ) {
 
                             $api_response = api::addSolanaAdminProposal(constant(strtoupper(SOLANA) . "_API"), $community->contract_name, $wallet_address, $sel_wallet_adr, 'REMOVE');
 
@@ -221,7 +226,6 @@ class controller extends Ctrl {
 
                                 $user_votes     = array();
                                 $stewardCount   = $community->getStewards(true);
-                                $approval_count = $community->approval_count;
                                 $html = '<div class="mb-8"><div class="prop-'.$pid.' d-flex align-items-center justify-content-between">';
                                 include __DIR__ . '/../tpl/partial/admin_proposal_line.php';
                                 $html.= ob_get_clean();
@@ -240,11 +244,11 @@ class controller extends Ctrl {
                     if($this->hasParam('range') && $this->getParam('range') > 0) {
                         $quorum_percent = $this->getParam('range');
 
-                        if ($community->blockchain != SOLANA && $community->blockchain != SOLFLARE) {
+                        if ($community->blockchain != SOLANA) {
                             $community->quorum_percent = $quorum_percent;
                             $community->update();
                             $c = $community->getStewards(true);
-                            $percentage = '<div class="fs-1"><?php echo $__page->' . $community->approval_count . '</div><div class="fs-2">/' . $c . '</div>';
+                            $percentage = '<div class="fs-1"><?php echo $__page->' . $community->quorum_percent . '%</div>';
                             echo json_encode(array('success' => true, 'percentage' => $percentage, 'max' => $c,'blockchain' => $community->blockchain));
                         }
                         else {
@@ -318,27 +322,17 @@ class controller extends Ctrl {
                                 exit();
                             }
                             else {
-       /*                         $v = new Vote();
-                                $v->wallet_adr   = $sel_wallet_adr;
-                                $v->comunity_id  = $community->id;
-                                $v->vote         = $vote;
-                                $v->proposal_id  = $proposal->id;
-                                $v->confirmed    = 0;
-                                $vid = $v->insert();*/
 
                                 if($vote =='YES')
                                     $proposal->proposal_yes_count = (int)$proposal->proposal_yes_count + 1;
                                 else
                                     $proposal->proposal_no_count = (int)$proposal->proposal_no_count + 1;
 
-                                //$proposal->update();
                             }
 
                             $user_votes     = array($pid => $vote);//Vote::getUserVotes($sel_wallet_adr,$community->id);
                             $stewardCount   = $community->getStewards(true);
-                            $approval_count = $community->approval_count;
                             $qdata          = json_decode($proposal->proposal_data);
-                            $quorum_percent = $community->quorum_percent;
 
                             if($proposal->object_name == Vote::V_TYPE_QUORUM) {
                                 $qid  = $pid;
@@ -351,7 +345,7 @@ class controller extends Ctrl {
                                 $html    = ob_get_clean();
                             }
 
-                            echo json_encode(array('success' => true,'api_response' => $api_response,'pid' => $proposal->id,'html' => $html,'vote'=>$vote));
+                            echo json_encode(array('success' => true,'api_response' => $api_response,'pid' => $proposal->id,'blockchain' => $community->blockchain,'html' => $html,'vote'=>$vote));
                         }
                     } catch (Exception $e) {
                         $msg = explode(':', $e->getMessage());
@@ -449,8 +443,17 @@ class controller extends Ctrl {
 
                                 echo json_encode(array('success' => true, 'pid' => $proposal->id));
                             }
-                            else
+                            else {
+                                $log = new Log();
+                                $log->type   = 'Stewards-R';
+                                $log->log    = serialize($api_response->error);
+                                $log->c_by   = $steward->wallet_adr;
+                                $log->action = 'execute-failed';
+                                $log->insert();
+
                                 echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
+                            }
+
                         }
                         else {
 
@@ -468,8 +471,17 @@ class controller extends Ctrl {
 
                                 echo json_encode(array('success' => true, 'pid' => $proposal->id));
                             }
-                            else
+                            else {
+
+                                $log = new Log();
+                                $log->type   = 'Stewards-A';
+                                $log->log    = serialize($api_response->error);
+                                $log->c_by   = $steward->wallet_adr;
+                                $log->action = 'execute-failed';
+                                $log->insert();
+
                                 echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
+                            }
 
                         }
                     }
@@ -490,13 +502,22 @@ class controller extends Ctrl {
                             $proposal->update();
 
                             $qdata = json_decode($proposal->proposal_data);
-                            $community->approval_count  = $qdata->c;
+                            $community->quorum_percent  = $qdata->p;
                             $community->update();
 
                             echo json_encode(array('success' => true,'pid' => $proposal->id));
                         }
-                        else
+                        else {
+
+                            $log = new Log();
+                            $log->type   = 'Quorum';
+                            $log->log    = serialize($api_response->error);
+                            $log->c_by   = $proposal->id;
+                            $log->action = 'execute-failed';
+                            $log->insert();
+
                             echo json_encode(array('success' => false, 'msg' => 'something went wrong please try again'));
+                        }
                     }
                     break;
             }
@@ -520,7 +541,7 @@ class controller extends Ctrl {
             $allStewards  = $community->getStewards();
             $stewardCount = count($allStewards);
 
-            if($community->blockchain == SOLANA || $community->blockchain == SOLFLARE) {
+            if($community->blockchain == SOLANA) {
                 $api_response = api::getSolanaCommunity(constant(strtoupper(SOLANA) . "_API"), $community->contract_name);
 
                 if (!isset($api_response->error)) {
