@@ -5,6 +5,19 @@ import "@opengsn/packages/contracts/src/ERC2771Recipient.sol";
 import "./NTT.sol";
 
 /** 
+    It saves bytecode to revert on custom errors instead of using require
+	statements.
+*/
+error Unauthorized();
+error CommunityAlreadyExists();
+error InvalidCommunityToCreateToken();
+error InvalidProposalId();
+error ProposalAlreadyFinshed();
+error ProposalIsGoingOn();
+error ProposalVoteTimeEnded();
+error SameDecisionAlreadyStored();
+
+/** 
     @title The Lighthouse contract
     @author SusheendharVijay
     @author Mikhail Rozalenok
@@ -133,13 +146,19 @@ contract LighthouseV2 is ERC2771Recipient {
     ///////////////////////////////////////////////////////////////
 
     modifier onlySteward(string calldata name) {
-        require(isSteward[name][_msgSender()], "UNAUTHORIZED");
+        if (!isSteward[name][_msgSender()]) {
+            revert Unauthorized();
+        }
         _;
     }
 
     ///////////////////////////////////////////////////////////////
     //  LOGIC
     ///////////////////////////////////////////////////////////////
+
+    constructor(address trustedForwarder) {
+        _setTrustedForwarder(trustedForwarder);
+    }
 
     function create(
         string calldata name,
@@ -148,16 +167,19 @@ contract LighthouseV2 is ERC2771Recipient {
         uint8 tokenDecimals,
         address firstSteward,
         uint256 durationOfProposal,
-        uint256 quorumToReject,
-        address trustedForwarder
+        uint256 quorumToReject
     ) external {
-        require(nameToCommunityToken[name] == address(0), "ALREADY_EXISTS");
+        if (nameToCommunityToken[name] != address(0)) {
+            revert CommunityAlreadyExists();
+        }
         NTT token = new NTT(tokenName, tokenSymbol, tokenDecimals);
 
         nameToCommunityToken[name] = address(token);
 
         isSteward[name][firstSteward] = true;
-        numberOfAdmins[name]++;
+        unchecked {
+            numberOfAdmins[name]++;
+        }
 
         ProposalConfig memory newConfig = ProposalConfig({
             durationOfProposal: durationOfProposal,
@@ -165,8 +187,6 @@ contract LighthouseV2 is ERC2771Recipient {
         });
 
         nameToProposalConfig[name] = newConfig;
-
-        _setTrustedForwarder(trustedForwarder);
 
         emit CommunityCreated(name);
     }
@@ -177,12 +197,16 @@ contract LighthouseV2 is ERC2771Recipient {
         uint256 durationOfProposal,
         uint256 quorumToReject
     ) external {
-        require(nameToCommunityToken[name] == address(0), "ALREADY_EXISTS");
+        if (nameToCommunityToken[name] != address(0)) {
+            revert CommunityAlreadyExists();
+        }
 
         nameToCommunityToken[name] = uninitializedToken;
 
         isSteward[name][firstSteward] = true;
-        numberOfAdmins[name]++;
+        unchecked {
+            numberOfAdmins[name]++;
+        }
 
         ProposalConfig memory newConfig = ProposalConfig({
             durationOfProposal: durationOfProposal,
@@ -200,10 +224,9 @@ contract LighthouseV2 is ERC2771Recipient {
         string calldata tokenSymbol,
         uint8 tokenDecimals
     ) external {
-        require(
-            nameToCommunityToken[name] == uninitializedToken,
-            "WRONG_COMMUNITY"
-        );
+        if (nameToCommunityToken[name] != uninitializedToken) {
+            revert InvalidCommunityToCreateToken();
+        }
         NTT token = new NTT(tokenName, tokenSymbol, tokenDecimals);
         nameToCommunityToken[name] = address(token);
     }
@@ -256,26 +279,30 @@ contract LighthouseV2 is ERC2771Recipient {
     }
 
     // function voteFrom(string calldata _communityName, address _from, uint256 _proposalId, bool _newDecision) external {
-    //     require(_from != address(0), "voter address can't be zero");
-    //     require(delegated[_communityName][_proposalId][_from][_msgSender()], "must be delegated");
+    //     if (_from == address(0)) {
+    //         revert AddressZero();
+    //     }
+    //     if (!delegated[_communityName][_proposalId][_from][_msgSender()]) {
+    //         revert NoRightsToVoteFrom();
+    //     }
     //     _vote(_communityName, _from, _proposalId, _newDecision);
     // }
 
     function finishProposal(string calldata _communityName, uint256 _proposalId)
         external
     {
-        require(
-            communityProposals[_communityName].length > _proposalId,
-            "wrong proposal ID"
-        );
+        if (communityProposals[_communityName].length <= _proposalId) {
+            revert InvalidProposalId();
+        }
         Proposal storage proposal = communityProposals[_communityName][
             _proposalId
         ];
-        require(
-            proposal.state == ProposalState.UNFINISHED,
-            "proposal already finished"
-        );
-        require(block.timestamp >= proposal.end, "Proposal is going on");
+        if (proposal.state != ProposalState.UNFINISHED) {
+            revert ProposalAlreadyFinshed();
+        }
+        if (block.timestamp < proposal.end) {
+            revert ProposalIsGoingOn();
+        }
 
         // check quorum
         uint16 rejectedNumber = numberOfAdmins[_communityName] -
@@ -295,16 +322,28 @@ contract LighthouseV2 is ERC2771Recipient {
             uint256 proposalType = (uint256(parsedData) << 254) >> 254;
             if (proposalType == uint256(ProposalType.CHANGE_ADMIN)) {
                 if ((parsedData << 253) >> 255 == 1) {
-                    isSteward[_communityName][
-                        address(uint160(parsedData >> 96))
-                    ] = true;
-                    numberOfAdmins[_communityName]++;
-                    // emit StewardAdded(_communityName, address(uint160(parsedData >> 2)));
+                    if (
+                        !isSteward[_communityName][
+                            address(uint160(parsedData >> 96))
+                        ]
+                    ) {
+                        isSteward[_communityName][
+                            address(uint160(parsedData >> 96))
+                        ] = true;
+                        numberOfAdmins[_communityName]++;
+                        // emit StewardAdded(_communityName, address(uint160(parsedData >> 2)));
+                    }
                 } else {
-                    isSteward[_communityName][
-                        address(uint160(parsedData >> 96))
-                    ] = false;
-                    numberOfAdmins[_communityName]--;
+                    if (
+                        isSteward[_communityName][
+                            address(uint160(parsedData >> 96))
+                        ]
+                    ) {
+                        isSteward[_communityName][
+                            address(uint160(parsedData >> 96))
+                        ] = false;
+                        numberOfAdmins[_communityName]--;
+                    }
                     // emit StewardRevoked(_communityName, address(uint160(parsedData >> 2)));
                 }
             } else if (proposalType == uint256(ProposalType.CHANGE_QUORUM)) {
@@ -344,8 +383,12 @@ contract LighthouseV2 is ERC2771Recipient {
     }
 
     // function delegate(string calldata _communityName, uint256 _proposalId, address _spender) external returns (bool) {
-    //     require(_spender != address(0), "recipient address can't be zero");
-    //     require(communityProposals[_communityName].length > _proposalId, "wrong proposal ID");
+    //     if (_spender == address(0)) {
+    //          revert AddressZero();
+    //     }
+    //     if (communityProposals[_communityName].length <= _proposalId) {
+    //         revert InvalidProposalId();
+    //     }
     //     _delegate(_communityName, _proposalId, _msgSender(), _spender);
     //     return true;
     // }
@@ -356,16 +399,19 @@ contract LighthouseV2 is ERC2771Recipient {
         uint256 _proposalId,
         bool _newDecision
     ) internal {
-        require(
-            communityProposals[_communityName].length > _proposalId,
-            "wrong proposal ID"
-        );
+        if (communityProposals[_communityName].length <= _proposalId) {
+            revert InvalidProposalId();
+        }
         Proposal storage proposal = communityProposals[_communityName][
             _proposalId
         ];
-        require(block.timestamp < proposal.end, "you can't vote now");
+        if (block.timestamp >= proposal.end) {
+            revert ProposalVoteTimeEnded();
+        }
         bool decision = votes[_communityName][_proposalId][_voter];
-        require(_newDecision != decision, "your vote already stored");
+        if (_newDecision == decision) {
+            revert SameDecisionAlreadyStored();
+        }
 
         unchecked {
             if (!_newDecision) {

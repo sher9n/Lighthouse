@@ -7,7 +7,7 @@ import "../src/NTT.sol";
 import "./Events.sol";
 
 contract LighthouseV2Test is Test, Events {
-    LighthouseV2 lighthouse = new LighthouseV2();
+    LighthouseV2 lighthouse = new LighthouseV2(address(0));
     address constant steward = address(0xbabe);
     address constant normie = address(0xb0b);
 
@@ -22,8 +22,7 @@ contract LighthouseV2Test is Test, Events {
             18,
             steward,
             1 days,
-            1,
-            address(0)
+            1
         );
     }
 
@@ -39,7 +38,7 @@ contract LighthouseV2Test is Test, Events {
     }
 
     function testCreateDup() public {
-        vm.expectRevert("ALREADY_EXISTS");
+        vm.expectRevert(bytes4(keccak256(bytes("CommunityAlreadyExists()"))));
         lighthouse.create(
             "Uniswap",
             "Uniswap points",
@@ -47,8 +46,7 @@ contract LighthouseV2Test is Test, Events {
             18,
             steward,
             1 days,
-            1,
-            address(0)
+            1
         );
     }
 
@@ -62,8 +60,7 @@ contract LighthouseV2Test is Test, Events {
             18,
             steward,
             1 days,
-            1,
-            address(0)
+            1
         );
     }
 
@@ -121,7 +118,7 @@ contract LighthouseV2Test is Test, Events {
         startHoax(steward);
         lighthouse.createProposal("", "Uniswap", "");
 
-        vm.expectRevert("wrong proposal ID");
+        vm.expectRevert(bytes4(keccak256(bytes("InvalidProposalId()"))));
         lighthouse.vote("Uniswap", 1, true);
     }
 
@@ -131,7 +128,7 @@ contract LighthouseV2Test is Test, Events {
 
         skip(1 days);
 
-        vm.expectRevert("you can't vote now");
+        vm.expectRevert(bytes4(keccak256(bytes("ProposalVoteTimeEnded()"))));
         lighthouse.vote("Uniswap", 0, true);
     }
 
@@ -141,7 +138,9 @@ contract LighthouseV2Test is Test, Events {
 
         lighthouse.vote("Uniswap", 0, true);
 
-        vm.expectRevert("your vote already stored");
+        vm.expectRevert(
+            bytes4(keccak256(bytes("SameDecisionAlreadyStored()")))
+        );
         lighthouse.vote("Uniswap", 0, true);
     }
 
@@ -309,7 +308,7 @@ contract LighthouseV2Test is Test, Events {
         assertEq(admins, 1);
 
         hoax(normie);
-        vm.expectRevert("UNAUTHORIZED");
+        vm.expectRevert(bytes4(keccak256(bytes("Unauthorized()"))));
         lighthouse.createProposal("", "Uniswap", "");
     }
 
@@ -349,7 +348,7 @@ contract LighthouseV2Test is Test, Events {
         startHoax(steward);
         lighthouse.createProposal("", "Uniswap", "");
 
-        vm.expectRevert("Proposal is going on");
+        vm.expectRevert(bytes4(keccak256(bytes("ProposalIsGoingOn()"))));
         lighthouse.finishProposal("Uniswap", 0);
     }
 
@@ -435,17 +434,10 @@ contract LighthouseV2Test is Test, Events {
     }
 
     function testCreateTokenWithToken(string memory name) public {
-        lighthouse.create(
-            name,
-            "test",
-            "TEST",
-            18,
-            steward,
-            1 days,
-            1,
-            address(0)
+        lighthouse.create(name, "test", "TEST", 18, steward, 1 days, 1);
+        vm.expectRevert(
+            bytes4(keccak256(bytes("InvalidCommunityToCreateToken()")))
         );
-        vm.expectRevert("WRONG_COMMUNITY");
         lighthouse.createToken(name, "Uniswap token", "UNI", 18);
     }
 
