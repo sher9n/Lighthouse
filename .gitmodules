@@ -1,0 +1,3 @@
+[submodule "contracts/evm/lib/gsn"]
+	path = contracts/evm/lib/gsn
+	url = https://github.com/opengsn/gsn

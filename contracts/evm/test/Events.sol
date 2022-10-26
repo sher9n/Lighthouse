@@ -4,6 +4,19 @@ pragma solidity ^0.8.13;
 contract Events {
     event CommunityCreated(string name);
 
+    event ProposalCreated(
+        string indexed _communityName,
+        uint256 indexed _proposalID,
+        bytes proposalType
+    );
+
+    event Voted(
+        string indexed _communityName,
+        uint256 indexed _proposalID,
+        address indexed _from,
+        bool _decision
+    );
+
     event StewardAdded(
         string indexed name,
         address indexed steward,
