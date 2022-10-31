@@ -20,6 +20,14 @@ contract NTTTest is Test {
         token.transfer(bob, 50);
     }
 
+    function testCannotTransfer() public {
+        token.mint(alice, 100);
+
+        hoax(alice);
+        vm.expectRevert(abi.encodePacked("NOT_WHITELISTED"));
+        token.transfer(bob, 50);
+    }
+
     function testWhitelistTransfer() public {
         token.mint(alice, 100);
         token.whitelist(bob);
