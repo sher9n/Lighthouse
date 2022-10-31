@@ -2,13 +2,13 @@
 pragma solidity ^0.8.13;
 
 import "@opengsn/packages/contracts/src/ERC2771Recipient.sol";
+import "@openzeppelin/access/Ownable.sol";
 import "./NTT.sol";
 
 /** 
     It saves bytecode to revert on custom errors instead of using require
 	statements.
 */
-error Unauthorized();
 error CommunityAlreadyExists();
 error InvalidCommunityToCreateToken();
 error InvalidProposalId();
@@ -23,16 +23,19 @@ error SameDecisionAlreadyStored();
     @author Mikhail Rozalenok
     @notice The Lighthouse contract is used to manage logic for all Lighthouse communities.
 */
-contract LighthouseV2 is ERC2771Recipient {
+contract LighthouseV2 is Ownable, ERC2771Recipient {
     ///////////////////////////////////////////////////////////////
     //  STRUCTURES
     ///////////////////////////////////////////////////////////////
+
+    // Enum for check proposal state.
     enum ProposalState {
         UNFINISHED,
         ACCEPTED,
         DECLINED
     }
 
+    // Enum for check proposal type.
     enum ProposalType {
         CHANGE_ADMIN,
         CHANGE_QUORUM,
@@ -40,38 +43,44 @@ contract LighthouseV2 is ERC2771Recipient {
         CHANGE_POINTS
     }
 
-    //struct that contains properties for proposal
+    // Struct that contains properties for proposal.
     struct Proposal {
-        string description;
-        // ProposalType proposalType;
-        bytes proposalData;
-        ProposalState state;
-        uint16 votesFor;
-        // uint16 votesAgainst;
-        // uint256 start;
-        uint256 end;
+        string description; // Description of proposal.
+        bytes proposalData; // Data that contains type of proposal and parameters.
+        ProposalState state; // Proposal state.
+        uint16 votesFor; // Votes for accept proposal.
+        uint256 end; // Deadline of proposal.
     }
 
+    // Struct that contains proposal configuration.
+    /**
+     * @param quorumToRejec asad
+     */
     struct ProposalConfig {
-        uint256 quorumToReject;
-        uint256 durationOfProposal;
+        uint16 quorumToReject; // Minimum number of stewards that voted against to reject proposal.
+        uint240 durationOfProposal; // Duration of proposal, added to timestamp when proposal was created.
     }
 
     ///////////////////////////////////////////////////////////////
     //  STORAGE
     ///////////////////////////////////////////////////////////////
 
+    // Mapping that stores steward's addresses of particular community.
     mapping(string => mapping(address => bool)) public isSteward;
+    // Mapping that stores addresses of community tokens.
     mapping(string => address) public nameToCommunityToken;
+    // Mapping that stores proposals configs of particular community.
     mapping(string => ProposalConfig) public nameToProposalConfig;
+    // Mapping that stores array of all proposals that existed for particular community.
     mapping(string => Proposal[]) public communityProposals;
-    mapping(string => uint16) public numberOfAdmins;
+    // Mapping that stores number of stewards of particular community.
+    mapping(string => uint16) public numberOfStewards;
+    // Mapping that stores votes of stewards for particular proposal.
     // communityName => proposalId => voterAddress => decision
     mapping(string => mapping(uint256 => mapping(address => bool)))
         public votes;
-    // communityName => proposalId => ownerAddress => spenderAddress => access
-    // mapping(string => mapping(uint256 => mapping(address => mapping(address => bool)))) public delegated;
 
+    // Placeholder for community tokens that have not been initialized.
     address constant uninitializedToken =
         address(bytes20(keccak256(bytes("Community Without a Token"))));
 
@@ -80,73 +89,75 @@ contract LighthouseV2 is ERC2771Recipient {
     ///////////////////////////////////////////////////////////////
 
     // Events are subject to change according to actual usage.
+    /*
+     * Event that emits on community creation.
+     * @param name name of community.
+     */
+    event CommunityCreated(string _communityName);
 
-    event CommunityCreated(string name);
-
+    /*
+     * Event that emits on proposal creation.
+     * @param _communityName Name of community.
+     * @param _proposalId Id of created proposal.
+     * @param _proposalData Data of created proposal, that contains type of proposal
+     * and additional parameters.
+     */
     event ProposalCreated(
         string indexed _communityName,
         uint256 indexed _proposalID,
-        bytes proposalType
+        bytes _proposalData
     );
 
+    /**
+     * Event that emits when steward votes(actually when steward changes decision, false by default).
+     * @param _communityName Name of community.
+     * @param _proposalId Id of proposal.
+     * @param _from Address of steward that voted.
+     * @param _decision Decision of steward. True, if votes for and false, if against.
+     */
     event Voted(
         string indexed _communityName,
-        uint256 indexed _proposalID,
+        uint256 indexed _proposalId,
         address indexed _from,
         bool _decision
     );
 
-    event Delegated(
-        string indexed _communityName,
-        uint256 _proposalID,
-        address indexed _owner,
-        address indexed _spender
-    );
-
+    /**
+     * Event that emits when proposal finished.
+     * @param _communityName Name of community.
+     * @param _proposalId Id of proposal.
+     * @param _state Flag that idicates if proposal was accepted or declined.
+     */
     event ProposalFinished(
         string indexed _communityName,
-        uint256 indexed _proposalID,
+        uint256 indexed _proposalId,
         ProposalState indexed _state
     );
 
-    event QuorumChanged(
-        string indexed _communityName,
-        uint256 indexed _newQuorum
-    );
+    /**
+     * Event that emits when add new address to whitelist for particular community token.
+     * @param _communityName Name of community.
+     * @param whitelisted New whitelisted address.
+     */
+    event Whitelisted(string indexed _communityName, address whitelisted);
 
-    event DurationChanged(
-        string indexed _communityName,
-        uint256 indexed _newDuration
-    );
-
-    event StewardAdded(string indexed name, address indexed steward);
-
-    event StewardRevoked(string indexed name, address indexed steward);
-
-    event Rewarded(
-        string indexed name,
-        address indexed receiver,
-        uint256 amount,
-        string communityName
-    );
-
-    event Slashed(
-        string indexed name,
-        address indexed from,
-        uint256 amount,
-        string communityName
-    );
-
-    event Whitelisted(string indexed name, address whitelisted);
-
-    event Attested(string indexed name, bytes32 attestation);
+    /**
+     * Event that emits on attest.
+     * @param _communityName Name of community.
+     * @param _attestation Attestation.
+     */
+    event Attested(string indexed _communityName, bytes32 _attestation);
 
     ///////////////////////////////////////////////////////////////
     //  MODIFIERS
     ///////////////////////////////////////////////////////////////
 
-    modifier onlySteward(string calldata name) {
-        if (!isSteward[name][_msgSender()]) {
+    /**
+     * This modifier checks if the caller is the steward of given community.
+     * @param _communityName Name of community.
+     */
+    modifier onlySteward(string calldata _communityName) {
+        if (!isSteward[_communityName][_msgSender()]) {
             revert Unauthorized();
         }
         _;
@@ -156,18 +167,32 @@ contract LighthouseV2 is ERC2771Recipient {
     //  LOGIC
     ///////////////////////////////////////////////////////////////
 
+    /**
+     * Function that executes on contract deployment.
+     * @param trustedForwarder Forwarder singleton we accept meta tx calls from.
+     */
     constructor(address trustedForwarder) {
         _setTrustedForwarder(trustedForwarder);
     }
 
+    /**
+     * Function that creates new community with its own non-transferable community token.
+     * @param name Name of community.
+     * @param tokenName Name for community token.
+     * @param tokenSymbol Symbol for community token.
+     * @param tokenDecimals Decimals for community token.
+     * @param firstSteward Address of the first steward for created community.
+     * @param durationOfProposal Duration for proposals in this community.
+     * @param quorumToReject Minimum quorum of stewards that voted against proposal to reject it.
+     */
     function create(
         string calldata name,
         string calldata tokenName,
         string calldata tokenSymbol,
         uint8 tokenDecimals,
         address firstSteward,
-        uint256 durationOfProposal,
-        uint256 quorumToReject
+        uint240 durationOfProposal,
+        uint16 quorumToReject
     ) external {
         if (nameToCommunityToken[name] != address(0)) {
             revert CommunityAlreadyExists();
@@ -178,7 +203,7 @@ contract LighthouseV2 is ERC2771Recipient {
 
         isSteward[name][firstSteward] = true;
         unchecked {
-            numberOfAdmins[name]++;
+            numberOfStewards[name]++;
         }
 
         ProposalConfig memory newConfig = ProposalConfig({
@@ -191,11 +216,19 @@ contract LighthouseV2 is ERC2771Recipient {
         emit CommunityCreated(name);
     }
 
+    /**
+     * Function that creates new community without its own non-transferable community token.
+     * Token can be created further via function `createToken`.
+     * @param name Name of community.
+     * @param firstSteward Address of the first steward for created community.
+     * @param durationOfProposal Duration for proposals in this community.
+     * @param quorumToReject Minimum quorum of stewards that voted against proposal to reject it.
+     */
     function createWithoutToken(
         string calldata name,
         address firstSteward,
-        uint256 durationOfProposal,
-        uint256 quorumToReject
+        uint240 durationOfProposal,
+        uint16 quorumToReject
     ) external {
         if (nameToCommunityToken[name] != address(0)) {
             revert CommunityAlreadyExists();
@@ -205,7 +238,7 @@ contract LighthouseV2 is ERC2771Recipient {
 
         isSteward[name][firstSteward] = true;
         unchecked {
-            numberOfAdmins[name]++;
+            numberOfStewards[name]++;
         }
 
         ProposalConfig memory newConfig = ProposalConfig({
@@ -218,6 +251,13 @@ contract LighthouseV2 is ERC2771Recipient {
         emit CommunityCreated(name);
     }
 
+    /**
+     * Function that creates non-transferable community token for community that exists.
+     * @param name Name of community.
+     * @param tokenName Name for community token.
+     * @param tokenSymbol Symbol for community token.
+     * @param tokenDecimals Decimals for community token.
+     */
     function createToken(
         string calldata name,
         string calldata tokenName,
@@ -240,8 +280,8 @@ contract LighthouseV2 is ERC2771Recipient {
      * or mint/burn token), and one argument. We pack this via bitwise shifts.
      * We always contain type of proposal in 2 first bits, because we have only 4 types.
      * For proposals which interacts with quorum and duration, new values
-     * can contains in another 254 bits. It should be fine that we have this ristriction for
-     * duration and quorum, because in real condition we don't need this big numbers for it.
+     * can contains in another 254 bits(don't forget that duration is uint240). It should be fine that we have
+     * this ristriction for duration and quorum, because in real condition we don't need this big numbers for it.
      * For proposals that changes admins or mints/burns tokens, we should pack bytes a little bit in
      * different way. Type contains the same, but after it in next bit we store the flag that mentioned
      * before. After it at left 20 bytes we contain address of recipient (new admin or recipient of tokens).
@@ -270,24 +310,27 @@ contract LighthouseV2 is ERC2771Recipient {
         return proposalIndex;
     }
 
+    /**
+     * Function that allows stewards to vote for particular proposals.
+     * @param _communityName Name of community.
+     * @param _proposalId Id of porposal.
+     * @param _newDecision New decision should be different with that is stored. Remember,
+     * that if steward didn't vote at all, contract store his vote as con by default.
+     */
     function vote(
         string calldata _communityName,
         uint256 _proposalId,
         bool _newDecision
     ) external onlySteward(_communityName) {
-        _vote(_communityName, _msgSender(), _proposalId, _newDecision);
+        _vote(_communityName, _proposalId, _msgSender(), _newDecision);
     }
 
-    // function voteFrom(string calldata _communityName, address _from, uint256 _proposalId, bool _newDecision) external {
-    //     if (_from == address(0)) {
-    //         revert AddressZero();
-    //     }
-    //     if (!delegated[_communityName][_proposalId][_from][_msgSender()]) {
-    //         revert NoRightsToVoteFrom();
-    //     }
-    //     _vote(_communityName, _from, _proposalId, _newDecision);
-    // }
-
+    /**
+     * Function that finishes proposal and executes it. Can be called by anyone,
+     * after end of proposal.
+     * @param _communityName Name of community.
+     * @param _proposalId Id of proposal.
+     */
     function finishProposal(string calldata _communityName, uint256 _proposalId)
         external
     {
@@ -304,9 +347,13 @@ contract LighthouseV2 is ERC2771Recipient {
             revert ProposalIsGoingOn();
         }
 
-        // check quorum
-        uint16 rejectedNumber = numberOfAdmins[_communityName] -
-            proposal.votesFor;
+        uint16 rejectedNumber;
+        unchecked {
+            rejectedNumber =
+                numberOfStewards[_communityName] -
+                proposal.votesFor;
+        }
+        // Check quorum.
         if (
             (rejectedNumber <
                 nameToProposalConfig[_communityName].quorumToReject) ||
@@ -318,7 +365,7 @@ contract LighthouseV2 is ERC2771Recipient {
                 parsedData := mload(add(data, 32))
             }
 
-            // parse type of proposal
+            // Parse type of proposal.
             uint256 proposalType = (uint256(parsedData) << 254) >> 254;
             if (proposalType == uint256(ProposalType.CHANGE_ADMIN)) {
                 if ((parsedData << 253) >> 255 == 1) {
@@ -330,8 +377,9 @@ contract LighthouseV2 is ERC2771Recipient {
                         isSteward[_communityName][
                             address(uint160(parsedData >> 96))
                         ] = true;
-                        numberOfAdmins[_communityName]++;
-                        // emit StewardAdded(_communityName, address(uint160(parsedData >> 2)));
+                        unchecked {
+                            numberOfStewards[_communityName]++;
+                        }
                     }
                 } else {
                     if (
@@ -342,27 +390,24 @@ contract LighthouseV2 is ERC2771Recipient {
                         isSteward[_communityName][
                             address(uint160(parsedData >> 96))
                         ] = false;
-                        numberOfAdmins[_communityName]--;
+                        unchecked {
+                            numberOfStewards[_communityName]--;
+                        }
                     }
-                    // emit StewardRevoked(_communityName, address(uint160(parsedData >> 2)));
                 }
             } else if (proposalType == uint256(ProposalType.CHANGE_QUORUM)) {
-                nameToProposalConfig[_communityName].quorumToReject =
-                    parsedData >>
-                    2;
-                // emit QuorumChanged(_communityName, parsedData >> 1);
+                nameToProposalConfig[_communityName].quorumToReject = uint16(
+                    parsedData >> 2
+                );
             } else if (proposalType == uint256(ProposalType.CHANGE_DURATION)) {
-                nameToProposalConfig[_communityName].durationOfProposal =
-                    parsedData >>
-                    2;
-                // emit DurationChanged(_communityName, parsedData >> 1);
+                nameToProposalConfig[_communityName]
+                    .durationOfProposal = uint240(parsedData >> 2);
             } else {
                 uint256 parsedAmount;
                 assembly {
                     parsedAmount := mload(add(data, 64))
                 }
-                uint256 flag = (parsedData << 253) >> 255;
-                if (flag == 1) {
+                if ((parsedData << 253) >> 255 == 1) {
                     NTT(nameToCommunityToken[_communityName]).mint(
                         address(uint160(parsedData >> 96)),
                         parsedAmount
@@ -382,21 +427,53 @@ contract LighthouseV2 is ERC2771Recipient {
         emit ProposalFinished(_communityName, _proposalId, proposal.state);
     }
 
-    // function delegate(string calldata _communityName, uint256 _proposalId, address _spender) external returns (bool) {
-    //     if (_spender == address(0)) {
-    //          revert AddressZero();
-    //     }
-    //     if (communityProposals[_communityName].length <= _proposalId) {
-    //         revert InvalidProposalId();
-    //     }
-    //     _delegate(_communityName, _proposalId, _msgSender(), _spender);
-    //     return true;
-    // }
+    /**
+     * Function that adds new address to whitelist of particular community token.
+     * Can be called only by stewards of community.
+     * @param _communityName Name of community.
+     * @param _whitelisted New address to add to whitelist.
+     */
+    function whitelist(string calldata _communityName, address _whitelisted)
+        external
+        onlySteward(_communityName)
+    {
+        NTT(nameToCommunityToken[_communityName]).whitelist(_whitelisted);
+
+        emit Whitelisted(_communityName, _whitelisted);
+    }
+
+    /**
+     * Function that attests.
+     * @param _communityName Name of community.
+     * @param _rootHash Root hash.
+     */
+    function attest(string calldata _communityName, bytes32 _rootHash)
+        external
+        onlySteward(_communityName)
+    {
+        emit Attested(_communityName, _rootHash);
+    }
+
+    function getCommunityProposal(
+        string calldata _communityName,
+        uint256 _proposalId
+    ) external view returns (Proposal memory) {
+        return communityProposals[_communityName][_proposalId];
+    }
+
+    /**
+     * Function that sets trusted forwarder, for handle gasless transactions.
+     * @param trustedForwarder Address of new trusted forwarder.
+     */
+    // TODO: add permissions
+    function setTrustedForwarder(address trustedForwarder) external onlyOwner {
+        _setTrustedForwarder(trustedForwarder);
+    }
 
     function _vote(
         string calldata _communityName,
-        address _voter,
         uint256 _proposalId,
+        address _voter,
         bool _newDecision
     ) internal {
         if (communityProposals[_communityName].length <= _proposalId) {
@@ -425,36 +502,36 @@ contract LighthouseV2 is ERC2771Recipient {
         emit Voted(_communityName, _proposalId, _voter, _newDecision);
     }
 
-    // function _delegate(string calldata _communityName, uint256 _proposalID, address _owner, address _spender) internal {
-    //     delegated[_communityName][_proposalID][_owner][_spender] = true;
-    //     emit Delegated(_communityName, _proposalID, _owner, _spender);
-    // }
-
-    function whitelist(string calldata communityName, address whitelisted)
-        external
-        onlySteward(communityName)
+    /// @inheritdoc IERC2771Recipient
+    function _msgSender()
+        internal
+        view
+        override(Context, ERC2771Recipient)
+        returns (address ret)
     {
-        NTT(nameToCommunityToken[communityName]).whitelist(whitelisted);
-
-        emit Whitelisted(communityName, whitelisted);
+        if (msg.data.length >= 20 && isTrustedForwarder(msg.sender)) {
+            // At this point we know that the sender is a trusted forwarder,
+            // so we trust that the last bytes of msg.data are the verified sender address.
+            // extract sender address from the end of msg.data
+            assembly {
+                ret := shr(96, calldataload(sub(calldatasize(), 20)))
+            }
+        } else {
+            ret = msg.sender;
+        }
     }
 
-    function attest(string calldata communityName, bytes32 rootHash)
-        external
-        onlySteward(communityName)
+    /// @inheritdoc IERC2771Recipient
+    function _msgData()
+        internal
+        view
+        override(Context, ERC2771Recipient)
+        returns (bytes calldata ret)
     {
-        emit Attested(communityName, rootHash);
-    }
-
-    function getCommunityProposal(
-        string calldata _communityName,
-        uint256 _proposalId
-    ) external view returns (Proposal memory) {
-        return communityProposals[_communityName][_proposalId];
-    }
-
-    // TODO: add permissions
-    function setTrustedForwarder(address trustedForwarder) external {
-        _setTrustedForwarder(trustedForwarder);
+        if (msg.data.length >= 20 && isTrustedForwarder(msg.sender)) {
+            return msg.data[0:msg.data.length - 20];
+        } else {
+            return msg.data;
+        }
     }
 }

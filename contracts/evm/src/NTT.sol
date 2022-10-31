@@ -3,6 +3,11 @@ pragma solidity ^0.8.13;
 
 import "solmate/tokens/ERC20.sol";
 
+error NotWhitelisted();
+error PermitDeadlineExpired();
+error InvalidSigner();
+error Unauthorized();
+
 contract NTT is ERC20 {
     ////////////////////////////////////////////////////////////////
     //  LIGHTHOUSE STORAGE
@@ -17,12 +22,16 @@ contract NTT is ERC20 {
     ////////////////////////////////////////////////////////////////
 
     modifier onlyWhitelisted(address _to) {
-        require(isWhitelisted[_to], "NOT_WHITELISTED");
+        if (!isWhitelisted[_to]) {
+            revert NotWhitelisted();
+        }
         _;
     }
 
     modifier onlyLighthouse() {
-        require(msg.sender == lighthouse, "UNATHORIZED");
+        if (msg.sender != lighthouse) {
+            revert Unauthorized();
+        }
         _;
     }
 
@@ -104,7 +113,12 @@ contract NTT is ERC20 {
         bytes32 r,
         bytes32 s
     ) public override {
-        require(deadline >= block.timestamp, "PERMIT_DEADLINE_EXPIRED");
+        if (!isWhitelisted[spender]) {
+            revert NotWhitelisted();
+        }
+        if (deadline < block.timestamp) {
+            revert PermitDeadlineExpired();
+        }
 
         // Unchecked because the only math done is incrementing
         // the owner's nonce which cannot realistically overflow.
@@ -133,10 +147,9 @@ contract NTT is ERC20 {
                 s
             );
 
-            require(
-                recoveredAddress != address(0) && recoveredAddress == owner,
-                "INVALID_SIGNER"
-            );
+            if (recoveredAddress == address(0) || recoveredAddress != owner) {
+                revert InvalidSigner();
+            }
 
             allowance[recoveredAddress][spender] = value;
         }

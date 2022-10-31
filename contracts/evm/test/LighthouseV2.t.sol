@@ -7,9 +7,10 @@ import "../src/NTT.sol";
 import "./Events.sol";
 
 contract LighthouseV2Test is Test, Events {
-    LighthouseV2 lighthouse = new LighthouseV2(address(0));
     address constant steward = address(0xbabe);
     address constant normie = address(0xb0b);
+    address constant forwarder = address(0xfde4);
+    LighthouseV2 lighthouse = new LighthouseV2(forwarder);
 
     address constant uninitializedToken =
         address(bytes20(keccak256(bytes("Community Without a Token"))));
@@ -48,6 +49,9 @@ contract LighthouseV2Test is Test, Events {
             1 days,
             1
         );
+
+        vm.expectRevert(bytes4(keccak256(bytes("CommunityAlreadyExists()"))));
+        lighthouse.createWithoutToken("Uniswap", steward, 1 days, 1);
     }
 
     function testCreateEvent() public {
@@ -144,6 +148,45 @@ contract LighthouseV2Test is Test, Events {
         lighthouse.vote("Uniswap", 0, true);
     }
 
+    function testCannotFinishProposalWithInvalidId() public {
+        startHoax(steward);
+        uint256 proposalIndex = lighthouse.createProposal("", "Uniswap", "");
+
+        vm.expectRevert(bytes4(keccak256(bytes("InvalidProposalId()"))));
+        lighthouse.finishProposal("Uniswap", proposalIndex + 1);
+    }
+
+    function testCannotFinishProposalThatAlreadyFinished() public {
+        startHoax(steward);
+        uint256 proposalIndex = lighthouse.createProposal("", "Uniswap", "");
+
+        LighthouseV2.Proposal memory proposal = lighthouse.getCommunityProposal(
+            "Uniswap",
+            proposalIndex
+        );
+        assertEq(proposal.votesFor, 0);
+        assertEq(
+            uint8(proposal.state),
+            uint8(LighthouseV2.ProposalState.UNFINISHED)
+        );
+
+        skip(7 days);
+
+        lighthouse.finishProposal("Uniswap", 0);
+
+        uint16 admins = lighthouse.numberOfStewards("Uniswap");
+        assertEq(admins, 1);
+        proposal = lighthouse.getCommunityProposal("Uniswap", 0);
+        assertEq(proposal.votesFor, 0);
+        assertEq(
+            uint8(proposal.state),
+            uint8(LighthouseV2.ProposalState.DECLINED)
+        );
+
+        vm.expectRevert(bytes4(keccak256(bytes("ProposalAlreadyFinshed()"))));
+        lighthouse.finishProposal("Uniswap", proposalIndex);
+    }
+
     function testFinishProposalWithDecline() public {
         startHoax(steward);
         lighthouse.createProposal("", "Uniswap", "");
@@ -162,7 +205,7 @@ contract LighthouseV2Test is Test, Events {
 
         lighthouse.finishProposal("Uniswap", 0);
 
-        uint16 admins = lighthouse.numberOfAdmins("Uniswap");
+        uint16 admins = lighthouse.numberOfStewards("Uniswap");
         assertEq(admins, 1);
         proposal = lighthouse.getCommunityProposal("Uniswap", 0);
         assertEq(proposal.votesFor, 0);
@@ -278,7 +321,7 @@ contract LighthouseV2Test is Test, Events {
 
         assertEq(lighthouse.isSteward("Uniswap", normie), true);
 
-        uint16 admins = lighthouse.numberOfAdmins("Uniswap");
+        uint16 admins = lighthouse.numberOfStewards("Uniswap");
         assertEq(admins, 2);
     }
 
@@ -288,7 +331,7 @@ contract LighthouseV2Test is Test, Events {
 
         assertEq(lighthouse.isSteward("Uniswap", normie), true);
 
-        uint16 admins = lighthouse.numberOfAdmins("Uniswap");
+        uint16 admins = lighthouse.numberOfStewards("Uniswap");
         assertEq(admins, 2);
 
         createRevokeProposalAndExecute(normie);
@@ -304,7 +347,7 @@ contract LighthouseV2Test is Test, Events {
 
         assertEq(lighthouse.isSteward("Uniswap", normie), false);
 
-        admins = lighthouse.numberOfAdmins("Uniswap");
+        admins = lighthouse.numberOfStewards("Uniswap");
         assertEq(admins, 1);
 
         hoax(normie);
@@ -377,7 +420,7 @@ contract LighthouseV2Test is Test, Events {
 
         address tokenAddress = lighthouse.nameToCommunityToken("Uniswap");
 
-        vm.expectRevert("NOT_WHITELISTED");
+        vm.expectRevert(bytes4(keccak256(bytes("NotWhitelisted()"))));
         NTT(tokenAddress).transfer(normie, 50);
 
         vm.expectEmit(true, false, false, true);
@@ -403,26 +446,6 @@ contract LighthouseV2Test is Test, Events {
         assertEq(lighthouse.nameToCommunityToken("test"), uninitializedToken);
         assertEq(lighthouse.isSteward("test", steward), true);
     }
-
-    // function testFailRewardWithoutToken(
-    //     string memory name,
-    //     address firstSteward,
-    //     uint256 amount
-    // ) public {
-    //     lighthouse.createWithoutToken(name, firstSteward);
-
-    //     // lighthouse.reward(name, normie, amount);
-    // }
-
-    // function testFailSlashWithoutToken(
-    //     string memory name,
-    //     address firstSteward,
-    //     uint256 amount
-    // ) public {
-    //     lighthouse.createWithoutToken(name, firstSteward);
-
-    //     // lighthouse.slash(name, normie, amount);
-    // }
 
     function testFailWhitelistWithoutToken(
         string memory name,
@@ -457,21 +480,27 @@ contract LighthouseV2Test is Test, Events {
         lighthouse.attest(name, bytes32("rootHash"));
     }
 
-    // function testAuthorizeWithoutToken(string memory name) public {
-    //     lighthouse.createWithoutToken(name, steward);
-    //     vm.expectEmit(true, true, false, true);
-    //     emit StewardAdded(name, normie, name);
-    //     hoax(steward);
-    //     // lighthouse.authorize(name, normie);
-    // }
+    function testGaslessTranactions() public {
+        // Trying to add normie to whitelist address via gasless transaction by forwarder and original msg.sender as steward.
+        uint256 balanceBefore = steward.balance;
+        bytes memory msgData = abi.encode("Uniswap", normie);
+        msgData = abi.encodePacked(lighthouse.whitelist.selector, msgData);
 
-    // function testRevokeWithoutToken(string memory name) public {
-    //     lighthouse.createWithoutToken(name, steward);
-    //     vm.expectEmit(true, true, false, true);
-    //     emit StewardRevoked(name, normie, name);
-    //     hoax(steward);
-    //     // lighthouse.revoke(name, normie);
-    // }
+        address tokenAddr = lighthouse.nameToCommunityToken("Uniswap");
+        NTT token = NTT(tokenAddr);
+        assertFalse(token.isWhitelisted(normie));
+
+        hoax(forwarder);
+        (bool success, ) = address(lighthouse).call(
+            abi.encodePacked(msgData, steward)
+        );
+        assertEq(success, true);
+
+        uint256 balanceAfter = steward.balance;
+        assertEq(balanceBefore, balanceAfter);
+
+        assertTrue(token.isWhitelisted(normie));
+    }
 
     function createMintProposalAndExecute(address recipient, uint256 amount)
         internal
@@ -600,5 +629,9 @@ contract LighthouseV2Test is Test, Events {
         skip(7 days);
 
         lighthouse.finishProposal("Uniswap", proposalIndex);
+    }
+
+    function testSetTrustedForwarder() public {
+        lighthouse.setTrustedForwarder(address(this));
     }
 }

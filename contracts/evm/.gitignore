@@ -1,3 +1,5 @@
 cache/
 out/
 lcov.info
+.env
+.vscode

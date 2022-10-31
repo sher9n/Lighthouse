@@ -1,3 +1,6 @@
 [submodule "contracts/evm/lib/gsn"]
 	path = contracts/evm/lib/gsn
 	url = https://github.com/opengsn/gsn
+[submodule "contracts/evm/lib/openzeppelin-contracts"]
+	path = contracts/evm/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
