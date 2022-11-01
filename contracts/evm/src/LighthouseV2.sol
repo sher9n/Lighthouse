@@ -16,6 +16,7 @@ error ProposalAlreadyFinshed();
 error ProposalIsGoingOn();
 error ProposalVoteTimeEnded();
 error SameDecisionAlreadyStored();
+error WrongRange();
 
 /** 
     @title The Lighthouse contract
@@ -91,14 +92,14 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
     // Events are subject to change according to actual usage.
     /*
      * Event that emits on community creation.
-     * @param name name of community.
+     * @param name Name of the community.
      */
     event CommunityCreated(string _communityName);
 
     /*
      * Event that emits on proposal creation.
-     * @param _communityName Name of community.
-     * @param _proposalId Id of created proposal.
+     * @param _communityName Name of the community.
+     * @param _proposalId Id of the created proposal.
      * @param _proposalData Data of created proposal, that contains type of proposal
      * and additional parameters.
      */
@@ -110,8 +111,8 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
 
     /**
      * Event that emits when steward votes(actually when steward changes decision, false by default).
-     * @param _communityName Name of community.
-     * @param _proposalId Id of proposal.
+     * @param _communityName Name of the community.
+     * @param _proposalId Id of the proposal.
      * @param _from Address of steward that voted.
      * @param _decision Decision of steward. True, if votes for and false, if against.
      */
@@ -124,8 +125,8 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
 
     /**
      * Event that emits when proposal finished.
-     * @param _communityName Name of community.
-     * @param _proposalId Id of proposal.
+     * @param _communityName Name of the community.
+     * @param _proposalId Id of the proposal.
      * @param _state Flag that idicates if proposal was accepted or declined.
      */
     event ProposalFinished(
@@ -136,14 +137,14 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
 
     /**
      * Event that emits when add new address to whitelist for particular community token.
-     * @param _communityName Name of community.
+     * @param _communityName Name of the community.
      * @param whitelisted New whitelisted address.
      */
     event Whitelisted(string indexed _communityName, address whitelisted);
 
     /**
      * Event that emits on attest.
-     * @param _communityName Name of community.
+     * @param _communityName Name of the community.
      * @param _attestation Attestation.
      */
     event Attested(string indexed _communityName, bytes32 _attestation);
@@ -154,7 +155,7 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
 
     /**
      * This modifier checks if the caller is the steward of given community.
-     * @param _communityName Name of community.
+     * @param _communityName Name of the community.
      */
     modifier onlySteward(string calldata _communityName) {
         if (!isSteward[_communityName][_msgSender()]) {
@@ -177,7 +178,7 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
 
     /**
      * Function that creates new community with its own non-transferable community token.
-     * @param name Name of community.
+     * @param name Name of the community.
      * @param tokenName Name for community token.
      * @param tokenSymbol Symbol for community token.
      * @param tokenDecimals Decimals for community token.
@@ -219,7 +220,7 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
     /**
      * Function that creates new community without its own non-transferable community token.
      * Token can be created further via function `createToken`.
-     * @param name Name of community.
+     * @param name Name of the community.
      * @param firstSteward Address of the first steward for created community.
      * @param durationOfProposal Duration for proposals in this community.
      * @param quorumToReject Minimum quorum of stewards that voted against proposal to reject it.
@@ -253,7 +254,7 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
 
     /**
      * Function that creates non-transferable community token for community that exists.
-     * @param name Name of community.
+     * @param name Name of the community.
      * @param tokenName Name for community token.
      * @param tokenSymbol Symbol for community token.
      * @param tokenDecimals Decimals for community token.
@@ -312,8 +313,8 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
 
     /**
      * Function that allows stewards to vote for particular proposals.
-     * @param _communityName Name of community.
-     * @param _proposalId Id of porposal.
+     * @param _communityName Name of the community.
+     * @param _proposalId Id of the porposal.
      * @param _newDecision New decision should be different with that is stored. Remember,
      * that if steward didn't vote at all, contract store his vote as con by default.
      */
@@ -328,8 +329,8 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
     /**
      * Function that finishes proposal and executes it. Can be called by anyone,
      * after end of proposal.
-     * @param _communityName Name of community.
-     * @param _proposalId Id of proposal.
+     * @param _communityName Name of the community.
+     * @param _proposalId Id of the proposal.
      */
     function finishProposal(string calldata _communityName, uint256 _proposalId)
         external
@@ -430,8 +431,8 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
     /**
      * Function that adds new address to whitelist of particular community token.
      * Can be called only by stewards of community.
-     * @param _communityName Name of community.
-     * @param _whitelisted New address to add to whitelist.
+     * @param _communityName Name of the community.
+     * @param _whitelisted The new address to add to the whitelist.
      */
     function whitelist(string calldata _communityName, address _whitelisted)
         external
@@ -444,7 +445,7 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
 
     /**
      * Function that attests.
-     * @param _communityName Name of community.
+     * @param _communityName Name of the community.
      * @param _rootHash Root hash.
      */
     function attest(string calldata _communityName, bytes32 _rootHash)
@@ -454,6 +455,21 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
         emit Attested(_communityName, _rootHash);
     }
 
+    /**
+     * Function that sets trusted forwarder, for handle gasless transactions.
+     * @param trustedForwarder Address of new trusted forwarder.
+     */
+    function setTrustedForwarder(address trustedForwarder) external onlyOwner {
+        _setTrustedForwarder(trustedForwarder);
+    }
+
+    /**
+     * View function that returns information about certain proposal by
+     * community name and id.
+     * @param _communityName Name of then community.
+     * @param _proposalId Id of the proposal
+     * @return Proposal info.
+     */
     function getCommunityProposal(
         string calldata _communityName,
         uint256 _proposalId
@@ -462,12 +478,28 @@ contract LighthouseV2 is Ownable, ERC2771Recipient {
     }
 
     /**
-     * Function that sets trusted forwarder, for handle gasless transactions.
-     * @param trustedForwarder Address of new trusted forwarder.
+     * Function that returns array of the proposals in some range.
+     * @param _start Begin of the range.
+     * @param _number Number of proposals to return.
+     * @return Array of the proposals.
      */
-    // TODO: add permissions
-    function setTrustedForwarder(address trustedForwarder) external onlyOwner {
-        _setTrustedForwarder(trustedForwarder);
+    function getCommunityProposals(
+        string calldata _communityName,
+        uint256 _start,
+        uint256 _number
+    ) external view returns (Proposal[] memory) {
+        uint256 endOfRange = _start + _number - 1;
+        if (endOfRange > communityProposals[_communityName].length - 1) {
+            revert WrongRange();
+        }
+        Proposal[] memory targetProposals = new Proposal[](_number);
+        for (uint256 i = _start; i <= endOfRange; ) {
+            targetProposals[i - _start] = communityProposals[_communityName][i];
+            unchecked {
+                ++i;
+            }
+        }
+        return targetProposals;
     }
 
     function _vote(
